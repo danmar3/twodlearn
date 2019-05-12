@@ -1,3 +1,5 @@
+import pytest
+docutils = pytest.importorskip("pyfmi")
 import math
 import numpy as np
 import twodlearn.debug

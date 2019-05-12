@@ -11,6 +11,12 @@ class TransformedVariable(tdl.core.TdlModel):
     2. the value is defined using the transform
         value = transform(raw)
     '''
+    @classmethod
+    def init_wrapper(cls, initializer, trainable, **kargs):
+        '''wraps the object to be used as an initializer.'''
+        return lambda shape: cls(initial_value=initializer(shape=shape),
+                                 trainable=trainable,
+                                 **kargs)
 
     @tdl.core.SimpleParameter
     def raw(self, kargs):
@@ -52,10 +58,11 @@ class TransformedVariable(tdl.core.TdlModel):
 
     def __init__(self, initial_value, trainable=True,
                  collections=None, validate_shape=True,
-                 caching_device=None, name='variable',
+                 caching_device=None, name=None,
                  variable_def=None, dtype=None,
                  expected_shape=None, import_scope=None,
-                 constraint=None, options=None):
+                 constraint=None,
+                 **kargs):
 
         variable_args = {'initial_value': initial_value,
                          'trainable': trainable,
@@ -68,23 +75,72 @@ class TransformedVariable(tdl.core.TdlModel):
                          'expected_shape': expected_shape,
                          'import_scope': import_scope,
                          'constraint': constraint}
-        super(TransformedVariable, self).__init__(raw=variable_args,
-                                                  name=name, options=options)
+        super(TransformedVariable, self).__init__(
+            raw=variable_args,
+            name=name,
+            **kargs)
 
 
 class PositiveVariable(TransformedVariable):
     ''' Creates a variable that can only take positive values '''
+    @tdl.core.InputArgument
+    def tolerance(self, value):
+        '''tolerance for positive variables.'''
+        return value
 
     def inverse(self, value):
+        if isinstance(value, tf.Tensor):
+            return tf.log(tf.exp(tf.abs(value)) - 1)
+        else:
+            return np.log(np.exp(np.abs(value)) - 1).astype(np.float32)
         return value
 
     def transform(self, value):
-        return tf.nn.softplus(value)
+        output = tf.nn.softplus(value)
+        if self.tolerance is not None:
+            output = output + self.tolerance
+        return output
 
 
 class PositiveVariableExp(TransformedVariable):
     ''' Creates a variable that can only take positive values.
     This function uses exp() as a reparameterization of the variable'''
+    @tdl.core.InputArgument
+    def tolerance(self, value):
+        '''tolerance for positive variables.'''
+        if value is None:
+            value = tdl.core.global_options.tolerance
+        return value
+
+    @tdl.core.InputArgument
+    def max(self, value):
+        return value
+
+    @tdl.core.ParameterInit
+    def raw(self, initial_value, trainable=True, **kargs):
+        ''' raw value before making a transformation '''
+        tdl.core.assert_initialized(self, 'raw', ['max', 'tolerance'])
+        if callable(initial_value):
+            initial_value_fn = initial_value
+            initial_value = lambda: self.inverse(initial_value_fn())
+        else:
+            initial_value = self.inverse(initial_value)
+        if self.max is None:
+            variable = tdl.core.variable(
+                initial_value, trainable=trainable,
+                constraint=lambda x: tf.clip_by_value(
+                    x, clip_value_min=self.inverse(self.tolerance),
+                    clip_value_max=np.infty),
+                **kargs)
+        else:
+            variable = tdl.core.variable(
+                initial_value,
+                trainable=trainable,
+                constraint=lambda x: tf.clip_by_value(
+                    x, clip_value_min=self.inverse(self.tolerance),
+                    clip_value_max=self.inverse(self.max)),
+                **kargs)
+        return variable
 
     def inverse(self, value):
         if isinstance(value, tf.Tensor):
@@ -93,12 +149,30 @@ class PositiveVariableExp(TransformedVariable):
             return np.log(value).astype(np.float32)
 
     def transform(self, value):
-        return tf.exp(value)
+        output = tf.exp(value)
+        return output
+
+    def __init__(self, initial_value, max=None, trainable=True,
+                 collections=None, validate_shape=True,
+                 caching_device=None, name=None,
+                 tolerance=None):
+        super(TransformedVariable, self).__init__(
+            name=name, max=max,
+            tolerance=tolerance,
+            raw={'initial_value': initial_value,
+                 'trainable': trainable,
+                 'collections': collections,
+                 'validate_shape': validate_shape,
+                 'caching_device': caching_device})
 
 
 class PositiveVariable2(TransformedVariable):
     ''' Creates a variable that can only take positive values.
     This function uses pow(x,2) as a reparameterization of the variable'''
+    @tdl.core.InputArgument
+    def tolerance(self, value):
+        '''tolerance for positive variables.'''
+        return value
 
     def inverse(self, value):
         if isinstance(value, tf.Tensor):
@@ -107,7 +181,10 @@ class PositiveVariable2(TransformedVariable):
             return np.sqrt(value).astype(np.float32)
 
     def transform(self, value):
-        return tf.pow(value, 2.0)
+        output = tf.pow(value, 2.0)
+        if self.tolerance is not None:
+            output = output + self.tolerance
+        return output
 
 
 class BoundedVariable(TransformedVariable):
@@ -152,6 +229,10 @@ class ConstrainedVariable(tdl.core.TdlModel):
     @property
     def value(self):
         return self.variable.value()
+
+    @property
+    def shape(self):
+        return self.value.shape
 
     @property
     def initializer(self):

@@ -13,22 +13,62 @@ try:
 except NameError:
     from sets import Set as set
 import types
+import typing
 import inspect
 import warnings
 import numpy as np
 import collections
 import tensorflow as tf
-from .options import global_options, DisableAutoinit
+from .options import global_options
 from . import exceptions
 from . import autoinit
+from . import variable
+from .context import (add_autoinit_class, __TDL__,
+                      get_context, is_autoinit_enabled,
+                      DisableAutoinit)
+
 try:
     from types import SimpleNamespace as PySimpleNamespace
 except ImportError:
     from argparse import Namespace as PySimpleNamespace
+try:
+    from tensorflow import nest
+except ImportError:
+    from tensorflow.contrib.framework import nest
 
-import pdb  # DEBUG
 
 PYTHON_VERSION = sys.version_info[0]
+TDL_DESCRIPTORS = set()        # list of all available descriptors
+TDL_INIT_DESCRIPTORS = set()
+
+py_hasattr = hasattr
+
+
+def add_init_descriptor(descriptor):
+    '''Adds the descriptor to the list of initialization descriptors
+    This list is checked by the class initializers to verify if the provided
+    arguments have an initialization method. '''
+    assert hasattr(descriptor, '__get__'), \
+        'provided class does not implement a __get__ method'
+    TDL_INIT_DESCRIPTORS.add(descriptor)
+    return descriptor
+
+
+def add_tdl_descriptor(descriptor):
+    '''Adds the descriptor to the list of existing descriptors
+    This list is checked by the class initializers to verify if the provided
+    arguments have an initialization method '''
+    assert hasattr(descriptor, '__get__'), \
+        'provided class does not implement a __get__ method'
+    TDL_DESCRIPTORS.add(descriptor)
+    return descriptor
+
+
+def _get_func_args(func):
+    if PYTHON_VERSION >= 3:
+        return inspect.getfullargspec(func).args
+    else:
+        return inspect.getargspec(func).args
 
 
 def merge_dicts(a, b):
@@ -67,160 +107,6 @@ class reuse_scope:
         global_options.reuse_scope = False
 
 
-class ModelBase(object):
-    @property
-    def name(self):
-        ''' name for the model '''
-        return self._name
-
-    @name.setter
-    def name(self, value):
-        assert not hasattr(self, '_name'),\
-            'name can only be set once'
-        self._name = value
-
-    @property
-    def scope(self):
-        ''' scope for the model, used to define all operations '''
-        assert hasattr(self, '_name'), \
-            'attempting to create scope with undefined name'
-        if not hasattr(self, '_scope'):
-            with tf.name_scope(self.name) as scope:
-                self._scope = scope
-        return self._scope
-
-    @property
-    def n_inputs(self):
-        return self._n_inputs
-
-    @property
-    def n_outputs(self):
-        return self._n_outputs
-
-    @property
-    def options(self):
-        return self._options
-
-    @options.setter
-    def options(self, opt):
-        def assert_dict_equal(opt1, opt2):
-            for key, value in opt2.items():
-                if isinstance(value, dict):
-                    assert isinstance(opt1[key], dict),\
-                        'New options do not match old ones'
-                    assert_dict_equal(opt1[key], value)
-                else:
-                    assert opt1[key] == value,\
-                        'New options do not match old ones'
-
-        if hasattr(self, '_options'):
-            assert_dict_equal(opt, self._options)
-        self._options = opt
-
-    def _init_options(self, options, default=None):
-        if options is None:
-            options = dict()
-        if default is not None:
-            for key, value in default.items():
-                if key not in options:
-                    options[key] = value
-        return options
-
-    def __init__(self, name, options=None):
-        self.name = name
-        self.options = self._init_options(options)
-
-    def setup(self, *args, **kargs):
-        assert len(args) == 0,\
-            'arguments for setup must be explicitly specified'
-        return self.ModelOutput(self, **kargs)
-
-    def __call__(self, x, name=None):
-        return self.evaluate(x, name=name)
-
-    # TODO: @classmethod
-    # def get_default_options(cls):
-    #    return cls._init_options(None, None, None)
-
-
-class Placeholders(object):
-    pass
-
-
-class ModelEvaluation(ModelBase):
-    @property
-    def model(self):
-        return self._model
-
-    @model.setter
-    def model(self, value):
-        assert not hasattr(self, '_model'),\
-            'model can only be set once'
-        self._model = value
-
-    @property
-    def n_inputs(self):
-        return self.model.n_inputs
-
-    @property
-    def n_outputs(self):
-        return self.model.n_outputs
-
-    @property
-    def y(self):
-        return self._y
-
-    @y.setter
-    def y(self, value):
-        assert not hasattr(self, '_y'),\
-            'y can only be set once'
-        self._y = value
-
-    @property
-    def inputs(self):
-        return self._inputs
-
-    @inputs.setter
-    def inputs(self, value):
-        assert not hasattr(self, '_inputs'),\
-            'inputs can only be set once'
-        self._inputs = value
-
-    @property
-    def placeholders(self):
-        return self._placeholders
-
-    # def __init__(self, model, options=None, name=None):
-    def __init__(self, *args, **kargs):
-        def check_inputs(args, kargs):
-            assert len(args) <= 1,\
-                'To initialize ModelEvaluation base class, explicitly '\
-                'indicate options=options and name=name'
-            if 'model' in kargs:
-                model = kargs['model']
-            else:
-                model = args[0]
-            if 'options' in kargs:
-                options = kargs['options']
-            else:
-                options = None
-            if 'name' in kargs:
-                name = kargs['name']
-            else:
-                name = None
-            return model, options, name
-
-        model, options, name = check_inputs(args, kargs)
-        if name is None:
-            if global_options.reuse_scope:
-                name = model.scope
-            else:
-                name = model.name
-        super(ModelEvaluation, self).__init__(name, options)
-        self.model = model
-        self._placeholders = Placeholders()
-
-
 def check_defaults(options, default):
     """Adds the values in default to options.
 
@@ -239,29 +125,6 @@ def check_defaults(options, default):
             if key not in options:
                 options[key] = value
     return options
-
-
-class __TDL__(object):
-    ''' class that stores all parameters and methods that are created using
-    tdl decorators '''
-    def __init__(self, obj):
-        self.obj = obj
-        self.context = SimpleNamespace(
-            initialized=False,   # is the model initialized
-            given_attrs=None,    # set with the user provided attrs
-        )
-
-
-def get_context(model):
-    ''' get tdl context for a model.
-    The context can be used to know if the model has been initialized
-    '''
-    if not isinstance(model, TdlModel):
-        raise TypeError('context is only available to TdlModel objects')
-    if '__tdl__' not in model.__dict__:
-        raise AttributeError('It seems that model {} has not been initialized '
-                             '(missing __tdl__ attribute)'.format(model))
-    return model.__tdl__.context
 
 
 class TdlOp(object):
@@ -409,12 +272,14 @@ class UnsetProperty(object):
                     self._finit(self._obj, *args, **kargs))
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class TdlDescriptor(object):
     ''' Decorator used to specify a parameter inside a model.
     The decorator works similar to @property, but the specified
     method correponds to the initialization of the parameter '''
 
-    def __init__(self, finit=None):
+    def __init__(self, finit=None, doc=None):
         """Creates a new SingleParameter.
 
         Args:
@@ -424,6 +289,9 @@ class TdlDescriptor(object):
         """
         self.finit = finit
         self.name = finit.__name__
+        if doc is None and finit is not None:
+            doc = finit.__doc__
+        self.__doc__ = doc
 
     def __get__(self, obj, objtype):
         if obj is None:
@@ -482,33 +350,10 @@ class TdlDescriptor(object):
         setattr(obj.__tdl__, self.name, param)
 
     def autoinit(self, obj, force=False):
-        if global_options.is_autoinit_enabled(obj) or force:
+        if is_autoinit_enabled(obj) or force:
             self.init(obj, None)
         else:
             raise exceptions.UnsetProperty(property=self.name, object=obj)
-
-
-# class OptionalProperty(TdlDescriptor):
-#     ''' Decorator used to specify an optional property inside a model.
-#     The decorator works similar to @property, but the specified
-#     method correponds to the initialization of the property '''
-#     def __get__(self, obj, objtype):
-#         if obj is None:
-#             return self
-#         if hasattr(obj.__tdl__, self.name):
-#             value = getattr(obj.__tdl__, self.name)
-#             return (value if value is not None
-#                     else types.MethodType(self.finit, obj))
-#         else:
-#             return types.MethodType(self.finit, obj)
-#
-#     def __set__(self, obj, val):
-#         if self.finit is None:
-#             raise AttributeError('initializer for parameter {} '
-#                                  'not specified'.format(self.name))
-#         if not hasattr(obj, '__tdl__'):
-#             setattr(obj, '__tdl__', __TDL__(obj))
-#         setattr(obj.__tdl__, self.name, val)
 
 
 class OptionalPropertyWrapper(TdlOp):
@@ -548,6 +393,8 @@ class OptionalPropertyWrapper(TdlOp):
         return self._prop_value(*args, **kargs)
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class OptionalProperty(object):
     ''' Decorator used to specify an optional property inside a model.
     The decorator works similar to @property, but the specified
@@ -602,6 +449,8 @@ class OptionalProperty(object):
         getattr(obj.__tdl__, self.name).set_value(val)
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class LazzyProperty(object):
     def __init__(self, finit=None):
         self.finit = finit
@@ -629,34 +478,50 @@ class LazzyProperty(object):
         return getattr(obj.__tdl__, self.name)
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class Regularizer(OptionalProperty):
-    ''' Decorator used to specify a regularizer for a model.
+    '''Decorator used to specify a regularizer for a model.
     The decorator works similar to @property, but the specified
-    method correponds to the initialization of the regularizer'''
+    method correponds to the initialization of the regularizer.
+    '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class SimpleParameter(TdlDescriptor):
     ''' Decorator used to specify a parameter inside a model.
     The decorator works similar to @property, but the specified
     method correponds to the initialization of the parameter '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class Submodel(TdlDescriptor):
-    ''' Decorator used to specify a submodel inside a model.
+    '''Decorator used to specify a submodel inside a model.
     The decorator works similar to @property, but the specified
-    method correponds to the initialization of the submodel '''
+    method correponds to the initialization of the submodel.
+    '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class OutputValue(TdlDescriptor):
-    ''' Decorator used to specify the output value of a model.
+    '''Decorator used to specify the output value of a model.
     The decorator works similar to @property, but the specified
-    method correponds to the definition of the output value '''
+    method correponds to the definition of the output value.
+    These methods are called at the end of the auto initialization
+    procedure.
+    '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class SubmodelWithArgs(Submodel):
-    ''' Decorator used to specify a submodel inside a model.
+    '''Decorator used to specify a submodel inside a model.
     The decorator works similar to @property, but the specified
-    method correponds to the initialization of the submodel '''
+    method correponds to the initialization of the submodel.
+    '''
     def __set__(self, obj, val):
         if self.finit is None:
             raise AttributeError('initializer for parameter {} '
@@ -680,13 +545,18 @@ class SubmodelWithArgs(Submodel):
         setattr(obj.__tdl__, self.name, param)
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class InputArgument(TdlDescriptor):
     ''' Decorator used to specify the input arguments for a model.
     The decorator works similar to @property, but the specified
     method correponds to the initialization of the argument, ussually
-    checking for types and setting default values '''
+    checking for types and setting default values.
+    '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class InputParameter(InputArgument):
     ''' Decorator used to specify the input arguments for a model.
     These inputs will serve as parameters.
@@ -695,6 +565,8 @@ class InputParameter(InputArgument):
     checking for types and setting default values '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class InputModel(InputArgument):
     ''' Decorator used to specify the input models for a model.
     The decorator works similar to @property, but the specified
@@ -702,6 +574,8 @@ class InputModel(InputArgument):
     checking for types and setting default values '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class InferenceInput(InputArgument):
     ''' Decorator used to specify a model input required to perform inference.
     The decorator works similar to @property, but the specified
@@ -709,6 +583,8 @@ class InferenceInput(InputArgument):
     checking for types and setting default values '''
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class SubmodelInit(object):
     '''Indicate the initialization function for a property
 
@@ -748,7 +624,7 @@ class SubmodelInit(object):
                 setattr(self._obj, self._attr_name,
                         self._finit(self._obj, *args, **kargs))
 
-    def __init__(self, finit=None, inference_input=None):
+    def __init__(self, finit=None, inference_input=None, doc=None):
         """Defines the initialization method of a property.
         Args:
             finit (callable): Function that initializes the parameter.
@@ -762,6 +638,13 @@ class SubmodelInit(object):
                                 else inference_input)
         self.name = (None if self.finit is None
                      else finit.__name__)
+        if not doc and finit is not None:
+            if finit.__doc__:
+                doc = finit.__doc__
+            else:
+                doc = 'Args: {}'.format([arg for arg in _get_func_args(finit)
+                                         if arg != 'self'])
+        self.__doc__ = doc
 
     def __get__(self, obj, objtype):
         if obj is None:
@@ -788,13 +671,15 @@ class SubmodelInit(object):
         assert self.finit is None,\
             'the evaluation method has already been specified'
         return type(self)(finit=finit,
-                          inference_input=self.inference_input)
+                          inference_input=self.inference_input,
+                          doc=self.__doc__)
 
     def __call__(self, finit=None):
         assert self.finit is None,\
             'the evaluation method has already been specified'
         return type(self)(finit=finit,
-                          inference_input=self.inference_input)
+                          inference_input=self.inference_input,
+                          doc=self.__doc__)
 
     def init(self, obj, val):
         """initialization method called when TdlModel is initialized
@@ -811,7 +696,7 @@ class SubmodelInit(object):
             self.__set__(obj, val)
 
     def autoinit(self, obj, force=False):
-        if global_options.is_autoinit_enabled(obj) or force:
+        if is_autoinit_enabled(obj) or force:
             try:
                 self.__get__(obj, type(obj)).init()
             except TypeError:
@@ -820,12 +705,23 @@ class SubmodelInit(object):
             raise exceptions.UnsetProperty(property=self.name, object=obj)
 
 
+@add_tdl_descriptor
+@add_init_descriptor
 class InputModelInit(SubmodelInit):
+    pass
+
+
+@add_tdl_descriptor
+@add_init_descriptor
+class ParameterInit(SubmodelInit):
     pass
 
 
 def is_property_set(obj, prop):
     """Checks if a property has already been set.
+    This function checks only if the property has been set. For attributes
+        like MethodInit that are set using an initializer, this function
+        returns True, even when they have not been initialized.
     Args:
         obj (TdlModel): model object.
         prop (str): property name.
@@ -846,6 +742,43 @@ def is_property_set(obj, prop):
     return True
 
 
+def is_property_initialized(obj, prop):
+    """Checks if a property has been initialized.
+    This function checks initialization even for properties that are set but
+        not initialized, like MethodInit
+    Args:
+        obj (TdlModel): model object.
+        prop (str): property name.
+    Returns:
+        bool: True if property is set, False otherwise.
+    """
+    with DisableAutoinit(obj):
+        try:
+            attr = getattr(obj, prop)
+        except exceptions.UnsetProperty:
+            return False
+        except exceptions.InitPreconditionsFailed:
+            return False
+    if isinstance(attr, SubmodelInit.Initializer):
+        return False
+    if isinstance(attr, OptionalPropertyWrapper):
+        return attr.is_set
+    if isinstance(attr, MethodInit.MethodData):
+        return attr.initialized
+    return True
+
+
+def any_initialized(obj, props: typing.List[str]) -> bool:
+    """checks if any property is initialized
+    Args:
+        obj: object that owns the properties.
+        props (typing.List[str]): list of properties to be checked.
+    Returns:
+        bool: True if any property is already initialized.
+    """
+    return any(is_property_initialized(obj, prop) for prop in props)
+
+
 def assert_initialized(object, prop, reqs):
     """Check if the requirements have been initialized.
     Args:
@@ -858,26 +791,28 @@ def assert_initialized(object, prop, reqs):
             if any of the requirements is not initialized.
             During initialization, the exeption is handled by _init_tdl_attrs
     """
-    initialized = [is_property_set(object, p) for p in reqs]
+    initialized = [is_property_initialized(object, p) for p in reqs]
     if all(initialized):
         return
-    elif global_options.is_autoinit_enabled(object):
+    elif is_autoinit_enabled(object):
         # attempt to auto initialize
-        not_init = list(filter(lambda p: not is_property_set(object, p),
-                               reqs))
+        not_init = list(filter(
+            lambda p: not is_property_initialized(object, p),
+            reqs))
         for p in not_init:
             if (hasattr(getattr(type(object), p), 'autoinit')
-                    and not is_property_set(object, p)):
+                    and not is_property_initialized(object, p)):
                 try:
                     getattr(type(object), p).autoinit(object)
                 except exceptions.AutoInitFailed:
                     raise exceptions.InitPreconditionsFailed(
                         object=object, property=prop, reqs=not_init)
 
-    initialized = [is_property_set(object, p) for p in reqs]
+    initialized = [is_property_initialized(object, p) for p in reqs]
     if not all(initialized):
-        not_init = list(filter(lambda p: not is_property_set(object, p),
-                               reqs))
+        not_init = list(filter(
+            lambda p: not is_property_initialized(object, p),
+            reqs))
         raise exceptions.InitPreconditionsFailed(
             object=object, property=prop, reqs=not_init)
 
@@ -920,7 +855,7 @@ def assert_initialized_if_available(object, property=None, reqs=None):
     # filter only requirements provided by the user
     reqs = [p for p in reqs if p in given_attrs]
     # check if initialized
-    initialized = [is_property_set(object, p) for p in reqs]
+    initialized = [is_property_initialized(object, p) for p in reqs]
     if all(initialized):
         return
     else:
@@ -929,19 +864,36 @@ def assert_initialized_if_available(object, property=None, reqs=None):
             object=object, property=property, reqs=not_init)
 
 
-def _find_tdl_attrs(cls, AttrClass, ignore=None):
+def _find_tdl_attrs(cls, AttrClass, ignore=None, AttrBaseClass=None,
+                    return_attr_class=False):
     """find attributes of class AttrClass.
     Args:
         cls (type): class to find the attributes.
-        AttrClass (type): attributes class.
+        AttrClass (type, list): Types of descriptors to look for.
+            The method looks for an exact Type match on this list.
         ignore (type): names to ignore.
+        AttrBaseClass(type, list): Types of descriptors to look for.
+            The method looks for instances that match this list.
+        return_attr_class (bool): If false, return only the names.
+            If true, return a list of tuples (name, class).
     Returns:
         list: list of attributes names.
     """
     if not isinstance(AttrClass, collections.Iterable):
         AttrClass = (AttrClass,)
-    names = [x[0] for x in inspect.getmembers(cls)
-             if type(x[1]) in AttrClass]
+    if AttrBaseClass is None:
+        AttrBaseClass = ()
+    if return_attr_class:
+        names = [(x[0], type(x[1])) for x in inspect.getmembers(cls)
+                 if (type(x[1]) in AttrClass or
+                     any(isinstance(x[1], BaseClass)
+                         for BaseClass in AttrBaseClass))]
+    else:
+        names = [x[0] for x in inspect.getmembers(cls)
+                 if (type(x[1]) in AttrClass or
+                     any(isinstance(x[1], BaseClass)
+                         for BaseClass in AttrBaseClass))]
+
     return set(names)
 
 
@@ -989,7 +941,13 @@ def _init_tdl_attrs(obj, kargs, attr_name, AttrClass, allowed_autoinit=None):
         allowed_autoinit = (
             set(init_queue) if allowed_autoinit is None
             else set.union(set(init_queue), set(allowed_autoinit)))
+        COUNTER = 0
         while init_queue:
+            COUNTER += 1
+            if COUNTER > 100000:
+                # raise ValueError('something went wrong!!!')
+                import pdb
+                pdb.set_trace()
             name = init_queue.popleft()
             if (name not in kargs) and (name not in autoinit_set):
                 continue
@@ -1054,6 +1012,7 @@ def init_attrs(model, attrs=None, AttrTypes='default'):
             getattr(type(model), attr_i).autoinit(model)
 
 
+@add_autoinit_class
 class TdlModel(TdlOp):
 
     def __init__(self, **kargs):
@@ -1089,7 +1048,7 @@ class TdlModel(TdlOp):
                  InputModelInit))
             allowed_autoinit = attrs_done
             attrs_done = _init_tdl_attrs(
-                self, kargs, '_parameters', SimpleParameter,
+                self, kargs, '_parameters', (SimpleParameter, ParameterInit),
                 allowed_autoinit=allowed_autoinit)
             allowed_autoinit = set.union(attrs_done, allowed_autoinit)
             attrs_done = _init_tdl_attrs(
@@ -1102,9 +1061,35 @@ class TdlModel(TdlOp):
                 allowed_autoinit=allowed_autoinit)
             allowed_autoinit = set.union(attrs_done, allowed_autoinit)
             attrs_done = _init_tdl_attrs(
-                self, kargs, '_optional', (Regularizer, OptionalProperty),
+                self, kargs, '_optional', (Regularizer, OptionalProperty,
+                                           MethodInit),
                 allowed_autoinit=allowed_autoinit)
+        assert_initialized(self, '__init__', self.__tdl__._model_outputs)
         get_context(self).initialized = True
+
+    def add_weight(self, name, initializer, shape, trainable, **kargs):
+        return variable(initial_value=initializer(shape=shape),
+                        trainable=trainable,
+                        name=name,
+                        **kargs)
+
+
+class TdlModelCallable(TdlModel):
+    def __call__(self, inputs, *args, **kargs):
+        with tf.name_scope(self.scope):
+            if hasattr(self, 'input_shape'):
+                try:
+                    input_shape = tf.convert_to_tensor(inputs).shape
+                except TypeError:
+                    input_shape = None
+                if input_shape is not None:
+                    if is_property_initialized(self, 'input_shape'):
+                        assert self.input_shape.is_compatible_with(input_shape)
+                    else:
+                        self.input_shape = input_shape
+            build(self)
+            output = self.call(inputs=inputs, *args, **kargs)
+        return output
 
 
 class encapsulate_op(object):
@@ -1431,7 +1416,21 @@ class EncapsulatedMethod(object):
         return getattr(obj.__tdl__, self.name)
 
 
-class MethodInit(TdlDescriptor):
+@add_tdl_descriptor
+@add_init_descriptor
+class MethodInit(object):
+    '''Descriptor that encapsulates a set of local variables for the method.
+    The following is an example of how this descriptor can be used:
+
+    class Example(tdl.core.TdlModel):
+        @tdl.core.MethodInit
+        def evaluate(self, local, units=20):
+            local.model = tdf.core.dense.DenseLayer(units=units)
+
+        @evaluate.eval
+        def evaluate(self, local, inputs, n_samples=100):
+            return local.model(inputs)/n_samples
+    '''
     class MethodData(object):
         def __init__(self, obj, attr_name, finit, feval):
             self._finit = finit
@@ -1479,21 +1478,85 @@ class MethodInit(TdlDescriptor):
             'the evaluation method has already been specified'
         return type(self)(finit=self.finit, feval=feval)
 
-    def __get__(self, obj, objtype):
-        if obj is None:
-            return self
+    def init(self, obj, val=None):
         assert (self.finit is not None), 'Unspecified finit method'
         assert (self.feval is not None), 'Unspecified feval method'
         if not hasattr(obj, '__tdl__'):
             setattr(obj, '__tdl__', __TDL__(obj))
-        if not hasattr(obj.__tdl__, self.name):
+        if hasattr(obj.__tdl__, self.name):
+            raise exceptions.PropertyRedefinition(
+                property=self.name, object=obj)
+        else:
             functor = MethodInit.MethodData(obj=obj, attr_name=self.name,
                                             finit=self.finit, feval=self.feval)
+            if val is not None:
+                functor.init(**val)
             setattr(obj.__tdl__, self.name, functor)
+
+    def __get__(self, obj, objtype):
+        if obj is None:
+            return self
+        if not hasattr(obj, '__tdl__'):
+            setattr(obj, '__tdl__', __TDL__(obj))
+        if not hasattr(obj.__tdl__, self.name):
+            self.init(obj)
         return getattr(obj.__tdl__, self.name)
 
     def __set__(self, obj, val):
         raise AttributeError('MethodInit cannot be set')
+
+    def autoinit(self, obj, force=False):
+        if is_autoinit_enabled(obj) or force:
+            initializer = getattr(obj, self.name)
+            initializer.init()
+        else:
+            raise exceptions.UnsetProperty(property=self.name, object=obj)
+
+
+def hasattr(object, name):
+    '''Checks if the object has the attribute name bypassing the
+    autoinitialization procedure.'''
+    with DisableAutoinit(object):
+        try:
+            hasit = py_hasattr(object, name)
+        except exceptions.UnsetProperty:
+            return True
+        except exceptions.InitPreconditionsFailed:
+            return True
+    return hasit
+
+
+def build(model, recursive=False):
+    '''initialize parameters and submodels of a given model.
+    recursive: True for building the parameters and submodels.
+    '''
+    input_desc = (InputArgument, InputParameter, InputModel, InferenceInput,
+                  InputModelInit)
+    param_desc = (SimpleParameter, ParameterInit)
+    model_desc = (Submodel, SubmodelWithArgs, SubmodelInit)
+    init_queue = collections.deque(
+        _find_tdl_attrs(type(model), AttrClass=input_desc))
+    init_queue.extendleft(
+        _find_tdl_attrs(type(model), AttrClass=param_desc))
+    init_queue.extendleft(
+        _find_tdl_attrs(type(model), AttrClass=model_desc))
+    failed = set()
+    while init_queue:
+        attr_name = init_queue.popleft()
+        try:
+            if not is_property_initialized(model, attr_name):
+                getattr(type(model), attr_name).autoinit(model)
+            if recursive:
+                attr = getattr(model, attr_name)
+                if isinstance(attr, (TdlModel)):
+                    build(attr)
+        except exceptions.InitPreconditionsFailed as error:
+            reqs = error.reqs
+            if attr_name in failed:
+                raise exceptions.InitPreconditionsFailed(
+                    model, attr_name, reqs)
+            failed.add(attr_name)
+            init_queue.append(attr_name)
 
 
 class TdlObject(object):
@@ -1511,6 +1574,49 @@ class TdlObject(object):
         with DisableAutoinit(self):
             _init_tdl_attrs(self, kargs, '_encapsulated', EncapsulatedMethod)
             _init_tdl_attrs(self, kargs, '_optional', OptionalProperty)
+
+
+class ScopedMethod(object):
+    ''' adds a tf.name_scope before executing the method '''
+    # def scoped_method(obj, *args, **kargs):
+    #     with tf.name_scope(obj.scope), tf.name_scope(feval.__name__):
+    #         return feval(obj, *args, **kargs)
+    # return scoped_method
+    class ScopedWrapper(object):
+        def __init__(self, instance, feval, name):
+            self.instance = instance
+            self.feval = types.MethodType(feval, instance)
+            self.name = name
+
+        def __call__(self, *args, **kwargs):
+            with tf.name_scope(self.instance.scope), tf.name_scope(self.name):
+                return self.feval(*args, **kwargs)
+
+    def __init__(self, feval=None):
+        """adds a tf.name_scope before executing the method.
+        Args:
+            feval (callable): method that executes scoped operations.
+        """
+        self.feval = feval
+        self.name = feval.__name__
+
+    def __get__(self, obj, objtype):
+        if obj is None:
+            return self
+        if self.feval is None:
+            raise AttributeError('function for the method {} has not been '
+                                 'specified'.format(self.name))
+        feval = self.feval
+        feval_name = self.name
+        def scoped_method(self, *args, **kwargs):
+            with tf.name_scope(obj.scope), tf.name_scope(feval_name):
+                return feval(self, *args, **kwargs)
+        return types.MethodType(scoped_method, obj)
+        #return ScopedMethod.ScopedWrapper(instance=obj, feval=self.feval,
+        #                                  name=self.name)
+
+    def __set__(self, obj, val):
+        raise AttributeError('EncapsulatedMethod cannot be set')
 
 
 # -------------------------- Common Models ------------------------ #
@@ -1729,247 +1835,52 @@ tf.register_tensor_conversion_function(
 
 
 def convert_output_to_tensor(value, dtype=None, name=None, as_ref=False):
-    if not hasattr(value, 'value'):
-        raise AttributeError('ModelOutput {} does not have a \'value\' '
-                             'property. Unable to convert output to tensor'
-                             ''.format(value))
-    if isinstance(value.value, tf.Tensor):
-        value = value.value
+    output_value = value.value
+    if isinstance(output_value, tf.Tensor):
+        value = output_value
     elif isinstance(value.value, np.ndarray):
-        value = tf.convert_to_tensor(value.value, dtype=dtype)
+        value = tf.convert_to_tensor(output_value, dtype=dtype)
     else:
-        value = convert_output_to_tensor(value.value, dtype=dtype, name=name,
+        value = convert_output_to_tensor(output_value, dtype=dtype, name=name,
                                          as_ref=False)
     return (value if dtype is None
             else tf.convert_to_tensor(value, dtype=dtype, name=name))
 
 
 tf.register_tensor_conversion_function(
-    base_type=(ModelEvaluation, TdlOp, SimpleNamespace),
+    base_type=(TdlOp, SimpleNamespace),
     conversion_func=convert_output_to_tensor,
     priority=100)
 
 
 # -------------------------- Common operations ------------------------ #
 
-def variables_initializer(var_list, name="init"):
-    if var_list:
-        return tf.group(*[v.initializer for v in var_list], name=name)
-    return tf.no_op(name=name)
-
-
-class NoScopeParam(object):
-    def __init__(self, object, name, value):
-        self.scope = '{}/{}'.format(object.scope, name)
-        self.value = value
-
-    def __eq__(self, other):
-        return (self.__class__ == other.__class__ and
-                self.scope == other.scope)
-
-    def __hash__(self):
-        return hash(self.scope)
-
-    def __str__(self):
-        return ("Parameter {}: {}"
-                "".format(self.scope, type(self.value)))
-
-    def __repr__(self):
-        return ("Parameter {}: {}"
-                "".format(self.scope, type(self.value)))
-
-
-def get_parameters(model, include_inputs=False):
-    def is_a_valid_model(attr):
-        return isinstance(attr, (tf.Variable, tf.Tensor, TdlModel,
-                                 NoScopeParam))
-
-    def is_a_valid_list(attr):
-        if not isinstance(attr, list):
-            return False
-        return all([is_a_valid_model(val) for val in attr])
-
-    def list_with_any_valid_model(attr):
-        if not isinstance(attr, list):
-            return False
-        return any([is_a_valid_model(val) for val in attr])
-
-    if isinstance(model, SimpleNamespace):
-        model = [m for m in model.__dict__.values()
-                 if is_a_valid_model(m) or is_a_valid_list(m)]
-
-    assert (is_a_valid_model(model) or is_a_valid_list(model)),\
-        'model must be an instance of TdlModel, tf.Variable, tf.Tensor'\
-        'or a list of them. '\
-        'Got {} ({}) instead'.format(type(model), model)
-
-    if not isinstance(model, (TdlModel, list)):
-        return set([model])
-
-    if isinstance(model, TdlModel):
-        def _getparam(object, name):
-            attr = getattr(object, name)
-            if is_a_valid_model(attr):
-                return set([attr])
-            elif is_a_valid_list(attr):
-                return set(attr)
-            elif list_with_any_valid_model(attr):
-                attr = [(val if is_a_valid_model(val)
-                         else NoScopeParam(object=object,
-                                           name='{}_{}'.format(name, idx),
-                                           value=val))
-                        for idx, val in enumerate(attr)]
-                return set(attr)
-            else:
-                return set([NoScopeParam(object=object, name=name,
-                                         value=attr)])
-
-        def _getsubmodelparams(object, name):
-            attr = getattr(object, name)
-            if is_a_valid_model(attr) or is_a_valid_list(attr):
-                return get_parameters(attr, include_inputs=include_inputs)
-            elif list_with_any_valid_model(attr):
-                attr = [(val if is_a_valid_model(val)
-                         else NoScopeParam(object=object,
-                                           name='{}_{}'.format(name, idx),
-                                           value=val))
-                        for idx, val in enumerate(attr)]
-                return get_parameters(attr, include_inputs=include_inputs)
-            else:
-                return set([NoScopeParam(object=object, name=name,
-                                         value=attr)])
-
-        def _getinputsparams(object, name):
-            return _getsubmodelparams(object, name)
-
-        params = [_getparam(model, name)
-                  for name in model.__tdl__._parameters]
-        params = (set.union(*params) if params
-                  else set())
-        submodel_params = [_getsubmodelparams(model, mi)
-                           for mi in model.__tdl__._submodels]
-        params = (params | set.union(*submodel_params) if submodel_params
-                  else params)
-        if include_inputs:
-            input_params = [_getinputsparams(model, mi)
-                            for mi in model.__tdl__._input_args]
-            params = (params | set.union(*input_params) if input_params
-                      else params)
-        return params
-    elif isinstance(model, collections.Iterable):
-        if not model:
-            return set([])
-        params = set.union(*[get_parameters(mi, include_inputs=include_inputs)
-                             for mi in model])
-        return params
-
-
-def get_variables(model, include_inputs=True):
-    params = get_parameters(model, include_inputs=include_inputs)
-    if params:
-        params = set.union(*[get_parameters(p, include_inputs=include_inputs)
-                             for p in params
-                             if isinstance(p, (TdlModel, tf.Variable))])
-        params = [mi for mi in params
-                  if isinstance(mi, tf.Variable)]
-    return params
-
-
-if [int(s) for s in tf.__version__.split('.')][0:2] < [1, 10]:
-    def is_trainable(variable, scope=None):
-        if isinstance(variable, tf.Tensor):
-            return False
-        elif isinstance(variable, tf.Variable):
-            return variable in tf.trainable_variables()
-        else:
-            raise TypeError("Type {} not recognized".format(type(variable)))
-else:
-    def is_trainable(variable, scope=None):
-        if isinstance(variable, tf.Tensor):
-            return False
-        elif isinstance(variable, tf.Variable):
-            return variable.trainable
-        else:
-            raise TypeError("Type {} not recognized".format(type(variable)))
-
-
-def get_trainable(model, include_inputs=True):
-    params = get_parameters(model, include_inputs=include_inputs)
-    params = set.union(*[get_parameters(p, include_inputs=include_inputs)
-                         for p in params
-                         if isinstance(p, (TdlModel, tf.Variable))])
-    params = [mi for mi in params
-              if isinstance(mi, tf.Variable)]
-    params = [mi for mi in params if is_trainable(mi)]
-    return params
-
-
-def get_placeholders(model):
-    """find the placeholders of a TdlModel following attributes defined
-        using the InferenceInput decorator.
-    Args:
-        model (TdlModel): TdlModel instance..
-    Returns:
-        set: set of found placeholders.
-    """
-    def isplaceholder(obj):
-        if isinstance(obj, tf.Tensor):
-            return obj.op.type == u'Placeholder'
-        else:
-            return False
-
-    def is_inference(obj, attr):
-        descriptor = getattr(type(obj), attr)
-        if isinstance(descriptor, InferenceInput):
-            return True
-        else:
-            if hasattr(descriptor, 'inference_input'):
-                return descriptor.inference_input
-            else:
-                return False
-
-    if isplaceholder(model):
-        return set([model])
-    elif isinstance(model, list):
-        plhdr = set([m for m in model if isplaceholder(m)])
-        plhdr = set.union(plhdr, *[get_placeholders(m) for m in model
-                                   if isinstance(m, TdlModel)])
-        return plhdr
-    else:
-        assert isinstance(model, TdlModel),\
-            'model is not an instance of TdlModel'
-        valid_descriptors = (InferenceInput, InputModelInit)
-        inputs = [getattr(model, name)
-                  for name in _find_tdl_attrs(type(model), valid_descriptors)
-                  if is_inference(model, name)]
-
-        placeholders = set([input for input in inputs
-                            if isplaceholder(input)])
-        models = [input for input in inputs
-                  if isinstance(input, (TdlModel, list))]
-        placeholders = set.union(placeholders,
-                                 *[get_placeholders(m) for m in models])
-        return placeholders
-
-
-def get_placeholder(model):
-    """find placeholder of model. Works similar to get_placeholders,
-        but raises an error if more than one placeholder is found.
-    Args:
-        model (type): Description of parameter `model`.
-    Returns:
-        type: Description of returned object.
-    """
-    placeholders = get_placeholders(model)
-    if len(placeholders) == 1:
-        return list(placeholders)[0]
-    elif len(placeholders) == 0:
-        raise ValueError('No placeholder was found')
-    else:
-        raise ValueError('Provided model has more than one placeholder')
-
-
 def tensor_rank(tensor):
     assert isinstance(tensor, (tf.Tensor, tf.Variable, np.ndarray)),\
         'Unrecognized tensor type {}'.format(type(tensor))
     return sum([d > 1 for d in tensor.shape])
+
+
+def create_init_docstring(cls):
+    '''Add a docstring to the initialization method of a tdl class.'''
+    def get_first_line(doc):
+        return doc.split('\n\n')[0].replace('\n', ' ')
+
+    tdl_attrs = _find_tdl_attrs(cls, AttrClass=(),
+                                AttrBaseClass=TDL_INIT_DESCRIPTORS,
+                                return_attr_class=True)
+    # doc = inspect.getdoc(cls.__init__)
+    doc = ('Tdl autoinitialization with arguments: \n\n'
+           'Attrs:\n')
+    for name, descriptor_cls in tdl_attrs:
+        descriptor_doc = inspect.getdoc(getattr(cls, name))
+        if descriptor_doc is None:
+            descriptor_doc = ''
+        doc = doc + '    {} ({}): {} \n\n'.format(
+            name, descriptor_cls.__name__,
+            get_first_line(descriptor_doc))
+    if PYTHON_VERSION >= 3:
+        cls.__doc__ = doc
+    else:
+        cls.__init__.__func__.__doc__ = doc
+    return cls

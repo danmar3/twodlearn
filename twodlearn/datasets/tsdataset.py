@@ -3,12 +3,14 @@ from __future__ import print_function
 
 import re
 import pickle
+import twodlearn as tdl
 import numbers
 import datetime
 import warnings
 import collections
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 from pathlib import Path
 import random
 import xarray as xr
@@ -238,7 +240,7 @@ class Record(object):
 
     @property
     def columns(self):
-        return set(self.data.columns.values)
+        return self.data.columns.values
 
     def prop2list(self):
         return list(self.prop.values())
@@ -296,9 +298,9 @@ TSDatasetSaver = collections.namedtuple(
     'TSDatasetSaver', ['records_data', 'group_tags'])
 
 
-class TSDataset():
+class TSDataset(object):
     # records: list of Record
-    class BatchNormalizer():
+    class BatchNormalizer(object):
         @property
         def mu(self):
             return self._mu
@@ -434,7 +436,9 @@ class TSDataset():
 
     @property
     def columns(self):
-        return set.union(*[r.columns for r in self.records])
+        columns = self.records[0].columns
+        assert all([(r.columns == columns).all() for r in self.records])
+        return columns
 
     def n_vars(self, group=None):
         if group is None:
@@ -815,12 +819,123 @@ class TSDataset():
             dataset.set_groups(self.group_tags)
         return dataset
 
+    def to_dense(self):
+        """Return a dense representation of the dataset.
+        Returns:
+            (array, length): return a tuple of the dense array and the length
+                of each record. The records are padded with nan values.
+        """
+        columns = self.records[0].columns
+
+        def pad_data(data, max_len):
+            return np.pad(data[columns], ((0, max_len-data.shape[0]),
+                                          (0, 0)),
+                          'constant', constant_values=np.nan)
+
+        length = np.array([record.data.shape[0] for record in self.records])
+        max_len = max(length)
+        padded = xr.DataArray(
+            np.stack([pad_data(record.data, max_len)
+                      for record in self.records], axis=0),
+            coords={'features': self.columns},
+            dims=['batch', 'time', 'features'])
+        return padded, length
+
+    def to_tf_dataset(self, dtype=np.float32):
+        """Get a tf.data.Dataset with a dense representation of the dataset.
+        Returns:
+            tf.data.Dataset: with elements 'data', 'length'. 'data' is a dense
+            tensor representation of the dataset formated as
+            (record, time, features). Records are padded with nan values.
+        """
+        data, length = self.to_dense()
+        if len(self.group_tags) == 1:
+            dataset = tf.data.Dataset.from_tensor_slices(
+                {'data': data.values.astype(dtype), 'length': length})
+        else:
+            data = {group: data.loc[:, :, features].values.astype(dtype)
+                    for group, features in self.group_tags.items()}
+            dataset = tf.data.Dataset.from_tensor_slices(
+                {'data': data, 'length': length})
+        return dataset
+
+
+def sample_batch_window(data, length, window_size, batch_size=None):
+    """Sample continuous windows of window_size from tensor data.
+    Args:
+        data (tf.Tensor): dense representation of a set of continuous records.
+            The format should be (record, time, features).
+        length (type): length of each record.
+        window_size (type): window size of the window to sample.
+        batch_size (type): batch size of data. If not provided,
+            batch_size = data.shape[0]
+    Returns:
+        tf.Tensor: continuous random continuous windows. The format is
+            (record, time, features)
+    """
+    flatten = tdl.core.nest.flatten(data)
+
+    if any([di.shape.ndims != 3 for di in flatten]):
+        raise ValueError('provided data is not in the expected format: '
+                         '(record, time, features).')
+    if not all([di.shape[0].value == flatten[0].shape[0].value
+                for di in flatten]):
+        raise ValueError('provided nested data has different batch size.')
+
+    if (batch_size is None) and (flatten[0].shape[0].value is not None):
+        batch_size = flatten[0].shape[0].value
+    else:
+        batch_size = tf.shape(flatten[0])[0]
+    batch_range = tf.range(0, batch_size, dtype=tf.int32)[..., tf.newaxis]
+    u_index = tf.tile(batch_range, [1, window_size])
+    v_init = tf.cast(
+        tf.floor(tf.random.uniform(shape=[batch_size]) //
+                 (1./(tf.cast(length, tf.float32)-window_size+1))),
+        tf.int32)[..., tf.newaxis]
+    v_index = (tf.range(0, window_size, dtype=tf.int32)[tf.newaxis, ...] +
+               v_init)
+    index = tf.stack([tf.reshape(u_index, [-1]),
+                      tf.reshape(v_index, [-1])], axis=1)
+    flatten_output = [tf.reshape(tf.gather_nd(di, index),
+                                 [batch_size, window_size, di.shape[-1].value])
+                      for di in flatten]
+    return tdl.core.nest.pack_sequence_as(
+        structure=data, flat_sequence=flatten_output), index
+
+
+def sample_window(data, length, window_size):
+    """Sample continuous windows of window_size from tensor data.
+    Args:
+        data (tf.Tensor): dense representation of a set of continuous records.
+            The format should be (time, features).
+        length (type): length of each record.
+        window_size (type): window size of the window to sample.
+    Returns:
+        tf.Tensor: continuous random continuous windows. The format is
+            (record, time, features)
+    """
+    flatten = tdl.core.nest.flatten(data)
+
+    if any([di.shape.ndims != 2 for di in flatten]):
+        raise ValueError('provided data is not in the expected format: '
+                         '(record, time, features).')
+    if not all([di.shape[0].value == flatten[0].shape[0].value
+                for di in flatten]):
+        raise ValueError('provided nested data has different time size.')
+    t0 = tf.cast(
+        tf.floor(tf.random.uniform(shape=()) //
+                 (1./(tf.cast(length, tf.float32)-window_size+1))),
+        tf.int32)
+    flatten_output = [di[t0:t0+window_size, :] for di in flatten]
+    return tdl.core.nest.pack_sequence_as(
+        structure=data, flat_sequence=flatten_output), t0
+
 
 DatasetsSaver = collections.namedtuple(
     'DatasetsSaver', ['train', 'valid', 'test'])
 
 
-class TSDatasets:
+class TSDatasets(object):
     def __init__(self, train=None, valid=None, test=None):
         if isinstance(train, list):
             if isinstance(train[0], Record):
@@ -893,11 +1008,14 @@ class TSDatasets:
             pickle.dump(data, file)
 
     @classmethod
-    def from_saved_file(cls, filename):
+    def from_saved_file(cls, filename, encoding=None):
         data = Path(filename)
         if data.is_file():
             with open(filename, 'rb') as file:
-                data = pickle.load(file)
+                if encoding is not None:
+                    data = pickle.load(file, encoding=encoding)
+                else:
+                    data = pickle.load(file)
             datasets = cls(train=TSDataset.from_saved_data(data.train),
                            valid=TSDataset.from_saved_data(data.valid),
                            test=TSDataset.from_saved_data(data.test))

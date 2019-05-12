@@ -28,7 +28,8 @@ class AcrobotRobot(MJCFBasedRobot):
                                 self_collision=True)
         self.gear_ratio = 80
 
-    def robot_specific_reset(self):
+    def robot_specific_reset(self, bullet_client):
+        self._p = bullet_client
         self.pole1 = self.parts["pole1"]
         self.pole2 = self.parts["pole2"]
         self.j1 = self.jdict["hinge1"]

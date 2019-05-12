@@ -2,13 +2,14 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import typing
 import numpy as np
 import tensorflow as tf
 import twodlearn as tdl
 import twodlearn.bayesnet as tdlb
 import twodlearn.bayesnet.distributions
 import twodlearn.linalg
-from twodlearn.bayesnet.distributions import Cholesky
+from twodlearn.linalg import Cholesky, DynamicScaledIdentity
 import twodlearn.debug
 
 
@@ -65,43 +66,6 @@ class GPNegLogEvidence(tdl.losses.EmpiricalLoss):
         super(GPNegLogEvidence, self).__init__(labels=labels, name=name)
         with tf.name_scope(self.scope):
             self._value = self.define_fit_loss(cov, cov_inv, self.labels, loc)
-
-
-class DynamicScaledIdentity(tdl.core.TdlModel):
-    '''scaled identity [batched] matrix whose size depends on the
-    shape of the input'''
-    @property
-    def batch_shape(self):
-        return tf.convert_to_tensor(self.multipliers).shape
-
-    @tdl.core.InputArgument
-    def tolerance(self, value):
-        return value
-
-    @tdl.core.InputParameter
-    def multipliers(self, value):
-        """tensor whose elements represent the multiplier factors for the
-        identity matrices.
-        """
-        return value
-
-    def __call__(self, inputs):
-        '''returns a linear scaled identity operator.
-        The number of rows in the identity matrices is equal to
-        inputs.shape[-2]
-        '''
-        inputs = tf.convert_to_tensor(inputs)
-        if inputs.shape.is_fully_defined():
-            n_rows = inputs.shape[-2]
-        else:
-            n_rows = tf.shape(inputs)[-2]
-        if self.tolerance is None:
-            multipliers = self.multipliers
-        else:
-            multipliers = self.multipliers + self.tolerance
-        return tf.linalg.LinearOperatorScaledIdentity(
-            num_rows=n_rows, multiplier=multipliers
-        )
 
 
 class GaussianProcess(tdl.core.TdlModel):
@@ -512,14 +476,6 @@ class GpWithExplicitMean(tdl.core.TdlModel):
                 scale: scale for f*
         """
         return GpWithExplicitMean.EGPPosterior(model=self, inputs=inputs)
-        # if self.gp_model.y_scale is not None:
-        #     y_cov = tdl.linalg.M_times_Mt(gp.y_scale)\
-        #                .add_to_tensor(covariance)
-        #     y = tdlb.distributions.MVN(loc=loc, covariance=y_cov)
-        # else:
-        #     y = None
-        # posterior = tdl.core.SimpleNamespace(y=y, f=dist)
-        # return loc, scale, posterior
 
 
 class VariationalGP(tdl.core.TdlModel):
@@ -528,6 +484,14 @@ class VariationalGP(tdl.core.TdlModel):
         if value is None or isinstance(value, float):
             value = (value if value is not None
                      else tdl.core.global_options.tolerance)
+        return value
+
+    @tdl.core.InputArgument
+    def input_shape(
+        self, value: typing.Union[typing.List[int], typing.Tuple[int],
+                                  tf.TensorShape]) -> tf.TensorShape:
+        if not isinstance(value, tf.TensorShape):
+            value = tf.TensorShape(value)
         return value
 
     @tdl.core.InputParameter
@@ -540,7 +504,7 @@ class VariationalGP(tdl.core.TdlModel):
             tdl.core.assert_initialized_if_available(
                 self, 'y_scale', ['batch_shape'])
             if tdl.core.is_property_set(self, 'batch_shape'):
-                if isinstance(value, (int, float)):
+                if tdl.core.array.is_scalar(value):
                     value = np.full(shape=self.batch_shape, fill_value=value)
                 assert value.shape == tuple(self.batch_shape.as_list())
             value = AutoType(value)
@@ -554,12 +518,6 @@ class VariationalGP(tdl.core.TdlModel):
         ''' number of inducing points '''
         if value is None:
             value = self.fm.loc.shape[0].value
-        return value
-
-    @tdl.core.InputArgument
-    def input_dim(self, value):
-        if value is None:
-            value = self.xm.shape[1:]
         return value
 
     @tdl.core.InputArgument
@@ -580,34 +538,48 @@ class VariationalGP(tdl.core.TdlModel):
     @tdl.core.SimpleParameter
     def fm(self, value):
         ''' variational parameters for the GP model '''
-        return tdlb.distributions.MVN(
+        return tdlb.distributions.MVNDiag(
             shape=self.batch_shape.concatenate(self.m),
             scale=tdl.AutoVariable(),
             loc=tdl.AutoVariable(),
-            tolerance=2*self.tolerance)
+            tolerance=self.tolerance)
 
-    @tdl.core.SimpleParameter
-    def xm(self, value):
-        ''' inducing points for the GP model '''
-        if value is not None:
-            return value
-        if isinstance(self.input_dim, int):
-            xinit = tf.truncated_normal(shape=[self.m, self.input_dim])
+    @tdl.core.ParameterInit
+    def xm(self, independent: bool = True):
+        ''' inducing input points for the model '''
+        tdl.core.assert_initialized(
+            self, 'xm', ['m', 'batch_shape', 'input_shape'])
+        feature_shape = self.input_shape[1:]
+        if independent:
+            shape = self.batch_shape.concatenate([self.m])\
+                        .concatenate(feature_shape)
         else:
-            xinit = tf.truncated_normal(
-                shape=tf.concat([[self.m], self.input_dim], axis=0))
+            shape = tf.TensorShape([self.m]).concatenate(feature_shape)
+        xinit = tf.truncated_normal(shape=shape)
         return tdl.core.variable(xinit)
 
-    @tdl.core.Submodel
-    def kernel(self, value):
-        if value is None:
-            tdl.core.assert_initialized(self, 'kernel', ['m'])
-            value = tdl.kernels.GaussianKernel(
-                l_scale=np.power(1.0/self.m, 1.0/np.prod(self.input_dim)),
-                f_scale=1.0, name='kernel')
+    @tdl.core.SubmodelInit
+    def kernel(self, l_scale=None, f_scale=None):
+        tdl.core.assert_initialized(
+            self, 'kernel', ['m', 'batch_shape', 'input_shape'])
+        feature_shape = self.input_shape[1:].as_list()
+        if f_scale is None:
+            f_shape = self.batch_shape.concatenate([1, 1]).as_list()
+            f_scale = np.full(f_shape, 0.5)
+        if l_scale is None:
+            l_scale = np.full(feature_shape,
+                              np.power(1.0/self.m, 1.0/np.prod(feature_shape)))
+        value = tdl.kernels.GaussianKernel(
+            l_scale=l_scale, f_scale=f_scale,
+            name='kernel')
         return value
 
-    @tdl.core.PropertyShortcuts({'model': ['fm', 'xm', 'kernel']})
+    @tdl.core.Submodel
+    def mean_fn(self, value):
+        '''Mean function of the gaussian prior.'''
+        return value
+
+    @tdl.core.PropertyShortcuts({'model': ['fm', 'xm', 'kernel', 'mean_fn']})
     class VGPInference(tdl.core.TdlModel):
         @tdl.core.LazzyProperty
         def y_scale(self):
@@ -642,9 +614,12 @@ class VariationalGP(tdl.core.TdlModel):
         @tdl.core.LazzyProperty
         def loc(self):
             ''' Kxm @ inv(Kmm) @ fm.loc '''
-            return self.kmx.linop.matvec(
+            loc = self.kmx.linop.matvec(
                 tdl.linalg.solvevec(self.kmm.cholesky, self.fm.loc),
                 adjoint=True)
+            if self.mean_fn is not None:
+                loc = self.mean_fn(self.inputs) + loc
+            return loc
 
         @tdl.core.LazzyProperty
         def covariance(self):
@@ -670,6 +645,19 @@ class VariationalGP(tdl.core.TdlModel):
         def neg_elbo(self, labels, dataset_size):
             return VariationalGP.VGPElbo(posterior=self, labels=labels,
                                          dataset_size=dataset_size)
+
+        def with_noise(self):
+            '''return the posterior with noise ~ Normal(0, Sigma_y)'''
+            covariance = tf.convert_to_tensor(self.covariance)
+            noise_cov = tdl.linalg.M_times_Mt(self.y_scale)
+            # add the shift
+            if isinstance(noise_cov, tf.linalg.LinearOperator):
+                covariance = noise_cov.add_to_tensor(covariance)
+            else:
+                covariance = covariance + noise_cov
+            return tdlb.distributions.MVN(
+                loc=tf.convert_to_tensor(self.loc),
+                covariance=covariance)
 
     @tdl.core.PropertyShortcuts(
         {'posterior': ['model', 'y_scale', 'inputs', 'kmm', 'kmx',
@@ -698,9 +686,7 @@ class VariationalGP(tdl.core.TdlModel):
         @tdl.core.LazzyProperty
         def _evidence(self):
             # loc = Kxm @ inv(Kmm) @ fm.loc
-            loc = self.kmx.linop.matvec(
-                tdl.linalg.solvevec(self.kmm.cholesky, self.fm.loc),
-                adjoint=True)
+            loc = self.posterior.loc
             if isinstance(self.y_scale,
                           tf.linalg.LinearOperatorScaledIdentity):
                 normal = tdlb.distributions.MVNScaledIdentity(
@@ -719,7 +705,7 @@ class VariationalGP(tdl.core.TdlModel):
         def fm_prior(self):
             '''prior of variational parameters fm '''
             return tdlb.distributions.MVN(
-                loc=tf.zeros(shape=tf.convert_to_tensor(self.kmm).shape[:-1]),
+                loc=(tf.zeros(shape=()), tdl.AutoTensor()),
                 covariance=tf.convert_to_tensor(self.kmm))
 
         @tdl.core.LazzyProperty
@@ -730,21 +716,15 @@ class VariationalGP(tdl.core.TdlModel):
 
         @tdl.core.LazzyProperty
         def _elbo_tr(self):
-            kii = self.kernel.batch_eval(self.inputs, self.inputs)
+            kxx = self.kernel.evaluate(self.inputs, self.inputs)
+            kxmx = tdl.linalg.Mt_times_M(
+                self.kmm.cholesky.linop.solve(self.kmx))
+            cov_residuals = kxx - kxmx
             # tr1 = Tr( inv(Cov_y) @ Kxx )
             #       - frob(inv(Lmm) @ Kmx )^2
-            if tdl.linalg.is_diagonal_linop(self.y_scale):
-                y_cov = tdl.linalg.M_times_Mt(self.y_scale)
-                tr1_a = tf.reduce_sum(kii/y_cov.diag_part(), axis=-1)
-            else:
-                # TODO: add implementation for non diagonal
-                raise NotImplementedError(
-                    'elbo not implemented for non-diagonal y_scale')
-            tr1_b = _frob_squared(
-                self.y_scale.solve(
-                    self.kmm.cholesky.linop.solve(self.kmx.value),
-                    adjoint_arg=True))
-            tr1 = tr1_a - tr1_b
+            tr1 = tf.linalg.trace(
+                tdl.linalg.solvemat(self.y_scale, cov_residuals))
+            # tr2 = Tr(SA)
             # tr2 = frob( inv(Ly) @ Kxm @ inv(Kmm) @ La )^2
             tr2 = _frob_squared(
                 self.y_scale.solve(
@@ -774,19 +754,101 @@ class VariationalGP(tdl.core.TdlModel):
             return self.value.shape
 
     def predict(self, inputs, tolerance=None):
+        if not tdl.core.is_property_initialized(self, 'input_shape'):
+            self.input_shape = tf.convert_to_tensor(inputs).shape
+        tdl.core.assert_initialized(self, 'predict', ['kernel', 'xm'])
         return VariationalGP.VGPEstimate(model=self, inputs=inputs,
                                          tolerance=tolerance)
 
     def neg_elbo(self, labels, inputs, dataset_size):
+        if not tdl.core.is_property_initialized(self, 'input_shape'):
+            self.input_shape = tf.convert_to_tensor(inputs).shape
+        tdl.core.assert_initialized(self, 'predict', ['kernel', 'xm'])
         posterior = VariationalGP.VGPEstimate(model=self, inputs=inputs)
         return posterior.neg_elbo(labels=labels, dataset_size=dataset_size)
 
-    def __init__(self, m=None, input_dim=None, name=None, **kargs):
+    def __init__(self, m=None, input_shape=None, name=None, **kargs):
         if m is not None:
             kargs['m'] = m
-        if input_dim is not None:
-            kargs['input_dim'] = input_dim
+        if input_shape is not None:
+            kargs['input_shape'] = input_shape
         super(VariationalGP, self).__init__(name=name, **kargs)
+
+
+class BasisBase(tdl.core.TdlModel):
+    @tdl.core.InputParameter
+    def input_shape(self, value):
+        return value
+
+    @tdl.core.InputParameter
+    def tolerance(self, value):
+        return value
+
+    @tdl.core.InputParameter
+    def basis_shape(self, value):
+        return value
+
+    @tdl.core.InputArgument
+    def units(self, value):
+        return value
+
+    @tdl.core.SimpleParameter
+    def kernel(self, value):
+        if value is None:
+            value = tdlb.distributions.MVNDiag(
+                shape=tf.TensorShape(self.units)
+                        .concatenate(self.basis_shape[-1]),
+                scale=tdl.AutoVariable(),
+                # loc=tdl.AutoVariable(),
+                loc=(tf.convert_to_tensor(self.prior.loc),
+                     tdl.AutoVariable()),
+                tolerance=self.tolerance)
+        return value
+
+    @tdl.core.SimpleParameter
+    def prior(self, value):
+        if value is None:
+            value = 100.0
+        if isinstance(value, (int, float)):
+            tdl.core.assert_initialized(
+                self, 'prior', ['units', 'basis_shape'])
+            value = tdlb.distributions.MVNScaledIdentity(
+                shape=tf.TensorShape(self.units)
+                        .concatenate(self.basis_shape[-1]),
+                scale=(value, tdl.AutoTensor()),
+                loc=tdl.AutoTensor())
+        return value
+
+    def basis_fn(self, inputs):
+        x = tf.convert_to_tensor(inputs)
+        assert x.shape.ndims == 2,\
+            'BasisBase is only defined for matrices'
+        n_batch = (x.shape[0] if x.shape[0].value is not None
+                   else tf.shape(x)[0])
+        return tf.concat([x, tf.ones(shape=[n_batch, 1])], axis=1)
+
+    class Basis(object):
+        def matvec(self, vec):
+            '''Evaluate basis over the given vectors.'''
+            return self.linop.matvec(vec)
+
+        def matmul(self, mat):
+            '''Evaluate basis over the given matrix.'''
+            return self.linop.matmul(mat)
+
+        def __init__(self, value):
+            self.value = value
+            self.linop = tf.linalg.LinearOperatorFullMatrix(self.value)
+
+    def __call__(self, inputs):
+        if not tdl.core.is_property_initialized(self, 'input_shape'):
+            self.input_shape = tf.convert_to_tensor(inputs).shape
+        basis = type(self).Basis(
+            value=self.basis_fn(inputs)
+        )
+        if not tdl.core.is_property_initialized(self, 'basis_shape'):
+            self.basis_shape = tf.convert_to_tensor(basis.value).shape
+        return basis
 
 
 class ExplicitVGP(tdl.core.TdlModel):
@@ -798,73 +860,25 @@ class ExplicitVGP(tdl.core.TdlModel):
         return value
 
     @tdl.core.InputArgument
-    def basis_dim(self, value):
-        ''' number of dimensions of the explicit basis '''
-        if tdl.core.is_property_set(self, 'beta_prior'):
-            value = self.beta_prior.event_shape[-1].value
-        if tdl.core.is_property_set(self, 'beta'):
-            value = self.beta.event_shape[-1].value
-        if value is None:
-            tdl.core.assert_initialized(self, 'basis_dim',
-                                        ['basis', 'input_dim'])
-            if isinstance(self.basis, tdl.kernels.ConcatOnes):
-                tdl.core.assert_initialized(self, 'basis_dim', ['input_dim'])
-                value = self.input_dim + 1
-            else:
-                raise ValueError('basis_dim has not been specified')
+    def input_shape(
+        self, value: typing.Union[typing.List[int], typing.Tuple[int],
+                                  tf.TensorShape]) -> tf.TensorShape:
+        if not isinstance(value, tf.TensorShape):
+            value = tf.TensorShape(value)
         return value
 
     @tdl.core.InputModel
     def basis(self, value):
         if value is None:
-            value = tdl.kernels.ConcatOnes()
+            tdl.core.assert_initialized(self, 'basis', ['batch_shape'])
+            value = BasisBase(units=self.batch_shape,
+                              tolerance=self.tolerance)
         assert (callable(value)), 'explicit basis should be callable'
         return value
 
-    @tdl.core.InputModel
-    def beta_prior(self, value, AutoType=None):
-        ''' prior for the linear parameters '''
-        if AutoType is None:
-            AutoType = tdl.AutoTensor()
-        if value is None:
-            value = 100.0
-        if isinstance(value, (int, float)):
-            tdl.core.assert_initialized(self, 'beta_prior',
-                                        ['basis_dim', 'batch_shape'])
-            value = tdlb.distributions.MVNScaledIdentity(
-                shape=self.batch_shape.concatenate(self.basis_dim),
-                scale=(value, AutoType),
-                loc=AutoType)
-        return value
-
-    @tdl.core.SimpleParameter
-    def beta(self, value):
-        ''' linear weights '''
-        if value is None:
-            tdl.core.assert_initialized(self, 'beta', ['beta_prior'])
-            value = tdlb.distributions.MVN(
-                shape=self.batch_shape.concatenate(self.basis_dim),
-                scale=tdl.AutoVariable(),
-                # loc=tdl.AutoVariable(),
-                loc=(tf.convert_to_tensor(self.beta_prior.loc),
-                     tdl.AutoVariable()),
-                tolerance=self.tolerance)
-        return value
-
     @tdl.core.InputArgument
-    def input_dim(self, value):
-        ''' number of input dimensions '''
-        if tdl.core.is_property_set(self, 'xm'):
-            value = tf.convert_to_tensor(self.xm).shape[-1].value
-        if value is None:
-            raise ValueError('input_dim has not been specified')
-        if not isinstance(value, int):
-            raise TypeError('input_dim should be an integer')
-        return value
-
-    @tdl.core.InputArgument
-    def batch_shape(self, value):
-        ''' number of output dimensions '''
+    def batch_shape(self, value) -> tf.TensorShape:
+        '''Number of output dimensions.'''
         if value is None:
             value = 1
         if not isinstance(value, tf.TensorShape):
@@ -882,7 +896,7 @@ class ExplicitVGP(tdl.core.TdlModel):
             tdl.core.assert_initialized_if_available(
                 self, 'y_scale', ['batch_shape'])
             if tdl.core.is_property_set(self, 'batch_shape'):
-                if isinstance(value, (int, float)):
+                if tdl.core.array.is_scalar(value):
                     value = np.full(shape=self.batch_shape, fill_value=value)
                 assert value.shape == tuple(self.batch_shape.as_list())
             value = AutoType(value)
@@ -902,47 +916,57 @@ class ExplicitVGP(tdl.core.TdlModel):
             raise TypeError('m should be an integer')
         return value
 
-    @tdl.core.SimpleParameter
-    def xm(self, value):
+    @tdl.core.ParameterInit
+    def xm(self, independent: bool = True):
         ''' inducing input points for the model '''
-        if value is None:
-            xinit = tf.truncated_normal(shape=[self.m, self.input_dim])
-            value = tdl.core.variable(xinit)
+        tdl.core.assert_initialized(
+            self, 'xm', ['m', 'batch_shape', 'input_shape'])
+        feature_shape = self.input_shape[1:]
+        if independent:
+            shape = self.batch_shape.concatenate([self.m])\
+                        .concatenate(feature_shape)
+        else:
+            shape = tf.TensorShape([self.m]).concatenate(feature_shape)
+        xinit = tf.truncated_normal(shape=shape)
+        value = tdl.core.variable(xinit)
         return value
 
     @tdl.core.SimpleParameter
-    def gm(self, value):
-        ''' inducing observed points for the model '''
+    def fm(self, value):
+        '''Inducing points for the model.'''
         if value is None:
-            value = tdlb.distributions.MVN(
+            value = tdlb.distributions.MVNDiag(
                 shape=self.batch_shape.concatenate(self.m),
                 scale=tdl.AutoVariable(),
                 loc=tdl.AutoVariable(),
-                tolerance=2*self.tolerance)
+                tolerance=self.tolerance)
         return value
 
-    @tdl.core.Submodel
-    def kernel(self, value):
-        if value is None:
-            tdl.core.assert_initialized(self, 'kernel', ['m'])
-            value = tdl.kernels.GaussianKernel(
-                l_scale=np.power(1.0/self.m, 1.0/np.prod(self.input_dim)),
-                f_scale=1.0, name='kernel')
+    @tdl.core.SubmodelInit
+    def kernel(self, l_scale=None, f_scale=None):
+        tdl.core.assert_initialized(
+            self, 'kernel', ['m', 'batch_shape', 'input_shape'])
+        feature_shape = self.input_shape[1:].as_list()
+        if f_scale is None:
+            f_shape = self.batch_shape.concatenate([1, 1]).as_list()
+            f_scale = np.full(f_shape, 0.5)
+        if l_scale is None:
+            l_scale = np.power(1.0/self.m, 1.0/np.prod(feature_shape))
+        if isinstance(l_scale, (float, np.ndarray)):
+            if isinstance(l_scale, float):
+                l_scale = np.array(l_scale)
+            if len(l_scale.shape) == 0:
+                l_scale = np.full(feature_shape, l_scale)
+            # l_scale = tdl.constrained.PositiveVariableExp(
+            #     initial_value=l_scale, max=3.0*l_value,
+            #     tolerance=self.tolerance)
+        value = tdl.kernels.GaussianKernel(
+            l_scale=l_scale, f_scale=f_scale,
+            name='kernel')
         return value
 
+    @tdl.core.PropertyShortcuts({'model': ['fm', 'xm', 'kernel', 'basis']})
     class EVGPInference(tdl.core.TdlModel):
-        @property
-        def gm(self):
-            return self.model.gm
-
-        @property
-        def xm(self):
-            return self.model.xm
-
-        @property
-        def kernel(self):
-            return self.model.kernel
-
         @tdl.core.InputModel
         def model(self, value):
             ''' ExplicitVGP model '''
@@ -976,11 +1000,11 @@ class ExplicitVGP(tdl.core.TdlModel):
 
         @tdl.core.LazzyProperty
         def basis_x(self):
-            return self.model.basis(self.inputs)
+            return self.basis(self.inputs)
 
         @tdl.core.LazzyProperty
         def basis_m(self):
-            return self.model.basis(self.xm)
+            return self.basis(self.xm)
 
         @staticmethod
         def _At_times_A(A):
@@ -993,14 +1017,14 @@ class ExplicitVGP(tdl.core.TdlModel):
             return linop.matmul(A, adjoint_arg=True)
 
         @tdl.core.Submodel
-        def mu_f_given_a(self, _):
-            ''' Kxm @ inv(Kmm) @ gm.loc'''
+        def expected_residuals(self, _):
+            ''' Kxm @ inv(Kmm) @ fm.loc'''
             return self.kmx.linop.matvec(
-                tdl.linalg.solvevec(self.kmm.cholesky, self.gm.loc),
+                tdl.linalg.solvevec(self.kmm.cholesky, self.fm.loc),
                 adjoint=True)
 
         @tdl.core.Submodel
-        def cov_f_given_gm(self, _):
+        def cov_residuals(self, _):
             # Kxm @ inv(Kmm) @ u
             kxx = self.kernel.evaluate(self.inputs, self.inputs)
             # Kxm @ inv(Kmm) @ Kmx
@@ -1008,18 +1032,8 @@ class ExplicitVGP(tdl.core.TdlModel):
                 self.kmm.cholesky.linop.solve(self.kmx))
             return kxx - kxmx
 
-        @tdl.core.Submodel
-        def r(self, _):
-            basis_x = tf.convert_to_tensor(self.basis_x)
-            basis_m = tf.convert_to_tensor(self.basis_m)
-            r = basis_x - self.kmx.linop.matmul(
-                tdl.linalg.solvemat(self.kmm.cholesky, basis_m),
-                adjoint=True)
-            return tdl.core.SimpleNamespace(
-                value=r, linop=tf.linalg.LinearOperatorFullMatrix(r))
-
     @tdl.core.PropertyShortcuts({'posterior': ['model', 'inputs']})
-    class EVGPElbo(tdl.core.TdlModel):
+    class VariationalLoss(tdl.core.TdlModel):
         @tdl.core.InputModel
         def posterior(self, value):
             return value
@@ -1046,45 +1060,41 @@ class ExplicitVGP(tdl.core.TdlModel):
         def elbo(self):
             obj = self.posterior
             dist = tdlb.distributions.MVNDiag(
-                loc=(obj.r.linop.matvec(self.model.beta.loc)
-                     + obj.mu_f_given_a),
+                loc=(obj.basis_x.matvec(self.model.basis.kernel.loc)
+                     + obj.expected_residuals),
                 scale=obj.y_scale.diag_part())
             # Tr(M3 A) = frob( inv(Ly) @ Kxm @ inv(Kmm) @ La )**2
             Tr_M3_A = _frob_squared(
                 obj.y_scale.solve(
                     obj.kmx.linop.matmul(
                         tdl.linalg.solvemat(obj.kmm.cholesky,
-                                            self.model.gm.scale),
+                                            self.model.fm.scale),
                         adjoint=True)))
 
             # Tr(M1 B) = frob( inv(Ly) @ r @ Lb )**2
             # TODO: profile with Tr(M1 B) implementation
             Tr_M1_B = _frob_squared(
                 obj.y_scale.solve(
-                    obj.r.linop.matmul(self.model.beta.scale)))
-            # Tr( inv(Cov_y) @ cov_f_given_gm
+                    obj.basis_x.matmul(self.model.basis.kernel.scale)))
+            # Tr( inv(Cov_y) @ cov_residuals
             Tr_Covy_Covg = tf.linalg.trace(
-                tdl.linalg.solvemat(obj.y_scale, obj.cov_f_given_gm))
+                tdl.linalg.solvemat(obj.y_scale, obj.cov_residuals))
 
             # KL_gm
-            _KL_gm1 = tdlb.losses.KLDivergence(
-                self.model.gm,
+            KL_fm = tdlb.losses.KLDivergence(
+                self.model.fm,
                 tdlb.distributions.MVN(
-                    loc=obj.basis_m.linop.matvec(self.model.beta.loc),
+                    loc=(tf.zeros(shape=()), tdl.AutoTensor()),
                     covariance=obj.kmm.value))
-            _KL_gm2 = 0.5 * _frob_squared(
-                obj.kmm.cholesky.linop.solve(
-                    obj.basis_m.linop.matmul(self.model.beta.scale)))
-            KL_gm = _KL_gm1 + _KL_gm2
             # KL_b
             KL_beta = tdlb.losses.KLDivergence(
-                self.model.beta, self.model.beta_prior)
+                self.model.basis.kernel, self.model.basis.prior)
 
             # elbo
             evidence = (dist.log_prob(self.labels)
                         - 0.5*(Tr_M3_A + Tr_M1_B + Tr_Covy_Covg))
             return (evidence/self.batch_size
-                    - (KL_gm + KL_beta)/self.dataset_size)
+                    - (KL_fm + KL_beta)/self.dataset_size)
 
         @tdl.core.OutputValue
         def value(self, _):
@@ -1094,24 +1104,21 @@ class ExplicitVGP(tdl.core.TdlModel):
     class EVGPPrediction(EVGPInference, tdlb.distributions.MVN):
         @tdl.core.LazzyProperty
         def loc(self):
-            ''' Kxm @ inv(Kmm) @ gm.loc + R @ beta.mu'''
-            return (self.mu_f_given_a
-                    + self.r.linop.matvec(self.model.beta.loc))
+            ''' Kxm @ inv(Kmm) @ fm.loc + R @ beta.mu'''
+            return (self.expected_residuals
+                    + self.basis_x.matvec(self.basis.kernel.loc))
 
         @tdl.core.LazzyProperty
         def covariance(self):
-            ''' cov_f_given_gm
-                + R @ beta.cov @ R^t
+            ''' cov_residuals
+                + Hx @ beta.cov @ Hx^t
                 + Kxm @ inv(Kmm) @ A @ inv(Kmm) @ Kmx'''
-            term1 = self.cov_f_given_gm
+            term1 = self.cov_residuals
             term2 = tdl.linalg.M_times_Mt(
-                self.r.linop.matmul(self.model.beta.scale))
-            # term2 = self.r.linop.matmul(
-            #     self.model.beta.covariance.linop.matmul(
-            #         self.r, adjoint_arg=True))
+                self.basis_x.matmul(self.basis.kernel.scale))
             term3 = tdl.linalg.M_times_Mt(
                 self.kmx.linop.matmul(
-                    tdl.linalg.solvemat(self.kmm.cholesky, self.gm.scale),
+                    tdl.linalg.solvemat(self.kmm.cholesky, self.fm.scale),
                     adjoint=True))
             covariance = term1 + term2 + term3
             if self.tolerance is None:
@@ -1122,13 +1129,32 @@ class ExplicitVGP(tdl.core.TdlModel):
                 covariance, tolerance)
 
         def neg_elbo(self, labels, dataset_size=None):
-            return ExplicitVGP.EVGPElbo(posterior=self, labels=labels,
-                                        dataset_size=dataset_size)
+            return ExplicitVGP.VariationalLoss(
+                posterior=self, labels=labels,
+                dataset_size=dataset_size)
+
+        def with_noise(self):
+            '''return the posterior with noise'''
+            covariance = tf.convert_to_tensor(self.covariance)
+            noise_cov = tdl.linalg.M_times_Mt(self.y_scale)
+            # add the shift
+            if isinstance(noise_cov, tf.linalg.LinearOperator):
+                covariance = noise_cov.add_to_tensor(covariance)
+            else:
+                covariance = covariance + noise_cov
+            return tdlb.distributions.MVN(
+                loc=tf.convert_to_tensor(self.loc),
+                covariance=covariance)
 
     def neg_elbo(self, inputs, labels, dataset_size=None):
         posterior = ExplicitVGP.EVGPPrediction(model=self, inputs=inputs)
         return posterior.neg_elbo(labels=labels, dataset_size=dataset_size)
 
     def predict(self, inputs, tolerance=None):
+        if not tdl.core.is_property_initialized(self, 'input_shape'):
+            self.input_shape = tf.convert_to_tensor(inputs).shape
+        # if not tdl.core.is_property_initialized(self, 'kernel'):
+        #    self.kernel.init()
+        tdl.core.assert_initialized(self, 'predict', ['kernel', 'xm'])
         return ExplicitVGP.EVGPPrediction(model=self, inputs=inputs,
                                           tolerance=tolerance)

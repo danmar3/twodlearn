@@ -52,12 +52,12 @@ class ExamplesTest(unittest.TestCase):
 
     def test_convnet(self):
         notebook_path = os.path.join(EXAMPLES_PATH,
-                                     'convnet_mnist.ipynb')
+                                     'ConvnetMNIST.ipynb')
         execute_notebook(notebook_path)
 
     def test_bayesnet(self):
         notebook_path = os.path.join(EXAMPLES_PATH,
-                                     'bayesnet.ipynb')
+                                     'BayesDNN.ipynb')
         execute_notebook(notebook_path)
 
     def test_gp(self):

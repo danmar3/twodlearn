@@ -8,7 +8,7 @@ import tensorflow as tf
 import twodlearn as tdl
 from twodlearn.templates.supervised import (Supervised, MlModel)
 from twodlearn.datasets.mnist import MnistDataset
-import twodlearn.datasets.CIFAR10 as Cifar10
+import twodlearn.datasets.cifar10 as Cifar10
 import twodlearn.monitoring as tdlm
 
 
@@ -43,7 +43,7 @@ class MnistMlp(MlModel):
         x = tf.placeholder(tf.float32)
         train = self.model(x, name=self.model.scope)
         with tf.name_scope('loss'):
-            fit_loss = tdl.losses.ClassificationLoss(train.output.z)
+            fit_loss = tdl.losses.ClassificationLoss(train.output.affine)
             reg_loss = self.model.regularizer.init(
                 self.options['model/regularizer/scale'])
             loss = tdl.losses.EmpiricalWithRegularization(fit_loss, reg_loss)
@@ -138,15 +138,15 @@ class MnistCustomMlp(MnistMlp):
             n_outputs = self.options['model/n_outputs']
             n_hidden = self.options['model/n_hidden']
 
-            model.add(tdl.feedforward.DenseLayer(
-                n_inputs, n_hidden[0],
-                afunction=self.options['model/afunction']))
-            model.add(tdl.feedforward.DenseLayer(
-                n_hidden[0], n_hidden[1],
-                afunction=self.options['model/afunction']))
-            model.add(tdl.feedforward.DenseLayer(
-                n_hidden[1], n_outputs,
-                afunction=tf.nn.softmax))
+            model.add(tdl.dense.DenseLayer(
+                input_shape=n_inputs, units=n_hidden[0],
+                activation=self.options['model/afunction']))
+            model.add(tdl.dense.DenseLayer(
+                input_shape=n_hidden[0], units=n_hidden[1],
+                activation=self.options['model/afunction']))
+            model.add(tdl.dense.DenseLayer(
+                input_shape=n_hidden[1], units=n_outputs,
+                activation=tf.nn.softmax))
 
         return model
 
@@ -154,7 +154,7 @@ class MnistCustomMlp(MnistMlp):
         x = tf.placeholder(tf.float32)
         train = self.model(x, name=self.model.scope)
         with tf.name_scope('loss'):
-            fit_loss = tdl.losses.ClassificationLoss(train.output.z)
+            fit_loss = tdl.losses.ClassificationLoss(train.output.affine)
             reg_loss = self.model.regularizer.init(
                 self.options['model/regularizer/scale'])
             loss = tdl.losses.EmpiricalWithRegularization(fit_loss, reg_loss)
@@ -182,7 +182,8 @@ class RandomLinear(tdl.feedforward.LinearLayer):
         sigma = self._init_sigma(self.weight_init_method, self.alpha)
 
         weights = tf.Variable(
-            tf.truncated_normal([self.n_inputs, self.n_units], stddev=sigma),
+            tf.truncated_normal([self.input_shape[-1], self.units],
+                                stddev=sigma),
             trainable=False,
             name=name)
         return weights
@@ -211,8 +212,8 @@ class MnistTestMlp(MnistCustomMlp):
             # model.add(tdl.feedforward.FullyconnectedLayer(
             #    n_inputs, n_hidden[0],
             #    afunction=self.options['model/afunction']))
-            model.add(RandomLinear(n_inputs=n_inputs,
-                                   n_units=n_hidden[0]))
+            model.add(RandomLinear(input_shape=n_inputs,
+                                   units=n_hidden[0]))
             model.add(tdl.feedforward.FullyconnectedLayer(
                 n_hidden[0], n_hidden[1],
                 afunction=self.options['model/afunction']))

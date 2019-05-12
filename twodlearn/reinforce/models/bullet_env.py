@@ -18,18 +18,19 @@ class SingleRobotBulletEnv(MJCFBaseBulletEnv):
         MJCFBaseBulletEnv.__init__(self, self.robot)
         self.stateId = -1
 
-    def create_single_player_scene(self):
-        return SingleRobotEmptyScene(gravity=9.8,
+    def create_single_player_scene(self, bullet_client):
+        return SingleRobotEmptyScene(bullet_client,
+                                     gravity=9.8,
                                      timestep=0.0165,
                                      frame_skip=self.frame_skip)
 
     def reset(self):
         if (self.stateId >= 0):
             # print("InvertedPendulumBulletEnv reset p.restoreState(",self.stateId,")")
-            pybullet.restoreState(self.stateId)
-        r = MJCFBaseBulletEnv._reset(self)
+            self._p.restoreState(self.stateId)
+        r = MJCFBaseBulletEnv.reset(self)
         if (self.stateId < 0):
-            self.stateId = pybullet.saveState()
+            self.stateId = self._p.saveState()
             # print("InvertedPendulumBulletEnv reset self.stateId=",self.stateId)
         return r
 
@@ -51,12 +52,12 @@ class SingleRobotBulletEnv(MJCFBaseBulletEnv):
     def camera_adjust(self):
         self.camera.move_and_look_at(0, 1.2, 1.0, 0, 0, 0.5)
 
-    def render(self, *args, **kwargs):
-        kwargs['close'] = False
-        return self._render(*args, **kwargs)
-
-    def close(self, *args, **kwargs):
-        return self._close(*args, **kwargs)
-
-    def seed(self, *args, **kwargs):
-        return self._seed(*args, **kwargs)
+    # def render(self, *args, **kwargs):
+    #     kwargs['close'] = False
+    #     return self._render(*args, **kwargs)
+    #
+    # def close(self, *args, **kwargs):
+    #     return self._close(*args, **kwargs)
+    #
+    # def seed(self, *args, **kwargs):
+    #     return self._seed(*args, **kwargs)

@@ -20,11 +20,11 @@ import collections
 import numpy as np
 import tensorflow as tf
 import twodlearn as tdl
-from twodlearn.normalizer import (Normalizer)
-from twodlearn.losses import (Loss, EmpiricalLoss, AddNLosses,
-                              ClassificationLoss, L2Regularizer,
-                              L2Loss, EmpiricalWithRegularization,
-                              ScaledLoss, EmpiricalLossWrapper)
+from .normalizer import (Normalizer)
+from .losses import (Loss, EmpiricalLoss, AddNLosses,
+                     ClassificationLoss, L2Regularizer,
+                     L2Loss, EmpiricalWithRegularization,
+                     ScaledLoss, EmpiricalLossWrapper)
 
 
 class Options:
@@ -221,7 +221,15 @@ class AlexnetLayer(tdl.core.TdlModel):
         self._n_outputs = n_maps[1]
         super(AlexnetLayer, self).__init__(name=name)
 
-    class AlexnetLayerSetup(tdl.core.ModelEvaluation):
+    class AlexnetLayerSetup(tdl.core.TdlModel):
+        @tdl.core.InputModel
+        def model(self, value):
+            return value
+
+        @tdl.core.InputArgument
+        def inputs(self, value):
+            return value
+
         @property
         def weights(self):
             return self.model.weights
@@ -235,31 +243,29 @@ class AlexnetLayer(tdl.core.TdlModel):
             return self.model.pool_size
 
         def eval_layer(self, inputs):
-            conv = tf.nn.conv2d(inputs,
-                                self.weights,
-                                strides=[1, 1, 1, 1],
-                                padding='VALID')
+            conv = tf.nn.conv2d(
+                inputs, self.weights, strides=[1, 1, 1, 1], padding='VALID')
             hidden = tf.nn.relu(conv + self.bias)
-
             # Perform Pooling if the size of the pooling layer is bigger than 1
             # note that the size of the pooling kernel and the stride is the same
             if (self.pool_size[0] == 1 and self.pool_size[1] == 1):
                 return hidden
-
             else:
-                pool = tf.nn.max_pool(hidden,
-                                      ksize=[1, self.pool_size[0],
-                                             self.pool_size[1], 1],
-                                      strides=[1, self.pool_size[0],
-                                               self.pool_size[1], 1],
-                                      padding='VALID')
+                pool = tf.nn.max_pool(
+                    hidden,
+                    ksize=[1, self.pool_size[0], self.pool_size[1], 1],
+                    strides=[1, self.pool_size[0], self.pool_size[1], 1],
+                    padding='VALID')
                 return pool
 
-        def __init__(self, model, inputs, name):
-            self._model = model
-            self._name = name
-            with tf.name_scope(self.scope):
-                self._y = self.eval_layer(inputs)
+        @tdl.core.OutputValue
+        def value(self, _):
+            tdl.core.assert_initialized(self, 'value', ['inputs', 'model'])
+            return self.eval_layer(self.inputs)
+
+        @property
+        def y(self):
+            return self.value
 
     def evaluate(self, inputs, name=None):
         if name is None:
@@ -269,198 +275,64 @@ class AlexnetLayer(tdl.core.TdlModel):
                                       name=name)
 
 
-class StridedConvLayer(object):
-    '''Creates a convolutional layer that uses strided convolutions instead
-    of pooling.
-
-    The format for filter_size is:
-        [filter_size_dim0 , filter_size_dim1], it performs 2D convolution
-    The format for n_maps is:
-        [num_input_maps, num_output_maps]
-
-    The format for stride is:
-        [stride_dim0, stride_dim1]
-    '''
-
-    def __init__(self, filter_size, n_maps, stride, name=''):
-        self.name = name
-        self.stride = stride
-
-        with tf.name_scope(self.name) as scope:
-            self.weights = tf.Variable(
-                tf.truncated_normal([filter_size[0], filter_size[1],
-                                     n_maps[0], n_maps[1]],
-                                    stddev=0.1),
-                name='W')
-
-            self.bias = tf.Variable(tf.truncated_normal([n_maps[1]],
-                                                        stddev=0.001),
-                                    name='b')
-
-    def evaluate(self, input_tensor, padding='VALID'):
-        # Perform Convolution
-        # the layers performs a 2D convolution, with a strides of 1
-        with tf.name_scope(self.name) as scope:
-            conv = tf.nn.conv2d(input_tensor, self.weights, strides=[
-                1, self.stride[0], self.stride[1], 1], padding=padding)
-            hidden = tf.nn.relu(conv + self.bias)
-
-        return hidden
-
-
-class ConvTransposeLayer(object):
-    '''Creates a "deconvolutional" layer.
-
-    The format for filter_size is:
-        [filter_size_dim0 , filter_size_dim1], it performs 2D convolution
-    The format for n_maps is:
-        [num_input_maps, num_output_maps]
-
-    The format for stride is:
-        [stride_dim0, stride_dim1]
-    '''
-
-    def __init__(self, filter_size, n_maps, stride, afunction=None, name=''):
-        self.name = name
-        self.stride = stride
-        self.n_in_maps = n_maps[0]
-        self.n_out_maps = n_maps[1]
-
-        if afunction is None:
-            self.afunction = tf.nn.relu
-        else:
-            self.afunction = afunction
-        with tf.name_scope(self.name) as scope:
-            self.weights = tf.Variable(
-                tf.truncated_normal([filter_size[0], filter_size[1], n_maps[1], n_maps[0]],
-                                    stddev=0.1),
-                name='W')
-
-            self.bias = tf.Variable(tf.truncated_normal([n_maps[1]],
-                                                        stddev=0.001),
-                                    name='b')
-
-    def evaluate(self, input_tensor, padding='SAME'):
-        # Perform Convolution transpose
-        # the layers performs a 2D convolution, with a strides of 1
-
-        # conv = tf.nn.conv2d(input_tensor, self.weights, strides=[1, self.stride[0], self.stride[1], 1], padding= padding)
-        in_shape = input_tensor.get_shape().as_list()
-        out_shape = [in_shape[0],
-                     in_shape[1] * self.stride[0],
-                     in_shape[2] * self.stride[1],
-                     self.n_out_maps]
-
-        with tf.name_scope(self.name) as scope:
-            deconv = tf.nn.conv2d_transpose(input_tensor,
-                                            self.weights,
-                                            output_shape=out_shape,
-                                            strides=[1, self.stride[0],
-                                                     self.stride[1], 1],
-                                            padding=padding)
-
-            hidden = self.afunction(deconv + self.bias)
-
-        return hidden
-
-
-class LinearLayer(tdl.core.TdlModel):
+@tdl.core.create_init_docstring
+class LinearLayer(tdl.core.Layer):
     '''Standard linear (W*X) fully connected layer'''
-    @property
-    def n_inputs(self):
-        return self._n_inputs
+    @tdl.core.InputArgument
+    def input_shape(self, value):
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        if isinstance(value, int):
+            value = (None, value)
+        if not isinstance(value, tf.TensorShape):
+            value = tf.TensorShape(value)
+        return value
 
-    @property
-    def n_units(self):
-        return self._n_units
+    @tdl.core.InputArgument
+    def units(self, value):
+        '''Number of output units (int).'''
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        if not isinstance(value, int):
+            raise TypeError('units must be an integer')
+        return value
 
-    @property
-    def n_outputs(self):
-        return self.n_units
-
-    @property
-    def alpha(self):
-        ''' Gain used for '''
-        return self._alpha
-
-    @tdl.core.SimpleParameter
-    def weights(self, value):
-        return self._init_weights(alpha=value['alpha'])
+    @tdl.core.ParameterInit
+    def kernel(self, initializer=None, trainable=True, **kargs):
+        tdl.core.assert_initialized(
+            self, 'kernel', ['units', 'input_shape'])
+        if initializer is None:
+            initializer = tf.keras.initializers.glorot_uniform()
+        return self.add_weight(
+            name='kernel',
+            initializer=initializer,
+            shape=[self.input_shape[-1].value, self.units],
+            trainable=trainable,
+            **kargs)
 
     @tdl.core.Regularizer
     def regularizer(self, scale=None):
+        tdl.core.assert_initialized(self, 'regularizer', ['kernel'])
         with tf.name_scope(self.scope):
-            reg = tdl.losses.L2Regularizer(self.weights, scale=scale)
+            reg = tdl.losses.L2Regularizer(self.kernel, scale=scale)
         return reg
 
-    def _init_sigma(self, init_method=None, alpha=None):
-        ''' Defines several initialization methods for the
-        linear layer '''
-        if init_method == 'frob':
-            sigma = np.sqrt((alpha * alpha) /
-                            (self.n_inputs * self.n_units))
-        elif init_method == 'sum':
-            sigma = np.sqrt((alpha * alpha) /
-                            (self.n_inputs + self.n_units))
-        elif init_method == 'max':
-            M = max(self.n_inputs, self.n_units)
-            sigma = np.sqrt(alpha / M)
-        elif init_method == 'singular':
-            N = min(self.n_inputs, self.n_units)
-            M = max(self.n_inputs, self.n_units)
-            t = (N - 1) / (M - 1)
-            t = 1 - np.exp(-10 * t)
-            alpha = np.sqrt(np.minimum(N, M) * (alpha * ((1 - t) + 0.3 * t)))
-            sigma = np.sqrt((alpha**2) / (N * M))
-        return sigma
-
-    def _init_weights(self, init_method=None, alpha=None, name='W'):
-        if alpha is not None:
-            self._alpha = alpha
-        else:
-            self._alpha = options.weight_initialization_alpha
-
-        if init_method is None:
-            self.weight_init_method = options.weight_initialization
-        else:
-            self.weight_init_method = init_method
-        # weight initialization
-        alpha = self.alpha  # 5.0
-        sigma = self._init_sigma(self.weight_init_method, self.alpha)
-
-        weights = tf.Variable(tf.truncated_normal([self.n_inputs,
-                                                   self.n_units],
-                                                  stddev=sigma),
-                              name=name)
-        return weights
-
-    def __init__(self, n_inputs, n_units, alpha=None,
-                 options=None, name=None):
-        self._n_inputs = n_inputs
-        self._n_units = n_units
-        super(LinearLayer, self).__init__(weights={'alpha': alpha}, name=name,
-                                          options=options)
+    def compute_output_shape(self, input_shape=None):
+        if input_shape is None:
+            tdl.core.assert_initialized(self, 'copute_output_shape',
+                                        ['input_shape', 'units'])
+            input_shape = self.input_shape
+        input_shape = tf.TensorShape(input_shape).as_list()
+        return tf.TensorShape(input_shape[:-1] + [self.units])
 
     class Output(tdl.core.TdlModel):
-        @property
-        def y(self):
-            return self.value
-
         @property
         def shape(self):
             return self.value.shape
 
         @property
-        def n_units(self):
-            return self.model.n_units
-
-        @property
-        def n_outputs(self):
-            return self.n_units
-
-        @property
-        def weights(self):
-            return self.model.weights
+        def kernel(self):
+            return self.model.kernel
 
         @tdl.core.InputArgument
         def inputs(self, value):
@@ -468,35 +340,39 @@ class LinearLayer(tdl.core.TdlModel):
 
         @tdl.core.OutputValue
         def value(self, _):
-            return tf.matmul(self.inputs, self.weights)
+            inputs = tf.convert_to_tensor(self.inputs)
+            return tf.linalg.LinearOperatorFullMatrix(self.kernel)\
+                     .matvec(inputs, adjoint=True)
 
         def __init__(self, model, inputs, options=None, name=None):
             self.model = model
             super(LinearLayer.Output, self).__init__(
                 inputs=inputs, options=options, name=name)
 
-    def evaluate(self, inputs, name=None):
-        return LinearLayer.Output(self, inputs, name=name)
+    def call(self, inputs, *args, **kargs):
+        return type(self).Output(self, inputs, *args, **kargs)
 
-    def __call__(self, x):
-        return self.evaluate(x)
+    def __init__(self, units, *args, **kargs):
+        if args:
+            raise ValueError('Dense layers only accept units as potitional '
+                             'argument.')
+        super(LinearLayer, self).__init__(units=units, **kargs)
 
 
+@tdl.core.create_init_docstring
 class AffineLayer(LinearLayer):
     '''Standard affine (W*X+b) fully connected layer'''
-    @property
-    def parameters(self):
-        ''' Returns the list of parameters for the layer'''
-        return [self.weights, self.bias]
-
-    @tdl.core.SimpleParameter
-    def bias(self, value):
-        return tf.Variable(tf.zeros([self.n_units]), name='b')
-
-    def __init__(self, n_inputs, n_units, alpha=1.0,
-                 options=None, name='AffineLayer'):
-        super(AffineLayer, self).__init__(n_inputs, n_units, alpha,
-                                          options=options, name=name)
+    @tdl.core.ParameterInit
+    def bias(self, initializer=None, trainable=True, **kargs):
+        tdl.core.assert_initialized(self, 'bias', ['units'])
+        if initializer is None:
+            initializer = tf.keras.initializers.zeros()
+        return self.add_weight(
+            name='bias',
+            initializer=initializer,
+            shape=[self.units],
+            trainable=trainable,
+            **kargs)
 
     class Output(LinearLayer.Output):
         @property
@@ -505,46 +381,44 @@ class AffineLayer(LinearLayer):
 
         @tdl.core.OutputValue
         def value(self, _):
-            return tf.matmul(self.inputs, self.weights) + self.bias
+            inputs = tf.convert_to_tensor(self.inputs)
+            output = tf.linalg.LinearOperatorFullMatrix(self.kernel)\
+                       .matvec(inputs, adjoint=True)
+            if self.bias is not None:
+                output = output + self.bias
+            return output
 
-    def evaluate(self, inputs, name=None):
-        return AffineLayer.Output(self, inputs, name=name)
 
-
+@tdl.core.create_init_docstring
 class DenseLayer(AffineLayer):
     '''Standard fully connected layer'''
+    @tdl.core.InputArgument
+    def activation(self, value):
+        return value
 
-    def __init__(self, n_inputs, n_units, afunction=tf.nn.relu, alpha=1.0,
-                 options=None, name='DenseLayer'):
-        super(DenseLayer, self).__init__(n_inputs, n_units, alpha,
-                                         options=options, name=name)
-        self.afunction = afunction
+    def __init__(self, activation=tf.nn.relu, name=None, **kargs):
+        super(DenseLayer, self).__init__(activation=activation,
+                                         name=name, **kargs)
 
     class Output(AffineLayer.Output):
         @property
-        def z(self):
+        def affine(self):
             ''' activation before non-linearity '''
-            return self.affine
+            inputs = tf.convert_to_tensor(self.inputs)
+            output = tf.linalg.LinearOperatorFullMatrix(self.kernel)\
+                       .matvec(inputs, adjoint=True)
+            if self.bias is not None:
+                output = output + self.bias
+            return output
 
         @property
-        def y(self):
-            ''' activation before non-linearity '''
-            return self.value
-
-        @property
-        def afunction(self):
-            return self.model.afunction
-
-        @tdl.core.Submodel
-        def affine(self, _):
-            return tf.matmul(self.inputs, self.weights) + self.bias
+        def activation(self):
+            return self.model.activation
 
         @tdl.core.OutputValue
         def value(self, _):
-            return self.afunction(self.affine)
-
-    def evaluate(self, inputs, options=None, name=None):
-        return DenseLayer.Output(self, inputs, options=options, name=name)
+            return (self.affine if self.activation is None
+                    else self.activation(self.affine))
 
 
 ''' ----------------------------- Networks -------------------------------- '''
@@ -669,7 +543,17 @@ class MultiLayer2DConvolution(tdl.core.TdlModel):
         self._output_shape = final_size + [self.n_filters[-1]]
         # print("Shape of the maps after convolution stage:", self.out_conv_shape)
 
-    class Output(tdl.core.ModelEvaluation):
+    class Output(tdl.core.TdlModel):
+        @tdl.core.InputModel
+        def model(self, value):
+            return value
+
+        @tdl.core.InferenceInput
+        def inputs(self, value):
+            tdl.core.assert_initialized(self, 'inputs', ['model'])
+            if value is None:
+                value = self.setup_inputs(None, self.input_shape)
+            return value
 
         @property
         def weights(self):
@@ -682,6 +566,10 @@ class MultiLayer2DConvolution(tdl.core.TdlModel):
         @property
         def input_shape(self):
             return self.model.input_shape
+
+        @property
+        def y(self):
+            return self._y
 
         def setup_inputs(self, batch_size, input_shape):
             inputs = tf.placeholder(tf.float32,
@@ -699,19 +587,19 @@ class MultiLayer2DConvolution(tdl.core.TdlModel):
 
             return out, hidden
 
+        @tdl.core.OutputValue
+        def value(self, _):
+            self._y, self._hidden = self.setup_conv_layers(
+                self.inputs, self.model.layers)
+            return self.y
+
         def __init__(self, model, inputs=None, batch_size=None,
                      options=None, name='MultiConv2D'):
-            super(MultiLayer2DConvolution.Output, self)\
-                .__init__(model, options=options, name=name)
-
-            with tf.name_scope(self.scope):
-                if inputs is None:
-                    inputs = self.setup_inputs(batch_size,
-                                               self.input_shape)
-                self._inputs = inputs
-                self._y, self._hidden = \
-                    self.setup_conv_layers(self.inputs,
-                                           self.model.layers)
+            super(MultiLayer2DConvolution.Output, self).__init__(
+                model=model,
+                inputs=(inputs if inputs is not None
+                        else self.setup_inputs(batch_size, model.input_shape)),
+                options=options, name=name)
 
     def setup(self, inputs=None, batch_size=None, options=None, name=None):
         return MultiLayer2DConvolution.Output(model=self,
@@ -906,189 +794,6 @@ class AlexNetClassifier(AlexNet):
                            name=name)
 
 
-class ConvNet(object):
-    ''' Creates a Convolutional neural network
-    It creates a convolutional neural network similar to the one used
-    in (ImageNet Classification with Deep Convolutional Neural Networks)
-
-    It performs a series of 2d Convolutions and pooling operations, then
-    a standard fully connected stage and finaly a softmax
-
-    input_size: size of the input maps, [size_dim0, size_dim1]
-    n_outputs: number of outputs
-    n_input_maps: number of input maps
-    n_filters: list with the number of filters for layer
-    filter_size: list with the size of the kernel for each layer,
-                 the format for the size of each layer is:
-                 [filter_size_dim0 , filter_size_dim1]
-    pool_size: list with the size of the pooling kernel foreach layer,
-               the format for each layer is: [pool_size_dim0, pool_size_dim1]
-    n_hidden: list with the number of units on each fully connected layer
-
-    out_conv_shape: size of the output map from the convolution stage,
-                    [size_dim0, size_dim1]
-
-    '''
-
-    def __init__(self, input_size, n_input_maps, n_outputs,
-                 n_filters, filter_size,
-                 pool_size,
-                 n_hidden=[],
-                 name=''):
-        ''' All variables corresponding to the weights of the network are defined
-        '''
-        self.input_size = input_size
-        self.n_input_maps = n_input_maps
-        self.n_outputs = n_outputs
-        self.n_filters = n_filters
-        self.filter_size = filter_size
-        self.pool_size = pool_size
-        self.n_hidden = n_hidden
-
-        # 1. Create the convolutional layers:
-        self.conv_layers = list()
-        self.conv_layers.append(
-            AlexnetLayer(filter_size[0],
-                         [n_input_maps, n_filters[0]],
-                         pool_size[0],
-                         name=name + '/conv_0'))
-
-        for l in range(1, len(n_filters)):
-            self.conv_layers.append(
-                AlexnetLayer(filter_size[l],
-                             [n_filters[l - 1], n_filters[l]],
-                             pool_size[l],
-                             name=name + '/conv_' + str(l))
-            )
-
-        # Get size after convolution phase
-        final_size = [input_size[0], input_size[1]]
-        for i in range(len(filter_size)):
-            final_size[0] = (final_size[0] - (filter_size[i]
-                                              [0] - 1)) // pool_size[i][0]
-            final_size[1] = (final_size[1] - (filter_size[i]
-                                              [1] - 1)) // pool_size[i][1]
-
-        if final_size[0] == 0:
-            final_size[0] = 1
-        if final_size[1] == 0:
-            final_size[1] = 1
-        self.out_conv_shape = final_size
-        print("Shape of the maps after convolution stage:", self.out_conv_shape)
-
-        # 2. Create the fully connected layers:
-        if len(n_hidden) > 0:
-            self.full_layers = list()
-            self.full_layers.append(
-                DenseLayer(final_size[0] * final_size[1] * n_filters[-1],
-                           n_hidden[0],
-                           name=name + '/full_0'))
-            for l in range(1, len(n_hidden)):
-                self.full_layers.append(
-                    DenseLayer(n_hidden[l - 1],
-                               n_hidden[l],
-                               name=name + '/full_' + str(l))
-                )
-
-            # 3. Create the final layer:
-            self.out_layer = AffineLayer(
-                n_hidden[-1], n_outputs, name=name + '/lin')
-
-        elif (n_outputs is not None):
-            # 3. Create the final layer: (TODO: test this!!!!!!)
-            self.out_layer = AffineLayer(final_size[0] * final_size[1] * n_filters[-1],
-                                         n_outputs,
-                                         name=name + '/lin')
-
-        # 4. Define the saver for the weights of the network
-        saver_dict = dict()
-        for l in range(len(self.conv_layers)):
-            saver_dict.update(self.conv_layers[l].saver_dict)
-
-        if len(n_hidden) != 0:
-            for l in range(len(self.full_layers)):
-                saver_dict.update(self.full_layers[l].saver_dict)
-        elif (n_outputs is not None):
-            saver_dict.update(self.out_layer.saver_dict)
-
-        self.saver = tf.train.Saver(saver_dict)
-
-    def setup(self, batch_size, drop_prob=None, l2_reg_coef=None, loss_type=None):
-        ''' Defines the computation graph of the neural network for a specific
-        batch size
-
-        drop_prob: placeholder used for specify the probability for dropout.
-                   If this coefficient is set, then dropout regularization is
-                   added between all fully connected layers
-                   (TODO: allow to choose which layers)
-        l2_reg_coef: coeficient for l2 regularization
-        loss_type: type of the loss being used for training the network,
-                   the options are:
-                - 'cross_entropy': for classification tasks
-                - 'l2': for regression tasks
-        '''
-        inputs = tf.placeholder(tf.float32,
-                                shape=(batch_size, self.input_size[0], self.input_size[1], self.n_input_maps))
-
-        if (loss_type is not None) or (len(self.n_hidden) == 0):
-            labels = tf.placeholder(
-                tf.float32, shape=(batch_size, self.n_outputs))
-        else:
-            labels = None
-
-        # 1. convolution stage
-        out = inputs
-        for layer in self.conv_layers:
-            out = layer.evaluate(out)
-
-        # 2. fully connected stage
-        # 2.1 reshape
-        shape = out.get_shape().as_list()
-        print('Shape of input matrix entering to Fully connected layers:', shape)
-        out = tf.reshape(out, [shape[0], shape[1] * shape[2] * shape[3]])
-
-        # if no fully connected layers, return here:
-        if (len(self.n_hidden) == 0 and self.n_outputs is None):
-            return NetConf(inputs, None, out, None)
-        elif len(self.n_hidden) == 0:  # TODO: check and add loss in this case
-            out = self.out_layer.evaluate(out)
-            return NetConf(inputs, None, out, None)
-
-        # 2.2 mlp
-        for layer in self.full_layers:
-            out = layer.evaluate(out)
-            if drop_prob is not None:
-                out = tf.nn.dropout(out, drop_prob)
-
-        # 3. linear stage
-        y = self.out_layer.evaluate(out)
-
-        # 4. loss # TODO: add number of parameters to loss so hyperparameters are more easy to tune, also put None as default and do not calculate loss if it is None
-        # l2 regularizer
-        l2_reg = 0
-        if l2_reg_coef is not None:
-            for layer in self.full_layers:
-                l2_reg += tf.nn.l2_loss(layer.weights)
-            l2_reg = l2_reg_coef * l2_reg
-
-        # loss
-        if loss_type is None:
-            loss = None
-        elif loss_type == 'cross_entropy':
-            if self.n_outputs == 1:
-                loss = tf.reduce_mean(
-                    tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,
-                                                            logits=y)) + l2_reg
-            else:
-                loss = tf.reduce_mean(
-                    tf.nn.softmax_cross_entropy_with_logits(labels=labels,
-                                                            logits=y)) + l2_reg
-        elif loss_type == 'l2':
-            loss = tf.reduce_mean(tf.nn.l2_loss(y - labels)) + l2_reg
-
-        return NetConf(inputs, labels, y, loss)
-
-
 class LinearClassifier(tdl.core.TdlModel):
     @property
     def n_inputs(self):
@@ -1106,7 +811,8 @@ class LinearClassifier(tdl.core.TdlModel):
     @tdl.core.Submodel
     def linear_layer(self, value):
         if value is None:
-            value = AffineLayer(self.n_inputs, self.n_outputs)
+            value = AffineLayer(input_shape=self.n_inputs,
+                                units=self.n_outputs)
         return value
 
     @tdl.core.Regularizer
@@ -1165,207 +871,6 @@ class LinearClassifier(tdl.core.TdlModel):
         else:
             output = tf.nn.softmax(logits)
         return logits, output, inputs
-
-
-class StridedConvNet(object):   # TODO!!!!!!!!!!!!!!!!!!!
-    ''' Creates a Convolutional neural network using strided convolutions.
-    It does not use pooling
-
-    It performs a series of 2d strided Convolution operations, then
-    a standard fully connected stage and finaly an affine mapping
-
-    input_size: size of the input maps: [size_dim0, size_dim1]
-    n_outputs: number of outputs
-    n_input_maps: number of input maps
-    n_filters: list with the number of filters for layer
-    filter_size: list with the size of the kernel for each layer,
-                 the format for the size of each layer is:
-                 [filter_size_dim0 , filter_size_dim1]
-    strides: list with the size of the strides for each layer,
-               the format for each layer is: [stride_dim0, stride_dim1]
-    n_hidden: list with the number of units on each fully connected layer
-
-    out_conv_shape: size of the output map from the convolution stage:
-                    [size_dim0, size_dim1]
-
-    '''
-
-    def define_fullyconnected_layers(self):
-        ''' defines the fully connected layers for the architecture
-        This function populates the self.full_layers list and
-        self.out_layer variable
-        '''
-        conv_as_vector_size = (self.out_conv_shape[0] *
-                               self.out_conv_shape[1] *
-                               self.n_filters[-1])
-        self.full_layers = list()
-        if self.n_hidden:
-            self.full_layers.append(
-                DenseLayer(conv_as_vector_size,
-                           self.n_hidden[0],
-                           name='Dense_0'))
-            for l in range(1, len(self.n_hidden)):
-                self.full_layers.append(
-                    DenseLayer(self.n_hidden[l - 1],
-                               self.n_hidden[l],
-                               name='Dense_{}'.format(l)))
-
-            # 3. Create the final layer:
-            self.out_layer = AffineLayer(self.n_hidden[-1],
-                                         self.n_outputs,
-                                         name='lin')
-
-        elif (self.n_outputs is not None):
-            # 3. Create the final layer: (TODO: test this!!!!!!)
-            self.out_layer = AffineLayer(conv_as_vector_size,
-                                         self.n_outputs,
-                                         name='lin')
-
-    def define_conv_layers(self):
-        ''' defines the convolution layers for the architecture
-        This function populates the self.conv_layers list
-        '''
-        self.conv_layers = list()
-        self.conv_layers.append(
-            StridedConvLayer(self.filter_size[0],
-                             [self.n_input_maps, self.n_filters[0]],
-                             self.strides[0], name='conv_0'))
-
-        for l in range(1, len(self.n_filters)):
-            self.conv_layers.append(
-                StridedConvLayer(self.filter_size[l],
-                                 [self.n_filters[l - 1], self.n_filters[l]],
-                                 self.strides[l],
-                                 name='conv_{}'.format(str(l))))
-
-    def __init__(self, input_size, n_input_maps, n_outputs,
-                 n_filters, filter_size,
-                 strides,
-                 n_hidden=[],
-                 name=''):
-        ''' All variables corresponding to the weights of the network are defined
-        '''
-        self.input_size = input_size
-        self.n_input_maps = n_input_maps
-        self.n_outputs = n_outputs
-        self.n_filters = n_filters
-        self.filter_size = filter_size
-        self.strides = strides
-        self.n_hidden = n_hidden
-        self.name = name
-
-        with tf.name_scope(self.name) as scope:
-            # 1. Create the convolutional layers:
-            self.define_conv_layers()
-
-            # Get size after convolution phase
-            final_size = [input_size[0], input_size[1]]
-            for i in range(len(filter_size)):
-                final_size[0] = (
-                    final_size[0] - (filter_size[i][0] - 1)) // strides[i][0]
-                final_size[1] = (
-                    final_size[1] - (filter_size[i][1] - 1)) // strides[i][1]
-
-            if final_size[0] == 0:
-                final_size[0] = 1
-            if final_size[1] == 0:
-                final_size[1] = 1
-            self.out_conv_shape = final_size
-            print("Shape of the maps after convolution stage:", self.out_conv_shape)
-
-            # 2. Create the fully connected layers:
-            self.define_fullyconnected_layers()
-
-        # 4. Define the saver for the weights of the network
-        saver_dict = dict()
-        for l in range(len(self.conv_layers)):
-            saver_dict.update(self.conv_layers[l].saver_dict)
-
-        if len(n_hidden) != 0:
-            for l in range(len(self.full_layers)):
-                saver_dict.update(self.full_layers[l].saver_dict)
-        elif (n_outputs is not None):
-            saver_dict.update(self.out_layer.saver_dict)
-
-        self.parameters = saver_dict
-        self.saver = tf.train.Saver(saver_dict)
-
-    def setup(self, batch_size, drop_prob=None, l2_reg_coef=None,
-              loss_type=None, inputs=None):
-        ''' Defines the computation graph of the neural network for a specific
-            batch size
-
-        drop_prob: placeholder used for specify the probability for dropout. If
-            this coefficient is set, then dropout regularization is added
-            between all fully connected layers(TODO: allow to choose which
-            layers)
-        l2_reg_coef: coeficient for l2 regularization
-        loss_type: type of the loss being used for training the network, the
-            options are:
-                - 'cross_entropy': for classification tasks
-                - 'l2': for regression tasks
-        '''
-        if inputs is None:
-            inputs = tf.placeholder(
-                dtype=tf.float32,
-                shape=(batch_size, self.input_size[0], self.input_size[1],
-                       self.n_input_maps))
-
-        if (loss_type is not None) or (len(self.n_hidden) == 0):
-            labels = tf.placeholder(
-                tf.float32, shape=(batch_size, self.n_outputs))
-        else:
-            labels = None
-
-        # 1. convolution stage
-        out = inputs
-        for layer in self.conv_layers:
-            out = layer.evaluate(out)
-
-        # 2. fully connected stage
-        # 2.1 reshape
-        shape = out.get_shape().as_list()
-        print('Shape of input matrix entering to Fully connected layers:',
-              shape)
-        out = tf.reshape(out, [shape[0], shape[1] * shape[2] * shape[3]])
-
-        # if no fully connected layers, return here:
-        if (len(self.n_hidden) == 0 and self.n_outputs is None):
-            return NetConf(inputs, None, out, None)
-
-        # 2.2 mlp
-        for layer in self.full_layers:
-            out = layer.evaluate(out)
-            if drop_prob is not None:
-                out = tf.nn.dropout(out, drop_prob)
-
-        # 3. linear stage
-        y = self.out_layer.evaluate(out)
-
-        # 4. loss # TODO: add number of parameters to loss so hyperparameters are more easy to tune, also put None as default and do not calculate loss if it is None
-        # l2 regularizer
-        l2_reg = 0
-        if l2_reg_coef is not None:
-            for layer in self.full_layers:
-                l2_reg += tf.nn.l2_loss(layer.weights)
-            l2_reg = l2_reg_coef * l2_reg
-
-        # loss
-        if loss_type is None:
-            loss = None
-        elif loss_type == 'cross_entropy':
-            if self.n_outputs == 1:
-                loss = tf.reduce_mean(
-                    tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,
-                                                            logits=y)) + l2_reg
-            else:
-                loss = tf.reduce_mean(
-                    tf.nn.softmax_cross_entropy_with_logits(labels=labels,
-                                                            logits=y)) + l2_reg
-        elif loss_type == 'l2':
-            loss = tf.reduce_mean(tf.nn.l2_loss(y - labels)) + l2_reg
-
-        return NetConf(inputs, labels, y, loss)
 
 
 class StridedDeconvNet(object):
@@ -1486,6 +991,18 @@ class StackedModel(tdl.TdlModel):
             value = list()
         return value
 
+    @tdl.core.InputArgument
+    def return_layers(self, value):
+        '''True if the return value of the stacked model is the layers'''
+        if value is None:
+            warnings.warn('On the future, the return value of StackedModel '
+                          'will be the output layer by default. To keep '
+                          'current behavior use return_layers=True')
+            value = True
+        if value not in (True, False):
+            raise ValueError('return_layers must be either True or False')
+        return value
+
     @tdl.core.LazzyProperty
     def _layer_names(self):
         ''' name of the layers '''
@@ -1535,8 +1052,9 @@ class StackedModel(tdl.TdlModel):
     class StackedOutput(tdl.core.OutputModel):
         def __getattr__(self, value):
             if not tdl.core.get_context(self).initialized:
-                raise AttributeError('Unable to get property {}, model {} has '
-                                     'not been initialized.'.format(self))
+                raise AttributeError(
+                    'Unable to get property {}, model {} has '
+                    'not been initialized.'.format(value, self))
             if value not in self.model._layer_names:
                 raise AttributeError('model {} does not have {} property.'
                                      ''.format(self, value))
@@ -1558,18 +1076,24 @@ class StackedModel(tdl.TdlModel):
         hidden = hidden[:-1]
         try:
             value = tf.convert_to_tensor(y)
-        except ValueError:
+        except (ValueError, TypeError):
             value = None
         shape = (value.shape if value is not None
                  else None)
         return y, hidden, value, shape
 
     def __call__(self, x, name=None):
-        return self.evaluate(inputs=x, name=name)
+        layers = self.evaluate(inputs=x, name=name)
+        if self.return_layers:
+            return layers
+        else:
+            return layers.output
 
-    def __init__(self, layers=None, options=None, name='Stacked'):
+    def __init__(self, layers=None, return_layers=None,
+                 options=None, name='Stacked'):
         super(StackedModel, self).__init__(
-            layers=layers, options=options, name=name)
+            layers=layers, return_layers=return_layers,
+            options=options, name=name)
 
 
 class ParallelModel(tdl.TdlModel):
@@ -1705,19 +1229,19 @@ class MlpNet(StackedModel):
         layers = list()
         _n_inputs = self.n_inputs
         for idx, n_units in enumerate(n_hidden):
-            layer_i = DenseLayer(n_inputs=_n_inputs,
-                                 n_units=n_units,
-                                 afunction=afunction[idx])
+            layer_i = DenseLayer(input_shape=_n_inputs,
+                                 units=n_units,
+                                 activation=afunction[idx])
             _n_inputs = n_units
             layers.append(layer_i)
 
         if value['output_function'] is None:
-            output_layer = AffineLayer(n_inputs=_n_inputs,
-                                       n_units=self.n_outputs)
+            output_layer = AffineLayer(input_shape=_n_inputs,
+                                       units=self.n_outputs)
         else:
-            output_layer = DenseLayer(n_inputs=_n_inputs,
-                                      n_units=self.n_outputs,
-                                      afunction=value['output_function'])
+            output_layer = DenseLayer(input_shape=_n_inputs,
+                                      units=self.n_outputs,
+                                      activation=value['output_function'])
         layers.append(output_layer)
         return layers
 

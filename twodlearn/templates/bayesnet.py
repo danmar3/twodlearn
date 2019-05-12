@@ -146,10 +146,10 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
 
     @tdl.core.SubmodelInit
     def model(self, dataset):
-        x_shape = dataset.train.x.shape[-1]
-        y_shape = dataset.train.y.shape[-1]
-        model = VariationalGP(m=self.m, input_dim=x_shape,
-                              y_scale=np.array([1.0]*y_shape))
+        xdims = dataset.train.x.shape[-1]
+        ydims = dataset.train.y.shape[-1]
+        model = VariationalGP(m=self.m, input_shape=[None, xdims],
+                              y_scale=np.array([1.0]*ydims))
         return model
 
     def fit(self, dataset, max_iter=100):
@@ -223,8 +223,8 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
 class EVGPEstimator(VGPEstimator):
     @tdl.core.SubmodelInit
     def model(self, dataset):
-        x_shape = dataset.train.x.shape[-1]
-        model = ExplicitVGP(m=self.m, input_dim=x_shape)
+        xdims = dataset.train.x.shape[-1]
+        model = ExplicitVGP(m=self.m, input_shape=[None, xdims])
         return model
 
     @tdl.core.SubmodelInit

@@ -15,6 +15,7 @@ import tensorflow as tf
 import twodlearn as tdl
 from twodlearn import common
 import twodlearn.feedforward as tdlf
+import tensorflow_probability as tfp
 from collections import namedtuple
 # -------------------- Losses -------------------- #
 
@@ -64,7 +65,7 @@ class GaussianKL(tdlf.Loss):
                                for p in p_list], axis=0)
             p_scale = tf.concat([tf.reshape(p.scale, [-1])
                                  for p in p_list], axis=0)
-            p = tf.distributions.Normal(p_loc, p_scale)
+            p = tfp.distributions.Normal(p_loc, p_scale)
         return p
 
     def __init__(self, p, q, name='GaussianKL'):
@@ -77,9 +78,9 @@ class GaussianKL(tdlf.Loss):
                 p = self.fromlist(p)
 
             # evaluate kl divergence
-            assert (isinstance(p, (tf.distributions.Normal, Normal,
+            assert (isinstance(p, (tfp.distributions.Normal, Normal,
                                    McNormal)) and
-                    isinstance(q, (tf.distributions.Normal, Normal,
+                    isinstance(q, (tfp.distributions.Normal, Normal,
                                    McNormal))), \
                 'GaussianKL is only defined for p, q being '\
                 'tf.distributions.Normal or tdl.bayesnet.Normal'
@@ -89,8 +90,8 @@ class GaussianKL(tdlf.Loss):
 
     @classmethod
     def fromstats(cls, p_loc, p_scale, q_loc, q_scale):
-        p = tf.distributions.Normal(p_loc, p_scale)
-        q = tf.distributions.Normal(q_loc, q_scale)
+        p = tfp.distributions.Normal(p_loc, p_scale)
+        q = tfp.distributions.Normal(q_loc, q_scale)
         return cls(p, q)
 
 
@@ -198,8 +199,6 @@ class McSample(common.TdlModel):
 
 
 class McNormal(common.TdlModel):
-    _submodels = ['loc', 'scale', '_distribution']
-
     @property
     def value(self):
         return self.samples.value
@@ -222,7 +221,7 @@ class McNormal(common.TdlModel):
     @common.Submodel
     def _distribution(self, value):
         if value is None:
-            value = tf.distributions.Normal(loc=self.loc, scale=self.scale)
+            value = tfp.distributions.Normal(loc=self.loc, scale=self.scale)
         return value
 
     @common.Submodel
@@ -245,127 +244,190 @@ class McNormal(common.TdlModel):
         self.samples = samples
 
 
-class AffineBernoulliLayer(tdlf.AffineLayer):
-    ''' Implements the layer y=dropout(x) W + b'''
-    @property
-    def keep_prob(self):
-        ''' keep prob for dropout '''
-        return self._keep_prob
+@tdl.core.create_init_docstring
+class SampleLayer(tdl.core.Layer):
+    @tdl.core.InputArgument
+    def input_shape(self, value):
+        return value
 
-    @keep_prob.setter
+    @tdl.core.InputModel
+    def distribution(self, value):
+        return value
+
+    @tdl.core.InputModel
+    def sample_shape(self, value):
+        if value is not None:
+            value = tf.TensorShape(value)
+        return value
+
+    def call(self, inputs, *args, **kargs):
+        tdl.core.assert_initialized(
+            self, 'call', ['distribution', 'sample_shape'])
+        if self.distribution is None:
+            distribution = inputs
+        else:
+            distribution = (self.distribution(inputs)
+                            if callable(self.distribution)
+                            else self.distribution)
+        if self.sample_shape is not None:
+            return distribution.sample(sample_shape=self.sample_shape)
+        else:
+            return distribution.sample()
+
+
+@tdl.core.create_init_docstring
+class NormalModel(tdl.core.Layer):
+    @tdl.core.InputArgument
+    def input_shape(self, value):
+        '''Input tensor shape.'''
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        return tf.TensorShape(value)
+
+    @tdl.core.InputArgument
+    def batch_shape(self, value):
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        if not isinstance(value, tf.TensorShape):
+            value = tf.TensorShape(value)
+        return value
+
+    @tdl.core.SubmodelInit
+    def loc(self, initializer=None, trainable=True, **kargs):
+        tdl.core.assert_initialized(self, 'loc', ['batch_shape'])
+        if initializer is None:
+            initializer = tf.keras.initializers.zeros()
+        shape = tf.TensorShape(
+            (1 if dim is None else dim)
+            for dim in self.batch_shape.as_list())
+        return self.add_weight(
+            name='loc',
+            initializer=initializer,
+            shape=shape,
+            trainable=trainable,
+            **kargs)
+
+    @tdl.core.SubmodelInit
+    def scale(self, initializer=None, trainable=True, tolerance=1e-5,
+              **kargs):
+        tdl.core.assert_initialized(self, 'shape', ['batch_shape'])
+        shape = tf.TensorShape(
+            (1 if dim is None else dim)
+            for dim in self.batch_shape.as_list())
+        if initializer is None:
+            initializer = tdl.constrained.PositiveVariableExp.init_wrapper(
+                initializer=tf.keras.initializers.ones(),
+                trainable=trainable,
+                tolerance=tolerance,
+                **kargs)
+        return initializer(shape=shape)
+
+    def build(self, input_shape=None):
+        tdl.core.assert_initialized(self, 'build', ['loc', 'scale'])
+        self.built = True
+
+    def call(self, inputs, *args, **kargs):
+        if inputs is not None:
+            inputs = tf.convert_to_tensor(inputs)
+        loc = (self.loc(inputs) if callable(self.loc)
+               else self.loc)
+        scale = (self.scale(inputs) if callable(self.scale)
+                 else self.scale)
+        return tfp.distributions.Normal(loc=loc, scale=scale)
+
+
+class AffineBernoulliLayer(tdl.dense.AffineLayer):
+    ''' Implements the layer y=dropout(x) W + b'''
+    @tdl.core.InputArgument
     def keep_prob(self, value):
-        assert not hasattr(self, '_keep_prob'),\
-            'keep_prob can only be set once'
-        self._keep_prob = value
+        '''Keep prob for dropout.'''
+        return (value if value is not None
+                else 0.8)
 
     @common.Regularizer
     def regularizer(self, prior_stddev=None):
+        tdl.core.assert_initialized(
+            self, 'regularizer', ['input_shape', 'kernel'])
         if prior_stddev is None:
             prior_stddev = self.options['w/prior/stddev']
         with tf.name_scope(self.scope):
-            reg = tdlf.L2Regularizer(self.weights,
-                                     scale=(prior_stddev**2)/np.sqrt(self.n_inputs))
+            reg = tdlf.L2Regularizer(
+                self.kernel,
+                scale=(prior_stddev**2)/np.sqrt(self.input_shape[-1].value))
         return reg
-
-    def __init__(self, n_inputs, n_units, keep_prob=0.8,
-                 alpha=None, options=None, name='AffineBernoulliLayer'):
-        super(AffineBernoulliLayer, self)\
-            .__init__(n_inputs, n_units, alpha, options=options, name=name)
-        self.keep_prob = keep_prob
 
     class Output(tdlf.AffineLayer.Output):
         @property
         def keep_prob(self):
             return self.model.keep_prob
 
-        @common.OutputValue
+        @tdl.core.Submodel
+        def affine(self, _):
+            keep_prob = self.model.keep_prob
+            inputs = (self.inputs if keep_prob is None
+                      else tf.nn.dropout(self.inputs, keep_prob))
+            output = tf.linalg.LinearOperatorFullMatrix(self.model.kernel)\
+                       .matvec(inputs, adjoint=True)
+            if self.model.bias is not None:
+                output = output + self.model.bias
+            return output
+
+        @tdl.core.OutputValue
         def value(self, _):
-            if self.keep_prob is not None:
-                inputs = tf.nn.dropout(self.inputs, self.keep_prob)
-            else:
-                inputs = self.inputs
-            return tf.matmul(inputs, self.weights) + self.bias
-
-    def evaluate(self, x, name=None):
-        return AffineBernoulliLayer.Output(self, x, name=name)
+            return self.affine
 
 
-class FFBernoulliLayer(tdlf.DenseLayer):
-    @property
-    def keep_prob(self):
-        ''' keep prob for dropout '''
-        return self._keep_prob
+class DenseBernoulliLayer(AffineBernoulliLayer):
+    @tdl.core.InputArgument
+    def activation(self, value):
+        return value
 
-    @keep_prob.setter
-    def keep_prob(self, value):
-        assert not hasattr(self, '_keep_prob'),\
-            'keep_prob can only be set once'
-        self._keep_prob = value
+    def __init__(self, activation=tf.nn.relu, name=None, **kargs):
+        super(DenseBernoulliLayer, self).__init__(
+            activation=activation,
+            name=name, **kargs)
 
-    @common.Regularizer
-    def regularizer(self, prior_stddev=None):
-        if prior_stddev is None:
-            prior_stddev = self.options['w/prior/stddev']
-        with tf.name_scope(self.scope):
-            reg = tdlf.L2Regularizer(self.weights,
-                                     scale=(prior_stddev**2)/np.sqrt(self.n_inputs))
-        return reg
-
-    def __init__(self, n_inputs, n_units, afunction=tf.nn.relu, keep_prob=0.8,
-                 alpha=None, options=None, name='FFBernoulliLayer'):
-        super(FFBernoulliLayer, self).__init__(n_inputs, n_units, afunction,
-                                               alpha, options=None, name=name)
-        self.keep_prob = keep_prob
-
-    class Output(tdlf.DenseLayer.Output):
+    class Output(AffineBernoulliLayer.Output):
         @property
         def keep_prob(self):
             return self.model.keep_prob
 
-        @common.Submodel
-        def linear(self, _):
-            if self.keep_prob is not None:
-                inputs = tf.nn.dropout(self.inputs, self.keep_prob)
-            else:
-                inputs = self.inputs
-            return tf.matmul(inputs, self.weights) + self.bias
-
         @common.OutputValue
         def value(self, _):
-            return self.afunction(self.linear)
-
-    def evaluate(self, x, name=None):
-        return FFBernoulliLayer.Output(self, x, name=name)
+            return self.model.activation(self.affine)
 
 
-class LinearLocalGaussianLayer(tdlf.LinearLayer):
-    def _init_w_mean(self):
-        return tf.Variable(tf.zeros([self.n_inputs, self.n_units]),
-                           name='w_mean')
+@tdl.core.create_init_docstring
+class LinearNormalLayer(tdl.dense.LinearLayer):
+    @tdl.core.InputArgument
+    def tolerance(self, value):
+        return value
 
-    def _init_w_stddev(self):
-        scale = self._init_sigma(self.options['w/stddev/init_method'],
-                                 alpha=self.options['w/stddev/alpha'])
+    @tdl.core.ParameterInit
+    def kernel(self, initializer=None, trainable=True, max_scale=1.0):
+        tdl.core.assert_initialized(
+            self, 'kernel', ['units', 'input_shape'])
+        if initializer is None:
+            initializer = tdl.constrained.PositiveVariableExp.init_wrapper(
+                initializer=tdl.core.initializers.SumFanConstant(),
+                trainable=trainable,
+                max=max_scale,
+                tolerance=self.tolerance)
 
-        def initializer(initial_value):
-            return tf.constant(initial_value,
-                               shape=[self.n_inputs, self.n_units],
-                               name='w_stddev_sqrt')
-        w_std = tdl.common.PositiveVariable2(
-            initializer=initializer,
-            initial_value=scale,
-            trainable=self.options['w/stddev/trainable'])
-        return w_std
+        scale = initializer(shape=[self.input_shape[-1].value, self.units])
+        for var in tdl.core.get_variables(scale):
+            self.add_weight(var)
+        loc = self.add_weight(
+            name='loc',
+            initializer=tf.keras.initializers.zeros(),
+            shape=[self.input_shape[-1].value, self.units],
+            trainable=trainable)
+        return tfp.distributions.Normal(loc=loc, scale=scale, name='kernel')
 
-    def _init_weights(self, init_method=None, alpha=None, name='W'):
-        w_mean = super(LinearLocalGaussianLayer, self)\
-            ._init_weights(init_method, alpha, name=name+'_loc')
-        w_stddev = self._init_w_stddev()
-        return Normal(loc=w_mean, scale=w_stddev, name='weights')
-
-    @common.Regularizer
+    @tdl.core.Regularizer
     def regularizer(self, prior_stddev=None):
         ''' Return the KL regularizer for the layer '''
+        tdl.core.assert_initialized(self, 'regularizer', ['kernel'])
         if prior_stddev is None:
             assert self.options['w/prior/stddev'] is not None,\
                 'prior stddev not specified as agument nor '\
@@ -378,9 +440,10 @@ class LinearLocalGaussianLayer(tdlf.LinearLayer):
             prior_stddev = self.options['w/prior/stddev']
         with tf.name_scope(self.scope):
             with tf.name_scope('regularizer'):
-                prior = tf.distributions.Normal(loc=0.0,
-                                                scale=prior_stddev)
-                reg = GaussianKL(self.weights, prior)
+                prior = tfp.distributions.Normal(
+                    loc=0.0, scale=prior_stddev)
+                reg = tf.reduce_sum(
+                    tfp.distributions.kl_divergence(self.kernel, prior))
         return reg
 
     def _init_options(self, options):
@@ -389,94 +452,89 @@ class LinearLocalGaussianLayer(tdlf.LinearLayer):
                    'w/stddev/trainable': True,
                    'w/prior/stddev': None}
         options = common.check_defaults(options, default)
-        options = super(LinearLocalGaussianLayer, self)._init_options(options)
+        options = super(LinearNormalLayer, self)._init_options(options)
         return options
 
-    class Output(tdlf.LinearLayer.Output):
-        @common.Submodel
-        def mu(self, _):
-            return tf.matmul(self.inputs, self.weights.loc)
-
-        @common.Submodel
-        def stddev(self, _):
-            x = self.inputs
-            return tf.sqrt(tf.matmul(x**2, self.weights.scale**2))
-
-        @common.OutputValue
-        def y(self, _):
-            return McNormal(loc=self.mu, scale=self.stddev)
-
+    class Output(tdl.core.TdlModel):
         @property
-        def value(self):
-            return self.y.value
+        def shape(self):
+            return self.value.shape
 
-    def evaluate(self, x, name=None):
-        return LinearLocalGaussianLayer.Output(self, x, name=name)
+        @tdl.core.InputModel
+        def model(self, value):
+            return value
 
-    def __call__(self, x):
-        return self.evaluate(x)
+        @tdl.core.InputArgument
+        def inputs(self, value):
+            return value
 
+        def _loc(self):
+            kernel = self.model.kernel
+            return tf.linalg.LinearOperatorFullMatrix(kernel.loc)\
+                     .matvec(self.inputs, adjoint=True)
 
-class AffineLocalGaussianLayer(LinearLocalGaussianLayer):
-    @common.SimpleParameter
-    def bias(self, value):
-        return tf.Variable(tf.zeros([self.n_units]),
-                           name='b')
+        def _scale(self):
+            kernel_cov = tf.linalg.LinearOperatorFullMatrix(
+                tf.square(self.model.kernel.scale))
+            output_cov = kernel_cov.matvec(tf.square(self.inputs),
+                                           adjoint=True)
+            return tf.sqrt(output_cov)
 
-    @property
-    def parameters(self):
-        return super(AffineLocalGaussianLayer, self).parameters + [self.bias]
-
-    class Output(LinearLocalGaussianLayer.Output):
-        @common.Submodel
-        def mu(self, _):
-            linear_mu = tf.matmul(self.inputs, self.weights.loc)
-            return linear_mu + self.model.bias
-
-    def evaluate(self, x, name=None):
-        return AffineLocalGaussianLayer.Output(self, x, name=name)
-
-
-class FFLocalGaussianLayer(AffineLocalGaussianLayer):
-    @property
-    def afunction(self):
-        return self._afunction
-
-    @afunction.setter
-    def afunction(self, value):
-        self._afunction = value
-
-    def __init__(self, n_inputs, n_units, afunction=tf.nn.relu,
-                 alpha=None, options=None, name=None):
-        super(FFLocalGaussianLayer, self).__init__(
-            n_inputs, n_units, alpha, options=options, name=name)
-        self.afunction = afunction
-
-    class Output(AffineLocalGaussianLayer.Output):
-        _submodels = ['mu', 'stddev', 'affine']
-
-        @property
-        def value(self):
-            return self.y
-
-        @property
-        def afunction(self):
-            return self.model.afunction
-
-        @property
-        def z(self):
-            return self.affine
-
-        @common.Submodel
+        @tdl.core.Submodel
         def affine(self, _):
-            return McNormal(loc=self.mu, scale=self.stddev)
+            '''Normal distribution for the outputs.'''
+            return tfp.distributions.Normal(
+                loc=self._loc(), scale=self._scale())
 
-        @common.OutputValue
-        def y(self, _):
-            return self.afunction(self.affine.value)
+        @tdl.core.OutputValue
+        def value(self, _):
+            '''Sample from the output distribution.'''
+            return self.affine.sample()
 
-    def evaluate(self, x, name=None):
-        return FFLocalGaussianLayer.Output(self, x, name=name)
+    def call(self, inputs, *args, **kargs):
+        return type(self).Output(model=self, inputs=inputs, *args, **kargs)
+
+
+class AffineNormalLayer(LinearNormalLayer):
+    @tdl.core.ParameterInit
+    def bias(self, initializer=None, trainable=True, **kargs):
+        tdl.core.assert_initialized(self, 'bias', ['units'])
+        if initializer is None:
+            initializer = tf.keras.initializers.zeros()
+        return self.add_weight(name='bias', initializer=initializer,
+                               shape=[self.units], trainable=trainable,
+                               **kargs)
+
+    class Output(LinearNormalLayer.Output):
+        def _loc(self):
+            kernel = self.model.kernel
+            bias = self.model.bias
+            loc = tf.linalg.LinearOperatorFullMatrix(kernel.loc)\
+                    .matvec(self.inputs, adjoint=True)
+            if bias is not None:
+                loc = loc + bias
+            return loc
+
+
+class DenseNormalLayer(AffineNormalLayer):
+    @tdl.core.InputArgument
+    def activation(self, value):
+        if value is not None:
+            if not callable(value):
+                raise ValueError('activation function must be callable')
+        return value
+
+    def __init__(self, activation=tf.nn.relu, name=None, **kargs):
+        super(DenseNormalLayer, self).__init__(
+            activation=activation, name=name, **kargs)
+
+    class Output(AffineNormalLayer.Output):
+        @property
+        def value(self):
+            activation = self.model.activation
+            samples = self.affine.sample()
+            return (samples if activation is None
+                    else activation(samples))
 
 
 class BayesianMlp(tdl.StackedModel):
@@ -486,25 +544,25 @@ class BayesianMlp(tdl.StackedModel):
     @property
     def n_inputs(self):
         ''' size of the input vectors '''
-        return self.layers[0].n_inputs
+        return self.layers[0].input_shape[-1]
 
     @property
     def n_outputs(self):
         ''' size of the output vectors '''
-        return self.layers[-1].n_units
+        return self.layers[-1].units
 
     @property
-    def weights(self):
+    def kernels(self):
         ''' list the weights distributions from the layers '''
-        return [layer.weights for layer in self.layers
-                if hasattr(layer, 'weights')]
+        return [layer.kernel for layer in self.layers
+                if hasattr(layer, 'kernel')]
 
     @property
     def parameters(self):
         return [pi for layer in self.layers for pi in layer.parameters]
 
-    _HiddenClass = FFLocalGaussianLayer
-    _OutputClass = AffineLocalGaussianLayer
+    _HiddenClass = DenseNormalLayer
+    _OutputClass = AffineNormalLayer
 
     def _define_layers(self, n_inputs, n_outputs, n_hidden, afunction):
         layers = list()
@@ -515,14 +573,12 @@ class BayesianMlp(tdl.StackedModel):
         _n_inputs = n_inputs
         for l, n_units in enumerate(n_hidden + [n_outputs]):
             if afunction[l] is not None:
-                layers.append(Layers[l](n_inputs=_n_inputs,
-                                        n_units=n_units,
-                                        afunction=afunction[l],
-                                        options=self.options['layers/options']))
+                layers.append(Layers[l](input_shape=_n_inputs,
+                                        units=n_units,
+                                        activation=afunction[l]))
             else:
-                layers.append(Layers[l](n_inputs=_n_inputs,
-                                        n_units=n_units,
-                                        options=self.options['layers/options']))
+                layers.append(Layers[l](input_shape=_n_inputs,
+                                        units=n_units))
             _n_inputs = n_units
         return layers
 
@@ -549,8 +605,8 @@ class BayesianMlp(tdl.StackedModel):
 
     class BayesMlpOutput(tdl.core.OutputModel):
         @property
-        def weights(self):
-            return self.model.weights
+        def kernels(self):
+            return self.model.kernels
 
         @property
         def shape(self):
@@ -561,7 +617,7 @@ class BayesianMlp(tdl.StackedModel):
         x = inputs
         hidden = list()
         for layer in self.layers:
-            if isinstance(x, (tdl.common.TdlOp, tdl.common.ModelEvaluation)):
+            if isinstance(x, (tdl.common.TdlOp)):
                 x = layer(x.value)
             else:
                 x = layer(x)
@@ -591,7 +647,7 @@ class BayesianMlp(tdl.StackedModel):
 
 
 class BernoulliBayesianMlp(BayesianMlp):
-    _HiddenClass = FFBernoulliLayer
+    _HiddenClass = DenseBernoulliLayer
     _OutputClass = AffineBernoulliLayer
 
     def _define_layers(self, n_inputs, n_outputs, n_hidden,
@@ -610,16 +666,14 @@ class BernoulliBayesianMlp(BayesianMlp):
         _n_inputs = n_inputs
         for l, n_units in enumerate(n_hidden + [n_outputs]):
             if afunction[l] is not None:
-                layers.append(Layers[l](n_inputs=_n_inputs,
-                                        n_units=n_units,
-                                        afunction=afunction[l],
-                                        keep_prob=keep_prob[l],
-                                        options=self.options['layers/options']))
+                layers.append(Layers[l](input_shape=_n_inputs,
+                                        units=n_units,
+                                        activation=afunction[l],
+                                        keep_prob=keep_prob[l]))
             else:
-                layers.append(Layers[l](n_inputs=_n_inputs,
-                                        n_units=n_units,
-                                        keep_prob=keep_prob[l],
-                                        options=self.options['layers/options']))
+                layers.append(Layers[l](input_shape=_n_inputs,
+                                        units=n_units,
+                                        keep_prob=keep_prob[l]))
             _n_inputs = n_units
         return layers
 
@@ -922,3 +976,72 @@ class Particles(common.TdlModel):
         super(Particles, self).__init__(name=name, base=base, **kargs)
         with tf.name_scope(self.scope):
             self._value = self._evaluate()
+
+
+@tdl.core.create_init_docstring
+class ParticlesLayer(tdl.core.Layer):
+    @tdl.core.InputArgument
+    def input_shape(self, value):
+        '''Input tensor shape.'''
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        if not isinstance(value, tf.TensorShape):
+            value = tf.TensorShape(value)
+        return value
+
+    @tdl.core.InputArgument
+    def particles(self, value):
+        '''Number of particles.'''
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        return value
+
+    def compute_output_shape(self, input_shape=None):
+        if input_shape is None:
+            tdl.core.assert_initialized(
+                self, 'copute_output_shape',
+                ['input_shape', 'particles'])
+            input_shape = self.input_shape
+        input_shape = tf.TensorShape(input_shape).as_list()
+        return tf.TensorShape([self.particles] + input_shape)
+
+    def call(self, inputs):
+        try:
+            inputs = tf.convert_to_tensor(inputs)
+        except TypeError:
+            return inputs.sample(sample_shape=[self.particles])
+        multiples = [self.particles] + [1]*inputs.shape.ndims
+        return tf.tile(inputs[tf.newaxis, ...],
+                       multiples)
+
+
+class McNormalEstimate(tdl.core.Layer):
+    @tdl.core.InputArgument
+    def input_shape(self, value):
+        '''Input tensor shape.'''
+        if value is None:
+            raise tdl.core.exceptions.ArgumentNotProvided(self)
+        return tf.TensorShape(value)
+
+    @tdl.core.InputArgument
+    def sample_dim(self, value):
+        '''Sample dimension across which mean and stddev are computed.'''
+        if value is None:
+            value = 0
+        return value
+
+    def call(self, inputs):
+        inputs = tf.convert_to_tensor(inputs)
+        if tdl.core.is_property_initialized(self, 'input_shape'):
+            assert self.input_shape.is_compatible_with(inputs.shape)
+        else:
+            self.input_shape = inputs.shape
+        # mean
+        loc = tf.reduce_mean(inputs, axis=self.sample_dim)
+        # stddev
+        N = tf.cast(tf.shape(inputs)[0], tf.float32)
+        diff = (inputs - loc)**2
+        sample_variance = (tf.reduce_sum(diff, axis=self.sample_dim)
+                           / (N - 1))
+        scale = tf.sqrt(sample_variance)
+        return tfp.distributions.Normal(loc=loc, scale=scale)

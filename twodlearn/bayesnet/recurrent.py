@@ -11,6 +11,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import six
+import types
 import warnings
 import numpy as np
 import collections
@@ -19,6 +21,38 @@ import tensorflow as tf
 import twodlearn as tdl
 import twodlearn.feedforward as tdlf
 from twodlearn import (common, recurrent, bayesnet)
+import tensorflow_probability as tfp
+
+
+def normal_residual_wrapper(model):
+    model_call = six.get_method_function(model.call)
+
+    def call_wrapper(object, inputs):
+        def add_normal(dist_a, dist_b):
+            if isinstance(dist_a, tf.Tensor):
+                return tfp.distributions.Normal(
+                    loc=dist_a + dist_b.loc,
+                    scale=dist_b.scale)
+            else:
+                variance = tf.square(dist_a.scale) + tf.square(dist_b.scale)
+                return tfp.distributions.Normal(
+                    loc=dist_a.loc + dist_b.loc,
+                    scale=tf.sqrt(variance))
+        inputs, state = inputs
+        outputs = model_call(object, [inputs, state])
+        if isinstance(outputs, tuple):
+            outputs, next_state = outputs
+            return outputs, add_normal(state, next_state)
+        else:
+            next_state = outputs
+            return add_normal(state, next_state)
+
+    if isinstance(model, tdl.core.Layer):
+        model.call = types.MethodType(call_wrapper, model)
+        return model
+    else:
+        raise ValueError('concat wrapper does not work for type {}.'
+                         ''.format(type(model)))
 
 
 class NormalNarxCell(common.TdlModel):
@@ -107,7 +141,7 @@ class NormalNarxCell(common.TdlModel):
         return yt, xt, zt, dz
 
 
-class GaussianMlpCell(common.TdlModel):
+class GaussianMlpCell(tdl.core.TdlModel):
     @property
     def n_inputs(self):
         return self._n_inputs
@@ -188,7 +222,11 @@ class GaussianMlpCell(common.TdlModel):
 
         super(GaussianMlpCell, self).__init__(name=name, options=options)
 
-    class Output(common.ModelEvaluation):
+    class Output(tdl.core.TdlModel):
+        @tdl.core.InputModel
+        def model(self, value):
+            return value
+
         @property
         def y(self):
             ''' Observable output of the cell '''
@@ -250,7 +288,7 @@ class GaussianMlpCell(common.TdlModel):
             self._x_inputs = state
             self._u_inputs = inputs
             super(GaussianMlpCell.Output, self)\
-                .__init__(model, options=options, name=name)
+                .__init__(model=model, options=options, name=name)
             with tf.name_scope(self.scope):
                 self._y, self._x, self._dz = self.evaluate(state, inputs, t)
     ModelOutput = Output

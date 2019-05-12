@@ -10,12 +10,14 @@ class FeedforwardTest(unittest.TestCase):
     def test_mlp(self):
         mlp = tdl.feedforward.MlpNet(n_inputs=10, n_outputs=5,
                                      n_hidden=[20, 20])
-        params1 = tdl.common.get_parameters(mlp)
-        params2 = set([mlp.layers[0].weights,
+        inputs = tf.keras.Input((10,))
+        y = mlp(inputs)
+        params1 = tdl.core.get_parameters(mlp)
+        params2 = set([mlp.layers[0].kernel,
                        mlp.layers[0].bias,
-                       mlp.layers[1].weights,
+                       mlp.layers[1].kernel,
                        mlp.layers[1].bias,
-                       mlp.layers[2].weights,
+                       mlp.layers[2].kernel,
                        mlp.layers[2].bias])
 
         assert params1 == params2,\
@@ -23,9 +25,9 @@ class FeedforwardTest(unittest.TestCase):
 
     def test_stacked_name(self):
         mlp = tdl.feedforward.StackedModel()
-        l0 = mlp.add(tdlf.DenseLayer(n_inputs=10, n_units=50),
+        l0 = mlp.add(tdlf.DenseLayer(input_shape=10, units=50),
                      name='hidden_0')
-        l1 = mlp.add(tdlf.DenseLayer(n_inputs=50, n_units=50),
+        l1 = mlp.add(tdlf.DenseLayer(input_shape=50, units=50),
                      name='hidden_1')
         x = tf.placeholder(shape=[None, 10], dtype=tf.float32)
         y = mlp(x)

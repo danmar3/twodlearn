@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage{booktabs}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage[font=small]{caption}
+%\usepackage{subcaption}
+%\expandafter\def\csname ver@subfig.sty\endcsname{}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{pgffor}
+\usepackage{hyperref}
+\usepackage{soul}
+
+% for tables
+\newcommand{\centertab}[1]{\multicolumn{1}{|c|}{\textbf{#1} }}
+\newcommand{\bigcell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\begin{document}
+\input{math_definitions}
+
+
+\section{Time Variable LQR}
+\newcommand{\vxt}{\vx_{[t]}}
+\newcommand{\vut}{\vu_{[t]}}
+\newcommand{\vSt}{\vS_{[t]}}
+\newcommand{\vSp}{\vS_{[t+1]}}
+\newcommand{\vQt}{\vQ_{[t]}}
+\newcommand{\vRt}{\vR_{[t]}}
+\newcommand{\vAt}{\vA_{[t]}}
+\newcommand{\vBt}{\vB_{[t]}}
+
+\begin{itemize}
+  \item System: $\vx_{[t+1]} = \vA_{[t]} \vx_{[t]} + \vB_{[t]} \vu_{[t]}$
+  \item Cost:
+    \begin{align*}
+      J = \sum_{t=1}^T g(\vx_{[t]}, \vu_{[t]})
+        = \sum_{t=1}^T \vx_{[t]}^T \vQ_{[t]} \vx_{[t]} + \vu_{[t]}^T \vR_{[t]} \vu_{[t]}
+    \end{align*}
+  \item Value function:
+    \begin{align}
+      V(\vx_{[t]}, t) = \min_{\vu_{[t]}}{\sgroup{
+          g(\vx_{[t]}, \vu_{[t]})
+          + \func{V}{f(\vx_{[t]}, \vu_{[t]}, t) } }} \label{eq:value_function}
+    \end{align}
+    we assume that the value function takes the following form:
+    \begin{align*}
+        V(\vx_{[t]}, t) = \vx_{[t]}^T \vS_{[t]} \vx_{[t]}
+    \end{align*}
+  \item solving Eq. \ref{eq:value_function}:
+    \begin{align}
+      \vxt^T \vSt \vxt &= \min_{\vut} \vxt^T \vQt \vxt + \vut^T \vRt \vut
+          + \func{f}{\vxt, \vut, t}^T \vSp \func{f}{\vxt, \vut, t}
+          \label{eq:value_expanded} \\
+          &= \min_{\vut} \vxt^T \vQt \vxt + \vut^T \vRt \vut
+          + \group{(\vAt \vxt)^T + (\vBt \vut)^T} \vSp \group{\vAt \vxt + \vBt \vut}
+           \nonumber
+    \end{align}
+    dropping time notation, assume everything depends on $t$, while
+      $\hat{\vS} = \vSp$
+
+      \renewcommand{\vxt}{\vx}
+      \renewcommand{\vut}{\vu}
+      \renewcommand{\vSt}{\vS}
+      \renewcommand{\vSp}{\hat{\vS}}
+      \renewcommand{\vQt}{\vQ}
+      \renewcommand{\vRt}{\vR}
+      \renewcommand{\vAt}{\vA}
+      \renewcommand{\vBt}{\vB}
+
+    \begin{align*}
+       Vt =& \vxt^T \vQt \vxt + \vut^T \vRt \vut
+             + (\vAt \vxt)^T \vSp (\vAt \vxt)
+             + 2 (\vAt \vxt)^T \vSp (\vBt \vut)
+             + (\vBt \vut)^T \vSp (\vBt \vut)
+    \end{align*}
+    solving the minimization problem:
+    \begin{align}
+      & \dfrac{\partial Vt}{\partial \vut} =
+          2 \vRt \vut + 2 \vBt^T \vSp \vAt \vxt + 2 \vBt^T \vSp \vBt \vut = 0 \nonumber \\
+      & \underbrace{(\vRt + \vBt^T \vSp \vBt)}_{\vM}\vut =
+                        - \underbrace{\vBt^T \vSp \vAt}_{\vC} \vxt  \nonumber \\
+      & \vut = - \vM^{-1} \vC \vxt   \label{eq:optimalu}
+    \end{align}
+    Now we need to solve for $\vSp$ by replacing \ref{eq:optimalu} into
+      \ref{eq:value_expanded}:
+    \begin{align*}
+      \vxt^T \vSt \vxt & =
+            \vxt^T \vQt \vxt
+          + \vxt^T \vAt^T \vSp \vAt \vxt
+          + 2 \vxt^T \underbrace{\group{\vAt^T \vSp \vBt}}_{\vC^T} \vut
+          + \vut^T \underbrace{\group{\vRt + \vBt^T \vSp \vBt}}_{\vM} \vut \\
+        & =
+            \vxt^T \vQt \vxt
+          + \vxt^T \vAt^T \vSp \vAt \vxt
+          - 2 \vxt^T \vC^T \vM^{-1} \vC \vxt
+          + \vxt^T \vC^T \vM^{-T} \vM \vM^{-1} \vC \vxt \\
+        & =
+            \vxt^T \vQt \vxt
+          + \vxt^T \vAt^T \vSp \vAt \vxt
+          - \vxt^T \vC^T \vM^{-1} \vC \vxt \\
+        & =
+            \vxt^T \group{\vQt
+                          + \vAt^T \vSp \vAt
+                          - \vC^T \vM^{-1} \vC} \vxt
+    \end{align*}
+    Therefore, we have:
+    \begin{align*}
+      \vSt & = \vQt + \vAt^T \vSp \vAt
+                    - \vC^T \vM^{-1} \vC \\
+           & = \vQt + \vAt^T \vSp \vAt
+                    - \vAt^T \vSp \vBt \group{\vRt + \vBt^T \vSp \vBt}^{-1} \vBt^T \vSp \vAt 
+    \end{align*}
+
+\end{itemize}
+
+
+\end{document}

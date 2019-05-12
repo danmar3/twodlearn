@@ -23,7 +23,8 @@ class CartpoleRobot(MJCFBasedRobot):
                                 obs_dim=4,
                                 self_collision=True)
 
-    def robot_specific_reset(self):
+    def robot_specific_reset(self, bullet_client):
+        self._p = bullet_client
         self.pole = self.parts["pole"]
         self.slider = self.jdict["slider"]
         self.j1 = self.jdict["hinge"]

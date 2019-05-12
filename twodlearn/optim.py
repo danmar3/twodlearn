@@ -18,72 +18,42 @@ except ImportError:
 import shutil
 import warnings
 import threading
+import collections
 import numpy as np
 from time import time
 import tensorflow as tf
 import twodlearn as tdl
 from twodlearn import monitoring
-import collections
+from tqdm import tqdm
 try:
     from types import SimpleNamespace
 except ImportError:
     from argparse import Namespace as SimpleNamespace
 
 
-def worker(func_queue, out_queue):
-    while True:
-        func = func_queue.get()
-        if func is None:
-            break
-        out_queue.put(func())
-        func_queue.task_done()
-
-
-class DataFeederWorker:
-    def __init__(self, feed_func):
-        self._feed_func = feed_func
-        self.func_queue = queue.Queue()
-        self.output_queue = queue.Queue()
-        self._worker = threading.Thread(
-            target=lambda: worker(self.func_queue, self.output_queue))
-        self._worker.start()
-        self.func_queue.put(self._feed_func)
-
-    def next_batch(self):
-        output = self.output_queue.get()
-        self.func_queue.put(self._feed_func)
-        return output
-
-    def stop(self):
-        self.func_queue.put(None)
-        self._worker.join()
-
-    def __del__(self):
-        self.stop()
-
-
 class DataFeeder:
     def __init__(self, feed_train, feed_valid=None):
-        self.train_feeder = DataFeederWorker(feed_train)
+        self.train_feeder = feed_train
 
         if feed_valid is None:
             self.valid_feeder = None
         else:
-            self.valid_feeder = DataFeederWorker(feed_valid)
+            self.valid_feeder = feed_valid
 
     def stop(self):
-        self.train_feeder.stop()
-        if self.valid_feeder is not None:
-            self.valid_feeder.stop()
+        # self.train_feeder.stop()
+        # if self.valid_feeder is not None:
+        #     self.valid_feeder.stop()
+        return
 
     def __del__(self):
         self.stop()
 
     def feed_train(self):
-        return self.train_feeder.next_batch()
+        return self.train_feeder()
 
     def feed_valid(self):
-        return self.valid_feeder.next_batch()
+        return self.valid_feeder()
 
 
 class ConstantLr(object):
@@ -233,62 +203,63 @@ class OptimizationManager:
             self.saver.reset()
 
         # run optimizer
-        for step in range(1, n_train_steps):
-            # Run optimization step
-            out = self.run_step(
-                step=step,
-                ops=(self.step_op, train_ops, monitor_ops),
-                feed_dict=data_feeder.feed_train())
-            self.n_steps += 1
+        try:
+            for step in range(1, n_train_steps):
+                # Run optimization step
+                out = self.run_step(
+                    step=step,
+                    ops=(self.step_op, train_ops, monitor_ops),
+                    feed_dict=data_feeder.feed_train())
+                self.n_steps += 1
 
-            # feed data to monitors
-            if train_ops:
-                train_output = out[1:1 + len(train_ops)]
-                for i, monitor in enumerate(train_monitors):
-                    monitor.feed(train_output[i], self.n_steps)
-            if monitor_ops:
-                monitor_output = out[1 + len(train_ops):]
-                for i, monitor in enumerate(monitor_monitors):
-                    monitor.feed(monitor_output[i], self.n_steps)
+                # feed data to monitors
+                if train_ops:
+                    train_output = out[1:1 + len(train_ops)]
+                    for i, monitor in enumerate(train_monitors):
+                        monitor.feed(train_output[i], self.n_steps)
+                if monitor_ops:
+                    monitor_output = out[1 + len(train_ops):]
+                    for i, monitor in enumerate(monitor_monitors):
+                        monitor.feed(monitor_output[i], self.n_steps)
 
-            # file loggers
-            self.monitor_manager.train.write_data()
-            self.monitor_manager.monitoring.write_data()
-
-            # run validation evaluation
-            if valid_ops and (step % valid_eval_freq == 0):
-                for step_valid in range(0, n_valid_steps):
-                    valid_output = self.session.run(
-                        valid_ops,
-                        feed_dict=data_feeder.feed_valid())
-                    for i, monitor in enumerate(valid_monitors):
-                        monitor.feed(valid_output[i], self.n_steps)
                 # file loggers
-                self.monitor_manager.valid.write_data()
-            # saver function
-            if (self.saver is not None):
-                self.saver.add_checkpoint(step)
+                self.monitor_manager.train.write_data()
+                self.monitor_manager.monitoring.write_data()
 
-            # log
-            if (step % self.n_logging == 0) and self.monitor_manager:
-                # print information
-                train_info = [(m.name, m.mean()) for m in train_monitors]
-                valid_info = [(m.name, m.mean()) for m in valid_monitors]
-                # log information in files
-                # self.monitor_manager.train.write_stats()
-                # self.monitor_manager.valid.write_stats()
-                # self.monitor_manager.monitoring.write_stats()
-                print("{} | {} | {}".format(step, train_info, valid_info))
+                # run validation evaluation
+                if valid_ops and (step % valid_eval_freq == 0):
+                    for step_valid in range(0, n_valid_steps):
+                        valid_output = self.session.run(
+                            valid_ops,
+                            feed_dict=data_feeder.feed_valid())
+                        for i, monitor in enumerate(valid_monitors):
+                            monitor.feed(valid_output[i], self.n_steps)
+                    # file loggers
+                    self.monitor_manager.valid.write_data()
+                # saver function
+                if (self.saver is not None):
+                    self.saver.add_checkpoint(step)
 
-        # clean up
-        data_feeder.stop()
-        self.monitor_manager.flush()
-        if self.saver is not None:
-            self.saver.restore()
-            self.saver.save()
+                # log
+                if (step % self.n_logging == 0) and self.monitor_manager:
+                    # print information
+                    train_info = [(m.name, m.mean()) for m in train_monitors]
+                    valid_info = [(m.name, m.mean()) for m in valid_monitors]
+                    # log information in files
+                    # self.monitor_manager.train.write_stats()
+                    # self.monitor_manager.valid.write_stats()
+                    # self.monitor_manager.monitoring.write_stats()
+                    print("{} | {} | {}".format(step, train_info, valid_info))
+        finally:
+            # clean up
+            data_feeder.stop()
+            self.monitor_manager.flush()
+            if self.saver is not None:
+                self.saver.restore()
+                self.saver.save()
 
 
-class Optimizer(tdl.core.TdlProgram):
+class Optimizer(tdl.core.TdlModel):
     _submodels = ['learning_rate', 'monitor_manager', 'optimizer', 'saver']
 
     def _init_options(self, options):
@@ -331,6 +302,8 @@ class Optimizer(tdl.core.TdlProgram):
 
     @tdl.core.Submodel
     def monitor_manager(self, value):
+        tdl.core.assert_initialized_if_available(
+            self, 'monitor_manager', ['log_folder'])
         if value is None:
             value = {'train': {'train/loss': self.loss}}
         monitor_manager = (self._monitor_from_dict(value)
@@ -551,55 +524,56 @@ class Optimizer(tdl.core.TdlProgram):
             self.saver.reset()
 
         # run optimizer
-        for step in range(1, n_train_steps):
-            # Run optimization step
-            xp = self.run_step(
-                step=step,
-                ops=[self.step_op] + train_ops + monitor_ops,
-                feed_dict=data_feeder.feed_train())
-            self.n_steps += 1
+        try:
+            for step in tqdm(range(1, n_train_steps)):
+                # Run optimization step
+                xp = self.run_step(
+                    step=step,
+                    ops=[self.step_op] + train_ops + monitor_ops,
+                    feed_dict=data_feeder.feed_train())
+                self.n_steps += 1
 
-            # feed data to monitors
-            if train_ops:
-                for i, monitor in enumerate(train_monitors):
-                    monitor.feed(xp[monitor.op], self.n_steps)
-            if monitor_ops:
-                for i, monitor in enumerate(monitor_monitors):
-                    monitor.feed(xp[monitor.op], self.n_steps)
+                # feed data to monitors
+                if train_ops:
+                    for i, monitor in enumerate(train_monitors):
+                        monitor.feed(xp[monitor.op], self.n_steps)
+                if monitor_ops:
+                    for i, monitor in enumerate(monitor_monitors):
+                        monitor.feed(xp[monitor.op], self.n_steps)
 
-            # file loggers
-            self.monitor_manager.train.write_data()
-            self.monitor_manager.monitoring.write_data()
-
-            # run validation evaluation
-            if valid_ops and (step % valid_eval_freq == 0):
-                for step_valid in range(0, n_valid_steps):
-                    valid_output = self.session.run(
-                        valid_ops,
-                        feed_dict=data_feeder.feed_valid())
-                    for i, monitor in enumerate(valid_monitors):
-                        monitor.feed(valid_output[i], self.n_steps)
                 # file loggers
-                self.monitor_manager.valid.write_data()
-            # saver function
-            if (self.saver is not None):
-                self.saver.add_checkpoint(step)
+                self.monitor_manager.train.write_data()
+                self.monitor_manager.monitoring.write_data()
 
-            # log
-            if (step % self.n_logging == 0) and self.monitor_manager:
-                # print information
-                train_info = [(m.name, m.mean()) for m in train_monitors]
-                valid_info = [(m.name, m.mean()) for m in valid_monitors]
-                # log information in files
-                print("{} | {} | {}".format(step, train_info, valid_info))
+                # run validation evaluation
+                if valid_ops and (step % valid_eval_freq == 0):
+                    for step_valid in range(0, n_valid_steps):
+                        valid_output = self.session.run(
+                            valid_ops,
+                            feed_dict=data_feeder.feed_valid())
+                        for i, monitor in enumerate(valid_monitors):
+                            monitor.feed(valid_output[i], self.n_steps)
+                    # file loggers
+                    self.monitor_manager.valid.write_data()
+                # saver function
+                if (self.saver is not None):
+                    self.saver.add_checkpoint(step)
 
-        # clean up
-        data_feeder.stop()
-        self.monitor_manager.flush()
-        if self.saver is not None:
-            if self.saver.checkpoints:
-                self.saver.restore()
-            self.saver.save()
+                # log
+                if (step % self.n_logging == 0) and self.monitor_manager:
+                    # print information
+                    train_info = [(m.name, m.mean()) for m in train_monitors]
+                    valid_info = [(m.name, m.mean()) for m in valid_monitors]
+                    # log information in files
+                    print("{} | {} | {}".format(step, train_info, valid_info))
+        finally:
+            # clean up
+            data_feeder.stop()
+            self.monitor_manager.flush()
+            if self.saver is not None:
+                if self.saver.checkpoints:
+                    self.saver.restore()
+                self.saver.save()
 
 
 class SimpleSaver(tdl.core.TdlObject):

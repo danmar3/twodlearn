@@ -72,7 +72,7 @@ class RnnBayesModel(twodlearn.templates.supervised.MlModel):
                    'narx/cell/loc/prior/stddev': 100.0,
                    'narx/cell/scale/prior/stddev': 100.0,
                    'narx/noise_x/heteroscedastic': False}
-        options = tdl.common.check_defaults(options, default)
+        options = tdl.core.check_defaults(options, default)
         # if not options['narx/noise_x/heteroscedastic']:
         #    options = {k: v for k, v in options.items()
         #               if 'narx/cell/scale' not in k}
@@ -142,7 +142,7 @@ class RnnBayesModel(twodlearn.templates.supervised.MlModel):
             feed_dict[self.test.inputs[t].base] = inputs[t]
         return feed_dict
 
-    @tdl.common.EagerMethod
+    @tdl.core.EagerMethod
     def confidence_eval(self, value):
         mc_loc = [out.samples.mean for out in self.test.y]
         mc_scale = [out.samples.stddev for out in self.test.y]
@@ -185,7 +185,7 @@ class RnnBayesModel(twodlearn.templates.supervised.MlModel):
                  self._confidence_eval.average_stddev], feed_dict=feed_dict)
         return stddev_deviation, stddev_norm, average_l2loss, average_stddev
 
-    @tdl.common.EagerMethod
+    @tdl.core.EagerMethod
     def cr_zscore(self, value):
         mc_loc = [out.samples.mean for out in self.test.y]
         mc_scale = [out.samples.stddev for out in self.test.y]
@@ -379,10 +379,10 @@ class RnnBayesModel(twodlearn.templates.supervised.MlModel):
 
             fz = twodlearn.bayesnet.Normal(loc=loc, scale=scale,
                                            shape=[None, n_outputs])
+            cell = tdl.bayesnet.recurrent.NormalNarxCell(fz=fz)
             regularizer = fz.regularizer.init(
                 loc_scale=self.options['narx/cell/loc/prior/stddev'],
                 scale_scale=self.options['narx/cell/scale/prior/stddev'])
-            cell = tdl.bayesnet.recurrent.NormalNarxCell(fz=fz)
 
         model = tdl.bayesnet.recurrent.BayesNarx(
             cell=cell, window_size=window_size, name=scope)
@@ -465,22 +465,22 @@ class RnnBayesModel(twodlearn.templates.supervised.MlModel):
 
         optimizer = optim.Optimizer(
             loss=loss,
-            var_list=tdl.common.get_trainable(self.model),
+            var_list=tdl.core.get_trainable(self.model),
             session=self.session,
             monitor_manager=self.monitor,
             n_logging=self.options['optim/n_logging'],
             learning_rate=self.options['optim/train/learning_rate'],
             saver=optim.SimpleSaver(
-                var_list=tdl.common.get_trainable(self.model),
+                var_list=tdl.core.get_trainable(self.model),
                 logger_path=self.monitor.log_folder,
                 session=self.session))
 
         return optimizer
 
-    @tdl.common.EagerMethod
+    @tdl.core.EagerMethod
     def save(self, value):
         self.saver = tf.train.Saver(
-            var_list=tdl.common.get_trainable(self.model),
+            var_list=tdl.core.get_trainable(self.model),
             max_to_keep=30)
         self._saver_folder = os.path.join(self.logger_path,
                                           'model_checkpoints')
@@ -544,11 +544,11 @@ class Supervised(twodlearn.templates.supervised.Supervised):
                    'narx/cell/loc/prior/stddev': 100.0,
                    'narx/cell/scale/prior/stddev': 100.0,
                    'narx/noise_x/heteroscedastic': False}
-        options = tdl.common.check_defaults(options, default)
+        options = tdl.core.check_defaults(options, default)
         options = super(Supervised, self)._init_options(options)
         return options
 
-    @tdl.common.EagerMethod
+    @tdl.core.EagerMethod
     def save_dataset(self, value):
         self._dataset_folder = os.path.join(self.tmp_path, 'dataset/')
         if os.path.exists(self._dataset_folder):
@@ -644,7 +644,7 @@ class Supervised(twodlearn.templates.supervised.Supervised):
 #      ██ ██   ██ ██    ██ ██    ██    ██    ██ ██  ██ ██ ██    ██
 # ███████ ██   ██  ██████   ██████     ██    ██ ██   ████  ██████
 
-class ShootingOptim(tdl.common.TdlProgram):
+class ShootingOptim(tdl.core.TdlProgram):
     def _init_test_model(self):
         """Define the operation that computes the monte-calo estimation of the
         system trajectory.
@@ -744,7 +744,7 @@ class ShootingOptim(tdl.common.TdlProgram):
             ax[i].plot(mu[:, i] - std[:, i], 'r')
         return mu, std
 
-    @tdl.common.EagerMethod
+    @tdl.core.EagerMethod
     def cr_zscore(self, value):
         mc_loc = [out.samples.mean for out in self.test.y[:-1]]
         mc_scale = [out.samples.stddev for out in self.test.y[:-1]]
@@ -822,7 +822,7 @@ class ShootingOptim(tdl.common.TdlProgram):
                   else loss_yt[0])
         return loss_y
 
-    @tdl.common.EagerMethod
+    @tdl.core.EagerMethod
     def eval_loss_y(self, value):
         n_outputs = self.mc_estimate.loss.target.shape[1]
         y = [SimpleNamespace(samples=tdl.bayesnet.McEstimate(
@@ -945,7 +945,7 @@ class ShootingOptim(tdl.common.TdlProgram):
             n_logging=self.options['shooting/loggers/n_logging'],
             saver=optim.EarlyStopping(
                 monitor=self.monitor.train['shooting/loss'],
-                var_list=tdl.common.get_trainable(self.mc_estimate.inputs),
+                var_list=tdl.core.get_trainable(self.mc_estimate.inputs),
                 logger_path=self.logger_path,
                 session=self.session))
         return optimizer
@@ -1000,7 +1000,7 @@ class OnlineTrajOptim(object):
                    'online/train/exploration/std': 9,
                    'online/valid/exploration/std': 9,
                    'online/trajectory/filename': None}
-        options = tdl.common.check_defaults(options, default)
+        options = tdl.core.check_defaults(options, default)
         return options
 
     def _init_monitor(self, logger_path):
@@ -1266,7 +1266,7 @@ class TrajectoryOptimization(Supervised):
                    'narx/cell/loc/prior/stddev': 100.0,
                    'narx/cell/scale/prior/stddev': 100.0,
                    'narx/noise_x/heteroscedastic': False}
-        options = tdl.common.check_defaults(options, default)
+        options = tdl.core.check_defaults(options, default)
         options = super(TrajectoryOptimization, self)._init_options(options)
         return options
 
@@ -1323,7 +1323,7 @@ class TrajectoryOptimization(Supervised):
                                       logger_path=os.path.join(self.tmp_path,
                                                                'online'),
                                       session=self.ml_model.session)
-        tdl.common.TdlProgram.__init__(self)
+        tdl.core.TdlProgram.__init__(self)
         # monitors
         self.monitors = [self.ml_model.monitor,
                          self.ml_model.test_monitor,
@@ -1549,15 +1549,13 @@ class RnnBayesnetTest(unittest.TestCase):
             'Options provided to the main class did not correctly '\
             'propagate'
         main.run_training()
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].current_value
+        loss = main.ml_model.monitor.train['train/loss'].current_value
         assert np.isfinite(loss), 'training loss is not finite'
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].mean()
-        assert (loss < -2.1) and (loss > -3.1),\
+        loss = main.ml_model.monitor.train['train/loss'].mean()
+        assert (loss < -1.9) and (loss > -3.1),\
             'loss value is outside the expected range'
 
-        vars1 = set(tdl.common.get_trainable(main.ml_model.model))
+        vars1 = set(tdl.core.get_trainable(main.ml_model.model))
         vars2 = set(tf.trainable_variables(main.ml_model.model.scope))
         assert vars1 == vars2, \
             'variables found using get_trainable are different from '\

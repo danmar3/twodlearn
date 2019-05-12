@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 import pandas as pd
 import twodlearn.debug
+import tensorflow as tf
 from twodlearn import optim
 from twodlearn.datasets import tsdataset
 
@@ -24,9 +25,10 @@ class TSDatasetTest(unittest.TestCase):
         for i in range(3):
             batch1 = self.dataset.train.next_batch(batch_window, 1)
             batch1 = batch1['all'].squeeze()
-            batch2 = \
-                self.dataset.train.records[0].data.iloc[i *
-                                                        batch_window:(i + 1) * batch_window, :].values
+            batch2 = self.dataset.train\
+                         .records[0].data\
+                         .iloc[i * batch_window:(i + 1) * batch_window, :]\
+                         .values
 
             np.testing.assert_array_equal(batch1, batch2)
 
@@ -36,9 +38,10 @@ class TSDatasetTest(unittest.TestCase):
         for i in range(3):
             batch1 = self.dataset.train.next_batch(batch_window, 5)
             batch1 = batch1['all'][:, 0, :].squeeze()
-            batch2 = \
-                self.dataset.train.records[0].data.iloc[i *
-                                                        batch_window:(i + 1) * batch_window, :].values
+            batch2 = self.dataset\
+                         .train.records[0].data\
+                         .iloc[i * batch_window:(i + 1) * batch_window, :]\
+                         .values
 
             np.testing.assert_array_equal(batch1, batch2)
 
@@ -85,9 +88,10 @@ class TSDatasetTest(unittest.TestCase):
 
         for i in range(10):
             batch1 = data_feeder.feed_train()
-            batch2 = \
-                self.dataset.train.records[0].data.iloc[i *
-                                                        batch_window:(i + 1) * batch_window, :].values
+            batch2 = self.dataset\
+                         .train.records[0].data\
+                         .iloc[i * batch_window:(i + 1) * batch_window, :]\
+                         .values
 
             np.testing.assert_array_equal(batch1, batch2)
 
@@ -98,8 +102,9 @@ class TSDatasetTest(unittest.TestCase):
         self.dataset.save(filename)
         dataset = tsdataset.TSDatasets.from_saved_file(filename)
         for i, record in enumerate(dataset.train.records):
-            np.testing.assert_array_almost_equal(record.data,
-                                                 self.dataset.train.records[i].data)
+            np.testing.assert_array_almost_equal(
+                record.data,
+                self.dataset.train.records[i].data)
 
     def test_saver2(self):
         data_filename = os.path.join(TESTS_PATH, 'data/cartpole_dataset.pkl')
@@ -110,12 +115,180 @@ class TSDatasetTest(unittest.TestCase):
                 np.testing.assert_array_almost_equal(record1.data,
                                                      record2.data)
         dataset1 = tsdataset.TSDatasets\
-                            .from_saved_file(data_filename)
+                            .from_saved_file(data_filename, encoding='latin1')
         dataset1.save(tmp_filename)
         dataset2 = tsdataset.TSDatasets\
                             .from_saved_file(tmp_filename)
 
         assert_tsdatasets_equal(dataset1.train, dataset2.train)
+
+    def test_dense(self):
+        features = 3
+        nsamples = 50
+        records = [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[13, features])))
+                   for i in range(nsamples)]
+        records += [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[33, features])))
+                    for i in range(nsamples)]
+
+        dataset = tsdataset.TSDataset(records=records)
+        data, length = dataset.to_dense()
+        np.testing.assert_array_equal(data[0, :13, :],
+                                      records[0].data.to_numpy())
+
+    def test_sample_batch_window(self):
+        features = 3
+        nsamples = 50
+        records = [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[13, features])))
+                   for i in range(nsamples)]
+        records += [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[33, features])))
+                    for i in range(nsamples)]
+
+        dataset = tsdataset.TSDataset(records=records)
+        tfdata = dataset.to_tf_dataset().repeat()\
+                        .batch(32, drop_remainder=True)
+        iterator = tfdata.make_one_shot_iterator()
+        sample = iterator.get_next()
+        window_size = 11
+        windows, index = tsdataset.sample_batch_window(
+            sample['data'], sample['length'], window_size)
+
+        with tf.Session() as sess:
+            data, idx = sess.run([windows, index])
+            start_index = idx[0][1]
+            expected = dataset.records[0].data\
+                              .iloc[start_index:start_index+window_size]
+            np.testing.assert_almost_equal(expected, data[0, ...])
+
+            for i in range(10):
+                data, idx = sess.run([windows, index])
+                if np.isnan(data).any():
+                    raise ValueError('got nan when sampling window')
+                if (data == 0.0).any():
+                    raise ValueError('got 0.0 when sampling window')
+
+    def test_sample_batch_window2(self):
+        features = 3
+        nsamples = 50
+        records = [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[13, features])))
+                   for i in range(nsamples)]
+        records += [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[33, features])))
+                    for i in range(nsamples)]
+
+        dataset = tsdataset.TSDataset(records=records)
+        tfdata = dataset.to_tf_dataset().repeat()\
+                        .batch(32)
+        iterator = tfdata.make_one_shot_iterator()
+        sample = iterator.get_next()
+        window_size = 11
+        windows, index = tsdataset.sample_batch_window(
+            sample['data'], sample['length'], window_size)
+
+        with tf.Session() as sess:
+            data, idx = sess.run([windows, index])
+            start_index = idx[0][1]
+            expected = dataset.records[0].data\
+                              .iloc[start_index:start_index+window_size]
+            np.testing.assert_almost_equal(expected, data[0, ...])
+
+            for i in range(50):
+                data, idx = sess.run([windows, index])
+                if np.isnan(data).any():
+                    raise ValueError('got nan when sampling window')
+                if (data == 0.0).any():
+                    raise ValueError('got 0.0 when sampling window')
+
+    def test_sample_batch_window3(self):
+        features = 6
+        nsamples = 50
+        records = [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[13, features]),
+                         columns=['q{}'.format(i) for i in range(features)]))
+                   for i in range(nsamples)]
+        records += [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[33, features]),
+                         columns=['q{}'.format(i) for i in range(features)]))
+                    for i in range(nsamples)]
+
+        dataset = tsdataset.TSDataset(records=records)
+        dataset.set_groups(
+            {'pos':
+             ['q{}'.format(i) for i in range(features//2)],
+             'vel':
+             ['q{}'.format(i) for i in range(features//2, features)]})
+        tfdata = dataset.to_tf_dataset().repeat()\
+                        .batch(32)
+        iterator = tfdata.make_one_shot_iterator()
+        sample = iterator.get_next()
+        window_size = 11
+        windows, index = tsdataset.sample_batch_window(
+            sample['data'], sample['length'], window_size)
+
+        with tf.Session() as sess:
+            data, idx = sess.run([windows, index])
+            start_index = idx[0][1]
+            expected = dataset.records[0].data[dataset.group_tags['pos']]\
+                              .iloc[start_index:start_index+window_size]
+            np.testing.assert_almost_equal(expected, data['pos'][0, ...])
+            expected = dataset.records[0].data[dataset.group_tags['vel']]\
+                              .iloc[start_index:start_index+window_size]
+            np.testing.assert_almost_equal(expected, data['vel'][0, ...])
+
+            for i in range(50):
+                data_dict, idx = sess.run([windows, index])
+                for data in data_dict.values():
+                    if np.isnan(data).any():
+                        raise ValueError('got nan when sampling window')
+                    if (data == 0.0).any():
+                        raise ValueError('got 0.0 when sampling window')
+
+    def test_sample_window(self):
+        features = 6
+        nsamples = 50
+        records = [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[23, features]),
+                         columns=['q{}'.format(i) for i in range(features)]))
+                   for i in range(nsamples)]
+        records += [tsdataset.Record(
+            pd.DataFrame(np.random.normal(size=[33, features]),
+                         columns=['q{}'.format(i) for i in range(features)]))
+                    for i in range(nsamples)]
+
+        dataset = tsdataset.TSDataset(records=records)
+        dataset.set_groups(
+            {'pos':
+             ['q{}'.format(i) for i in range(features//2)],
+             'vel':
+             ['q{}'.format(i) for i in range(features//2, features)]})
+        tfdata = dataset.to_tf_dataset().repeat()
+        iterator = tfdata.make_one_shot_iterator()
+        sample = iterator.get_next()
+        window_size = 11
+        windows, t0 = tsdataset.sample_window(
+            sample['data'], sample['length'], window_size)
+
+        with tf.Session() as sess:
+            data, idx = sess.run([windows, t0])
+            start_index = idx
+            expected = dataset.records[0].data[dataset.group_tags['pos']]\
+                              .iloc[start_index:start_index+window_size]
+            np.testing.assert_almost_equal(expected, data['pos'])
+            expected = dataset.records[0].data[dataset.group_tags['vel']]\
+                              .iloc[start_index:start_index+window_size]
+            np.testing.assert_almost_equal(expected, data['vel'])
+
+            for i in range(1000):
+                data_dict, idx = sess.run([windows, t0])
+                for data in data_dict.values():
+                    if np.isnan(data).any():
+                        raise ValueError('got nan when sampling window')
+                    if (data == 0.0).any():
+                        raise ValueError('got 0.0 when sampling window')
 
 
 if __name__ == "__main__":

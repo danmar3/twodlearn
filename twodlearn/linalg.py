@@ -174,8 +174,8 @@ class PDMatrix(tdl.core.TdlModel):
         if self.tolerance is not None:
             scale = tdl.core.array.add_diagonal_shift(scale, self.tolerance)
         scale_t = tdl.core.array.transpose_rightmost(scale)
-        self.value = tf.matmul(scale, scale_t)
-        return tf.linalg.LinearOperatorFullMatrix(self.value)
+        value = tf.matmul(scale, scale_t)
+        return tf.linalg.LinearOperatorFullMatrix(value)
 
     @tdl.core.LazzyProperty
     def cholesky(self):
@@ -183,6 +183,7 @@ class PDMatrix(tdl.core.TdlModel):
 
     @tdl.core.OutputValue
     def value(self, value):
+        tdl.core.assert_initialized(self, 'value', ['linop'])
         if value is None:
             value = self.linop.to_dense()
         return value
@@ -211,7 +212,21 @@ class PDMatrixDiag(PDMatrix):
 
 
 class PDScaledIdentity(PDMatrixDiag):
-    @tdl.core.SimpleParameter
+    @tdl.core.InputArgument
+    def domain_dimension(self, value):
+        if value is None:
+            tdl.core.assert_initialized(self, 'domain_dimension', ['shape'])
+            return self.shape[-1]
+        elif tdl.core.is_property_set(self, 'shape'):
+            raise ValueError('domain dimension and shape cannot be '
+                             'specified at the same time')
+        elif isinstance(value, tf.Tensor):
+            tdl.core.assert_initialized(self, 'domain_dimension', ['raw'])
+            self.linop.init(domain_dimension=value)
+            return tf.Dimension(None)
+        return tf.Dimension(value)
+
+    @tdl.core.InputParameter
     def raw(self, value, AutoType=None):
         ''' multiplier for the identities '''
         if AutoType is None:
@@ -222,13 +237,16 @@ class PDScaledIdentity(PDMatrixDiag):
             value = AutoType(tf.fill(dims=self.batch_shape, value=value))
         return value
 
-    @tdl.core.LazzyProperty
-    def linop(self):
+    @tdl.core.SubmodelInit
+    def linop(self, domain_dimension=None):
+        if domain_dimension is None:
+            tdl.core.assert_initialized(self, 'linop', ['domain_dimension'])
+            domain_dimension = self.domain_dimension
         scale = self.raw
         if self.tolerance is not None:
             scale = scale + self.tolerance
         return tf.linalg.LinearOperatorScaledIdentity(
-            num_rows=self.domain_dimension,
+            num_rows=domain_dimension,
             multiplier=tf.square(scale))
 
 
@@ -250,7 +268,7 @@ class Cholesky(tdl.core.TdlModel):
             self.value = tf.linalg.cholesky(input)
         return tf.linalg.LinearOperatorLowerTriangular(self.value)
 
-    @tdl.core.OutputValue
+    @tdl.core.Submodel
     def value(self, value):
         if value is None:
             value = self.linop.to_dense()
@@ -269,8 +287,9 @@ class Cholesky(tdl.core.TdlModel):
     def solvevec(self, rhs, adjoint=False, name='solve'):
         return self.linop.solvevec(rhs=rhs, adjoint=adjoint, name=name)
 
-    def matmul(self, x, adjoint=False, name='matmul'):
-        return self.linop.matmul(x=x, adjoint=adjoint, name=name)
+    def matmul(self, x, adjoint=False, adjoint_arg=False, name='matmul'):
+        return self.linop.matmul(x=x, adjoint=adjoint, adjoint_arg=adjoint_arg,
+                                 name=name)
 
     def matvec(self, x, adjoint=False, name='matvec'):
         return self.linop.matvec(x=x, adjoint=adjoint, name=name)
@@ -281,3 +300,63 @@ class Cholesky(tdl.core.TdlModel):
 
     def __init__(self, input, name=None):
         super(Cholesky, self).__init__(input=input, name=name)
+
+
+def is_diagonal(x):
+    if isinstance(x, (Cholesky, PDMatrix)):
+        return is_diagonal_linop(x.linop)
+    elif isinstance(x, (tf.linalg.LinearOperator)):
+        return is_diagonal_linop(x)
+    else:
+        raise TypeError('Unrecognized type {} for is_diagonal method'
+                        ''.format(type(x)))
+
+
+def is_scaled_identity(x):
+    if not is_diagonal(x):
+        return False
+    if isinstance(x, tf.linalg.LinearOperator):
+        linop = x
+    elif isinstance(x, (Cholesky, PDMatrix)):
+        linop = x.linop
+    else:
+        raise TypeError('Unrecognized type {} for is_diagonal method'
+                        ''.format(type(x)))
+    return isinstance(linop, (tf.linalg.LinearOperatorScaledIdentity))
+
+
+class DynamicScaledIdentity(tdl.core.TdlModel):
+    '''scaled identity [batched] matrix whose size depends on the
+    shape of the input'''
+    @property
+    def batch_shape(self):
+        return tf.convert_to_tensor(self.multipliers).shape
+
+    @tdl.core.InputArgument
+    def tolerance(self, value):
+        return value
+
+    @tdl.core.InputParameter
+    def multipliers(self, value):
+        """tensor whose elements represent the multiplier factors for the
+        identity matrices.
+        """
+        return value
+
+    def __call__(self, inputs):
+        '''returns a linear scaled identity operator.
+        The number of rows in the identity matrices is equal to
+        inputs.shape[-2]
+        '''
+        inputs = tf.convert_to_tensor(inputs)
+        if inputs.shape.is_fully_defined():
+            n_rows = inputs.shape[-2]
+        else:
+            n_rows = tf.shape(inputs)[-2]
+        if self.tolerance is None:
+            multipliers = self.multipliers
+        else:
+            multipliers = self.multipliers + self.tolerance
+        return tf.linalg.LinearOperatorScaledIdentity(
+            num_rows=n_rows, multiplier=multipliers
+        )

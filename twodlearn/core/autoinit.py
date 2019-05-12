@@ -40,9 +40,31 @@ class AutoConstant(AutoinitType):
 
 class AutoVariable(AutoinitType):
     ''' auto initialize properties as variables
+
+    If an initializer is provided, then shape must be specified)
+        init = AutoVariable(initializer=tf.keras.initializer.glorot_uniform())
+        var = init(shape=shape)
+    Otherwise, calling AutoVariable expects an initial value or an initializer
+
     '''
+    def __init__(self, initializer=None):
+        self.initializer = initializer
+
     def __call__(self, *args, **kargs):
-        return variable.variable(*args, **kargs)
+        if self.initializer is not None:
+            if 'shape' not in kargs:
+                raise TypeError('shape must be specified for an AutoVariable '
+                                'that has an initializer.')
+            if args:
+                raise TypeError('arguments must be explicitly stated when '
+                                'AutoVariable with an initializer.')
+            shape = kargs['shape']
+            kargs = {key: value for key, value in kargs.items()
+                     if key != 'shape'}
+            return variable.variable(self.initializer(shape=shape),
+                                     **kargs)
+        else:
+            return variable.variable(*args, **kargs)
 
 
 class AutoConstantVariable(AutoinitType):

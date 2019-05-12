@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import pytest
 import unittest
 import numpy as np
 import tensorflow as tf
@@ -15,10 +16,12 @@ TESTS_PATH = os.path.dirname(os.path.abspath(__file__))
 TMP_PATH = os.path.join(TESTS_PATH, 'tmp/')
 
 
-train_x = np.concatenate([np.expand_dims(np.linspace(-10, -7, 10, dtype=np.float32), 1),
-                          np.expand_dims(np.linspace(7, 10, 10, dtype=np.float32), 1)])
-train_y = np.sin(train_x)
-test_x = np.expand_dims(np.linspace(-15, 15, 100, dtype=np.float32), 1)
+def get_data():
+    train_x = np.concatenate([np.expand_dims(np.linspace(-10, -7, 10, dtype=np.float32), 1),
+                              np.expand_dims(np.linspace(7, 10, 10, dtype=np.float32), 1)])
+    train_y = np.sin(train_x)
+    test_x = np.expand_dims(np.linspace(-15, 15, 100, dtype=np.float32), 1)
+    return train_x, train_y, test_x
 
 
 def gaussian_kernel(X1, X2, l_scale, f_scale, y_scale=None):
@@ -49,88 +52,72 @@ def gaussian_process(x_train, y_train, x_test, l_scale, f_scale, y_scale,
     return mean, cov
 
 
-class GpModel(tdl.templates.supervised.MlModel):
-    def _init_options(self, options):
-        default = {
-            'optim/n_logging': 10,
-            'optim/train/learning_rate': 0.01}
-        options = super(GpModel, self)._init_options(options, default)
-        return options
-
-    def _init_model(self):
-        kernel = tdl.kernels.GaussianKernel(l_scale=0.3)
-        model = GaussianProcess(train_x, np.squeeze(train_y),
-                                kernel=kernel,
-                                y_scale=tf.Variable(0.1, trainable=False))
-        return model
-
-    def _init_train_model(self):
-        model = self.model
-        train = model.predict(train_x)
-        train.loss = model.marginal_likelihood().loss
-        train.fit_loss = train.loss
-        return train
-
-    def _init_test_model(self):
-        model = self.model
-        test = model.predict(test_x)
-        return test
-
-
 class GpmTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        tf.InteractiveSession()
-
     def test_kernel(self):
-        l_scale = np.random.rand()
-        f_scale = np.random.rand()
-        y_scale = np.random.rand()
-        model = tdl.kernels.GaussianKernel(l_scale=l_scale,
-                                           f_scale=f_scale,
-                                           y_scale=y_scale)
-        kernel_tdl = model.evaluate(train_x, train_x)
-        kernel_np = gaussian_kernel(train_x, train_x,
-                                    l_scale=l_scale,
-                                    f_scale=f_scale,
-                                    y_scale=y_scale)
-        tf.global_variables_initializer().run()
-        np.testing.assert_almost_equal(kernel_tdl.value.eval(), kernel_np)
+        with tf.Session().as_default():
+            train_x, train_y, test_x = get_data()
+            l_scale = np.random.rand()
+            f_scale = np.random.rand()
+            model = tdl.kernels.GaussianKernel(l_scale=l_scale,
+                                               f_scale=f_scale)
+            kernel_tdl = model.evaluate(train_x, train_x)
+            kernel_np = gaussian_kernel(train_x, train_x,
+                                        l_scale=l_scale,
+                                        f_scale=f_scale)
+            tf.global_variables_initializer().run()
+            np.testing.assert_almost_equal(kernel_tdl.value.eval(), kernel_np,
+                                           decimal=5)
 
     def test_gp_model(self):
-        model = GpModel()
-        model.optimizer.run(500)
-        assert np.isfinite(model.train.loss.eval()),\
-            'optimization failed, loss resulted in non finite number'
-        assert (model.train.loss.eval() > -9.5 and
-                model.train.loss.eval() < -7.5),\
-            'value for the gp loss outside of expected bounds'
-        [mean, stddev] = model.session.run([
-            tf.convert_to_tensor(model.test.loc),
-            tf.convert_to_tensor(model.test.scale)])
-        assert (np.isfinite(mean)).all(),\
-            'optimization failed, mean resulted in non finite number'
-        assert (np.isfinite(stddev)).all(),\
-            'optimization failed, stddev resulted in non finite number'
+        with tf.Session().as_default() as session:
+            train_x, train_y, test_x = get_data()
+            kernel = tdl.kernels.GaussianKernel(l_scale=0.3)
+            model = GaussianProcess(train_x, np.squeeze(train_y),
+                                    kernel=kernel,
+                                    y_scale=tf.Variable(0.1, trainable=False))
+            train = model.predict(train_x)
+            test = model.predict(test_x)
+            loss = model.marginal_likelihood().loss
+            optimizer = tdl.optim.Optimizer(
+                loss, var_list=tdl.core.get_trainable(model),
+                log_folder='gpm_test_tmp/monitors')
+            tdl.core.initialize_variables(model)
+            optimizer.run(500)
+
+            assert np.isfinite(loss.eval()),\
+                'optimization failed, loss resulted in non finite number'
+            assert (loss.eval() > -9.5 and
+                    loss.eval() < -7.5),\
+                'value for the gp loss outside of expected bounds'
+            [mean, stddev] = session.run([
+                tf.convert_to_tensor(test.loc),
+                tf.convert_to_tensor(test.scale)])
+            assert (np.isfinite(mean)).all(),\
+                'optimization failed, mean resulted in non finite number'
+            assert (np.isfinite(stddev)).all(),\
+                'optimization failed, stddev resulted in non finite number'
 
     def test_mean_cov(self):
-        l_scale = 0.1
-        f_scale = 0.1
-        y_scale = 0.01
-        kernel = tdl.kernels.GaussianKernel(l_scale=l_scale, f_scale=f_scale)
-        gp_model = GaussianProcess(train_x, train_y.transpose(),
-                                   y_scale=y_scale, kernel=kernel)
-        test = gp_model.predict(test_x)
-        mean, cov = gaussian_process(train_x, train_y, test_x,
-                                     l_scale, f_scale, y_scale,
-                                     gp_model.tolerance)
-        tf.global_variables_initializer().run()
-        np.testing.assert_almost_equal(np.squeeze(test.loc.eval()),
-                                       np.squeeze(mean),
-                                       decimal=4)
-        np.testing.assert_almost_equal(
-            np.squeeze(test.covariance.eval()),
-            np.squeeze(cov), decimal=4)
+        with tf.Session().as_default():
+            train_x, train_y, test_x = get_data()
+            l_scale = 0.1
+            f_scale = 0.1
+            y_scale = 0.01
+            kernel = tdl.kernels.GaussianKernel(
+                l_scale=l_scale, f_scale=f_scale)
+            gp_model = GaussianProcess(train_x, train_y.transpose(),
+                                       y_scale=y_scale, kernel=kernel)
+            test = gp_model.predict(test_x)
+            mean, cov = gaussian_process(train_x, train_y, test_x,
+                                         l_scale, f_scale, y_scale,
+                                         gp_model.tolerance)
+            tf.global_variables_initializer().run()
+            np.testing.assert_almost_equal(np.squeeze(test.loc.eval()),
+                                           np.squeeze(mean),
+                                           decimal=4)
+            np.testing.assert_almost_equal(
+                np.squeeze(test.covariance.eval()),
+                np.squeeze(cov), decimal=4)
 
 
 if __name__ == "__main__":

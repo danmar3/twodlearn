@@ -28,7 +28,7 @@ libarff/
 *Data/
 *tmp/
 *.pkl
-
+twodlearn/Examples/logs
 # ---------------------------- modelica ----------------------------- #
 *.fmu
 *log.txt

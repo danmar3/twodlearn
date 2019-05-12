@@ -27,8 +27,33 @@
   D_{KL} (P \| Q) = \expected{x \sim P}{ \func{\log}{\dfrac{p(x)}{q(x)}}}
 \end{align*}
 
-\section{Multivariate Normal}
+\section{Expected value}
+\begin{align*}
+  \expected{}{X} = \int x f(x) dx
+\end{align*}
 \begin{itemize}
+  \item \textbf{Linearity}
+  \begin{align*}
+    \expected{}{X + Y} &= \expected{}{X} + \expected{}{Y} \\
+    \expected{}{a X} &= a \expected{}{X}
+  \end{align*}
+\end{itemize}
+
+\section{Multivariate Normal Distribution}
+\begin{align}
+  p(\vx| \vmu, \vSigma) = \dfrac{1}{\sqrt{\group{2 \pi}^k \abs{\vSigma}}}
+    \func{\exp}{-\dfrac{1}{2} (\vx - \vmu)^T \vSigma^{-1} (\vx - \vmu)}
+\end{align}
+\begin{itemize}
+  \item \textbf{log likelihood}
+  \begin{align*}
+    \ln(p(\vx | \vmu, \vSigma))
+      & = -\dfrac{k \func{\ln}{2 \pi}}{2} -\dfrac{\func{\ln}{\abs{\vSigma}}}{2}
+          -\dfrac{1}{2}\group{\vx - \vmu}^T \vSigma^{-1} \group{\vx - \vmu} \\
+      & = -\dfrac{1}{2} \sgroup{\func{\ln}{\group{2 \pi}^k \abs{\vSigma}}
+            + \group{\vx - \vmu}^T \vSigma^{-1} \group{\vx - \vmu}
+                                }
+  \end{align*}
   \item \textbf{KL divergence}
   \begin{align*}
     \func{D_{KL}}{{\cal N}_a \| {\cal N}_b }
@@ -44,6 +69,12 @@
         - k + 2\group{  \log{\func{\diag}{{\vL_b}}^T \ones}
                       - \log{\func{\diag}{{\vL_a}}^T \ones} }
         }
+  \end{align*}
+  \item \textbf{Affine Transform}
+  \begin{align*}
+    \vx &\sim \normal{\vmu_x, \vSigma_x} \\
+    \vy &= \vA \vx + \vb \\
+    \vy &\sim \normal{\vA \vmu_x + \vb, \vA \Sigma_x \vA^T}
   \end{align*}
   \item \textbf{Linear Gaussian systems}
     Given a linear system:
@@ -74,5 +105,34 @@
 
 \end{itemize}
 
+\section{Gamma distribution}
+  $x \sim Ga(a, b)$ where $a$ is called the shape and $b$ the rate.
+  \begin{align*}
+    Ga(x | a, b) = \dfrac{b^a}{\Gamma(a)} x^{a-1} \func{\exp}{-bx}
+  \end{align*}
+
+  \begin{itemize}
+    \item $\expected{}{x} = \dfrac{a}{b}$
+    \item \( \expected{x \sim Ga(a, b)}{\ln{x}} = \psi(a) - \func{\ln}{b} \) \\
+    where $\psi$ is the polygamma function.
+  \end{itemize}
+
+\subsection{Inverse gamma}
+  If $x \sim Ga(a, b)$ and $y=\dfrac{1}{x}$, then $y \sim IG(a, b)$
+  \begin{align*}
+    IG(y | a, b) = \dfrac{b^a}{\Gamma(a)} y^{-(a+1)} \func{\exp}{-b/y}
+  \end{align*}
+
+\subsection{Inverse Wishart (IW)}
+This distribution is used in Bayesian statistics as the conjugate prior for the
+  covariance matrix of a multivariate normal distribution:
+  \begin{align*}
+    \vSigma & \sim \func{IW}{\vS^{-1}, \upsilon + D + 1} \\
+    \func{IW}{\vSigma \given \vS, \upsilon} &=
+      \dfrac{1}{\func{\vZ}{\vS, \upsilon}} \abs{\vSigma}^{(\upsilon+D+1)/2}
+        \func{\exp}{-\dfrac{1}{2} \Tr{\vS^{-1} \vSigma^{-1}}} \\
+    \func{Z}{\vS, \upsilon} &= \abs{\vS}^{-\upsilon/2} 2^{\upsilon D/2} \Gamma_D{\upsilon/2}
+  \end{align*}
+where $\vS \succ 0$
 
 \end{document}

@@ -5,9 +5,11 @@ from __future__ import print_function
 import os
 import unittest
 import numpy as np
+import tensorflow_probability as tfp
 import twodlearn.debug
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import twodlearn as tdl
 import twodlearn.templates.supervised
 import twodlearn.bayesnet as tdlb
 import twodlearn.feedforward as tdlf
@@ -72,292 +74,136 @@ def plot_yp(x, yp_mu, yp_std, ax, dataset=None, title=''):
     return ax
 
 
-class BayesModel(twodlearn.templates.supervised.MlModel):
-    def _init_options(self, options):
-        default = {'n_inputs': 1,
-                   'n_outputs': 1,
-                   'loc/n_hidden': [10],
-                   'scale/n_hidden': [5],
-                   'test/n_particles': 1000,
-                   'heteroscedastic': False}
-        assert 'train/n_samples' in options,\
-            'train/n_samples must be specified in the options'
-        options = super(BayesModel, self)._init_options(options, default)
-        return options
+def get_model(dataset, uncertainty):
+    if uncertainty == 'homoscedastic':
+        model = tdl.bayesnet.NormalModel(
+            batch_shape=[None, 1],
+            loc=tdl.stacked.StackedLayers(
+                layers=[tdl.bayesnet.AffineNormalLayer(
+                            units=10, tolerance=1e-5),
+                        tf.keras.layers.Activation(tf.nn.softplus),
+                        tdl.bayesnet.AffineNormalLayer(
+                            units=1, tolerance=1e-5)]))
+    elif uncertainty == 'heteroscedastic':
+        model = tdl.bayesnet.NormalModel(
+            batch_shape=[None, 1],
+            loc=tdl.stacked.StackedLayers(
+                layers=[tdl.bayesnet.AffineNormalLayer(
+                            units=5, tolerance=1e-5),
+                        tf.keras.layers.Activation(tf.nn.softplus),
+                        tdl.bayesnet.AffineNormalLayer(
+                            units=1, tolerance=1e-5)]),
+            scale=tdl.stacked.StackedLayers(
+                layers=[tdl.bayesnet.AffineNormalLayer(
+                            units=3, tolerance=1e-3),
+                        tf.keras.layers.Activation(tf.nn.softplus),
+                        tdl.bayesnet.AffineNormalLayer(
+                            units=1, tolerance=1e-3),
+                        tf.keras.layers.Activation(tf.nn.softplus),
+                        lambda x: x+1e-3]))
+    labels = tf.placeholder(tf.float32, (None, 1))
+    inputs = tf.placeholder(tf.float32, (None, 1))
+    outputs = model(inputs)
+    # loss
+    kernel_prior = tfp.distributions.Normal(loc=0.0, scale=1000.0)
+    kl = [tfp.distributions.kl_divergence(kernel, kernel_prior)
+          for kernel in [model.loc.layers[0].kernel,
+                         model.loc.layers[2].kernel]]
+    try:
+        kernel_prior = tfp.distributions.Normal(loc=0.0, scale=100.0)
+        kl.update([tfp.distributions.kl_divergence(kernel, kernel_prior)
+                   for kernel in [model.scale.layers[0].kernel,
+                                  model.scale.layers[2].kernel]])
+    except AttributeError:
+        pass
+    log_prob = tf.reduce_mean(tf.reduce_sum(outputs.log_prob(labels), -1),
+                              axis=0)
+    kl = tf.add_n([tf.reduce_sum(kl_i) for kl_i in kl])
+    train = tdl.core.SimpleNamespace(
+        inputs=inputs,
+        outputs=outputs,
+        loss=-log_prob + (1/dataset.train.n_samples)*kl,
+        labels=labels)
 
-    def _init_model(self):
-        if self.options['heteroscedastic'] is True:
-            model = tdlb.HeteroscedasticNormalMlp(
-                loc_args={'n_inputs': self.options['n_inputs'],
-                          'n_outputs': self.options['n_outputs'],
-                          'n_hidden': self.options['loc/n_hidden'],
-                          'afunction': tdlf.selu01},
-                scale_args={'n_hidden': self.options['scale/n_hidden'],
-                            'afunction': tdlf.selu01,
-                            'lower': 0.05,
-                            'upper': None}
-            )
-        else:
-            model = tdlb.NormalMlp(
-                loc_args={'n_inputs': self.options['n_inputs'],
-                          'n_outputs': self.options['n_outputs'],
-                          'n_hidden': self.options['loc/n_hidden'],
-                          'afunction': tdlf.selu01},
-                LocClass=tdlb.BayesianMlp)
-        return model
+    # Test model
+    test_model = tdl.bayesnet.SampleLayer(distribution=model)
+    test = tdl.core.SimpleNamespace(
+        inputs=inputs,
+        outputs=test_model(inputs)
+        )
 
-    def _init_train_model(self):
-        inputs = tf.placeholder(tf.float32)
-        train = self.model(inputs)
-        with tf.name_scope('loss'):
-            fit_loss = tdlb.GaussianNegLogLikelihood(train)
-            train.labels = fit_loss.labels
-            train.fit_loss = fit_loss.value
-            reg_loc = tdlb.GaussianKL(
-                p=train.loc.weights,
-                q=tf.distributions.Normal(loc=0.0, scale=1000.0))
-
-            if self.options['heteroscedastic'] is True:
-                reg_scale = tdlb.GaussianKL(
-                    p=train.scale.weights,
-                    q=tf.distributions.Normal(loc=0.0, scale=100.0))
-                train.reg_scale = reg_scale
-                train.reg_loss = reg_loc.value + reg_scale.value
-            else:
-                train.reg_loss = reg_loc.value
-
-            with tf.name_scope('train_loss'):
-                train.loss = train.fit_loss + \
-                    (1.0/self.options['train/n_samples'])*train.reg_loss
-        return train
-
-    def _init_test_model(self):
-        test = self.model.mc_evaluate(n_particles=self.options['test/n_particles'],
-                                      name='mc_test')
-        return test
-
-    def _init_training_monitor(self, logger_path):
-        # monitoring
-        ml_monitor = tdlm.TrainingMonitorManager(
-            log_folder=logger_path,
-            tf_graph=self.session.graph)
-
-        ml_monitor.train.add_monitor(
-            tdlm.OpMonitor(self.train.loss,
-                           name="train/loss"))
-        if self.options['heteroscedastic']:
-            ml_monitor.train.add_monitor(
-                tdlm.OpMonitor(tf.reduce_max(self.train.reg_scale.p.scale),
-                               name="weights/max_scale"))
-        return ml_monitor
-
-
-class BayesModel2(BayesModel):
-    def _init_model(self):
-        loc_options = {'layers/options': {'w/prior/stddev': 1000.0}}
-        scale_options = {'layers/options': {'w/prior/stddev': 100.0}}
-        if self.options['heteroscedastic'] is True:
-            model = tdlb.HeteroscedasticNormalMlp(
-                loc_args={'n_inputs': self.options['n_inputs'],
-                          'n_outputs': self.options['n_outputs'],
-                          'n_hidden': self.options['loc/n_hidden'],
-                          'afunction': tdlf.selu01,
-                          'options': loc_options},
-                scale_args={'n_hidden': self.options['scale/n_hidden'],
-                            'afunction': tdlf.selu01,
-                            'lower': 0.05,
-                            'upper': None,
-                            'options': scale_options}
-            )
-        else:
-            model = tdlb.NormalMlp(
-                loc_args={'n_inputs': self.options['n_inputs'],
-                          'n_outputs': self.options['n_outputs'],
-                          'n_hidden': self.options['loc/n_hidden'],
-                          'afunction': tdlf.selu01,
-                          'options': loc_options},
-                LocClass=tdlb.BayesianMlp)
-        return model
-
-    def _init_train_model(self):
-        inputs = tf.placeholder(tf.float32)
-        train = self.model(inputs)
-        with tf.name_scope('loss'):
-            train.fit_loss = tdlb.GaussianNegLogLikelihood(train)
-            train.labels = train.fit_loss.labels
-            train.reg_loss = self.model.regularizer.init()
-
-            with tf.name_scope('train_loss'):
-                train.loss = train.fit_loss.value + \
-                    (1.0/self.options['train/n_samples'])*train.reg_loss.value
-        return train
-
-    def _init_training_monitor(self, logger_path):
-        # monitoring
-        ml_monitor = tdlm.TrainingMonitorManager(
-            log_folder=logger_path,
-            tf_graph=self.session.graph)
-
-        ml_monitor.train.add_monitor(
-            tdlm.OpMonitor(self.train.loss,
-                           name="train/loss"))
-        if self.options['heteroscedastic']:
-            ml_monitor.train.add_monitor(
-                tdlm.OpMonitor(tf.reduce_max(self.train.reg_loss.loss2.losses[0].p.scale),
-                               name="weights/max_scale"))
-        return ml_monitor
-
-
-class Supervised(twodlearn.templates.supervised.Supervised):
-    MlModel = BayesModel
-
-    def _init_dataset(self):
-        if self.options['heteroscedastic'] is True:
-            dataset = create_heteroscedastic_dataset(
-                n_samples=self.options['train/n_samples'])
-        else:
-            dataset = create_homoscedastic_dataset(
-                n_samples=self.options['train/n_samples'])
-        return dataset
-
-    def _init_ml_model(self, logger_path):
-        model = self.MlModel(options=self.options,
-                             logger_path=self.tmp_path)
-        return model
-
-    def feed_train(self):
-        feed_dict = {self.ml_model.train.inputs:
-                     np.expand_dims(self.dataset.train.x, 1),
-                     self.ml_model.train.labels:
-                     np.expand_dims(self.dataset.train.y, 1)}
-        return feed_dict
-
-    def visualize(self):
-        test_x = np.linspace((1+0.01)*self.dataset.train.x.min(),
-                             (1+0.01)*self.dataset.train.x.max(),
-                             num=1000)
-        test_x = np.expand_dims(test_x, axis=1)
-
-        y_mean = list()
-        y_std = list()
-        for i in range(test_x.shape[0]):
-            m_i, std_i = self.ml_model.session.run(
-                [self.ml_model.test.samples.mean,
-                 self.ml_model.test.samples.stddev],
-                feed_dict={self.ml_model.test.inputs: np.expand_dims(test_x[i],
-                                                                     axis=1)})
-            y_mean.append(m_i)
-            y_std.append(std_i)
-
-        y_mean = np.concatenate(y_mean, 0)
-        y_std = np.concatenate(y_std, 0)
-
-        fig, ax = plt.subplots(1, 1, figsize=(8, 4))
-        plot_yp(test_x, y_mean, y_std, ax, self.dataset.train)
-
-
-class Supervised2(Supervised):
-    MlModel = BayesModel2
+    return tdl.core.SimpleNamespace(model=model, train=train, test=test)
 
 
 class BayesnetTest(unittest.TestCase):
-    def test_options(self):
-        layer_opt = {
-            'w/stddev/alpha': 1.0
-        }
-        model = tdlb.NormalMlp(
-            loc_args={'n_inputs': 50,
-                      'n_outputs': 10,
-                      'n_hidden': [5, 5],
-                      'options': {'layers/options': layer_opt}})
-
-        assert (model.loc.layers[0].options['w/stddev/alpha'] ==
-                layer_opt['w/stddev/alpha']),\
-            'Error on setting up options'
-
     def test_homoscedastic(self):
-        options = {'train/n_samples': 1000,
-                   'optim/train/max_steps': 1000,
-                   'heteroscedastic': False}
-        main = Supervised(options=options,
-                          tmp_path=TMP_PATH)
-        main.run_training()
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].current_value
-        assert np.isfinite(loss), 'training resulted in nan for bayesnet'
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].mean()
-        assert (loss < 2.25) and (loss > 1.0),\
+        dataset = create_homoscedastic_dataset()
+        estimator = get_model(dataset, 'homoscedastic')
+        optim = tdl.optim.Optimizer(
+            loss=estimator.train.loss,
+            var_list=tdl.core.get_trainable(estimator.model),
+            log_folder='tmp/',
+            learning_rate=0.2)
+        tdl.core.initialize_variables(estimator.model)
+        optim.run(
+            feed_train=lambda:
+            {estimator.train.labels: dataset.train.y[..., np.newaxis],
+             estimator.train.inputs: dataset.train.x[..., np.newaxis]},
+            n_train_steps=1000)
+
+        loss_value = estimator.train.loss.eval(
+            feed_dict={
+                estimator.train.labels: dataset.train.y[..., np.newaxis],
+                estimator.train.inputs: dataset.train.x[..., np.newaxis]})
+        # loss = main.ml_model.monitor\
+        #            .train['train/loss'].current_value
+        assert np.isfinite(loss_value), 'training resulted in nan for bayesnet'
+        loss_avg = optim.monitor_manager.train['train/loss'].mean()
+        assert (loss_avg < 2.85) and (loss_avg > 1.0),\
             'loss value is outside the expected range'
 
     def test_heteroscedastic(self):
-        options = {'train/n_samples': 1000,
-                   'optim/train/max_steps': 1000,
-                   'heteroscedastic': True}
-        main = Supervised(options=options,
-                          tmp_path=TMP_PATH)
-        main.run_training()
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].current_value
-        assert np.isfinite(loss), 'training resulted in nan for bayesnet'
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].mean()
-        assert (loss < -1.1) and (loss > -1.5),\
-            'loss value is outside the expected range'
+        dataset = create_heteroscedastic_dataset()
+        estimator = get_model(dataset, 'heteroscedastic')
+        optim = tdl.optim.Optimizer(
+            loss=estimator.train.loss,
+            var_list=tdl.core.get_trainable(estimator.model),
+            log_folder='tmp/',
+            learning_rate=0.005)
+        tdl.core.initialize_variables(estimator.model)
+        optim.run(
+            feed_train=lambda:
+            {estimator.train.labels: dataset.train.y[..., np.newaxis],
+             estimator.train.inputs: dataset.train.x[..., np.newaxis]},
+            n_train_steps=3000)
 
-    def test_regularizer(self):
-        options = {'train/n_samples': 1000,
-                   'optim/train/max_steps': 1000,
-                   'heteroscedastic': True}
-        main = Supervised(options=options,
-                          tmp_path=TMP_PATH)
-        scale = 15.3
-        reg_loc1 = main.ml_model.model.loc.regularizer.init(prior_stddev=scale)
-        reg_loc2 = tdlb.GaussianKL(p=main.ml_model.train.loc.weights,
-                                   q=tf.distributions.Normal(loc=0.0, scale=scale))
-        r1, r2 = main.ml_model.session.run([reg_loc1.value, reg_loc2.value])
-        np.testing.assert_almost_equal(r1, r2, decimal=5),\
-            'KL regularizer do not coincide ({}, {})'.format(r1, r2)
-
-    def test_homoscedastic2(self):
-        options = {'train/n_samples': 1000,
-                   'optim/train/max_steps': 1000,
-                   'heteroscedastic': False}
-        main = Supervised2(options=options,
-                           tmp_path=TMP_PATH)
-        main.run_training()
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].current_value
-        assert np.isfinite(loss), 'training resulted in nan for bayesnet'
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].mean()
-        assert (loss < 2.25) and (loss > 1.0),\
-            'loss value is outside the expected range'
-
-    def test_heteroscedastic2(self):
-        options = {'train/n_samples': 1000,
-                   'optim/train/max_steps': 1000,
-                   'heteroscedastic': True}
-        main = Supervised2(options=options,
-                           tmp_path=TMP_PATH)
-        main.run_training()
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].current_value
-        assert np.isfinite(loss), 'training resulted in nan for bayesnet'
-        loss = main.ml_model.monitor\
-                            .train['train/loss'].mean()
-        assert (loss < -1.1) and (loss > -1.5),\
+        loss_value = estimator.train.loss.eval(
+            feed_dict={
+                estimator.train.labels: dataset.train.y[..., np.newaxis],
+                estimator.train.inputs: dataset.train.x[..., np.newaxis]})
+        # loss = main.ml_model.monitor\
+        #            .train['train/loss'].current_value
+        assert np.isfinite(loss_value), 'training resulted in nan for bayesnet'
+        loss_avg = optim.monitor_manager.train['train/loss'].mean()
+        assert (loss_avg < -0.7) and (loss_avg > -1.0),\
             'loss value is outside the expected range'
 
     def test_normal(self):
-        main = tdlb.Normal(shape=[100, 300])
-        sess = tf.InteractiveSession()
-        tf.global_variables_initializer().run()
-        test = main.evaluate()
+        with tf.Session().as_default() as sess:
+            main = tdlb.Normal(shape=[100, 300])
+            tf.global_variables_initializer().run()
+            test = main.evaluate()
 
-        x, mean1 = sess.run([test.samples.value,
-                             test.samples.mean])
-        np.testing.assert_almost_equal(np.mean(x), np.mean(mean1))
+            x, mean1 = sess.run([test.samples.value,
+                                 test.samples.mean])
+            np.testing.assert_almost_equal(np.mean(x), np.mean(mean1))
+
+    def test_normal_model(self):
+        attr_names = tdl.core.common._find_tdl_attrs(
+            tdl.bayesnet.NormalModel,
+            tdl.core.TDL_INIT_DESCRIPTORS)
+        assert all(name in {'batch_shape', 'input_shape', 'loc', 'scale'}
+                   for name in attr_names)
 
 
 if __name__ == "__main__":

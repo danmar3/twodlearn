@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import warnings
 import tensorflow as tf
-import twodlearn.common
+import twodlearn.core
 import twodlearn.losses
 import twodlearn.templates
 import twodlearn.monitoring
@@ -20,7 +20,7 @@ class Tsne(twodlearn.templates.UnconstrainedOptimization):
             'monitor/logger_path': 'tmp/',
             'train/optim/learning_rate': 0.02,
             'perplexity/optim/learning_rate': 0.02}
-        options = twodlearn.common.check_defaults(options, default)
+        options = twodlearn.core.check_defaults(options, default)
         options = super(Tsne, self)._init_options(options=options)
         return options
 
@@ -40,7 +40,7 @@ class Tsne(twodlearn.templates.UnconstrainedOptimization):
 
     def _init_perplexity_optimizer(self):
         loss = tf.convert_to_tensor(self.model.perplexity_loss)
-        var_list = twodlearn.common.get_trainable(self.model.sigma)
+        var_list = twodlearn.core.get_trainable(self.model.sigma)
         # self.options['optim/train/learning_rate']
         optimizer = tf.train.AdamOptimizer(
             self.options['perplexity/optim/learning_rate'])

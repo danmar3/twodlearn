@@ -2,7 +2,7 @@ import tensorflow as tf
 from .options import global_options
 # from . import common
 
-if [int(s) for s in tf.__version__.split('.')][0:2] < [1, 12]:
+if [int(s) for s in tf.__version__.split('.')[0:2]] < [1, 12]:
     tf_Variable = tf.Variable
 else:
     tf_Variable = object

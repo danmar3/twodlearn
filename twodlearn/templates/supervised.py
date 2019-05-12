@@ -316,6 +316,7 @@ class SupervisedEstimator(tdl.core.TdlModel):
         # list(map( lambda x: x.run(),
         #           [v.initializer
         #            for v in tf.trainable_variables(scope)]))
+        tdl.core.initialize_variables(self.model)
         return optimizer
 
     def fit(self, dataset, max_steps=None, feed_train=None, feed_valid=None):
@@ -359,8 +360,8 @@ class SupervisedEstimator(tdl.core.TdlModel):
     def _init_options(self, options=None):
         default = {
             'optim/n_logging': 100,
-            'train/batch_size': 500,
-            'valid/batch_size': 500,
+            'train/batch_size': 100,
+            'valid/batch_size': 100,
             'train/optim/max_steps': 1000,
             'train/optim/learning_rate': 0.02}
 
@@ -376,6 +377,7 @@ class SupervisedEstimator(tdl.core.TdlModel):
     @tdl.core.EncapsulatedMethod
     def _init_vars(self, local, value):
         ''' initialize tf variables for the first time '''
+        tdl.core.assert_initialized(self, '_init_vars', ['train'])
         local.not_initialized = True
 
     @_init_vars.eval
@@ -415,7 +417,7 @@ class SupervisedEstimator(tdl.core.TdlModel):
         super(SupervisedEstimator, self).__init__(
             options=options, session=session, **kargs)
         # initialize variables
-        self._init_vars()
+        # self._init_vars()
         # tf.global_variables_initializer().run()
 
 

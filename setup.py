@@ -6,19 +6,23 @@ from setuptools import setup, find_packages
 # for development installation: pip install -e .
 # for distribution: python setup.py sdist #bdist_wheel
 #                   pip install dist/twodlearn_version.tar.gz
-DEPS = ['tensorflow-gpu', 'pandas', 'pathlib', 'tqdm', 'matplotlib',
-        'xarray']
+DEPS = ['pandas', 'pathlib', 'tqdm', 'matplotlib',
+        'xarray', 'tensorflow-probability', 'tensorflow-datasets']
 
 
 def get_dependencies():
-    if any(['tensorflow' in installed for installed in freeze.freeze()]):
-        return [dep for dep in DEPS if 'tensorflow' not in dep]
-    else:
+    tf_names = ['tensorflow-gpu', 'tensorflow', 'tf-nightly']
+    tf_installed = any([any(tfname == installed.split('==')[0]
+                            for tfname in tf_names)
+                        for installed in freeze.freeze()])
+    if tf_installed:
         return DEPS
+    else:
+        return DEPS + ['tensorflow']
 
 
 setup(name='twodlearn',
-      version='0.3.1',
+      version='0.4',
       packages=find_packages(
           exclude=["*test*", "tests"]),
       # package_data={
@@ -26,9 +30,10 @@ setup(name='twodlearn',
       # },
       package_data={'': ['*.so']},
       install_requires=get_dependencies(),
+      python_requires='>3.5.2',
       extras_require={
-          'reinforce': ['gym==0.10.2', 'pybullet==1.9.2'],
-          'development': ['nose', 'nose-timer', 'tensorflow-probability-gpu'],
+          'reinforce': ['gym', 'pybullet==2.4.5', 'casadi'],
+          'development': ['pytest', 'line_profiler', 'pytest-faulthandler'],
       },
       author='Daniel L. Marino',
       author_email='marinodl@vcu.edu',

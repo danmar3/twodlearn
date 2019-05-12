@@ -65,10 +65,12 @@ class MVN(tdl.core.TdlModel):
         Batch_shape corresponds to the number of independent MVN distributions.
         '''
         if value is None:
+            tdl.core.assert_initialized_if_available(
+                self, 'shape', ['loc', 'covariance'])
             tdl.core.assert_any_available(self, 'shape', ['loc', 'covariance'])
-            if tdl.core.is_property_set(self, 'loc'):
+            if tdl.core.is_property_initialized(self, 'loc'):
                 value = tf.convert_to_tensor(self.loc).shape
-            if tdl.core.is_property_set(self, 'covariance'):
+            if tdl.core.is_property_initialized(self, 'covariance'):
                 cov_shape = tf.convert_to_tensor(self.covariance).shape[:-1]
                 value = (cov_shape if value is None
                          else tf.broadcast_static_shape(value, cov_shape))
@@ -88,6 +90,42 @@ class MVN(tdl.core.TdlModel):
         tdl.core.assert_initialized(self, 'event_shape', ['shape'])
         return self.shape[-1:]
 
+    @tdl.core.LazzyProperty
+    def dynamic_shape(self):
+        ''' dynamic shape of the distribution
+        The shape assumes the last dimention corresponds to a set of
+        mvn vectors.
+        Shape is divided as [batch_shape, event_shape]. Event shape is
+        the shape of the samples for a single distribution.
+        Batch_shape corresponds to the number of independent MVN distributions.
+        '''
+        tdl.core.assert_initialized_if_available(
+            self, 'dynamic_shape', ['loc', 'covariance'])
+        tdl.core.assert_any_available(
+            self, 'dynamic_shape', ['loc', 'covariance'])
+        value = None
+        if tdl.core.is_property_set(self, 'loc'):
+            value = tf.shape(tf.convert_to_tensor(self.loc))
+        if tdl.core.is_property_set(self, 'covariance'):
+            cov_shape = tf.shape(tf.convert_to_tensor(self.covariance))[:-1]
+            value = (cov_shape if value is None
+                     else tf.broadcast_dynamic_shape(value, cov_shape))
+        return value
+
+    @tdl.core.LazzyProperty
+    def dynamic_batch_shape(self):
+        ''' leading dimensions of shape '''
+        tdl.core.assert_initialized(self, 'dynamic_batch_shape',
+                                    ['dynamic_shape'])
+        return self.dynamic_shape[:-1]
+
+    @tdl.core.LazzyProperty
+    def dynamic_event_shape(self):
+        ''' leading dimensions of shape '''
+        tdl.core.assert_initialized(
+            self, 'dynamic_event_shape', ['dynamic_shape'])
+        return self.dynamic_shape[-1:]
+
     @tdl.core.InputParameter
     def loc(self, value, AutoType=None):
         ''' mean of the distribution '''
@@ -96,6 +134,7 @@ class MVN(tdl.core.TdlModel):
         if AutoType is None:
             AutoType = tdl.core.variable
         if value is None:
+            tdl.core.assert_initialized(self, 'loc', ['shape'])
             value = AutoType(tf.zeros(self.shape))
         return value
 
@@ -170,6 +209,8 @@ class MVN(tdl.core.TdlModel):
         Lov_h = self.scale.linop.solvevec(value - self.loc)
         ht_Lov_h = tdl.core.array.reduce_sum_rightmost(Lov_h*Lov_h, ndims=1)
         k = self.shape.as_list()[-1]
+        if k is None:
+            k = tf.cast(self.dynamic_shape[-1], log_det_cov.dtype)
         return -0.5*(log_det_cov + ht_Lov_h + k*tf.log(2.0*np.pi))
 
 
@@ -223,8 +264,12 @@ class MVNScaledIdentity(MVNDiag):
     '''
     def _PDMatrixClass(self, raw, shape=None):
         tdl.core.assert_initialized(self, '_PDMatrixClass', ['shape'])
-        return PDScaledIdentity(
-            raw=raw, domain_dimension=self.event_shape[-1])
+        if self.event_shape[-1].value is None:
+            return PDScaledIdentity(
+                raw=raw, domain_dimension=self.dynamic_event_shape[-1])
+        else:
+            return PDScaledIdentity(
+                raw=raw, domain_dimension=self.event_shape[-1])
 
 
 @RegisterKL(MVN, MVN)

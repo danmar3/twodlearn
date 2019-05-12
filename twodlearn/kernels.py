@@ -1,5 +1,7 @@
 from __future__ import division
 from __future__ import print_function
+import typing
+import warnings
 import numpy as np
 import tensorflow as tf
 import twodlearn as tdl
@@ -97,6 +99,13 @@ class GaussianKernel(tdl.TdlModel):
     '''
     _default_name = 'GaussianKernel'
     _parameters = ['l_scale', 'f_scale', 'y_scale']
+    @tdl.core.InputArgument
+    def input_shape(
+        self, value: typing.Union[typing.List[int], typing.Tuple[int],
+                                  tf.TensorShape]) -> tf.TensorShape:
+        if not isinstance(value, tf.TensorShape):
+            value = tf.TensorShape(value)
+        return value
 
     @tdl.core.SimpleParameter
     def l_scale(self, value, AutoType=None):
@@ -128,27 +137,28 @@ class GaussianKernel(tdl.TdlModel):
 
     @tdl.ModelMethod(['value', 'diff'], ['x1', 'x2'])
     def evaluate(self, object, x1, x2):
-        # DEBUG
-        # k1 = self.kernel.matrix(x1, x2)
-        #
-        x1 = tf.convert_to_tensor(x1)
-        x2 = tf.convert_to_tensor(x2)
+        x1 = tf.convert_to_tensor(x1)/self.l_scale
+        x2 = tf.convert_to_tensor(x2)/self.l_scale
         x1 = tf.expand_dims(x1, -(self.feature_ndims + 1))
         x2 = tf.expand_dims(x2, -(self.feature_ndims + 2))
         g = tdl.core.array.reduce_sum_rightmost((x1-x2)**2, self.feature_ndims)
-        k = self.f_scale**2 * tf.exp(-g/(2*self.l_scale**2))
-        k_dim = tf.shape(k)
+        k_value = self.f_scale**2 * tf.exp(-g/2)
         if self.y_scale is not None:
-            k = k + self.y_scale**2 * tf.eye(k_dim[0])
-        return k, g
+            warnings.warn("y_scale for caussian kernel is deprecated",
+                          DeprecationWarning)
+            k_dim = tf.shape(k_value)
+            k_value = k_value + self.y_scale**2 * tf.eye(k_dim[0])
+        return k_value, g
 
     @tdl.ModelMethod(['value'], ['x1', 'x2'])
     def batch_eval(self, object, x1, x2):
-        x1 = tf.convert_to_tensor(x1)
-        x2 = tf.convert_to_tensor(x2)
+        x1 = tf.convert_to_tensor(x1)/self.l_scale
+        x2 = tf.convert_to_tensor(x2)/self.l_scale
         g = tdl.core.array.reduce_sum_rightmost((x1-x2)**2, self.feature_ndims)
-        k = self.f_scale**2 * tf.exp(-g/(2*self.l_scale**2))
+        k = self.f_scale**2 * tf.exp(-g/2)
         if self.y_scale is not None:
+            warnings.warn("y_scale for caussian kernel is deprecated",
+                          DeprecationWarning)
             k_dim = tf.shape(k)
             k = k + self.y_scale**2 * tf.eye(k_dim[0])
         return k

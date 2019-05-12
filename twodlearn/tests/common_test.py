@@ -11,19 +11,19 @@ import twodlearn.templates.bayesnet
 
 class CommonTest(unittest.TestCase):
     def test_rank(self):
-        assert tdl.common.tensor_rank(np.array([[1.0]])) == 0,\
+        assert tdl.core.tensor_rank(np.array([[1.0]])) == 0,\
             'Error on computing tensor_rank'
-        assert tdl.common.tensor_rank(np.array([1.0])) == 0,\
+        assert tdl.core.tensor_rank(np.array([1.0])) == 0,\
             'Error on computing tensor_rank'
-        assert tdl.common.tensor_rank(np.array([[1, 2, 3],
-                                                [4, 5, 6]])) == 2,\
+        assert tdl.core.tensor_rank(np.array([[1, 2, 3],
+                                              [4, 5, 6]])) == 2,\
             'Error on computing tensor_rank'
-        assert tdl.common.tensor_rank(np.array([[1, 2, 3]])) == 1,\
+        assert tdl.core.tensor_rank(np.array([[1, 2, 3]])) == 1,\
             'Error on computing tensor_rank'
 
     def test_eager(self):
         class TestProgram(object):
-            @tdl.common.EagerMethod
+            @tdl.core.EagerMethod
             def eager_fn(self, alpha):
                 self._alpha = alpha
 
@@ -43,7 +43,7 @@ class CommonTest(unittest.TestCase):
 
     def test_simple_parameter(self):
         class TestClass(object):
-            @tdl.common.SimpleParameter
+            @tdl.core.SimpleParameter
             def alpha(self, value):
                 return value
 
@@ -56,8 +56,8 @@ class CommonTest(unittest.TestCase):
                 'eager function is not setting attributes correctly'
 
     def test_tdl_program(self):
-        class TestProgram(tdl.common.TdlProgram):
-            @tdl.common.EagerMethod
+        class TestProgram(tdl.core.TdlProgram):
+            @tdl.core.EagerMethod
             def eager_fn(self, alpha):
                 self._alpha = alpha
 
@@ -100,13 +100,13 @@ class CommonTest(unittest.TestCase):
             'Incorrect tdl attributes have been found'
 
     def test_find_attrs2(self):
-        class TestInit0(tdl.common.TdlModel):
-            @tdl.common.InputArgument
+        class TestInit0(tdl.core.TdlModel):
+            @tdl.core.InputArgument
             def one(self, value):
                 return value
 
         class TestInit1(TestInit0):
-            @tdl.common.InputArgument
+            @tdl.core.InputArgument
             def two(self, value):
                 return value
 
@@ -114,8 +114,8 @@ class CommonTest(unittest.TestCase):
         assert test.one == 1 and test.two == 2
 
     def test_tdlobject(self):
-        class TestProgram(tdl.common.TdlObject):
-            @tdl.common.EncapsulatedMethod
+        class TestProgram(tdl.core.TdlObject):
+            @tdl.core.EncapsulatedMethod
             def local_counter(self, local, value):
                 local.alpha = 0
 
@@ -134,8 +134,8 @@ class CommonTest(unittest.TestCase):
                 'error while evaluating local counter'
 
     def test_tdlobject_local(self):
-        class TestProgram(tdl.common.TdlObject):
-            @tdl.common.EncapsulatedMethod
+        class TestProgram(tdl.core.TdlObject):
+            @tdl.core.EncapsulatedMethod
             def local_counter(self, local, value):
                 local.alpha = 0
 
@@ -153,8 +153,8 @@ class CommonTest(unittest.TestCase):
                 'error while evaluating local counter'
 
     def test_optional_property(self):
-        class TestObject(tdl.common.TdlObject):
-            @tdl.common.OptionalProperty
+        class TestObject(tdl.core.TdlObject):
+            @tdl.core.OptionalProperty
             def regularizer(self, stddev):
                 return stddev**2.0
 
@@ -174,7 +174,7 @@ class CommonTest(unittest.TestCase):
                 'optional property error'
 
     def test_submodelinit(self):
-        class TestObject(tdl.common.TdlObject):
+        class TestObject(tdl.core.TdlObject):
             @tdl.core.SubmodelInit
             def submodel(self, x, y):
                 return tdl.core.SimpleNamespace(x=x, y=y)
@@ -188,19 +188,19 @@ class CommonTest(unittest.TestCase):
                 'SubmodelInit test failed'
 
     def test_inputmodelinit(self):
-        class TestObject0(tdl.common.TdlObject):
+        class TestObject0(tdl.core.TdlObject):
             @tdl.core.InputModelInit
             def submodel(self, x, y):
                 return tdl.core.SimpleNamespace(x=x, y=y)
 
-        class TestObject1(tdl.common.TdlObject):
+        class TestObject1(tdl.core.TdlObject):
             submodel = tdl.core.InputModelInit(inference_input=True)
 
             @submodel.initializer
             def submodel(self, x, y):
                 return tdl.core.SimpleNamespace(x=x, y=y)
 
-        class TestObject2(tdl.common.TdlObject):
+        class TestObject2(tdl.core.TdlObject):
             @tdl.core.InputModelInit(inference_input=True)
             def submodel(self, x, y):
                 return tdl.core.SimpleNamespace(x=x, y=y)
@@ -222,19 +222,19 @@ class CommonTest(unittest.TestCase):
          for ObjClass in (TestObject0, TestObject1, TestObject2, TestObject3)]
 
     def test_inputmodelinit2(self):
-        class TestObject0(tdl.common.TdlModel):
+        class TestObject0(tdl.core.TdlModel):
             @tdl.core.InputModelInit
             def submodel(self, x=None, y=None):
                 return tf.placeholder(tf.float32)
 
-        class TestObject1(tdl.common.TdlModel):
+        class TestObject1(tdl.core.TdlModel):
             submodel = tdl.core.InputModelInit(inference_input=True)
 
             @submodel.initializer
             def submodel(self, x=None, y=None):
                 return tf.placeholder(tf.float32)
 
-        class TestObject2(tdl.common.TdlModel):
+        class TestObject2(tdl.core.TdlModel):
             @tdl.core.InputModelInit(inference_input=True)
             def submodel(self, x=None, y=None):
                 return tf.placeholder(tf.float32)
@@ -256,7 +256,7 @@ class CommonTest(unittest.TestCase):
         assert not tdl.core.is_property_set(model, 'optimizer')
 
     def test_disableautoinit(self):
-        class TestObject(tdl.common.TdlModel):
+        class TestObject(tdl.core.TdlModel):
             _input_args = ['four', 'two', 'one']
 
             @tdl.core.InputArgument
@@ -305,7 +305,7 @@ class CommonTest(unittest.TestCase):
             'error initializing model'
 
     def test_autoinit(self):
-        class TestObject(tdl.common.TdlModel):
+        class TestObject(tdl.core.TdlModel):
             _input_args = ['four', 'two', 'one']
 
             @tdl.core.InputArgument
@@ -507,6 +507,63 @@ class CommonTest(unittest.TestCase):
         model3 = TestModel1(two=2, three=3)
         assert model3.three == 5
         assert not tdl.core.is_property_set(model3, 'one')
+
+    def test_hasattr(self):
+        class TestClass1(tdl.core.TdlModelCallable):
+            @tdl.core.InputArgument
+            def one(self, value):
+                return value
+
+        class TestClass2(tdl.core.TdlModelCallable):
+            @tdl.core.InputArgument
+            def one(self, value):
+                return value
+
+            @tdl.core.InputArgument
+            def two(self, value):
+                return value
+
+        test1 = TestClass1()
+        assert tdl.core.hasattr(test1, 'one')
+        assert not tdl.core.is_property_initialized(test1, 'one')
+        assert not tdl.core.hasattr(test1, 'two')
+        test2 = TestClass2()
+        test2.one = 1
+        assert tdl.core.hasattr(test2, 'one')
+        assert tdl.core.is_property_initialized(test2, 'one')
+        assert tdl.core.hasattr(test2, 'two')
+        assert not tdl.core.is_property_initialized(test2, 'two')
+
+    def test_conditional_initialization(self):
+        @tdl.core.create_init_docstring
+        class TestClass(tdl.stacked.StackedLayers):
+            @tdl.core.InputArgument
+            def input_shape(self, value):
+                if value is None:
+                    tdl.core.assert_initialized_if_available(
+                        self, 'input_shape', ['embedding_size'])
+                    if tdl.core.is_property_initialized(
+                            self, 'embedding_size'):
+                        value = tf.TensorShape([None, self.embedding_size])
+                    else:
+                        raise tdl.core.exceptions.ArgumentNotProvided(self)
+                return tf.TensorShape(value)
+
+            @tdl.core.InputArgument
+            def embedding_size(self, value):
+                if value is None:
+                    tdl.core.assert_initialized(
+                        self, 'embedding_size', ['input_shape'])
+                    value = self.input_shape[-1].value
+                return value
+
+        test1 = TestClass(embedding_size=5)
+        assert test1.input_shape.as_list() == [None, 5]
+        test2 = TestClass(input_shape=[None, 5])
+        assert test2.embedding_size == 5
+        test3 = TestClass(input_shape=[None, 5])
+        assert tdl.core.any_initialized(
+            test3, ['input_shape', 'embedding_size'])
 
 
 if __name__ == "__main__":

@@ -2,6 +2,14 @@ import numpy as np
 import tensorflow as tf
 
 
+def is_scalar(value):
+    if isinstance(value, (int, float)):
+        return True
+    elif isinstance(value, np.ndarray):
+        return value.ndim == 0
+    return False
+
+
 def mesh2array(mesh):
     ''' convert a 2d mesh created with np.meshgrid to an matrix
         representation '''
