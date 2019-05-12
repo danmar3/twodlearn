@@ -2,18 +2,24 @@
 A library to develop machine learning models.
 
 ## A. Installation
-* 1. Clone the project
+* 1. Install the desired version of tensorflow (CPU or GPU)
+```
+pip install tensorflow        # for CPU
+pip install tensorflow-gpu    # for GPU
+```
+
+* 2. Clone the project
 ```
 git clone git@github.com:danmar3/twodlearn.git twodlearn
 cd twodlearn
 ```
 
-* 2. Install the project
+* 3. Install the project
 ```
 pip install -e .
 ```
 
-* 3. Install extras (optional)
+* 4. Install extras (optional)
 ```
 pip install -e .[reinforce]
 pip install -e .[development]
