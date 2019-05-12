@@ -1,0 +1,152 @@
+\documentclass{article}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage{booktabs}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage[font=small]{caption}
+%\usepackage{subcaption}
+%\expandafter\def\csname ver@subfig.sty\endcsname{}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{pgffor}
+\usepackage{hyperref}
+\usepackage{soul}
+
+% for tables
+\newcommand{\centertab}[1]{\multicolumn{1}{|c|}{\textbf{#1} }}
+\newcommand{\bigcell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\begin{document}
+\input{math_definitions}
+
+
+\section{Basic Linear Algebra}
+\begin{itemize}
+  \item $ \vA^{-T} \triangleq \group{\vA^T}^{-1} = \group{\vA^{-1}}^{T} $
+  \item $ (\vA \vB)^{T} = \vB^{T} \vA^{T} $
+  \item $ (\vA \vB)^{-1} = \vB^{-1} \vA^{-1} $,
+    iff $ \vA$ and $\vB$ are invertible
+  \item Frobenius norm $ \fnorm{\vA} = \sqrt{\Tr{\vA \vA^T}}$
+  \item \textbf{trace:}
+  \begin{itemize}
+    \let\labelitemii\labelitemi
+    \item $ \Tr{\vA^{T}} = \Tr{\vA} $
+    \item $ \Tr{\vA + \vB} = \Tr{\vA} + \Tr{\vB} $
+    \item $ \Tr{\vA \vB^{T}} = \Tr{\vA^{T} \vB} =
+      \sum_{i,j}{\group{\vA \circ \vB}_{(i,j)}} $
+    \item $ \Tr{\vA \vB \vC} = \Tr{\vC \vA \vB} = \Tr{\vB \vC \vA} $
+  \end{itemize}
+  \item \textbf{determinant:}
+  \begin{itemize}
+    \item $ \det{\vA^T} = \det{\vA} $
+    \item $ \det{\vA^{-1}} = \group{\det{\vA}}^{-1} $
+    \item $ \func{\det}{\vA \vB} = \func{\det}{\vA} \func{\det}{\vB} $,
+      for square matrices of equal size.
+    \item If $\vA$ is a triangular matrix (lower triangular or upper triangular),
+    $$ \det{\vA} = \prod_i{A_{(i,i)}}$$
+  \end{itemize}
+\end{itemize}
+
+\section{Cholesky decomposition}
+The Cholesky decomposition of a positive-definite matrix A is a decomposition
+  of the form:
+$$ \vSigma = \vL \vL^{T} $$
+where $\vL$ is a lower triangular matrix
+\begin{itemize}
+  \item $\vSigma^{-1} = \group{\vL \vL^{T}}^{-1} = \vL^{-T} \vL^{-1}$
+  \item $\vL \solve \vx \triangleq \vL^{-1} \vx$
+  \item $\vSigma^{-1} \vx = \vL^{T} \solve \vL \solve \vx$
+  \item $\vx^T \vSigma^{-1} \vx = \ltwogroup{ \vL \solve \vx}^2 $
+  \item $\Tr{\vSigma_b^{-1} \vSigma_a} = \fnorm{\vL_b \solve \vL_a}^2 $\\
+    Proof:
+    \begin{align*}
+      \Tr{\vSigma_b^{-1} \vSigma_a}
+        & = \Tr{\group{\vL_b \vL_b^T}^{-1} \vL_a \vL_a^T} \\
+        & = \Tr{\vL_b^{-T} \vL_b^{-1} \vL_a \vL_a^T}
+          = \Tr{ \vL_a^T \vL_b^{-T} \vL_b^{-1} \vL_a } \\
+        & = \Tr{ \group{\vL_b^{-1} \vL_a}^T  \group{\vL_b^{-1} \vL_a} }
+          = \fnorm{\vL_b \solve \vL_a}^2
+    \end{align*}
+  \item $\func{\log}{\abs{\vSigma}}
+    = 2 \sum_i \func{\log}{L_{(i,i)}}
+    = 2 \Tr{ \func{\log}{\vL} }$
+\end{itemize}
+
+\section{Inverse}
+  \begin{flalign}
+    & \group{\eye + \vP}^{-1} = \eye - \group{\eye + \vP}^{-1} \vP &
+    \label{eq:inv_identity_1} \\
+    & \group{\eye + \vP \vQ}^{-1} \vP = \vP \group{\eye + \vQ \vP}^{-1} &
+    \label{eq:inv_identity_2}
+  \end{flalign}
+
+\subsection{Matrix inversion lemma (Sherman-Morrison-Woodbury)}
+\begin{itemize}
+  \item
+    \begin{flalign}
+      & \group{\vA + \vB \vC \vD}^{-1} =
+      \vA^{-1} - \vA^{-1} \vB \group{\vC^{-1} + \vD \vA^{-1} \vB}^{-1} \vD \vA^{-1} &
+      \label{eq:inv_identity_3}
+    \end{flalign}
+  \item $ \group{\vA + \vB \vC \vD}^{-1} =
+    \vA^{-1} - \vA^{-1} \vB \group{\eye + \vC \vD \vA^{-1} \vB}^{-1} \vC \vD \vA^{-1}
+    $
+  \item $ \group{\vA + \vX \vB \vX^T}^{-1} =
+    \vA^{-1} - \vA^{-1} \vX \group{\vB^{-1} + \vX^T \vA^{-1} \vB}^{-1} \vX^T \vA^{-1}
+    $
+  \item $ \group{\vA + \vB \vC \vD}^{-1} \vB \vC =
+    \vA^{-1} \vB \group{\vC^{-1} + \vD \vA^{-1} \vB}^{-1} $,
+    using \ref{eq:inv_identity_3} and \ref{eq:inv_identity_1} \ref{eq:inv_identity_2}
+  \item $ \group{\vA + \vB}^{-1} = \vA^{-1} \group{\vA^{-1} + \vB^{-1}}^{-1} \vB^{-1} $
+  \item $ \group{\vA^{-1} + \vB^{-1}}^{-1} = \vA \group{\vA^{-1} + \vB^{-1}} \vB $
+
+  where $\vA$ and $\vB$ are square and invertible matrices.
+\end{itemize}
+
+\section{square}
+\begin{align}
+  \vx^T \vM \vx - 2 \vb^T \vx =
+    \group{\vx - \vM^{-1} \vb}^T \vM \group{\vx - \vM^{-1} \vb}
+    - \vb^T \vM^{-1} \vb
+\end{align}
+
+
+\appendix
+\section{Notation}
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c |}
+ \hline
+ \bigcell{c}{\textbf{Notation}}  & \textbf{Description} \\
+ \hline \rule{0pt}{3ex}
+ $\tX \in \reals^{I_1 \times I_2 \times \cdots \times I_N}$ & Tensor of order $N$  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $x, \vx, \vX$ & \bigcell{c}{Scalar, vector and matrix. \\ Non-bold letters do not strictly represent scalars, \\in many cases their meaning should be extracted \\from context}  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $x_{i_1,i_2, ..., i_N}, \; \tX_{(i_1,i_2, ..., i_N)} $ & $(i_1, i_2, ..., i_N)$th entry of $\tX$  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\vx_{:,i}, \; \vX_{(:,i)} $ & \bigcell{c}{$i$th column of the matrix $\vX$. \\Colons are used for indexing an entire dimension.} \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\vx_{:,i_2, ..., i_N}, \; \tX_{(:,i_2, ..., i_N)} $ & Mode-1 fiver of $\tX$  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\vX_{:,:, ..., i_N}, \; \tX_{(:, :, ..., i_N)} $ & Frontal slice of $\tX$  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\tX_{(+, :, \ldots, :)} $ & Partial sum-reduction over first dimension \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\tX_{(+)}$ & Sum-reduction over all elements in the tensor \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\ones$ & \bigcell{c}{Tensor whose elements are equal to one. \\ Their order and size is usually extracted from context}  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\tA \odot \tB$ & \bigcell{c}{Element-wise product between tensors $\tA$ and $\tB$}  \\[0.3cm]
+ \hline \rule{0pt}{3ex}
+ $\tC_{(i,j)} = \tA_{(i,k)} \tB_{(k,j)}$ & \bigcell{c}{ Tensor contraction using Einstein notation. \\ In this case is just the matrix multiplication \\ between $\tA$ and $\tB$}  \\[0.3cm]
+ \hline
+
+\end{tabular}
+\caption{ Notation for vectors, matrices and tensors }\label{table:tensor_notation}
+\end{table}
+
+\end{document}

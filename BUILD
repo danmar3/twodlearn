@@ -1,0 +1,10 @@
+py_library(
+  name="twodlearn_dist",
+  srcs=["setup.py"],
+  deps=["//twodlearn:core",
+        "//twodlearn:bayes",
+        "//twodlearn:datasets",
+        "//twodlearn:templates",
+        "//twodlearn:tests"],
+  visibility=["//visibility:public"],
+  )

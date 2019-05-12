@@ -1,0 +1,15 @@
+# .bazelrc
+
+# We will use new CROSSTOOL file for our toolchain
+build:clang --crosstool_top=//tools/clang_compiler:toolchain
+build:clang --cpu=k8
+build:clang --define=using_clang=true
+
+build:cuda_clang --crosstool_top=//tools/clang_compiler:toolchain
+build:cuda_clang --cpu=k8
+build:cuda_clang --define=using_cuda=true --define=using_cuda_clang=true --define=using_clang=true
+
+# Bazel uses internal tools many of which are written in
+# C++ (such as `process-wrapper`). Therefore we still need a sane
+# C++ toolchain for these tools.
+build:clang --host_crosstool_top=//tools/clang_compiler:toolchain

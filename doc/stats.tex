@@ -1,0 +1,78 @@
+\documentclass{article}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage{booktabs}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage[font=small]{caption}
+%\usepackage{subcaption}
+%\expandafter\def\csname ver@subfig.sty\endcsname{}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{pgffor}
+\usepackage{hyperref}
+\usepackage{soul}
+
+% for tables
+\newcommand{\centertab}[1]{\multicolumn{1}{|c|}{\textbf{#1} }}
+\newcommand{\bigcell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\begin{document}
+\input{math_definitions}
+
+\section{KL divergence}
+\begin{align*}
+  D_{KL} (P \| Q) = \expected{x \sim P}{ \func{\log}{\dfrac{p(x)}{q(x)}}}
+\end{align*}
+
+\section{Multivariate Normal}
+\begin{itemize}
+  \item \textbf{KL divergence}
+  \begin{align*}
+    \func{D_{KL}}{{\cal N}_a \| {\cal N}_b }
+      & = \dfrac{1}{2}\group{
+        \Tr{\vSigma_b^{-1} \vSigma_a}
+        + \group{\vmu_b - \vmu_a} \vSigma_b^{-1} \group{\vmu_b - \vmu_a}
+        - k + \log{\dfrac{\abs{\vSigma_b}}{\abs{\vSigma_a}}}
+        } \\
+      & = \dfrac{1}{2}\group{
+        \fnorm{\vL_b \solve \vL_a}^2
+        + \ltwogroup{\vL_b \solve \group{\vmu_b - \vmu_a}}^2
+        %& \;\;\;\;\;\;\;\;\;\;\;\;\;
+        - k + 2\group{  \log{\func{\diag}{{\vL_b}}^T \ones}
+                      - \log{\func{\diag}{{\vL_a}}^T \ones} }
+        }
+  \end{align*}
+  \item \textbf{Linear Gaussian systems}
+    Given a linear system:
+    \begin{align*}
+      p(\vx) = \normal{x \given \vmu_x, \vSigma_x} \\
+      p(\vy \given \vx) = \normal{\vy \given \vA \vx + b, \vSigma_y}
+    \end{align*}
+    We have the following:
+    \begin{align*}
+      p(\vx \given \vy) &= \normal{x \given \vmu_{x \given y}, \vSigma_{x \given y}} \\
+      \vmu_{x \given y} &= \vSigma_{x \given y} \sgroup{\vA^T \vSigma_y^{-1} (\vy - \vb) + \vSigma_x^{-1} \vmu_x}\\
+      \vSigma_{x \given y} &= \vSigma_x^{-1} + \vA^T \vSigma_y^{-1} \vA
+    \end{align*}
+    \begin{align*}
+      p(\vy) = \normal{\vy \given \vA \vmu_x + \vb,
+                       \vSigma_y + \vA \vSigma_x \vA^T}
+    \end{align*}
+  \item \textbf{quadratic relations}
+    \begin{itemize}
+      \item $\expected{\vx \sim \normal{\vmu, \vSigma}}{\vx^T \vA \vx}
+              = \Tr{\vA \vSigma} + \vmu^T \vA \vmu$
+      \item
+      $$\expected{\vx \sim \normal{\vb, \vB}}{
+        \group{\va - \vA \vx}^T \Sigma^{-1} \group{\va - \vA \vx}}
+        = \group{\va - \vA \vb}^T \vSigma^{-1} \group{\va - \vA \vb}
+          + \Tr{\vA^T \vSigma^{-1} \vA \vB}$$
+    \end{itemize}
+
+\end{itemize}
+
+
+\end{document}
