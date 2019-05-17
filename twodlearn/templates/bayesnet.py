@@ -10,13 +10,6 @@ from twodlearn.bayesnet import GaussianNegLogLikelihood
 class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
     _submodels = []
 
-    def _init_options(self, options):
-        default = {
-            'optim/n_logging': 100,
-            'train/optim/learning_rate': 0.01}
-        options = tdl.core.check_defaults(options, default)
-        return options
-
     @tdl.core.SubmodelInit
     def model(self, train_x, train_y):
         # if isinstance(train_x, np.nparray):
@@ -153,12 +146,6 @@ class ExplicitGpEstimator(GpEstimator):
 class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
     _submodels = []
 
-    def _init_options(self, options):
-        default = {
-            'optim/n_logging': 100}
-        options = tdl.core.check_defaults(options, default)
-        return options
-
     @tdl.core.InputArgument
     def m(self, value):
         return value
@@ -171,7 +158,7 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
                               y_scale=np.array([1.0]*ydims))
         return model
 
-    def fit(self, dataset, max_iter=100):
+    def fit(self, dataset, max_iter=100, feed_dict=None):
         if not tdl.core.is_property_set(self, 'model'):
             self.model.init(dataset=dataset)
         if not tdl.core.is_property_set(self, 'train'):
@@ -186,8 +173,11 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
 
         def feed_train():
             batch_x, batch_y = dataset.train.next_batch(batch_size)
-            return {tdl.core.get_placeholder(self.train.labels): batch_y,
+            feed = {tdl.core.get_placeholder(self.train.labels): batch_y,
                     tdl.core.get_placeholder(self.train.inputs): batch_x}
+            if feed_dict is not None:
+                feed.update(feed_dict)
+            return feed
 
         self.optimizer.run(max_iter, feed_train=feed_train)
 

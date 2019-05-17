@@ -388,12 +388,6 @@ class GpWithExplicitMean(tdl.core.TdlModel):
             return self.gp_output.k12
 
         @tdl.core.LazzyProperty
-        def k21_k11inv(self):
-            k11_inv = tf.convert_to_tensor(self.gp_output.k11_inv)
-            k21 = tf.convert_to_tensor(self.gp_output.k21)
-            return tf.matmul(k21, k11_inv)
-
-        @tdl.core.LazzyProperty
         def basis(self):
             train = self.model.explicit_basis(self.gp_model.xm)
             train = tdl.core.SimpleNamespace(
