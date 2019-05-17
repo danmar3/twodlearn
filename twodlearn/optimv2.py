@@ -273,7 +273,7 @@ class Monitor(tdl.core.TdlModel):
 
     def warmup(self, **kwargs):
         tdl.core.assert_initialized(self, 'warmup', ['monitor_manager'])
-        if kwargs['feed_valid'] is not None:
+        if 'feed_valid'in kwargs and kwargs['feed_valid'] is not None:
             self.feed_valid.value = kwargs['feed_valid']
 
     def cleanup(self, **kwargs):
@@ -298,7 +298,7 @@ class StatusBar(tdl.core.TdlModel):
             self.status_bar.bar.update(self.status_bar.update_freq)
             info = 'step {} | loss {:.4f} '.format(
                 data[self.train_step.name],
-                data[self.loss.name])
+                np.squeeze(data[self.loss.name]))
             if isinstance(self, Monitor):
                 valid_monitors = self.monitor_manager.valid.tf_monitors
                 for monitor in valid_monitors:
