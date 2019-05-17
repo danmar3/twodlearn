@@ -6,6 +6,7 @@ from twodlearn.bayesnet.gaussian_process import \
 from twodlearn.bayesnet import GaussianNegLogLikelihood
 
 
+@tdl.core.add_autoinit_class
 class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
     _submodels = []
 
@@ -37,9 +38,9 @@ class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
             max_iter: number of maximum iterations to run the optimization.
                 Defaults to 100.
         """
-        if not tdl.core.is_property_set(self, 'model'):
+        if not tdl.core.is_property_initialized(self, 'model'):
             self.model.init(train_x=train_x, train_y=train_y)
-        if not tdl.core.is_property_set(self, 'optimizer'):
+        if not tdl.core.is_property_initialized(self, 'optimizer'):
             self.optimizer.init()
             self._init_vars()
         self.optimizer.run(max_iter)
@@ -58,7 +59,9 @@ class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
     @tdl.core.Submodel
     def train(self, _):
         train = self.model.marginal_likelihood()
-        return train
+        return tdl.core.SimpleNamespace(
+            loss=tf.reduce_sum(train.loss),
+            posterior=train)
 
     @tdl.core.Submodel
     def valid(self, _):
@@ -92,7 +95,24 @@ class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
         return tdl.core.save.ModelData(cls=type(self),
                                        init_args=init_args)
 
+    @tdl.core.SubmodelInit(lazzy=True)
+    def optimizer(self, learning_rate=0.01, valid_freq=10, **kargs):
+        if not self.monitor.is_set:
+            self.monitor.init()
+        with tf.name_scope('optimizer'):
+            optimizer = tdl.optimv2.Optimizer(
+                    loss=self.train.loss,
+                    var_list=tdl.core.get_trainable(self.model),
+                    session=self.session,
+                    monitor_manager={'metrics': self.monitor.value,
+                                     'valid_freq': valid_freq},
+                    learning_rate=learning_rate,
+                    **kargs)
+        tdl.core.initialize_variables(self.model)
+        return optimizer
 
+
+@tdl.core.add_autoinit_class
 class ExplicitGpEstimator(GpEstimator):
     ''' '''
     @tdl.core.SubmodelInit
@@ -104,11 +124,11 @@ class ExplicitGpEstimator(GpEstimator):
         return model
 
     def fit(self, train_x, train_y, max_iter=100):
-        if not tdl.core.is_property_set(self, 'model'):
+        if not tdl.core.is_property_initialized(self, 'model'):
             self.model.init(train_x=train_x,
                             train_y=np.transpose(train_y))
-            self.test
-        if not self.optimizer.is_set:
+            tdl.core.assert_initialized(self, 'test')
+        if not tdl.core.is_property_initialized(self, 'optimizer'):
             self.optimizer.init()
             self._init_vars()
         self.optimizer.run(max_iter)
@@ -129,14 +149,13 @@ class ExplicitGpEstimator(GpEstimator):
         return self.model.predict(test_x)
 
 
+@tdl.core.add_autoinit_class
 class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
     _submodels = []
 
     def _init_options(self, options):
         default = {
-            'optim/n_logging': 100,
-            'train/batch_size': 50,
-            'train/optim/learning_rate': 0.01}
+            'optim/n_logging': 100}
         options = tdl.core.check_defaults(options, default)
         return options
 
@@ -159,13 +178,14 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
             self.train.init(dataset=dataset)
         if not tdl.core.is_property_set(self, 'test'):
             self.test.init(dataset=dataset)
-        if not self.optimizer.is_set:
+        if not tdl.core.is_property_initialized(self, 'optimizer'):
             self.optimizer.init()
             self._init_vars()
+        batch_size = tf.convert_to_tensor(self.train.inputs)\
+                       .shape[0].value
 
         def feed_train():
-            batch_x, batch_y = dataset.train.next_batch(
-                self.options['train/batch_size'])
+            batch_x, batch_y = dataset.train.next_batch(batch_size)
             return {tdl.core.get_placeholder(self.train.labels): batch_y,
                     tdl.core.get_placeholder(self.train.inputs): batch_x}
 
@@ -182,15 +202,15 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
         return tdl.core.SimpleNamespace(mean=mean.transpose(),
                                         stddev=stddev.transpose())
 
-    @tdl.core.SubmodelInit
-    def train(self, dataset):
+    @tdl.core.SubmodelInit(lazzy=True)
+    def train(self, dataset, batch_size=50):
         n_inputs = dataset.train.x.shape[-1]
         n_outputs = dataset.train.y.shape[-1]
         x_train = tf.placeholder(
-            shape=[self.options['train/batch_size'], n_inputs],
+            shape=[batch_size, n_inputs],
             dtype=tdl.core.global_options.float.tftype)
         y_train = tf.placeholder(
-            shape=[self.options['train/batch_size'], n_outputs],
+            shape=[batch_size, n_outputs],
             dtype=tdl.core.global_options.float.tftype)
         if self.normalizer is not None:
             x_train = self.normalizer(x_train)
@@ -213,6 +233,22 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
                   else self.normalizer(test_x))
         return self.model.predict(test_x, tolerance)
 
+    @tdl.core.SubmodelInit(lazzy=True)
+    def optimizer(self, learning_rate=0.01, valid_freq=10, **kargs):
+        if not self.monitor.is_set:
+            self.monitor.init()
+        with tf.name_scope('optimizer'):
+            optimizer = tdl.optimv2.Optimizer(
+                    loss=self.train.loss,
+                    var_list=tdl.core.get_trainable(self.model),
+                    session=self.session,
+                    monitor_manager={'metrics': self.monitor.value,
+                                     'valid_freq': valid_freq},
+                    learning_rate=learning_rate,
+                    **kargs)
+        tdl.core.initialize_variables(self.model)
+        return optimizer
+
     def __init__(self, options=None, logger_path='tmp', session=None,
                  **kargs):
         super(VGPEstimator, self).__init__(
@@ -221,20 +257,21 @@ class VGPEstimator(tdl.templates.supervised.SupervisedEstimator):
 
 
 class EVGPEstimator(VGPEstimator):
-    @tdl.core.SubmodelInit
-    def model(self, dataset):
+    @tdl.core.SubmodelInit(lazzy=True)
+    def model(self, dataset, prior=1.0):
         xdims = dataset.train.x.shape[-1]
-        model = ExplicitVGP(m=self.m, input_shape=[None, xdims])
+        model = ExplicitVGP(m=self.m, input_shape=[None, xdims],
+                            prior=prior)
         return model
 
-    @tdl.core.SubmodelInit
-    def train(self, dataset):
+    @tdl.core.SubmodelInit(lazzy=True)
+    def train(self, dataset, batch_size=50):
         x_shape = dataset.train.x.shape[-1]
         x_train = tf.placeholder(
-            shape=[self.options['train/batch_size'], x_shape],
+            shape=[batch_size, x_shape],
             dtype=tdl.core.global_options.float.tftype)
         y_train = tf.placeholder(
-            shape=[self.options['train/batch_size'], 1],
+            shape=[batch_size, 1],
             dtype=tdl.core.global_options.float.tftype)
         if self.normalizer is not None:
             x_train = self.normalizer(x_train)

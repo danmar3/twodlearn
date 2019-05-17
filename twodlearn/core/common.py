@@ -16,6 +16,7 @@ import types
 import typing
 import inspect
 import warnings
+import functools
 import numpy as np
 import collections
 import tensorflow as tf
@@ -612,8 +613,30 @@ class SubmodelInit(object):
             self._finit = finit
             self._obj = obj
             self._attr_name = attr_name
+            self._given_args = None
+
+            def wrap_init(initializer, finit):
+                @functools.wraps(finit)
+                def init(self, *args, **kargs):
+                    if not args and not kargs and self._given_args:
+                        kargs = self._given_args
+                    # set the attribute using finit method
+                    if hasattr(self._obj, 'scope'):
+                        with tf.name_scope(self._obj.scope):
+                            with tf.name_scope(self._attr_name):
+                                setattr(self._obj, self._attr_name,
+                                        self._finit(self._obj, *args, **kargs))
+                    else:
+                        setattr(self._obj, self._attr_name,
+                                self._finit(self._obj, *args, **kargs))
+
+        def set_args(self, given_args):
+            assert isinstance(given_args, dict)
+            self._given_args = given_args
 
         def init(self, *args, **kargs):
+            if self._given_args:
+                kargs.update(self._given_args)
             # set the attribute using finit method
             if hasattr(self._obj, 'scope'):
                 with tf.name_scope(self._obj.scope):
@@ -624,7 +647,8 @@ class SubmodelInit(object):
                 setattr(self._obj, self._attr_name,
                         self._finit(self._obj, *args, **kargs))
 
-    def __init__(self, finit=None, inference_input=None, doc=None):
+    def __init__(self, finit=None, inference_input=None, lazzy=False,
+                 doc=None):
         """Defines the initialization method of a property.
         Args:
             finit (callable): Function that initializes the parameter.
@@ -632,10 +656,13 @@ class SubmodelInit(object):
                 Defaults to None.
             inference_input (bool): indicates if the property should be
                 interpreted as inference inputs
+            lazzy (bool): indicates if the property should be initialized
+                only when assert_initialized is called.
         """
         self.finit = finit
         self.inference_input = (False if inference_input is None
                                 else inference_input)
+        self.lazzy = lazzy
         self.name = (None if self.finit is None
                      else finit.__name__)
         if not doc and finit is not None:
@@ -649,12 +676,11 @@ class SubmodelInit(object):
     def __get__(self, obj, objtype):
         if obj is None:
             return self
-        if hasattr(obj.__tdl__, self.name):
-            return getattr(obj.__tdl__, self.name)
-        else:
-            # setter: lambda val: setattr(obj, self.name, val),
-            return SubmodelInit.Initializer(
+        if not hasattr(obj.__tdl__, self.name):
+            value = SubmodelInit.Initializer(
                 obj=obj, attr_name=self.name, finit=self.finit)
+            setattr(obj.__tdl__, self.name, value)
+        return getattr(obj.__tdl__, self.name)
 
     def __set__(self, obj, val):
         if self.finit is None:
@@ -663,8 +689,10 @@ class SubmodelInit(object):
         if not hasattr(obj, '__tdl__'):
             setattr(obj, '__tdl__', __TDL__(obj))
         if hasattr(obj.__tdl__, self.name):
-            raise exceptions.PropertyRedefinition(property=self.name,
-                                                  object=obj)
+            if not isinstance(getattr(obj.__tdl__, self.name),
+                              SubmodelInit.Initializer):
+                raise exceptions.PropertyRedefinition(
+                    property=self.name, object=obj)
         setattr(obj.__tdl__, self.name, val)
 
     def initializer(self, finit):
@@ -679,6 +707,7 @@ class SubmodelInit(object):
             'the evaluation method has already been specified'
         return type(self)(finit=finit,
                           inference_input=self.inference_input,
+                          lazzy=self.lazzy,
                           doc=self.__doc__)
 
     def init(self, obj, val):
@@ -691,7 +720,10 @@ class SubmodelInit(object):
                 property will be set with the provided value.
         """
         if isinstance(val, dict):
-            self.__get__(obj, type(obj)).init(**val)
+            if self.lazzy:
+                self.__get__(obj, type(obj)).set_args(val)
+            else:
+                self.__get__(obj, type(obj)).init(**val)
         else:
             self.__set__(obj, val)
 

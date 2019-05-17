@@ -174,7 +174,7 @@ class CommonTest(unittest.TestCase):
                 'optional property error'
 
     def test_submodelinit(self):
-        class TestObject(tdl.core.TdlObject):
+        class TestObject(tdl.core.TdlModel):
             @tdl.core.SubmodelInit
             def submodel(self, x, y):
                 return tdl.core.SimpleNamespace(x=x, y=y)
@@ -186,6 +186,43 @@ class CommonTest(unittest.TestCase):
         for xi, yi, obj_i in zip(x, y, obj):
             assert (obj_i.submodel.x == xi and obj_i.submodel.y == yi),\
                 'SubmodelInit test failed'
+
+    def test_lazzy_submodelinit(self):
+        class TestObject(tdl.core.TdlModel):
+            @tdl.core.SubmodelInit(lazzy=True)
+            def submodel1(self, x, y):
+                return tdl.core.SimpleNamespace(x=x, y=y)
+
+            @tdl.core.SubmodelInit(lazzy=True)
+            def submodel2(self, x):
+                tdl.core.assert_initialized(self, 'submodel2', ['submodel1'])
+                return self.submodel1.x*x
+
+        x = [1, 2, 3, 4]
+        y = ['a', 'b', 'c', 'd']
+        z = [1.546, 354.52, 564.4, 54.3]
+        obj = [TestObject() for i in range(len(x))]
+        for xi, yi, zi, obj_i in zip(x, y, z, obj):
+            obj_i.submodel1.init(x=xi, y=yi)
+            obj_i.submodel2.init(x=zi)
+        for xi, yi, zi, obj_i in zip(x, y, z, obj):
+            assert (obj_i.submodel1.x == xi and obj_i.submodel1.y == yi),\
+                'SubmodelInit test failed'
+            assert obj_i.submodel2 == xi*zi, 'SubmodelInit test failed'
+
+        # test init
+        obj = [TestObject(submodel1={'x': x[i], 'y': y[i]})
+               for i in range(len(x))]
+        for obj_i in obj:
+            assert not tdl.core.is_property_initialized(obj_i, 'submodel1')
+            assert not tdl.core.is_property_initialized(obj_i, 'submodel2')
+
+        for xi, yi, zi, obj_i in zip(x, y, z, obj):
+            obj_i.submodel2.init(x=zi)
+        for xi, yi, zi, obj_i in zip(x, y, z, obj):
+            assert (obj_i.submodel1.x == xi and obj_i.submodel1.y == yi),\
+                'SubmodelInit test failed'
+            assert obj_i.submodel2 == xi*zi, 'SubmodelInit test failed'
 
     def test_inputmodelinit(self):
         class TestObject0(tdl.core.TdlObject):
