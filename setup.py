@@ -30,7 +30,7 @@ setup(name='twodlearn',
       # },
       package_data={'': ['*.so']},
       install_requires=get_dependencies(),
-      python_requires='>3.5.2',
+      python_requires='>=3.5.2',
       extras_require={
           'reinforce': ['gym', 'pybullet==2.4.5', 'casadi'],
           'development': ['pytest', 'line_profiler', 'pytest-faulthandler'],
