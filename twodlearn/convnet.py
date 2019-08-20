@@ -93,8 +93,11 @@ class Conv2DLayer(tdl.core.Layer):
 
     @tdl.core.ParameterInit
     def bias(self, initializer=None, trainable=True, use_bias=True, **kargs):
-        tdl.core.assert_initialized(self, 'bias', ['filters', 'use_bias'])
-        if (use_bias and self.use_bias) is False:
+        tdl.core.assert_initialized(self, 'bias', ['filters'])
+        tdl.core.assert_initialized_if_available(self, 'bias', ['use_bias'])
+        if tdl.core.is_property_initialized(self, 'use_bias'):
+            use_bias = (use_bias and self.use_bias)
+        if use_bias is False:
             return None
         if initializer is None:
             initializer = tf.keras.initializers.zeros()
