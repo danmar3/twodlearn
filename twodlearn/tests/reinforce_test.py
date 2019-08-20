@@ -1,5 +1,6 @@
 import os
 import pytest
+docutils = pytest.importorskip("pyfmi")
 import unittest
 from twodlearn.reinforce import systems
 
