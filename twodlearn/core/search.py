@@ -260,7 +260,7 @@ def find_instances(model, classinfo):
     '''
     if isinstance(model, classinfo):
         return set([model])
-    if common.nest.is_sequence(model):
+    if common.nest.is_nested(model):
         model = [mi for mi in common.nest.flatten(model)
                  if isinstance(mi, collections.Hashable)]
         if isinstance(model, dict):
