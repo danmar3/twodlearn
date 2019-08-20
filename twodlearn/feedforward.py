@@ -297,7 +297,7 @@ class LinearLayer(tdl.core.Layer):
             raise TypeError('units must be an integer')
         return value
 
-    @tdl.core.ParameterInit
+    @tdl.core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
         tdl.core.assert_initialized(
             self, 'kernel', ['units', 'input_shape'])
@@ -362,7 +362,7 @@ class LinearLayer(tdl.core.Layer):
 @tdl.core.create_init_docstring
 class AffineLayer(LinearLayer):
     '''Standard affine (W*X+b) fully connected layer'''
-    @tdl.core.ParameterInit
+    @tdl.core.ParameterInit(lazzy=True)
     def bias(self, initializer=None, trainable=True, **kargs):
         tdl.core.assert_initialized(self, 'bias', ['units'])
         if initializer is None:

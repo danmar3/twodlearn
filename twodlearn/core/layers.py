@@ -29,6 +29,10 @@ def _assert_known_kargs(layer, kwargs):
 class Layer(tf.keras.layers.Layer):
     '''TDL Layer that is compatible with tf.keras specification.'''
 
+    def _tdl_check_kwargs(self, kwargs):
+        '''custom defined function to check arguments before initialization'''
+        return
+
     @InputArgument
     def input_shape(self, value):
         if isinstance(value, (tuple, list)):
@@ -80,6 +84,7 @@ class Layer(tf.keras.layers.Layer):
         super(Layer, self).__init__(trainable=trainable, name=name)
 
         # auto initialize using the tdl descriptors
+        self._tdl_check_kwargs(kwargs)
         _assert_known_kargs(self, kwargs)
         assert common.get_context(self).given_attrs is None
         common.get_context(self).given_attrs = \

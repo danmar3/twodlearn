@@ -45,11 +45,13 @@ pytest --cache-clear      # clear the cache of failed tests
 
 ## Roadmap for v0.5
 - [x] migrate to TF 1.14
+- [ ] add documentation
 - [ ] create LayerNamespace
-- [ ] add check_arguments method to Layer and TdlModel
+- [x] add check_arguments method to Layer and TdlModel
 - [ ] deprecate tuple initialization
+- [ ] move feedforward to dense
 - [ ] cleanup common: clean deprecated descriptors and put them in separate file
-- [ ] remove redundant base classes, such as TdlObject 
+- [ ] remove redundant base classes, such as TdlObject
 - [ ] deprecate templates and design a format for estimators
 - [ ] deprecate options value
 - [ ] deprecate pyfmi and jmodelica

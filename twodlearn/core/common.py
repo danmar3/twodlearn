@@ -1047,6 +1047,10 @@ def init_attrs(model, attrs=None, AttrTypes='default'):
 @add_autoinit_class
 class TdlModel(TdlOp):
 
+    def _tdl_check_kwargs(self, kwargs):
+        '''custom defined function to check arguments before initialization'''
+        return
+
     def __init__(self, **kargs):
         ''' Base initialization of a Tdl operation.
         Arguments should be explicitly specified. The basic acguments are:
@@ -1057,6 +1061,7 @@ class TdlModel(TdlOp):
             parameters corresponding to the specific model
             submodels corresponding to the specific model
         '''
+        self._tdl_check_kwargs(kargs)
         name = (kargs['name'] if 'name' in kargs
                 else self._default_name if hasattr(self, '_default_name')
                 else None)

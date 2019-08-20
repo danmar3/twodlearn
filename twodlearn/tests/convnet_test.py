@@ -151,6 +151,43 @@ class ConvnetTest(unittest.TestCase):
             assert all(dynamic_shape[1:] == output_tdl.shape[1:].as_list())
             assert output_tdl.shape.as_list() == [None, 19, 19, 5]
 
+    def test_lazzy_init(self):
+        with tf.Session().as_default():
+            layer = tdl.convnet.Conv2DLayer(
+                filters=5, kernel_size=[5, 5], strides=[2, 2],
+                kernel={'trainable': False},
+                use_bias=True
+            )
+            assert not tdl.core.is_property_initialized(layer, 'kernel')
+            assert not tdl.core.is_property_initialized(layer, 'bias')
+            layer.build(input_shape=[None, 8, 8, 10])
+            assert tdl.core.is_property_initialized(layer, 'kernel')
+            assert tdl.core.is_property_initialized(layer, 'bias')
+            assert layer.kernel.trainable is False
+
+    def test_lazzy_init2(self):
+        with tf.Session().as_default():
+            layer = tdl.convnet.Conv2DLayer(
+                filters=5, kernel_size=[5, 5], strides=[2, 2],
+                kernel={'trainable': False}
+            )
+            assert not tdl.core.is_property_initialized(layer, 'kernel')
+            assert not tdl.core.is_property_initialized(layer, 'bias')
+            layer.build(input_shape=[None, 8, 8, 10])
+            assert tdl.core.is_property_initialized(layer, 'kernel')
+            assert tdl.core.is_property_initialized(layer, 'bias')
+            assert layer.kernel.trainable is False
+
+    def test_bias(self):
+        with tf.Session().as_default():
+            with self.assertRaises(ValueError):
+                layer = tdl.convnet.Conv2DLayer(
+                    filters=5, kernel_size=[5, 5], strides=[2, 2],
+                    kernel={'trainable': False},
+                    bias={'trainable': True},
+                    use_bias=True
+                    )
+
 
 if __name__ == "__main__":
     unittest.main()

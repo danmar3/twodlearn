@@ -602,6 +602,27 @@ class CommonTest(unittest.TestCase):
         assert tdl.core.any_initialized(
             test3, ['input_shape', 'embedding_size'])
 
+    def test_check_tdl_args(self):
+        class TestClass(tdl.core.TdlModel):
+            def _tdl_check_kwargs(self, kwargs):
+                if 'input1' in kwargs and 'input2' in kwargs:
+                    raise ValueError('input1 and input2 cannot be specified'
+                                     'at the same time')
+
+            @tdl.core.InputArgument
+            def input1(self, value):
+                return value
+
+            @tdl.core.InputArgument
+            def input2(self, value):
+                return value
+
+        test1 = TestClass(input1=1)
+        test2 = TestClass(input2=1)
+        with self.assertRaises(ValueError):
+            test3 = TestClass(input1=1, input2=2)
+
+
 
 if __name__ == "__main__":
     unittest.main()

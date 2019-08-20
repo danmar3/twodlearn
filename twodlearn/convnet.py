@@ -77,7 +77,7 @@ class Conv2DLayer(tdl.core.Layer):
             raise TypeError('filters must be an integer')
         return value
 
-    @tdl.core.ParameterInit
+    @tdl.core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
         tdl.core.assert_initialized(
             self, 'kernel', ['kernel_size', 'input_shape'])
@@ -91,7 +91,13 @@ class Conv2DLayer(tdl.core.Layer):
             trainable=trainable,
             **kargs)
 
-    @tdl.core.ParameterInit
+    def _tdl_check_kwargs(self, kwargs):
+        if ('bias' in kwargs and 'use_bias' in kwargs):
+            raise ValueError('bias and use_bias cannot be specified at the '
+                             'same time')
+        return
+
+    @tdl.core.ParameterInit(lazzy=True)
     def bias(self, initializer=None, trainable=True, use_bias=True, **kargs):
         tdl.core.assert_initialized(self, 'bias', ['filters'])
         tdl.core.assert_initialized_if_available(self, 'bias', ['use_bias'])
@@ -190,7 +196,7 @@ class Conv2DLayer(tdl.core.Layer):
 
 @tdl.core.create_init_docstring
 class Conv2DTranspose(Conv2DLayer):
-    @tdl.core.ParameterInit
+    @tdl.core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
         tdl.core.assert_initialized(
             self, 'kernel', ['kernel_size', 'input_shape'])
@@ -299,7 +305,7 @@ class Conv1x1Proj(tdl.core.Layer):
             raise TypeError('units must be an integer')
         return value
 
-    @tdl.core.ParameterInit
+    @tdl.core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
         tdl.core.assert_initialized(
             self, 'kernel', ['units', 'input_shape'])
@@ -312,7 +318,7 @@ class Conv1x1Proj(tdl.core.Layer):
             trainable=trainable,
             **kargs)
 
-    @tdl.core.ParameterInit
+    @tdl.core.ParameterInit(lazzy=True)
     def bias(self, initializer=None, trainable=True, use_bias=True, **kargs):
         tdl.core.assert_initialized(self, 'bias', ['units', 'use_bias'])
         if (use_bias and self.use_bias) is False:
