@@ -37,6 +37,6 @@ setup(name='twodlearn',
       },
       author='Daniel L. Marino',
       author_email='marinodl@vcu.edu',
-      licence='GPL',
-      url='https://github.com/danmar3/2dlearn-lib'
+      licence='Apache 2.0',
+      url='https://github.com/danmar3/twodlearn'
       )
