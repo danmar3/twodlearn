@@ -290,8 +290,10 @@ class TdlDescriptor(object):
         return cls(finit=finit, doc=doc, name=name)
 
     @classmethod
-    def optional(cls, name, doc=None):
+    def optional(cls, name, doc=None, default=None):
         def finit(self, value):
+            if value is None:
+                return default
             return value
         return cls(finit=finit, doc=doc, name=name)
 
