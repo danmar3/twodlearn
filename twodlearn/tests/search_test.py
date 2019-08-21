@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import unittest
+import collections
 import twodlearn as tdl
 import twodlearn.bayesnet
 import tensorflow as tf
@@ -60,6 +61,34 @@ class LayersTest(unittest.TestCase):
             cell, tdl.bayesnet.LinearNormalLayer)
         assert instances == tdl.core.find_instances(
             loc_model, tdl.bayesnet.LinearNormalLayer)
+
+    def test_get_parameters(self):
+        def components(n_dims, n_components, traina, trainb, namespace=True):
+            if namespace:
+                Params = tdl.core.SimpleNamespace
+            else:
+                Params = collections.namedtuple('Params', ['loc', 'scale'])
+            components = [
+                Params(
+                    loc=tf.Variable(tf.zeros(n_dims), trainable=traina),
+                    scale=tdl.constrained.PositiveVariable(
+                        tf.ones(n_dims),
+                        tolerance=1e-5,
+                        trainable=trainb))
+                for k in range(n_components)]
+            return components
+
+        def singletest(namespace):
+            test1 = components(20, 4, True, True, namespace=namespace)
+            test2 = components(20, 4, True, False, namespace=namespace)
+            test3 = components(20, 4, False, True, namespace=namespace)
+            test4 = components(20, 4, False, False, namespace=namespace)
+            assert len(tdl.core.get_trainable(test1)) == 4*2
+            assert len(tdl.core.get_trainable(test2)) == 4
+            assert len(tdl.core.get_trainable(test3)) == 4
+            assert len(tdl.core.get_trainable(test4)) == 0
+        singletest(True)
+        singletest(False)
 
 
 if __name__ == "__main__":

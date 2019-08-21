@@ -42,6 +42,15 @@ class NoScopeParam(object):
 
 
 def get_parameters(model, include_inputs=False):
+    '''find the parameters in the model.
+    Args:
+        model (TdlModel, TdlLayer): model or nested sequence of models.
+            Supports SingleNamespaces as well.
+        include_inputs (bool): propagate the search through the inputs of the
+            model.
+    Returns:
+        list: list of parameters.
+    '''
     def is_a_valid_model(attr):
         return isinstance(attr, (tf.Variable, tf.Tensor, TdlModel,
                                  NoScopeParam, tf.keras.layers.Layer))
@@ -56,9 +65,21 @@ def get_parameters(model, include_inputs=False):
             return False
         return any([is_a_valid_model(val) for val in attr])
 
+    def namespace_to_list(model):
+        return [m for m in model.__dict__.values()
+                if is_a_valid_model(m) or is_a_valid_list(m)]
+
+    # convert nested structures
+
     if isinstance(model, SimpleNamespace):
-        model = [m for m in model.__dict__.values()
-                 if is_a_valid_model(m) or is_a_valid_list(m)]
+        model = namespace_to_list(model)
+    elif common.nest.is_nested(model):
+        model = [mj
+                 for m in common.nest.flatten(model)
+                 for mj in (namespace_to_list(m)
+                            if isinstance(m, SimpleNamespace)
+                            else [m])
+                 if is_a_valid_model(mj)]
 
     assert (is_a_valid_model(model) or is_a_valid_list(model)),\
         'model must be an instance of TdlModel, tf.Variable, tf.Tensor'\
@@ -132,6 +153,15 @@ def get_parameters(model, include_inputs=False):
 
 
 def get_variables(model, include_inputs=True):
+    '''get tf variables of a model
+    Args:
+        model (TdlModel, TdlLayer): model or nested sequence of models.
+            Supports SingleNamespaces as well.
+        include_inputs (bool): propagate the search through the inputs of the
+            model.
+    Returns:
+        list: list of tf variables.
+    '''
     params = get_parameters(model, include_inputs=include_inputs)
     if params:
         params = set.union(*[get_parameters(p, include_inputs=include_inputs)
@@ -144,6 +174,7 @@ def get_variables(model, include_inputs=True):
 
 if [int(s) for s in tf.__version__.split('.')[0:2]] < [1, 10]:
     def is_trainable(variable, scope=None):
+        '''check if a variable is trainable'''
         if isinstance(variable, tf.Tensor):
             return False
         elif isinstance(variable, tf.Variable):
@@ -152,6 +183,7 @@ if [int(s) for s in tf.__version__.split('.')[0:2]] < [1, 10]:
             raise TypeError("Type {} not recognized".format(type(variable)))
 else:
     def is_trainable(variable, scope=None):
+        '''check if a variable is trainable'''
         if isinstance(variable, tf.Tensor):
             return False
         elif isinstance(variable, tf.Variable):
@@ -161,6 +193,15 @@ else:
 
 
 def get_trainable(model, include_inputs=True):
+    '''get trainable variables of a model
+    Args:
+        model (TdlModel, TdlLayer): model or nested sequence of models.
+            Supports SingleNamespaces as well.
+        include_inputs (bool): propagate the search through the inputs of the
+            model.
+    Returns:
+        list: list of trainable variables.
+    '''
     params = get_parameters(model, include_inputs=include_inputs)
     params = set.union(*[get_parameters(p, include_inputs=include_inputs)
                          for p in params
@@ -249,7 +290,7 @@ def initialize_variables(model):
 
 
 def find_instances(model, classinfo):
-    '''Finds any attribute in the model that is a instance of classinfo.
+    '''Finds any attribute in the model that is an instance of classinfo.
     Objects must be Hashable.
 
     Args:

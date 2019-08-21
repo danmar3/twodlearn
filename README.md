@@ -49,6 +49,7 @@ pytest --cache-clear      # clear the cache of failed tests
 - [ ] create LayerNamespace
 - [x] add a shortcut for required and optional input arguments
 - [x] add check_arguments method to Layer and TdlModel
+- [x] get_parameters now supports nested structures and nested SimpleNamespace
 - [ ] deprecate tuple initialization
 - [ ] move feedforward to dense
 - [ ] cleanup common: clean deprecated descriptors and put them in separate file
