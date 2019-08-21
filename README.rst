@@ -45,7 +45,7 @@ run the unit-tests using pytest:
   pytest --durations=10     # get the test execution time
   pytest --lf               # to only re-run the failures.
   pytest --cache-clear      # clear the cache of failed tests
-```
+
 
 
 Roadmap for v0.6
