@@ -31,7 +31,7 @@ def get_dependencies():
 
 
 setup(name='twodlearn',
-      version='0.5.0',
+      version='0.6.0',
       description='Easy development of machine learning models',
       long_description=README,
       packages=find_packages(
