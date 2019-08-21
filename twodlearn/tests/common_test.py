@@ -622,6 +622,44 @@ class CommonTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             test3 = TestClass(input1=1, input2=2)
 
+    def test_descriptor_shortcut(self):
+        class GMM(tdl.core.layers.Layer):
+            n_dims = tdl.core.InputArgument.required(
+                'n_dims', doc='dimensions of the GMM model')
+            n_components = tdl.core.InputArgument.required(
+                 'n_components', doc='number of mixture components')
+            alpha = tdl.core.InputArgument.optional(
+                 'alpha', doc='is trainable')
+
+        test1 = GMM(n_dims=1, n_components=2)
+        test2 = GMM(n_dims=10, n_components=20)
+        assert (test1.n_dims == 1
+                and test1.n_components == 2
+                and test1.alpha is None)
+        assert (test2.n_dims == 10 and test2.n_components == 20)
+        with self.assertRaises(ValueError):
+            test3 = GMM(n_dims=10)
+            test3.n_components
+
+    def test_descriptor_shortcut2(self):
+        class GMM(tdl.core.layers.Layer):
+            n_dims = tdl.core.InputArgument.optional(
+                'n_dims', doc='dimensions of the GMM model')
+            n_components = tdl.core.InputArgument.required(
+                 'n_components', doc='number of mixture components')
+            alpha = tdl.core.InputArgument.optional(
+                 'alpha', doc='is alpha',
+                 default=True)
+
+        test1 = GMM(n_dims=1, n_components=2)
+        test2 = GMM(n_components=20, alpha=False)
+
+        assert (test1.n_dims == 1 and
+                test1.n_components == 2 and
+                test1.alpha is True)
+        assert (test2.n_dims is None and
+                test2.n_components == 20 and
+                test2.alpha is False)
 
 
 if __name__ == "__main__":
