@@ -53,8 +53,7 @@ def get_parameters(model, include_inputs=False):
         list: list of parameters.
     '''
     def is_a_valid_model(attr):
-        return isinstance(attr, (tf.Variable, tf.Tensor, TdlModel,
-                                 NoScopeParam, tf.keras.layers.Layer))
+        return isinstance(attr, SEARCHABLE_CLASSES + (tf.Tensor, NoScopeParam))
 
     def is_a_valid_list(attr):
         if not isinstance(attr, list):
