@@ -279,22 +279,46 @@ class TdlDescriptor(object):
     ''' Decorator used to specify a parameter inside a model.
     The decorator works similar to @property, but the specified
     method correponds to the initialization of the parameter '''
+    @classmethod
+    def required(cls, name, doc=None):
+        def finit(self, value):
+            if value is None:
+                raise ValueError('the value of attribute {}.{} must be '
+                                 'provided'.format(type(self).__name__, name))
+            else:
+                return value
+        return cls(finit=finit, doc=doc, name=name)
 
-    def __init__(self, finit=None, doc=None):
+    @classmethod
+    def optional(cls, name, doc=None):
+        def finit(self, value):
+            return value
+        return cls(finit=finit, doc=doc, name=name)
+
+    def __init__(self, finit=None, doc=None, name=None):
         """Creates a new SingleParameter.
 
         Args:
             finit (callable): Function that initialize the parameter.
                 The function should return the value for the parameter.
                 Defaults to None.
+            doc (str): docstring for the attribute.
+            name (str): name of the method. Ussualy infered from finit
         """
         self.finit = finit
-        self.name = finit.__name__
+        if name is None:
+            name = finit.__name__
+        assert isinstance(name, str), 'attribute name should be a string'
+        self.name = name
         if doc is None and finit is not None:
             doc = finit.__doc__
         self.__doc__ = doc
 
     def __get__(self, obj, objtype):
+        '''returns the value of the attribute.
+        If the attribute has not been initialized, autoinit is called
+        and the attribute is returned
+        '''
         if obj is None:
             return self
         # initialize if the property has not been set
@@ -303,6 +327,9 @@ class TdlDescriptor(object):
         return getattr(obj.__tdl__, self.name)
 
     def __set__(self, obj, val):
+        '''sets the value of the attribute.
+        Calls the initialization function with the given value.
+        '''
         if self.finit is None:
             raise AttributeError('initializer for parameter {} '
                                  'not specified'.format(self.name))
@@ -313,6 +340,7 @@ class TdlDescriptor(object):
         self.init(obj, val)
 
     def init(self, obj, val):
+        ''' '''
         def run_init():
             try:
                 if isinstance(val, tuple) and len(val) == 2:
@@ -351,6 +379,7 @@ class TdlDescriptor(object):
         setattr(obj.__tdl__, self.name, param)
 
     def autoinit(self, obj, force=False):
+        '''initialized the attribute with None'''
         if is_autoinit_enabled(obj) or force:
             self.init(obj, None)
         else:

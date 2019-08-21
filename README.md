@@ -47,6 +47,7 @@ pytest --cache-clear      # clear the cache of failed tests
 - [x] migrate to TF 1.14
 - [ ] add documentation
 - [ ] create LayerNamespace
+- [x] add a shortcut for required and optional input arguments
 - [x] add check_arguments method to Layer and TdlModel
 - [ ] deprecate tuple initialization
 - [ ] move feedforward to dense

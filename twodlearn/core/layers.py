@@ -35,6 +35,10 @@ class Layer(tf.keras.layers.Layer):
 
     @InputArgument
     def input_shape(self, value):
+        if value is None:
+            # raise ValueError('the value of attribute {}.input_shape must be '
+            #                  'provided'.format(type(self).__name__))
+            return None
         if isinstance(value, (tuple, list)):
             if all(isinstance(i, (int, None)) for i in value):
                 value = tf.TensorShape(value)
@@ -129,10 +133,7 @@ class Layer(tf.keras.layers.Layer):
             call_wrapper(self.call.__func__), self)
 
     def build(self, input_shape=None):
-        if input_shape is None:
-            common.assert_initialized(self, 'build', ['input_shape'])
-            input_shape = self.input_shape
-        else:
+        if input_shape is not None:
             if not is_property_initialized(self, 'input_shape'):
                 self.input_shape = input_shape
         common.build(self)
