@@ -122,7 +122,7 @@ class Layer(tf.keras.layers.Layer):
         common.get_context(self).initialized = True
 
         # Wrap call method to update variables when finished
-        def call_wrapper(call_fn):
+        def update_vars_wrapper(call_fn):
             @functools.wraps(call_fn)
             def call(obj, *args, **kargs):
                 output = call_fn(obj, *args, **kargs)
@@ -130,7 +130,9 @@ class Layer(tf.keras.layers.Layer):
                 return output
             return call
         self.call = types.MethodType(
-            call_wrapper(self.call.__func__), self)
+            update_vars_wrapper(self.call.__func__), self)
+        self.build = types.MethodType(
+            update_vars_wrapper(self.build.__func__), self)
 
     def build(self, input_shape=None):
         if input_shape is not None:
@@ -138,6 +140,7 @@ class Layer(tf.keras.layers.Layer):
                 self.input_shape = input_shape
         common.build(self)
         self.built = True
+        return self
 
     def add_weight(self, *args, **kwargs):
         '''add a weight to the layer. If only one argument is provided, it

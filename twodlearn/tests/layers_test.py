@@ -34,6 +34,44 @@ class LayersTest(unittest.TestCase):
         assert len(tdl.core.get_trainable(layer)) == 2
         assert layer.built is True
 
+    def test_nested_vars(self):
+        @tdl.core.create_init_docstring
+        class GMM(tdl.core.layers.Layer):
+            n_dims = tdl.core.InputArgument.required(
+                'n_dims', doc='dimensions of the GMM model')
+            n_components = tdl.core.InputArgument.required(
+                 'n_components', doc='number of mixture components')
+
+            @tdl.core.SubmodelInit(lazzy=True)
+            def components(self, trainable=True, tolerance=1e-5):
+                tdl.core.assert_initialized(
+                    self, 'components', ['n_components', 'n_dims'])
+                components = [
+                    tdl.core.SimpleNamespace(
+                      loc=tf.Variable(tf.zeros(self.n_dims),
+                                      trainable=trainable),
+                      scale=tdl.constrained.PositiveVariable(
+                          tf.ones(self.n_dims),
+                          tolerance=tolerance,
+                          trainable=trainable))
+                    for k in range(self.n_components)]
+                return components
+
+            @tdl.core.SubmodelInit(lazzy=True)
+            def logits(self, trainable=True, tolerance=1e-5):
+                tdl.core.assert_initialized(self, 'weights', ['n_components'])
+                return tf.Variable(tf.zeros(self.n_components),
+                                   trainable=trainable)
+
+        test1 = GMM(n_dims=10, n_components=20)
+        test1.build()
+        assert len(tdl.core.get_variables(test1)) == test1.n_components*2 + 1
+        assert len(tdl.core.get_trainable(test1)) == test1.n_components*2 + 1
+        test2 = GMM(n_dims=10, n_components=20,
+                    logits={'trainable': False}).build()
+        assert len(tdl.core.get_variables(test2)) == test2.n_components*2 + 1
+        assert len(tdl.core.get_trainable(test2)) == test2.n_components*2
+
 
 if __name__ == "__main__":
     unittest.main()

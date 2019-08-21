@@ -11,7 +11,8 @@ from .common import (TdlModel, SimpleNamespace,
 
 
 # Classes that can be sarched for variables
-SEARCHABLE_CLASSES = (tf.Variable, TdlModel, tf.keras.layers.Layer)
+SEARCHABLE_CLASSES = (tf.Variable, TdlModel, tf.keras.layers.Layer,
+                      SimpleNamespace)
 
 
 def variables_initializer(var_list, name="init"):
@@ -69,8 +70,7 @@ def get_parameters(model, include_inputs=False):
         return [m for m in model.__dict__.values()
                 if is_a_valid_model(m) or is_a_valid_list(m)]
 
-    # convert nested structures
-
+    # convert nested structures to list
     if isinstance(model, SimpleNamespace):
         model = namespace_to_list(model)
     elif common.nest.is_nested(model):
