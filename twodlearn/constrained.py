@@ -4,6 +4,7 @@ import twodlearn as tdl
 import twodlearn.core
 
 
+@tdl.core.create_init_docstring
 class TransformedVariable(tdl.core.TdlModel):
     ''' Transformed Variable
     1. Initialization is performed using the inverse method
@@ -81,8 +82,10 @@ class TransformedVariable(tdl.core.TdlModel):
             **kargs)
 
 
+@tdl.core.create_init_docstring
 class PositiveVariable(TransformedVariable):
-    ''' Creates a variable that can only take positive values '''
+    ''' Creates a variable that can only take positive values.
+    This fuction uses tf.nn.softplus to ensure positive values.'''
     @tdl.core.InputArgument
     def tolerance(self, value):
         '''tolerance for positive variables.'''
@@ -102,6 +105,7 @@ class PositiveVariable(TransformedVariable):
         return output
 
 
+@tdl.core.create_init_docstring
 class PositiveVariableExp(TransformedVariable):
     ''' Creates a variable that can only take positive values.
     This function uses exp() as a reparameterization of the variable'''
