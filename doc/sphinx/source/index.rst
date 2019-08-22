@@ -7,9 +7,20 @@ Welcome to twodlearn's documentation!
 =====================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
+   introduction
+   twodlearn_api
+
+Introduction
+============
+
+Twodlearn is a library designed to simplify the development of machine learning
+models.
+
+.. include:: ../../../README.rst
+  :start-line: 4
 
 
 Indices and tables
