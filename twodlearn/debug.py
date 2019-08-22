@@ -18,11 +18,13 @@ class TracePrintsSysOut(object):
         traceback.print_stack(file=self.stdout)
 
 
-class TracePrints:
-    ''' class to trace print statements
-    Usage:
-    with TracePrints:
-        run_your_function()
+class TracePrints(object):
+    '''Trace print statements
+
+    Use the with statement to enclose the function of interest ::
+
+        with TracePrints:
+            run_your_function()
     '''
 
     def __enter__(self):
@@ -44,7 +46,7 @@ def debug_func(func):
 
 
 def stop_at_error(func):
-    ''' Define decorator to stop at error '''
+    '''Decorator used to stop at error.'''
     def debug_func(*args):
         try:
             return func(*args)
@@ -56,7 +58,7 @@ def stop_at_error(func):
 
 
 def stop_at_warning(func):
-    ''' Define decorator to stop at warnings '''
+    '''Decorator used to stop at warnings.'''
     def debug_func(*args):
         warnings.simplefilter('error')
         try:

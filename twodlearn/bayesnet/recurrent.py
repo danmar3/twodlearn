@@ -1,12 +1,6 @@
-#  ***********************************************************************
-#   This file defines recurrent bayesian neural-networks
-#
-#   Wrote by: Daniel L. Marino (marinodl@vcu.edu)
-#    Modern Heuristics Research Group (MHRG)
-#    Virginia Commonwealth University (VCU), Richmond, VA
-#    http://www.people.vcu.edu/~mmanic/
-#
-#   ***********************************************************************
+"""This module defines recurrent bayesian neural-networks
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function

@@ -1,3 +1,10 @@
+""" Constrained variables
+
+This module defines a set of constrained variables.
+These variables are trainable, and can only take values inside a given region.
+For example, PositiveVariable is only allowed to take positive values.
+"""
+
 import numpy as np
 import tensorflow as tf
 import twodlearn as tdl
@@ -6,11 +13,14 @@ import twodlearn.core
 
 @tdl.core.create_init_docstring
 class TransformedVariable(tdl.core.TdlModel):
-    ''' Transformed Variable
-    1. Initialization is performed using the inverse method
-        raw = tf.Variable(inverse(initial_value))
-    2. the value is defined using the transform
-        value = transform(raw)
+    '''Variable that uses a transformation to ensure the output is constrained.
+
+    Initialization is performed using the inverse method
+    ``raw = tf.Variable(inverse(initial_value))``
+
+    The value is defined using the transform
+    ``value = transform(raw)``
+
     '''
     @classmethod
     def init_wrapper(cls, initializer, trainable, **kargs):
@@ -84,8 +94,11 @@ class TransformedVariable(tdl.core.TdlModel):
 
 @tdl.core.create_init_docstring
 class PositiveVariable(TransformedVariable):
-    ''' Creates a variable that can only take positive values.
-    This fuction uses tf.nn.softplus to ensure positive values.'''
+    '''Creates a variable that can only take positive values.
+
+    This fuction uses tf.nn.softplus to ensure positive values.
+    '''
+
     @tdl.core.InputArgument
     def tolerance(self, value):
         '''tolerance for positive variables.'''
@@ -107,8 +120,10 @@ class PositiveVariable(TransformedVariable):
 
 @tdl.core.create_init_docstring
 class PositiveVariableExp(TransformedVariable):
-    ''' Creates a variable that can only take positive values.
-    This function uses exp() as a reparameterization of the variable'''
+    '''Creates a variable that can only take positive values.
+
+    This function uses ``exp()`` as a reparameterization of the variable
+    '''
     @tdl.core.InputArgument
     def tolerance(self, value):
         '''tolerance for positive variables.'''

@@ -1,3 +1,8 @@
+'''Definition of tf.keras compatible Layers
+
+The tdl Layer is compatible with tf.keras layers and supports
+autoinitialization with tdl descriptors.
+'''
 import types
 import functools
 import collections

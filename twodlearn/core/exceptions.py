@@ -1,3 +1,6 @@
+'''Definition of tdl specific errors and exceptions
+'''
+
 import inspect
 
 

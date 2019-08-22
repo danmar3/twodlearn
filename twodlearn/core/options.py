@@ -1,12 +1,6 @@
-#  ***********************************************************************
-#   This file defines global properties used by TDL library
-#
-#   Wrote by: Daniel L. Marino (marinodl@vcu.edu)
-#    Modern Heuristics Research Group (MHRG)
-#    Virginia Commonwealth University (VCU), Richmond, VA
-#    http://www.people.vcu.edu/~mmanic/
-#
-#   ***********************************************************************
+""" This file defines global properties used by TDL library
+"""
+
 import numpy as np
 import collections
 try:

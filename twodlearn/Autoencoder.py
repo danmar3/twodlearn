@@ -1,18 +1,9 @@
-#   ***********************************************************************
-#
-#   This file defines an autoencoder layer and a stacked
-#   autoencoder network
-#
-#   Wrote by: Daniel L. Marino (marinodl@vcu.edu)
-#    Modern Heuristics Research Group (MHRG)
-#    Virginia Commonwealth University (VCU), Richmond, VA
-#    http://www.people.vcu.edu/~mmanic/
-#
-#   ***********************************************************************
+"""Definition of autoencoder layers and a stacked autoencoder network
+"""
 
 import tensorflow as tf
-import twodlearn.feedforward as tdlf
-from twodlearn import common
+from . import core
+from . import feedforward as tdlf
 
 
 class TransposedAffine(tdlf.AffineLayer):
@@ -30,7 +21,7 @@ class TransposedAffine(tdlf.AffineLayer):
                                     name='b')
 
 
-class TransposedFullyConnected(tdlf.FullyconnectedLayer):
+class TransposedFullyConnected(tdlf.DenseLayer):
     def __init__(self, reference_layer, afunction=None, name=None):
         self.reference_layer = reference_layer
         if name is None:
@@ -88,7 +79,7 @@ class TransposedMlpNet(tdlf.MlpNet):
             output_function, name=name)
 
 
-class AutoencoderNet(common.ModelBase):
+class AutoencoderNet(core.TdlModel):
     @property
     def parameters(self):
         params = self.encoder.parameters
@@ -151,7 +142,7 @@ class AutoencoderNet(common.ModelBase):
                                                hidden_afunction,
                                                output_function)
 
-    class AutoencoderNetSetup(common.ModelEvaluation):
+    class AutoencoderNetSetup(core.TdlModel):
         @property
         def n_inputs(self):
             return self.model.n_inputs
@@ -188,13 +179,15 @@ class AutoencoderNet(common.ModelBase):
             return self._reconstruction_loss
 
         def add_noise(self, inputs, opt):
-            ''' adds noise to the input 
-            @param inputs: intpus for which noise will be added
-            @param opt: dictionary with the options for the autoencoder,
-            the options regarding noise are:
-                   'noise/type': 'bernoulli', 'gaussian'
-                   'noise/level': float (0.0-1.0 typically) specifing how much
-                                  noise will be added
+            ''' adds noise to the input
+
+            Args:
+                inputs: intpus for which noise will be added
+                opt: dictionary with the options for the autoencoder,
+                    the options regarding noise are:
+                    'noise/type': 'bernoulli', 'gaussian'
+                    'noise/level': float (0.0-1.0 typically) specifing how much
+                    noise will be added
             @return noisy_inputs
             '''
             if opt['noise/type'] is None:
@@ -514,7 +507,7 @@ class AutoencoderClassifierNet(AutoencoderNet):
 
 class AutoencoderNetConf(object):
     '''This is a wrapper to any network configuration, it contains the references to
-    the placeholders for inputs and labels, and the reference of the computation graph for 
+    the placeholders for inputs and labels, and the reference of the computation graph for
     the network
 
     inputs: placeholder for the inputs
@@ -608,7 +601,7 @@ class StackedAutoencoderNet(object):
         return input_tensor
 
     def setup(self, batch_size, drop_prob=None, l2_reg_coef=None, inputs=None):
-        ''' Defines the computation graph of the neural network for a specific batch size 
+        ''' Defines the computation graph of the neural network for a specific batch size
 
         drop_prob: placeholder used for specify the probability for dropout. If this coefficient is set, then
                    dropout regularization is added between all fully connected layers(TODO: allow to choose which layers)

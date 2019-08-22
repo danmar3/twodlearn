@@ -1,12 +1,5 @@
-#  ***********************************************************************
-#   This file defines common structures used in twodlearn
-#
-#   Wrote by: Daniel L. Marino (marinodl@vcu.edu)
-#    Modern Heuristics Research Group (MHRG)
-#    Virginia Commonwealth University (VCU), Richmond, VA
-#    http://www.people.vcu.edu/~mmanic/
-#
-#   ***********************************************************************
+"""This module defines common structures used in twodlearn
+"""
 import sys
 try:
     set
@@ -83,7 +76,8 @@ def merge_dicts(a, b):
 
 
 class SimpleNamespace(PySimpleNamespace):
-    ''' SimpleNamespace that works with tf.convert_to_tensor '''
+    ''' SimpleNamespace that works with tf.convert_to_tensor and is searchable
+    '''
 
 
 class Options(dict):
@@ -114,10 +108,9 @@ def check_defaults(options, default):
     Args:
         options (dict): base options.
         default (dict): default options.
-
     Returns:
         dict: options with the missing values that are in default but not in
-            options.
+        options.
     """
     if options is None:
         options = dict()
@@ -620,24 +613,25 @@ class InferenceInput(InputArgument):
 class SubmodelInit(object):
     '''Indicate the initialization function for a property
 
-    Some examples of how can be used:
+    Examples:
+        Some examples of how can be used ::
 
-    class TestObject0(tdl.common.TdlObject):
-        @tdl.core.SubmodelInit
-        def submodel(self, x, y):
-            return tdl.core.SimpleNamespace(x=x, y=y)
+            class TestObject0(tdl.common.TdlObject):
+                @tdl.core.SubmodelInit
+                def submodel(self, x, y):
+                    return tdl.core.SimpleNamespace(x=x, y=y)
 
-    class TestObject1(tdl.common.TdlObject):
-        submodel = tdl.core.SubmodelInit(inference_input=True)
+            class TestObject1(tdl.common.TdlObject):
+                submodel = tdl.core.SubmodelInit(inference_input=True)
 
-        @submodel.initializer
-        def submodel(self, x, y):
-            return tdl.core.SimpleNamespace(x=x, y=y)
+                @submodel.initializer
+                def submodel(self, x, y):
+                    return tdl.core.SimpleNamespace(x=x, y=y)
 
-    class TestObject2(tdl.common.TdlObject):
-        @tdl.core.SubmodelInit(inference_input=True)
-        def submodel(self, x, y):
-            return tdl.core.SimpleNamespace(x=x, y=y)
+            class TestObject2(tdl.common.TdlObject):
+                @tdl.core.SubmodelInit(inference_input=True)
+                def submodel(self, x, y):
+                    return tdl.core.SimpleNamespace(x=x, y=y)
     '''
     class Initializer(object):
         def __init__(self, obj, attr_name, finit):
@@ -681,6 +675,7 @@ class SubmodelInit(object):
     def __init__(self, finit=None, inference_input=None, lazzy=False,
                  doc=None):
         """Defines the initialization method of a property.
+
         Args:
             finit (callable): Function that initializes the parameter.
                 The function should return the value for the parameter.
@@ -700,8 +695,9 @@ class SubmodelInit(object):
             if finit.__doc__:
                 doc = finit.__doc__
             else:
-                doc = 'Args: {}'.format([arg for arg in _get_func_args(finit)
-                                         if arg != 'self'])
+                doc = ('Autoinit with arguments {}'
+                       ''.format([arg for arg in _get_func_args(finit)
+                                  if arg != 'self']))
         self.__doc__ = doc
 
     def __get__(self, obj, objtype):
@@ -743,6 +739,7 @@ class SubmodelInit(object):
 
     def init(self, obj, val):
         """initialization method called when TdlModel is initialized
+
         Args:
             obj (TdlModel): object to which the property belongs to.
             val (type): value used for initialization. If value is
@@ -783,8 +780,9 @@ class ParameterInit(SubmodelInit):
 def is_property_set(obj, prop):
     """Checks if a property has already been set.
     This function checks only if the property has been set. For attributes
-        like MethodInit that are set using an initializer, this function
-        returns True, even when they have not been initialized.
+    like MethodInit that are set using an initializer, this function
+    returns True, even when they have not been initialized.
+
     Args:
         obj (TdlModel): model object.
         prop (str): property name.
@@ -808,7 +806,8 @@ def is_property_set(obj, prop):
 def is_property_initialized(obj, prop):
     """Checks if a property has been initialized.
     This function checks initialization even for properties that are set but
-        not initialized, like MethodInit
+    not initialized, like MethodInit.
+
     Args:
         obj (TdlModel): model object.
         prop (str): property name.
@@ -833,6 +832,7 @@ def is_property_initialized(obj, prop):
 
 def any_initialized(obj, props: typing.List[str]) -> bool:
     """checks if any property is initialized
+
     Args:
         obj: object that owns the properties.
         props (typing.List[str]): list of properties to be checked.
@@ -844,6 +844,7 @@ def any_initialized(obj, props: typing.List[str]) -> bool:
 
 def assert_initialized(object, prop, reqs):
     """Check if the requirements have been initialized.
+
     Args:
         object: object being initialized
         prop: property being initialized (string)
@@ -881,12 +882,15 @@ def assert_initialized(object, prop, reqs):
 
 
 def assert_any_available(object, property=None, reqs=None):
-    """check if requirements are available.
+    """Check if requirements are available.
+
     This function checks if any of the requirements is already set.
     If no requirement is set, we rise an exeption and left _init_tdl_attrs
     function to handle it.
+
     The requirements will be initialized only if they were provided by the
     user, no auto-initialization is performed.
+
     Args:
         object (TdlModel): object being initialized/defined.
         reqs (str): requirements.
@@ -904,6 +908,7 @@ def assert_any_available(object, property=None, reqs=None):
 def assert_initialized_if_available(object, property=None, reqs=None):
     """check that requirements are initialized if they were provided by the
     user, no auto-initialization is performed.
+
     Args:
         object (TdlModel): object being initialized/defined.
         reqs (str): requirements.
@@ -930,6 +935,7 @@ def assert_initialized_if_available(object, property=None, reqs=None):
 def _find_tdl_attrs(cls, AttrClass, ignore=None, AttrBaseClass=None,
                     return_attr_class=False):
     """find attributes of class AttrClass.
+
     Args:
         cls (type): class to find the attributes.
         AttrClass (type, list): Types of descriptors to look for.
@@ -1052,14 +1058,14 @@ def _init_tdl_attrs(obj, kargs, attr_name, AttrClass, allowed_autoinit=None):
 
 
 def init_attrs(model, attrs=None, AttrTypes='default'):
-    """ run auto-initialization of the model attributes
+    """Run auto-initialization of the model attributes.
+
     Args:
         model (TdlModel): model to initialize attributes.
-        attrs: list with the names of the attributes to initialize
-        AttrTypes: tdl decorator or list of tdl decorators.
-            Use 'default' to initialize
-            (InputArgument, InputParameter, InputModel,
-             SimpleParameter, Submodel)
+        attrs (list): list with the names of the attributes to initialize.
+        AttrTypes (str): tdl decorator or list of tdl decorators.
+            Use 'default' to initialize (InputArgument, InputParameter,
+            InputModel, SimpleParameter, Submodel).
     """
     if attrs is None:
         attrs = set()
@@ -1084,13 +1090,16 @@ class TdlModel(TdlOp):
 
     def __init__(self, **kargs):
         ''' Base initialization of a Tdl operation.
+
         Arguments should be explicitly specified. The basic acguments are:
+
+        Args:
             name: name of the model/operation, used to create a scope,
                   if no name is provided, the function will look for
-                  self._default_name
+                  self._default_name.
             options: options for the model/operation.
-            parameters corresponding to the specific model
-            submodels corresponding to the specific model
+            kargs: parameters corresponding to the specific model.
+                submodels corresponding to the specific model.
         '''
         self._tdl_check_kwargs(kargs)
         name = (kargs['name'] if 'name' in kargs
@@ -1224,16 +1233,21 @@ class OutputModel(TdlModel):
 
 class ModelMethod(object):
     ''' Decorator used to specify an operation inside a model.
+
     The decorator works similar to @property, but the specified
-    method correponds to the definition of the operation
-    Usage:
-    class MyModel(tdl.TdlModel):
-        _submodels = ['evaluate']
-        @tdl.ModelMethod(['y'],     # list of outputs
-                         ['x' ,'y'] # list of inputs
-                        )
-        def evaluate(self, x, u):
-            return x+u
+    method correponds to the definition of the operation.
+
+    Examples:
+        Model methods can be used as follows ::
+
+            class MyModel(tdl.TdlModel):
+                _submodels = ['evaluate']
+                @tdl.ModelMethod(['y'],     # list of outputs
+                                 ['x' ,'y'] # list of inputs
+                                )
+                def evaluate(self, x, u):
+                    return x+u
+
     '''
 
     _DefaultOutputClass = OutputModel
@@ -1430,8 +1444,10 @@ class EagerMethod(object):
 
 class EncapsulatedMethod(object):
     ''' Decorator used to specify methods that have a set of local variables.
+
     These methods consist of an initialization method (speficied with the
-    function given to the decorator) and an execute method '''
+    function given to the decorator) and an execute method.
+    '''
     class MethodData(object):
         def __init__(self, func):
             self.func = func
@@ -1490,14 +1506,17 @@ class MethodInit(object):
     '''Descriptor that encapsulates a set of local variables for the method.
     The following is an example of how this descriptor can be used:
 
-    class Example(tdl.core.TdlModel):
-        @tdl.core.MethodInit
-        def evaluate(self, local, units=20):
-            local.model = tdf.core.dense.DenseLayer(units=units)
+    Examples:
+        The descriptor can be used to define both, an initialization method,
+        and an evaluation method ::
+            class Example(tdl.core.TdlModel):
+                @tdl.core.MethodInit
+                def evaluate(self, local, units=20):
+                    local.model = tdf.core.dense.DenseLayer(units=units)
 
-        @evaluate.eval
-        def evaluate(self, local, inputs, n_samples=100):
-            return local.model(inputs)/n_samples
+                @evaluate.eval
+                def evaluate(self, local, inputs, n_samples=100):
+                    return local.model(inputs)/n_samples
     '''
     class MethodData(object):
         def __init__(self, obj, attr_name, finit, feval):
@@ -1938,13 +1957,16 @@ def create_init_docstring(cls):
                                 AttrBaseClass=TDL_INIT_DESCRIPTORS,
                                 return_attr_class=True)
     # doc = inspect.getdoc(cls.__init__)
-    doc = ('Tdl autoinitialization with arguments: \n\n'
-           'Attrs:\n')
+    doc = ('' if cls.__doc__ is None
+           else cls.__doc__)
+    doc = (doc +
+           'Tdl autoinitialization with arguments: \n\n'
+           'Attributes:\n')
     for name, descriptor_cls in tdl_attrs:
         descriptor_doc = inspect.getdoc(getattr(cls, name))
         if descriptor_doc is None:
             descriptor_doc = ''
-        doc = doc + '    {} ({}): {} \n\n'.format(
+        doc = doc + '    {}: (:class:`~twodlearn.core.common.{}`) {} \n\n'.format(
             name, descriptor_cls.__name__,
             get_first_line(descriptor_doc))
     if PYTHON_VERSION >= 3:

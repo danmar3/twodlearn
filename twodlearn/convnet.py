@@ -4,20 +4,21 @@ from __future__ import print_function
 import typing
 import collections
 import tensorflow as tf
-import twodlearn as tdl
-import twodlearn.core.exceptions
+from . import core
+from .core import exceptions
 
 
 def conv_output_length(input_length, filter_size, padding, stride, dilation=1):
     """Determines output length of a convolution given input length.
-    Arguments:
-        input_length: integer.
-        filter_size: integer.
-        padding: one of "same", "valid", "full", "causal"
-        stride: integer.
-        dilation: dilation rate, integer.
+
+    Args:
+        input_length (int): integer.
+        filter_size (int): integer.
+        padding (str): one of "same", "valid", "full", "causal"
+        stride (int): integer.
+        dilation (int): dilation rate, integer.
     Returns:
-        The output length (integer).
+        int: the output length.
     """
     if input_length is None:
         return None
@@ -32,22 +33,22 @@ def conv_output_length(input_length, filter_size, padding, stride, dilation=1):
     return (output_length + stride - 1) // stride
 
 
-@tdl.core.create_init_docstring
-class Conv2DLayer(tdl.core.Layer):
-    @tdl.core.InputArgument
+@core.create_init_docstring
+class Conv2DLayer(core.Layer):
+    @core.InputArgument
     def kernel_size(self, value):
         '''Size of the convolution kernels. Must be a tuple/list of two
         elements (height, width)
         '''
         if value is None:
-            raise tdl.core.exceptions.ArgumentNotProvided(self, 'kernel_size')
+            raise core.exceptions.ArgumentNotProvided(self, 'kernel_size')
         if isinstance(value, collections.Iterable):
             assert len(value) == 2, 'kernel_size must have a length of 2'
         if isinstance(value, int):
             value = [value, value]
         return value
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def strides(self, value):
         '''Convolution strides. Default is (1, 1).'''
         if value is None:
@@ -56,11 +57,11 @@ class Conv2DLayer(tdl.core.Layer):
             assert len(value) == 2, 'strides must have a length of 2'
         return value
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def input_shape(self, value):
         '''Input tensor shape: (n_samples, n_rows, n_cols, n_channels).'''
         if value is None:
-            raise tdl.core.exceptions.ArgumentNotProvided(self)
+            raise core.exceptions.ArgumentNotProvided(self)
         if len(value) != 4:
             raise ValueError('input_shape must specify four values: '
                              '(n_samples, n_rows, n_cols, n_channels)')
@@ -68,18 +69,18 @@ class Conv2DLayer(tdl.core.Layer):
             value = tf.TensorShape(value)
         return value
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def filters(self, value):
         '''Number of filters (int), equal to the number of output maps.'''
         if value is None:
-            raise tdl.core.exceptions.ArgumentNotProvided(self)
+            raise core.exceptions.ArgumentNotProvided(self)
         if not isinstance(value, int):
             raise TypeError('filters must be an integer')
         return value
 
-    @tdl.core.ParameterInit(lazzy=True)
+    @core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
-        tdl.core.assert_initialized(
+        core.assert_initialized(
             self, 'kernel', ['kernel_size', 'input_shape'])
         if initializer is None:
             initializer = tf.keras.initializers.glorot_uniform()
@@ -97,11 +98,11 @@ class Conv2DLayer(tdl.core.Layer):
                              'same time')
         return
 
-    @tdl.core.ParameterInit(lazzy=True)
+    @core.ParameterInit(lazzy=True)
     def bias(self, initializer=None, trainable=True, use_bias=True, **kargs):
-        tdl.core.assert_initialized(self, 'bias', ['filters'])
-        tdl.core.assert_initialized_if_available(self, 'bias', ['use_bias'])
-        if tdl.core.is_property_initialized(self, 'use_bias'):
+        core.assert_initialized(self, 'bias', ['filters'])
+        core.assert_initialized_if_available(self, 'bias', ['use_bias'])
+        if core.is_property_initialized(self, 'use_bias'):
             use_bias = (use_bias and self.use_bias)
         if use_bias is False:
             return None
@@ -114,27 +115,27 @@ class Conv2DLayer(tdl.core.Layer):
             trainable=trainable,
             **kargs)
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def use_bias(self, value: typing.Union[bool, None]):
-        tdl.core.assert_initialized_if_available(
+        core.assert_initialized_if_available(
             self, 'use_bias', ['bias', 'filters'])
         if value is None:
-            if tdl.core.is_property_initialized(self, 'bias'):
+            if core.is_property_initialized(self, 'bias'):
                 value = self.bias is not None
             else:
                 value = True
         assert isinstance(value, bool), 'use_bias should be bool'
         if value is True:
-            if tdl.core.is_property_initialized(self, 'bias'):
+            if core.is_property_initialized(self, 'bias'):
                 assert self.bias is not None, \
                     'use_bias is True, but bias was set to None'
         if value is False:
-            if tdl.core.is_property_initialized(self, 'bias'):
+            if core.is_property_initialized(self, 'bias'):
                 assert self.bias is None, \
                     'use_bias is False, but bias was not set to None'
         return value
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def padding(self, value):
         """Padding for the convolution. It could be either 'valid' or 'same'.
         Default is 'valid'.
@@ -145,7 +146,7 @@ class Conv2DLayer(tdl.core.Layer):
             'padding should be either same or valid'
         return value
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def dilation_rate(self, value):
         '''Defaults to (1, 1).'''
         if value is None:
@@ -160,7 +161,7 @@ class Conv2DLayer(tdl.core.Layer):
 
     def compute_output_shape(self, input_shape=None):
         if input_shape is None:
-            tdl.core.assert_initialized(
+            core.assert_initialized(
                 self, 'copute_output_shape',
                 ['input_shape', 'kernel_size', 'padding', 'strides',
                  'dilation_rate'])
@@ -180,9 +181,9 @@ class Conv2DLayer(tdl.core.Layer):
 
     def call(self, inputs, *args, **kargs):
         inputs = tf.convert_to_tensor(inputs)
-        if not tdl.core.is_property_initialized(self, 'input_shape'):
+        if not core.is_property_initialized(self, 'input_shape'):
             self.input_shape = inputs.shape
-        tdl.core.assert_initialized(
+        core.assert_initialized(
             self, 'call', ['kernel', 'bias', 'strides', 'padding'])
         conv = tf.nn.conv2d(
             inputs, self.kernel,
@@ -194,11 +195,11 @@ class Conv2DLayer(tdl.core.Layer):
         return conv
 
 
-@tdl.core.create_init_docstring
+@core.create_init_docstring
 class Conv2DTranspose(Conv2DLayer):
-    @tdl.core.ParameterInit(lazzy=True)
+    @core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
-        tdl.core.assert_initialized(
+        core.assert_initialized(
             self, 'kernel', ['kernel_size', 'input_shape'])
         if initializer is None:
             initializer = tf.keras.initializers.glorot_uniform()
@@ -210,7 +211,7 @@ class Conv2DTranspose(Conv2DLayer):
             trainable=trainable,
             **kargs)
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def output_padding(self, value):
         if isinstance(value, (list, tuple)):
             assert len(value) == 2, 'kernel_size must have a length of 2'
@@ -273,9 +274,9 @@ class Conv2DTranspose(Conv2DLayer):
 
     def call(self, inputs, *args, **kargs):
         inputs = tf.convert_to_tensor(inputs)
-        if not tdl.core.is_property_initialized(self, 'input_shape'):
+        if not core.is_property_initialized(self, 'input_shape'):
             self.input_shape = inputs.shape
-        tdl.core.assert_initialized(
+        core.assert_initialized(
             self, 'call', ['kernel', 'bias', 'strides', 'padding'])
         output_shape = self._compute_output_shape(tf.shape(inputs))
         output_shape = tf.stack(output_shape)
@@ -295,19 +296,20 @@ class Conv2DTranspose(Conv2DLayer):
         return conv
 
 
-class Conv1x1Proj(tdl.core.Layer):
-    @tdl.core.InputArgument
+@core.create_init_docstring
+class Conv1x1Proj(core.Layer):
+    @core.InputArgument
     def units(self, value: int):
         '''Number of output units (int).'''
         if value is None:
-            raise tdl.core.exceptions.ArgumentNotProvided(self)
+            raise core.exceptions.ArgumentNotProvided(self)
         if not isinstance(value, int):
             raise TypeError('units must be an integer')
         return value
 
-    @tdl.core.ParameterInit(lazzy=True)
+    @core.ParameterInit(lazzy=True)
     def kernel(self, initializer=None, trainable=True, **kargs):
-        tdl.core.assert_initialized(
+        core.assert_initialized(
             self, 'kernel', ['units', 'input_shape'])
         if initializer is None:
             initializer = tf.keras.initializers.glorot_uniform()
@@ -318,9 +320,9 @@ class Conv1x1Proj(tdl.core.Layer):
             trainable=trainable,
             **kargs)
 
-    @tdl.core.ParameterInit(lazzy=True)
+    @core.ParameterInit(lazzy=True)
     def bias(self, initializer=None, trainable=True, use_bias=True, **kargs):
-        tdl.core.assert_initialized(self, 'bias', ['units', 'use_bias'])
+        core.assert_initialized(self, 'bias', ['units', 'use_bias'])
         if (use_bias and self.use_bias) is False:
             return None
         if initializer is None:
@@ -332,32 +334,32 @@ class Conv1x1Proj(tdl.core.Layer):
             trainable=trainable,
             **kargs)
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def use_bias(self, value: typing.Union[bool, None]):
-        tdl.core.assert_initialized_if_available(self, 'use_bias', ['bias'])
+        core.assert_initialized_if_available(self, 'use_bias', ['bias'])
         if value is None:
-            if tdl.core.is_property_initialized(self, 'bias'):
+            if core.is_property_initialized(self, 'bias'):
                 value = self.bias is not None
             else:
                 value = True
         assert isinstance(value, bool), 'use_bias should be bool'
         if value is True:
-            if tdl.core.is_property_initialized(self, 'bias'):
+            if core.is_property_initialized(self, 'bias'):
                 assert self.bias is not None, \
                     'use_bias is True, but bias was set to None'
         if value is False:
-            if tdl.core.is_property_initialized(self, 'bias'):
+            if core.is_property_initialized(self, 'bias'):
                 assert self.bias is None, \
                     'use_bias is False, but bias was not set to None'
         return value
 
-    @tdl.core.InputArgument
+    @core.InputArgument
     def activation(self, value):
         return value
 
-    @tdl.core.Submodel
+    @core.Submodel
     def _linop(self, _):
-        tdl.core.assert_initialized(self, '_linop', ['kernel'])
+        core.assert_initialized(self, '_linop', ['kernel'])
         return tf.linalg.LinearOperatorFullMatrix(self.kernel)
 
     def compute_output_shape(self, input_shape=None):
@@ -374,7 +376,7 @@ class Conv1x1Proj(tdl.core.Layer):
         return output
 
     def get_transpose(self, use_bias=None, activation=None, trainable=True):
-        tdl.core.assert_initialized(
+        core.assert_initialized(
             self, 'get_transpose', ['kernel', 'bias', 'activation'])
         kargs = dict()
         if use_bias is False or self.bias is None:

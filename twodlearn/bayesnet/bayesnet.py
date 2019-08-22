@@ -1,12 +1,5 @@
-#  ***********************************************************************
-#   This file defines several bayesian neural-networks
-#
-#   Wrote by: Daniel L. Marino (marinodl@vcu.edu)
-#    Modern Heuristics Research Group (MHRG)
-#    Virginia Commonwealth University (VCU), Richmond, VA
-#    http://www.people.vcu.edu/~mmanic/
-#
-#   ***********************************************************************
+"""Definition of several bayesian neural-networks
+"""
 
 import numbers
 import warnings
