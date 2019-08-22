@@ -57,3 +57,31 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# sphinx_rtd_theme configuration
+# html_theme_options = {
+#     'canonical_url': '',
+#     'analytics_id': 'UA-XXXXXXX-1',  #  Provided by Google in your dashboard
+#     'logo_only': False,
+#     'display_version': True,
+#     'prev_next_buttons_location': 'bottom',
+#     'style_external_links': False,
+#     'vcs_pageview_mode': '',
+#     'style_nav_header_background': 'white',
+#     # Toc options
+#     'collapse_navigation': True,
+#     'sticky_navigation': True,
+#     'navigation_depth': 4,
+#     'includehidden': True,
+#     'titles_only': False
+# }
+html_context = {
+    'source_url_prefix': "https://github.com/danmar3/twodlearn",
+    "display_github": True,
+    "github_host": "github.com",
+    "github_user": "danmar3",
+    "github_repo": 'twodlearn',
+    "github_version": "doc",
+    "conf_py_path": "/doc/sphinx/source/",
+    "source_suffix": '.rst',
+}

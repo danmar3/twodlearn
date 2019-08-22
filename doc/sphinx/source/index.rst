@@ -11,7 +11,7 @@ Welcome to twodlearn's documentation!
    :caption: Contents:
 
    introduction
-   twodlearn_api
+   api_twodlearn
 
 Introduction
 ============
