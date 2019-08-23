@@ -249,18 +249,21 @@ class MVNDiag(MVN):
 
 
 class MVNScaledIdentity(MVNDiag):
-    ''' Multivariate Normal Distribution with Scaled Identity covariance
-    scale correspond to the covariance scale.
-    shape is required
-    Parameters are instantiated as Trainable by default:
-    tdl.bayesnet.distributions.MVNScaledIdentity(
-                shape=[10], scale=0.5)
+    ''' Multivariate Normal Distribution with Scaled Identity covariance.
 
-    To instantiate parameters as tensors (not trainable) use AutoInit classes:
-    tdl.bayesnet.distributions.MVNScaledIdentity(
-        shape=[10],
-        scale=(0.5, tdl.AutoTensor()), # initialize scale using 0.5 tensor
-        loc=tdl.AutoTensor()) # initialize scale using the default value (0)
+    Scale correspond to the covariance scale, shape is required.
+
+    Parameters are instantiated as Trainable by default ::
+
+        tdl.bayesnet.distributions.MVNScaledIdentity(
+                    shape=[10], scale=0.5)
+
+    To instantiate parameters as tensors (not trainable) use AutoInit classes::
+
+        tdl.bayesnet.distributions.MVNScaledIdentity(
+            shape=[10],
+            scale=(0.5, tdl.AutoTensor()), # initialize scale using 0.5 tensor
+            loc=tdl.AutoTensor()) # initialize scale using the default value (0)
     '''
     def _PDMatrixClass(self, raw, shape=None):
         tdl.core.assert_initialized(self, '_PDMatrixClass', ['shape'])

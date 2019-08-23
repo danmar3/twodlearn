@@ -21,8 +21,10 @@ def _frob_squared(M):
 class GPNegLogEvidence(tdl.losses.EmpiricalLoss):
     ''' Negative log evidence for a Gaussian Process with training covariance
     cov = K(train, train).
-    The loss takes the following form:
-        loss = 0.5(y' inv(cov) y + log(|cov|) + n log(2 pi))
+
+    The loss takes the following form ::
+
+        loss = 0.5(y^T inv(cov) y + log(|cov|) + n log(2 pi))
 
     if conv_inv can be provided when instiating the loss to prevent computing
     the inverse multiple times
@@ -70,10 +72,12 @@ class GPNegLogEvidence(tdl.losses.EmpiricalLoss):
 
 class GaussianProcess(tdl.core.TdlModel):
     '''Gaussian process with zero mean.
-    The covariance kernel takes by default the following form:
-       X1 is a matrix, whose rows represent samples
-       X2 is a matrix, whose rows represent samples
-       K(i,j) = (f_scale**2) exp(-0.5 (x1(i)-x2(j))' (l**-2)I (x1(i)-x2(j)) )
+
+    The covariance kernel takes by default the following form ::
+
+       # X1 is a matrix, whose rows represent samples
+       # X2 is a matrix, whose rows represent samples
+       K(i,j) = (f_scale**2) exp(-0.5 (x1(i)-x2(j))^T (l**-2)I (x1(i)-x2(j)) )
 
     By default, when float values of l_scale, f_scale and y_scale are provided,
     a trainable variable is created. If want them fixed, you can
@@ -358,7 +362,7 @@ class GpWithExplicitMean(tdl.core.TdlModel):
         loss = object.gp_marginal.loss - log_prob
         return loss
 
-    class GpOutput(tdl.core.TdlModel):
+    class EGpOutput(tdl.core.TdlModel):
         @property
         def gp_model(self):
             return self.model.gp_model
@@ -437,7 +441,7 @@ class GpWithExplicitMean(tdl.core.TdlModel):
                 self.ht_k11inv_h.cholesky, y_hk)
             return beta
 
-    class EGPPosterior(GpOutput, tdlb.distributions.MVN):
+    class EGPPosterior(EGpOutput, tdlb.distributions.MVN):
         @tdl.core.LazzyProperty
         def loc(self):
             return tf.squeeze(self.gp_output.loc) \

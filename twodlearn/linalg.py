@@ -4,6 +4,7 @@ import twodlearn as tdl
 
 def solvevec(M_cholesky, x):
     """compute inv(M) @ x
+
     Args:
         M_cholesky : cholesky decomposition of matrix M.
         x (tf.Tensor): (batched) vector
@@ -20,6 +21,7 @@ def solvevec(M_cholesky, x):
 
 def solvemat(M_cholesky, A):
     """Compute inv(M) @ A
+
     Args:
         M_cholesky : cholesky decomposition of matrix M
         A (tf.Tensor): (batched) Matrix.
@@ -44,7 +46,8 @@ def is_diagonal_linop(M):
 
 
 def diagonal_M_times_Mt(M):
-    """Compute M @ M^t for diagonal linop M
+    """Compute M @ M^t for diagonal linop M.
+
     Args:
         M : (batched) diagonal linear operator
     Returns:
@@ -67,6 +70,7 @@ def diagonal_M_times_Mt(M):
 
 def M_times_Mt(M):
     """Compute M @ M^t
+
     Args:
         M : (batched) matrix M
     Returns:
@@ -86,6 +90,7 @@ def M_times_Mt(M):
 
 def Mt_times_M(M):
     """Compute M^t @ M
+
     Args:
         M : (batched) matrix M
     Returns:
@@ -103,6 +108,7 @@ def Mt_times_M(M):
         raise TypeError("cannot compute M_times_Mt, invalid type")
 
 
+@tdl.core.create_init_docstring
 class PDMatrix(tdl.core.TdlModel):
     ''' Positive definite matrix '''
     @tdl.core.InputArgument
@@ -127,9 +133,9 @@ class PDMatrix(tdl.core.TdlModel):
 
     @tdl.core.InputArgument
     def shape(self, value):
-        ''' shape of the distribution
+        ''' shape of the distribution.
         The shape assumes the last two dimentions corresponds to the shape of a
-            square matrix
+        square matrix
         '''
         if value is None:
             if tdl.core.is_property_set(self, 'raw'):
@@ -189,6 +195,7 @@ class PDMatrix(tdl.core.TdlModel):
         return value
 
 
+@tdl.core.create_init_docstring
 class PDMatrixDiag(PDMatrix):
     @tdl.core.SimpleParameter
     def raw(self, value, AutoType=None):
@@ -211,6 +218,7 @@ class PDMatrixDiag(PDMatrix):
         return tf.linalg.LinearOperatorDiag(tf.square(scale))
 
 
+@tdl.core.create_init_docstring
 class PDScaledIdentity(PDMatrixDiag):
     @tdl.core.InputArgument
     def domain_dimension(self, value):
@@ -250,6 +258,7 @@ class PDScaledIdentity(PDMatrixDiag):
             multiplier=tf.square(scale))
 
 
+@tdl.core.create_init_docstring
 class Cholesky(tdl.core.TdlModel):
     @tdl.core.InputParameter
     def input(self, value):
@@ -325,6 +334,7 @@ def is_scaled_identity(x):
     return isinstance(linop, (tf.linalg.LinearOperatorScaledIdentity))
 
 
+@tdl.core.create_init_docstring
 class DynamicScaledIdentity(tdl.core.TdlModel):
     '''scaled identity [batched] matrix whose size depends on the
     shape of the input'''

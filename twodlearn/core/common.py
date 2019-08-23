@@ -1509,6 +1509,7 @@ class MethodInit(object):
     Examples:
         The descriptor can be used to define both, an initialization method,
         and an evaluation method ::
+
             class Example(tdl.core.TdlModel):
                 @tdl.core.MethodInit
                 def evaluate(self, local, units=20):
@@ -1549,8 +1550,9 @@ class MethodInit(object):
                     reqs=['{}.init'.format(self._attr_name)])
             return self._feval(self.local, *args, **kargs)
 
-    def __init__(self, finit=None, feval=None):
+    def __init__(self, finit=None, feval=None, doc=None):
         """Initialization of MethodInit descriptor.
+
         Args:
             finit (callable): Function that initialize the locals.
                 Defaults to None.
@@ -1559,11 +1561,14 @@ class MethodInit(object):
         self.finit = finit
         self.feval = feval
         self.name = finit.__name__
+        if doc is None and finit is not None:
+            doc = finit.__doc__
+        self.__doc__ = doc
 
     def eval(self, feval):
         assert self.feval is None,\
             'the evaluation method has already been specified'
-        return type(self)(finit=self.finit, feval=feval)
+        return type(self)(finit=self.finit, feval=feval, doc=self.__doc__)
 
     def init(self, obj, val=None):
         assert (self.finit is not None), 'Unspecified finit method'
@@ -1615,7 +1620,9 @@ def hasattr(object, name):
 
 def build(model, recursive=False):
     '''initialize parameters and submodels of a given model.
-    recursive: True for building the parameters and submodels.
+
+    Args:
+        recursive: True for building the parameters and submodels.
     '''
     input_desc = (InputArgument, InputParameter, InputModel, InferenceInput,
                   InputModelInit)
@@ -1958,7 +1965,7 @@ def create_init_docstring(cls):
                                 return_attr_class=True)
     # doc = inspect.getdoc(cls.__init__)
     doc = ('' if cls.__doc__ is None
-           else cls.__doc__)
+           else inspect.getdoc(cls) + '\n\n')
     doc = (doc +
            'Tdl autoinitialization with arguments: \n\n'
            'Attributes:\n')

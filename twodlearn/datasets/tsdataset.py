@@ -703,9 +703,9 @@ class TSDataset(object):
             reset: reset the cursors that point where data is currently being
                    extracted
         Returns:
-            A dictionary with the batch samples, the format is:
-            batch[group] = array with the following format
-                           [window_size, batch_size, n_vars(group)]
+            dict: A dictionary with the batch samples, the format is: ::
+
+                batch[group] = array[window_size, batch_size, n_vars(group)]
         '''
         if (reset or
                 (batch_size != self.batch_size) or
@@ -751,12 +751,15 @@ class TSDataset(object):
                             groups=None, reset=False):
         ''' Returns the next batch where each sample contains a sequence off
         window_size elements
-        @param sequences_length: length of the sequences
-        @param batch_size: number of sequences
-        @param window_size: size of the window
-        @return A dictionary with the batch samples, the format is:
-            batch[group] = array with the following format
-                           [sequences_length, batch_size, n_vars(group)*window_size]
+
+        Args:
+            sequences_length: length of the sequences
+            batch_size: number of sequences
+            window_size: size of the window
+        Returns:
+            dict: A dictionary with the batch samples. The format is: ::
+
+                batch[group] = array[sequences_length, batch_size, n_vars(group)*window_size]
         '''
         batch = self.next_batch(sequences_length + window_size - 1,
                                 batch_size,
@@ -821,9 +824,10 @@ class TSDataset(object):
 
     def to_dense(self):
         """Return a dense representation of the dataset.
+
         Returns:
-            (array, length): return a tuple of the dense array and the length
-                of each record. The records are padded with nan values.
+            (array, length): a tuple of the dense array and the length
+            of each record. The records are padded with nan values.
         """
         columns = self.records[0].columns
 
@@ -843,6 +847,7 @@ class TSDataset(object):
 
     def to_tf_dataset(self, dtype=np.float32):
         """Get a tf.data.Dataset with a dense representation of the dataset.
+
         Returns:
             tf.data.Dataset: with elements 'data', 'length'. 'data' is a dense
             tensor representation of the dataset formated as
@@ -862,6 +867,7 @@ class TSDataset(object):
 
 def sample_batch_window(data, length, window_size, batch_size=None):
     """Sample continuous windows of window_size from tensor data.
+
     Args:
         data (tf.Tensor): dense representation of a set of continuous records.
             The format should be (record, time, features).
@@ -871,7 +877,7 @@ def sample_batch_window(data, length, window_size, batch_size=None):
             batch_size = data.shape[0]
     Returns:
         tf.Tensor: continuous random continuous windows. The format is
-            (record, time, features)
+        (record, time, features)
     """
     flatten = tdl.core.nest.flatten(data)
 
@@ -905,6 +911,7 @@ def sample_batch_window(data, length, window_size, batch_size=None):
 
 def sample_window(data, length, window_size):
     """Sample continuous windows of window_size from tensor data.
+
     Args:
         data (tf.Tensor): dense representation of a set of continuous records.
             The format should be (time, features).
@@ -912,7 +919,7 @@ def sample_window(data, length, window_size):
         window_size (type): window size of the window to sample.
     Returns:
         tf.Tensor: continuous random continuous windows. The format is
-            (record, time, features)
+        (record, time, features)
     """
     flatten = tdl.core.nest.flatten(data)
 

@@ -19,6 +19,7 @@ import twodlearn as tdl
 import warnings
 
 
+@tdl.core.create_init_docstring
 class Loss(tdl.common.TdlModel):
     @property
     def value(self):
@@ -55,14 +56,17 @@ class LossMethod(tdl.ModelMethod):
     ''' Decorator used to specify an operation for a loss inside a model.
     The decorator works similar to @property, but the specified
     method correponds to the definition of the operation
-    Usage:
-    class MyModel(tdl.TdlModel):
-        _submodels = ['evaluate']
-        @tdl.LossMethod(['y'], # list of outputs
-                        ['x']  # list of inputs
-                        )
-        def mean_loss(self, x):
-            return tf.reduce_mean(x)
+
+    Examples:
+        Usage of the decorator::
+
+            class MyModel(tdl.TdlModel):
+                _submodels = ['evaluate']
+                @tdl.LossMethod(['y'], # list of outputs
+                                ['x']  # list of inputs
+                                )
+                def mean_loss(self, x):
+                    return tf.reduce_mean(x)
     '''
     _OutputClass = Loss
 
@@ -101,6 +105,7 @@ class MultipliedLosses(Loss):
             self._value = loss1.value * loss2.value
 
 
+@tdl.core.create_init_docstring
 class EmpiricalLoss(Loss):
     @property
     def labels(self):
@@ -115,6 +120,7 @@ class EmpiricalLoss(Loss):
         return self._labels
 
 
+@tdl.core.create_init_docstring
 class EmpiricalLossWrapper(EmpiricalLoss):
     @property
     def loss(self):
@@ -129,6 +135,7 @@ class EmpiricalLossWrapper(EmpiricalLoss):
         self._labels = labels
 
 
+@tdl.core.create_init_docstring
 class AddLoss(Loss):
     @property
     def loss1(self):
@@ -150,6 +157,7 @@ class AddLoss(Loss):
             self._value = loss1 + loss2
 
 
+@tdl.core.create_init_docstring
 class AddNLosses(Loss):
     @property
     def losses(self):
@@ -174,6 +182,7 @@ class AddNLosses(Loss):
             self._value = tf.add_n(losses)
 
 
+@tdl.core.create_init_docstring
 class EmpiricalWithRegularization(Loss):
     ''' Linear combination of a Empirical and a Reguralizer loss:
     loss = empirical + alpha * regularizer
@@ -213,6 +222,7 @@ class EmpiricalWithRegularization(Loss):
                                alpha * tf.convert_to_tensor(self.regularizer))
 
 
+@tdl.core.create_init_docstring
 class ClassificationLoss(EmpiricalLoss):
     _input_args = ['logits', 'labels']
 
@@ -272,8 +282,9 @@ class ClassificationLoss(EmpiricalLoss):
         return accuracy
 
 
+@tdl.core.create_init_docstring
 class L2Loss(EmpiricalLoss):
-    ''' computes (1/M)sum( (y - labels)**2 )'''
+    '''Computes (1/M)sum( (y - labels)**2 )'''
     @property
     def y(self):
         return self._y
@@ -298,6 +309,7 @@ class L2Loss(EmpiricalLoss):
         return loss
 
 
+@tdl.core.create_init_docstring
 class L2Regularizer(Loss):
     @property
     def weights(self):
@@ -326,6 +338,7 @@ class L2Regularizer(Loss):
         return loss
 
 
+@tdl.core.create_init_docstring
 class L1Regularizer(L2Regularizer):
     def define_loss(self, weights, scale):
         if isinstance(weights, list):
@@ -339,9 +352,15 @@ class L1Regularizer(L2Regularizer):
         return loss
 
 
+@tdl.core.create_init_docstring
 class QuadraticLoss(Loss):
-    ''' Defines a cuadratic loss that takes the form:
-    loss = (X-target) q (X-target)^T '''
+    '''Defines a cuadratic loss that takes the form:
+
+    .. math ::
+
+        loss = (X-target) q (X-target)^T
+
+    '''
     _input_args = ['x', 'target']
     _parameters = ['q']
 
@@ -376,6 +395,7 @@ class QuadraticLoss(Loss):
                 self._value = tf.reduce_sum(q*diff**2, axis=axis)
 
 
+@tdl.core.create_init_docstring
 class LessThan(Loss):
     ''' Defines a loss that punishes the variable being smaller than
     a given value
@@ -416,10 +436,13 @@ class LessThan(Loss):
             self._value = self.loss_eval(self.x, self.reference, self.mask)
 
 
+@tdl.core.create_init_docstring
 class GreaterThan(LessThan):
-    ''' Defines a loss that punishes the variable being larger than
-    a given value
-    loss = func(x - reference) '''
+    '''Loss that punishes values being larger than a given value.
+
+    .. math::
+        loss = func(x - reference)
+    '''
 
     def loss_eval(self, x, reference, mask):
         return self._func(x - reference)

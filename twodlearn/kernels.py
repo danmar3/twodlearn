@@ -8,15 +8,20 @@ import twodlearn as tdl
 import twodlearn.feedforward as tdlf
 
 
+@tdl.core.create_init_docstring
 class PairwiseL2(tdl.core.TdlOp):
     @property
     def x1(self):
-        ''' x1 input for the PairwiseL2 operation (||x1 - x2||^2)'''
+        ''' :math:`x_1` input for the PairwiseL2 operation
+        :math:`(||x_1 - x_2||^2)`
+        '''
         return self._x1
 
     @property
     def x2(self):
-        ''' x2 input for the PairwiseL2 operation (||x1 - x2||^2)'''
+        ''' :math:`x_2` input for the PairwiseL2 operation
+        :math:`(||x_1 - x_2||^2)`
+        '''
         return self._x2
 
     @property
@@ -35,6 +40,7 @@ class PairwiseL2(tdl.core.TdlOp):
                            + tf.transpose(x2_norm))
 
 
+@tdl.core.create_init_docstring
 class ConcatOnes(tdl.core.TdlModel):
     ''' Concat ones at the right of input matrix '''
     class ConcatOnesBasis(tdl.core.OutputModel):
@@ -61,6 +67,7 @@ class ConcatOnes(tdl.core.TdlModel):
         return self.evaluate(x)
 
 
+@tdl.core.create_init_docstring
 class QuadraticFeatures(tdl.core.TdlModel):
     ''' Concat ones at the right of input matrix '''
     @tdl.core.InputArgument
@@ -90,12 +97,19 @@ class QuadraticFeatures(tdl.core.TdlModel):
         return self.evaluate(x)
 
 
+@tdl.core.create_init_docstring
 class GaussianKernel(tdl.TdlModel):
-    ''' gaussian_kernel: gaussian kernel calculation between datasets X1 and X2
-       X1 is a matrix, whose rows represent samples
-       X2 is a matrix, whose rows represent samples
-       K(i,j) = (f_scale**2) exp(-0.5 (x1(i)-x2(j))' (l**-2)I (x1(i)-x2(j)) )
-                + y_scale**2 I
+    '''gaussian kernel calculation between matrices X1 and X2
+
+    X1 is a matrix, whose rows represent samples.
+    X2 is a matrix, whose rows represent samples.
+
+    .. math::
+
+        K(i,j) =
+        (f_{scale}^2) \exp(-0.5 (x_1(i)-x_2(j))^T (l^{-2}) I (x_1(i)-x_2(j)) )
+        + y_{scale}^2 I
+
     '''
     _default_name = 'GaussianKernel'
     _parameters = ['l_scale', 'f_scale', 'y_scale']

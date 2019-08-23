@@ -83,10 +83,12 @@ class KLDivergence(tdl.core.TdlModel):
 
 class RegisterKL(object):
     """Decorator to register a KL divergence implementation function.
-    Usage:
-    @distributions.RegisterKL(distributions.Normal, distributions.Normal)
-    def _kl_normal_mvn(norm_a, norm_b):
-        # Return KL(norm_a || norm_b)
+
+    Usage ::
+
+        @distributions.RegisterKL(distributions.Normal, distributions.Normal)
+        def _kl_normal_mvn(norm_a, norm_b):
+            # Return KL(norm_a || norm_b)
     """
     def __init__(self, dist_cls_a, dist_cls_b):
         """Initialize the KL registrar.

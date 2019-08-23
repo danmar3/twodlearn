@@ -12,11 +12,13 @@ class AutoinitType(object):
 class AutoInit(object):
     ''' Indicates that the property should be auto initialized
 
-    Example:
+    Example: ::
+
         TdlModel(prop=AutoInit())  # Runs auto initialization for prop
 
     If the property initializer accepts AutoType, the Type can be provided
-    using a tuple:
+    using a tuple: ::
+
         TdlModel(prop=(AutoInit(), AutoType))
     '''
 
@@ -41,9 +43,11 @@ class AutoConstant(AutoinitType):
 class AutoVariable(AutoinitType):
     ''' auto initialize properties as variables
 
-    If an initializer is provided, then shape must be specified)
+    If an initializer is provided, then shape must be specified: ::
+
         init = AutoVariable(initializer=tf.keras.initializer.glorot_uniform())
         var = init(shape=shape)
+
     Otherwise, calling AutoVariable expects an initial value or an initializer
 
     '''

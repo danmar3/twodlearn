@@ -108,7 +108,7 @@ class BaseOptimizer(tdl.core.TdlModel):
     @tdl.core.Submodel
     def optimizer(self, value):
         '''Optimizer used to perform the optimization. AdamOptimizer is used
-           by default.
+        by default.
         '''
         if value is None:
             Optimizer = tf.train.AdamOptimizer
@@ -136,7 +136,7 @@ class BaseOptimizer(tdl.core.TdlModel):
 
     @tdl.core.MethodInit
     def restart(self, local):
-        '''calls the initializer for all var_list and optimizer variables'''
+        '''calls the initializer for all var_list and optimizer variables.'''
         tdl.core.assert_initialized(
             self, 'restart', ['step_op', 'optimizer', 'train_step'])
         local.vars = set(self.optimizer.variables() + self.var_list +
@@ -145,7 +145,7 @@ class BaseOptimizer(tdl.core.TdlModel):
 
     @restart.eval
     def restart(self, local):
-        '''calls the initializer for all var_list and optimizer variables'''
+        '''calls the initializer for all var_list and optimizer variables.'''
         self.session.run(local.restart_op)
 
     @tdl.core.MethodInit
@@ -364,9 +364,13 @@ class CheckProgress(tdl.core.TdlModel):
     @tdl.core.SubmodelInit
     def progress(self, filter_window=50, reset_multiplier=10.0):
         '''checks if progress has been made in last step.
-        filter_window: size of the buffer used by the moving average filter.
-        reset_multiplier: if current loss > reset_multiplier*filtered_loss,
-            we restore the last checkpoint.
+
+        Args:
+            filter_window (int): size of the buffer used by the moving average
+                filter.
+            reset_multiplier (float): if current
+                ``loss > reset_multiplier*filtered_loss``,
+                we restore the last checkpoint.
         '''
         def current_value():
             try:

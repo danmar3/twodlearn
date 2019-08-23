@@ -1,13 +1,4 @@
-#  ***********************************************************************
-#
-#   Description: Creates a generic dataset from a given data
-#
-#   Created by: Daniel L. Marino (marinodl@vcu.edu)
-#    Modern Heuristics Research Group (MHRG)
-#    Virginia Commonwealth University (VCU), Richmond, VA
-#    http://www.people.vcu.edu/~mmanic/
-#
-#   ***********************************************************************
+""" Creates a generic dataset from a given data """
 
 import os
 import math
@@ -70,12 +61,13 @@ def load_gz_as_nparray(work_directory, filename, dtype=np.float32):
 
 
 class Dataset(object):
-    ''' attributes:
-            - _x: samples, [sample_id, sample ...]
-            - _y: labels for each sample
-            - _epochs_completed
-            - _index_in_epoch
-            - _n_samples
+    '''
+    Attributes:
+        x: samples, [sample_id, sample ...]
+        y: labels for each sample
+        epochs_completed:
+        index_in_epoch:
+        n_samples:
     '''
 
     def __init__(self, data_x, data_y=None):
@@ -263,10 +255,6 @@ class Datasets(object):
     def normalize(self):
         ''' Normalize dataset for having a training dataset with
         zero mean and standard deviation of one.
-        @param force: force normalization of the dataset when it has already
-                      been normalized
-        @return mu, sigma: mean and standard deviation of training
-                           dataset
         '''
         if not self.normalizer.is_set:
             self.normalizer.init()

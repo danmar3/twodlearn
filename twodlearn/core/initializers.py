@@ -32,7 +32,10 @@ def compute_fans(kernel_shape):
 
 class SumFanConstant(object):
     '''Initializer that creates a matrix fill with a constant value equal
-    to the SumFan rule:
+    to the SumFan rule
+
+    The sumfan rule is: ::
+
         output = sqrt(scale**2/(fain_in  + fan_out)) eye(shape)
     '''
     @property

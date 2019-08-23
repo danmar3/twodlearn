@@ -1,3 +1,5 @@
+__version__ = '0.6.0.dev0'
+
 import twodlearn.core
 import twodlearn.core.save
 import twodlearn.utils

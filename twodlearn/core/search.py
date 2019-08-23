@@ -44,6 +44,7 @@ class NoScopeParam(object):
 
 def get_parameters(model, include_inputs=False):
     '''find the parameters in the model.
+
     Args:
         model (TdlModel, TdlLayer): model or nested sequence of models.
             Supports SingleNamespaces as well.
@@ -153,6 +154,7 @@ def get_parameters(model, include_inputs=False):
 
 def get_variables(model, include_inputs=True):
     '''get tf variables of a model
+
     Args:
         model (TdlModel, TdlLayer): model or nested sequence of models.
             Supports SingleNamespaces as well.
@@ -193,6 +195,7 @@ else:
 
 def get_trainable(model, include_inputs=True):
     '''get trainable variables of a model
+
     Args:
         model (TdlModel, TdlLayer): model or nested sequence of models.
             Supports SingleNamespaces as well.
@@ -212,8 +215,9 @@ def get_trainable(model, include_inputs=True):
 
 
 def get_placeholders(model):
-    """find the placeholders of a TdlModel following attributes defined
-        using the InferenceInput decorator.
+    """Find the placeholders of a TdlModel following attributes defined
+    using the InferenceInput decorator.
+
     Args:
         model (TdlModel): TdlModel instance..
     Returns:
@@ -260,8 +264,11 @@ def get_placeholders(model):
 
 
 def get_placeholder(model):
-    """find placeholder of model. Works similar to get_placeholders,
-        but raises an error if more than one placeholder is found.
+    """find placeholder in a model.
+
+    Works similar to get_placeholders, but raises an error if more than one
+    placeholder is found.
+
     Args:
         model (type): Description of parameter `model`.
     Returns:

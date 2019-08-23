@@ -17,12 +17,14 @@
 
 # -- Project information -----------------------------------------------------
 
+from twodlearn import __version__
+
 project = 'twodlearn'
 copyright = '2019, Daniel Marino'
 author = 'Daniel Marino'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.5'
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -46,8 +48,6 @@ def linkcode_resolve(domain, info):
     if not info['module']:
         return None
     filename = info['module'].replace('.', '/')
-    print(info)
-    # import pdb; pdb.set_trace()
     return "https://github.com/danmar3/twodlearn/blob/master/%s.py" % filename
 
 

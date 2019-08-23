@@ -25,6 +25,7 @@ class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
     def fit(self, train_x, train_y, max_iter=100):
         """fit the gaussian process to the training data.
         By default, the parameters of the kernel are optimized.
+
         Args:
             train_x: input training data [batch_size, x_size].
             train_y: output training data [batch_size, y_size].
@@ -107,7 +108,7 @@ class GpEstimator(tdl.templates.supervised.SupervisedEstimator):
 
 @tdl.core.add_autoinit_class
 class ExplicitGpEstimator(GpEstimator):
-    ''' '''
+    '''Explicit gp estimator'''
     @tdl.core.SubmodelInit
     def model(self, train_x, train_y):
         train_x = (train_x if self.normalizer is None

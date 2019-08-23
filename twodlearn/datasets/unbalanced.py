@@ -138,6 +138,7 @@ class UnbalancedDataset(object):
 
     def split(self, values, shuffle=True):
         """Split the dataset according to the percentages provided in values
+
         Args:
             values (list): percentages used for splitting the dataset
             shuffle (bool): true if shuffle the dataset before splitting

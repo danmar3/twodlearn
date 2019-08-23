@@ -16,6 +16,7 @@ def _frob_squared(M):
     return tf.reduce_sum(tf.square(M), axis=[-2, -1])
 
 
+@tdl.core.create_init_docstring
 class VLinear(tdl.core.TdlModel):
     ''' variational linear model '''
     @tdl.core.InputModel
