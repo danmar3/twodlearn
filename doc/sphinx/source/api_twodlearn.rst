@@ -2,7 +2,7 @@ Twodlearn API
 =============
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
    :caption: Contents:
 
    twodlearn

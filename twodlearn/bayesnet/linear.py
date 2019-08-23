@@ -8,7 +8,6 @@ import twodlearn as tdl
 import twodlearn.bayesnet as tdlb
 import twodlearn.bayesnet.distributions
 import twodlearn.linalg
-from twodlearn.bayesnet.distributions import Cholesky, DynamicScaledIdentity
 import twodlearn.debug
 
 

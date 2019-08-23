@@ -20,22 +20,22 @@ from tensorflow.python.ops import math_ops
 TDL_HOME = os.path.dirname(os.path.abspath(twodlearn.__file__))
 
 # -----------------  load my_matmul -------------------- #
-_my_matmul_module = tf.load_op_library(os.path.join(
-    TDL_HOME, 'core/ops/kernels/my_matmul_op.so'))
-my_matmul = _my_matmul_module.my_matmul
+_library_path = os.path.join(TDL_HOME, 'core/ops/kernels/my_matmul_op.so')
+if os.path.exists(_library_path):
+    _my_matmul_module = tf.load_op_library()
+    my_matmul = _my_matmul_module.my_matmul
 
+    @tf.RegisterGradient("MyMatmul")
+    def _my_matmul_grad(op, dl_dc):
+        a = op.inputs[0]
+        b = op.inputs[1]
 
-@tf.RegisterGradient("MyMatmul")
-def _my_matmul_grad(op, dl_dc):
-    a = op.inputs[0]
-    b = op.inputs[1]
+        # dl_da = math_ops.matmul( dl_dc, array_ops.transpose(b, [1,0]))
+        # dl_db = math_ops.matmul( array_ops.transpose(a, [1,0]), dl_dc )
+        dl_da = my_matmul(dl_dc, array_ops.transpose(b, [1, 0]))
+        dl_db = my_matmul(array_ops.transpose(a, [1, 0]), dl_dc)
 
-    # dl_da = math_ops.matmul( dl_dc, array_ops.transpose(b, [1,0]))
-    # dl_db = math_ops.matmul( array_ops.transpose(a, [1,0]), dl_dc )
-    dl_da = my_matmul(dl_dc, array_ops.transpose(b, [1, 0]))
-    dl_db = my_matmul(array_ops.transpose(a, [1, 0]), dl_dc)
-
-    return dl_da, dl_db
+        return dl_da, dl_db
 
 
 # # -----------------  load gmm_model -------------------- #
