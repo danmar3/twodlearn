@@ -39,6 +39,7 @@ extensions = [
     'sphinx.ext.napoleon',
     # 'sphinx.ext.viewcode',   # add source links
     'sphinx.ext.linkcode',  # add links to external source code
+    'sphinx.ext.githubpages',
 ]
 
 
