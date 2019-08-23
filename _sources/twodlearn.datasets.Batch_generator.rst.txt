@@ -1,0 +1,7 @@
+twodlearn.datasets.Batch\_generator module
+==========================================
+
+.. automodule:: twodlearn.datasets.Batch_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:

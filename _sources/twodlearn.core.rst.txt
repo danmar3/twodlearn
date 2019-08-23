@@ -1,0 +1,35 @@
+twodlearn.core package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   twodlearn.core.ops
+
+Submodules
+----------
+
+.. toctree::
+
+   twodlearn.core.array
+   twodlearn.core.autoinit
+   twodlearn.core.common
+   twodlearn.core.context
+   twodlearn.core.exceptions
+   twodlearn.core.initializers
+   twodlearn.core.layers
+   twodlearn.core.options
+   twodlearn.core.save
+   twodlearn.core.search
+   twodlearn.core.shortcuts
+   twodlearn.core.variable
+
+Module contents
+---------------
+
+.. automodule:: twodlearn.core
+   :members:
+   :undoc-members:
+   :show-inheritance:

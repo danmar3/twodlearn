@@ -1,0 +1,7 @@
+twodlearn.reinforce.models.cartpole\_bullet module
+==================================================
+
+.. automodule:: twodlearn.reinforce.models.cartpole_bullet
+   :members:
+   :undoc-members:
+   :show-inheritance:

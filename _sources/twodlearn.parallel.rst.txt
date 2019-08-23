@@ -1,0 +1,7 @@
+twodlearn.parallel module
+=========================
+
+.. automodule:: twodlearn.parallel
+   :members:
+   :undoc-members:
+   :show-inheritance:

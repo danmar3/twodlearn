@@ -1,0 +1,7 @@
+twodlearn.core.autoinit module
+==============================
+
+.. automodule:: twodlearn.core.autoinit
+   :members:
+   :undoc-members:
+   :show-inheritance:

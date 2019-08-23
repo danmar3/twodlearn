@@ -1,0 +1,20 @@
+twodlearn.reinforce.modelica.models package
+===========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   twodlearn.reinforce.modelica.models.combined_cycle
+   twodlearn.reinforce.modelica.models.cstr
+   twodlearn.reinforce.modelica.models.first_order
+   twodlearn.reinforce.modelica.models.vdp
+
+Module contents
+---------------
+
+.. automodule:: twodlearn.reinforce.modelica.models
+   :members:
+   :undoc-members:
+   :show-inheritance:

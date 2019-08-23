@@ -1,0 +1,7 @@
+twodlearn.templates.recurrent module
+====================================
+
+.. automodule:: twodlearn.templates.recurrent
+   :members:
+   :undoc-members:
+   :show-inheritance:

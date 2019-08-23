@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.optimv2 module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.parallel module" href="twodlearn.parallel.html" />
+    <link rel="prev" title="twodlearn.optim module" href="twodlearn.optim.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.optimv2 module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.optimv2.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.optimv2">
+<span id="twodlearn-optimv2-module"></span><h1>twodlearn.optimv2 module<a class="headerlink" href="#module-twodlearn.optimv2" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.optimv2.BaseOptimizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">BaseOptimizer</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.feed_dict">
+<code class="sig-name descname">feed_dict</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.feed_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.optimizer">
+<code class="sig-name descname">optimizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>) Optimizer used to perform the optimization. AdamOptimizer is used by default.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.session">
+<code class="sig-name descname">session</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.step_op">
+<code class="sig-name descname">step_op</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.step_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>) operation that performs the weight update.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.restart">
+<code class="sig-name descname">restart</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.MethodInit" title="twodlearn.core.common.MethodInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">MethodInit</span></code></a>) calls the initializer for all var_list and optimizer variables.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.train_step">
+<code class="sig-name descname">train_step</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.train_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.learning_rate">
+<code class="sig-name descname">learning_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer._assert_initialized">
+<code class="sig-name descname">_assert_initialized</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer._assert_initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.MethodInit" title="twodlearn.core.common.MethodInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">MethodInit</span></code></a>) assert variables have been initialized</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.BaseOptimizer.var_list">
+<code class="sig-name descname">var_list</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.var_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">feed_dict</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.get_ops">
+<code class="sig-name descname">get_ops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.get_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">learning_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">optimizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Optimizer used to perform the optimization. AdamOptimizer is used
+by default.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">restart</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>calls the initializer for all var_list and optimizer variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">n_steps</em>, <em class="sig-param">feed_dict=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.run_step">
+<code class="sig-name descname">run_step</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.run_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">session</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">step_op</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>operation that performs the weight update.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">train_step</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">var_list</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.BaseOptimizer.wrap">
+<em class="property">classmethod </em><code class="sig-name descname">wrap</code><span class="sig-paren">(</span><em class="sig-param">Monitor).wrap(Logger</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.BaseOptimizer.wrap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.CheckNan">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">CheckNan</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckNan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.CheckNan.check_nan">
+<code class="sig-name descname">check_nan</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckNan.check_nan" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘n_trials’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">check_nan</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘n_trials’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.CheckNan.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckNan.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.CheckNan.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckNan.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.CheckProgress">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">CheckProgress</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckProgress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>reset to last checkpoint if progress deteriorates.</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.CheckProgress.progress">
+<code class="sig-name descname">progress</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckProgress.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) checks if progress has been made in last step.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">progress</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>checks if progress has been made in last step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_window</strong> (<em>int</em>) – size of the buffer used by the moving average
+filter.</p></li>
+<li><p><strong>reset_multiplier</strong> (<em>float</em>) – if current
+<code class="docutils literal notranslate"><span class="pre">loss</span> <span class="pre">&gt;</span> <span class="pre">reset_multiplier*filtered_loss</span></code>,
+we restore the last checkpoint.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.CheckProgress.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckProgress.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.CheckProgress.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckProgress.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.Checkpointable">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">Checkpointable</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Checkpointable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Checkpointable.checkpoints">
+<code class="sig-name descname">checkpoints</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Checkpointable.checkpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘buffer_size’, ‘update_dt’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">checkpoints</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘buffer_size’, ‘update_dt’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Checkpointable.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Checkpointable.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Checkpointable.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Checkpointable.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.CheckpointableProgress">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">CheckpointableProgress</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckpointableProgress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.optimv2.Checkpointable" title="twodlearn.optimv2.Checkpointable"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.optimv2.Checkpointable</span></code></a></p>
+<p>stores a checkpoint in internal buffer at a given frequency only if
+progress has been made.</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.CheckpointableProgress.filtered_target">
+<code class="sig-name descname">filtered_target</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckpointableProgress.filtered_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘window_size’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.CheckpointableProgress.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckpointableProgress.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.CheckpointableProgress.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.CheckpointableProgress.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.ConstantLr">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">ConstantLr</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.ConstantLr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.Monitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">Monitor</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Monitor.monitor_manager">
+<code class="sig-name descname">monitor_manager</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.monitor_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘metrics’, ‘valid_freq’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Monitor.feed_valid">
+<code class="sig-name descname">feed_valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.feed_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Monitor.log_folder">
+<code class="sig-name descname">log_folder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.log_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Monitor.loss_monitor">
+<code class="sig-name descname">loss_monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.loss_monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Monitor.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">feed_valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Monitor.get_ops">
+<code class="sig-name descname">get_ops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.get_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">log_folder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">loss_monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">monitor_manager</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘metrics’, ‘valid_freq’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Monitor.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Monitor.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Monitor.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.Optimizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">Optimizer</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.optimv2.Optimizer" title="twodlearn.optimv2.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.optimv2.Optimizer</span></code></a>, <a class="reference internal" href="#twodlearn.optimv2.StatusBar" title="twodlearn.optimv2.StatusBar"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.optimv2.StatusBar</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.feed_valid">
+<code class="sig-name descname">feed_valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.feed_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.feed_dict">
+<code class="sig-name descname">feed_dict</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.feed_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.optimizer">
+<code class="sig-name descname">optimizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>) Optimizer used to perform the optimization. AdamOptimizer is used by default.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.session">
+<code class="sig-name descname">session</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.checkpoints">
+<code class="sig-name descname">checkpoints</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.checkpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘buffer_size’, ‘update_dt’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.check_nan">
+<code class="sig-name descname">check_nan</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.check_nan" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘n_trials’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.loss_monitor">
+<code class="sig-name descname">loss_monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.loss_monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.monitor_manager">
+<code class="sig-name descname">monitor_manager</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.monitor_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘metrics’, ‘valid_freq’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.status_bar">
+<code class="sig-name descname">status_bar</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.status_bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘update_freq’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.filtered_target">
+<code class="sig-name descname">filtered_target</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.filtered_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘window_size’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.step_op">
+<code class="sig-name descname">step_op</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.step_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>) operation that performs the weight update.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.restart">
+<code class="sig-name descname">restart</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.MethodInit" title="twodlearn.core.common.MethodInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">MethodInit</span></code></a>) calls the initializer for all var_list and optimizer variables.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.train_step">
+<code class="sig-name descname">train_step</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.train_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.learning_rate">
+<code class="sig-name descname">learning_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.progress">
+<code class="sig-name descname">progress</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) checks if progress has been made in last step.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.var_list">
+<code class="sig-name descname">var_list</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.var_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer._assert_initialized">
+<code class="sig-name descname">_assert_initialized</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer._assert_initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.MethodInit" title="twodlearn.core.common.MethodInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">MethodInit</span></code></a>) assert variables have been initialized</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Optimizer.log_folder">
+<code class="sig-name descname">log_folder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.log_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Optimizer.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Optimizer.get_ops">
+<code class="sig-name descname">get_ops</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.get_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Optimizer.run_step">
+<code class="sig-name descname">run_step</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.run_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Optimizer.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Optimizer.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.Saver">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">Saver</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Saver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Saver.saver">
+<code class="sig-name descname">saver</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Saver.saver" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.optimv2.Saver.log_folder">
+<code class="sig-name descname">log_folder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Saver.log_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Saver.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Saver.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">log_folder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">saver</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.Saver.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.Saver.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.optimv2.StatusBar">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.optimv2.</code><code class="sig-name descname">StatusBar</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.StatusBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.optimv2.StatusBar.status_bar">
+<code class="sig-name descname">status_bar</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.StatusBar.status_bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘update_freq’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.StatusBar.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.StatusBar.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">status_bar</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘update_freq’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.StatusBar.step_fn">
+<code class="sig-name descname">step_fn</code><span class="sig-paren">(</span><em class="sig-param">wrapped_fn=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.StatusBar.step_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.optimv2.StatusBar.warmup">
+<code class="sig-name descname">warmup</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/optimv2.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.optimv2.StatusBar.warmup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.parallel.html" class="btn btn-neutral float-right" title="twodlearn.parallel module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.optim.html" class="btn btn-neutral float-left" title="twodlearn.optim module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+twodlearn.templates.mnist package
+=================================
+
+Submodules
+----------
+
+.. toctree::
+
+   twodlearn.templates.mnist.supervised
+
+Module contents
+---------------
+
+.. automodule:: twodlearn.templates.mnist
+   :members:
+   :undoc-members:
+   :show-inheritance:

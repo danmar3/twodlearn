@@ -1,0 +1,7 @@
+twodlearn.datasets.mnist module
+===============================
+
+.. automodule:: twodlearn.datasets.mnist
+   :members:
+   :undoc-members:
+   :show-inheritance:

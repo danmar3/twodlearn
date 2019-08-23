@@ -1,0 +1,7 @@
+twodlearn.feedforward module
+============================
+
+.. automodule:: twodlearn.feedforward
+   :members:
+   :undoc-members:
+   :show-inheritance:

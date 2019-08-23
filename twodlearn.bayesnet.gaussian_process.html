@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.bayesnet.gaussian_process module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.bayesnet.linear module" href="twodlearn.bayesnet.linear.html" />
+    <link rel="prev" title="twodlearn.bayesnet.distributions module" href="twodlearn.bayesnet.distributions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.bayesnet.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.bayesnet.html">twodlearn.bayesnet.bayesnet module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.distributions.html">twodlearn.bayesnet.distributions module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.bayesnet.gaussian_process module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.linear.html">twodlearn.bayesnet.linear module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.losses.html">twodlearn.bayesnet.losses module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.recurrent.html">twodlearn.bayesnet.recurrent module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.bayesnet.html#module-twodlearn.bayesnet">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a> &raquo;</li>
+        
+      <li>twodlearn.bayesnet.gaussian_process module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.bayesnet.gaussian_process.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.bayesnet.gaussian_process">
+<span id="twodlearn-bayesnet-gaussian-process-module"></span><h1>twodlearn.bayesnet.gaussian_process module<a class="headerlink" href="#module-twodlearn.bayesnet.gaussian_process" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.gaussian_process.</code><code class="sig-name descname">BasisBase</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.Basis">
+<em class="property">class </em><code class="sig-name descname">Basis</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.Basis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.Basis.matmul">
+<code class="sig-name descname">matmul</code><span class="sig-paren">(</span><em class="sig-param">mat</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.Basis.matmul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate basis over the given matrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.Basis.matvec">
+<code class="sig-name descname">matvec</code><span class="sig-paren">(</span><em class="sig-param">vec</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.Basis.matvec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate basis over the given vectors.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.basis_fn">
+<code class="sig-name descname">basis_fn</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.basis_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.basis_shape">
+<code class="sig-name descname">basis_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.basis_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.prior">
+<code class="sig-name descname">prior</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.prior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.BasisBase.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.BasisBase.units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.gaussian_process.</code><code class="sig-name descname">ExplicitVGP</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference">
+<em class="property">class </em><code class="sig-name descname">EVGPInference</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.basis">
+<em class="property">property </em><code class="sig-name descname">basis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.basis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.basis_m">
+<code class="sig-name descname">basis_m</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.basis_m" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.basis_x">
+<code class="sig-name descname">basis_x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.basis_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.cov_residuals">
+<code class="sig-name descname">cov_residuals</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.cov_residuals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.expected_residuals">
+<code class="sig-name descname">expected_residuals</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.expected_residuals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kxm &#64; inv(Kmm) &#64; fm.loc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.fm">
+<em class="property">property </em><code class="sig-name descname">fm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.fm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.kernel">
+<em class="property">property </em><code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.kmm">
+<code class="sig-name descname">kmm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.kmm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.kmx">
+<code class="sig-name descname">kmx</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.kmx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>ExplicitVGP model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.xm">
+<em class="property">property </em><code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.xm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.y_scale">
+<code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPInference.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>linear operation for y_scale</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction">
+<em class="property">class </em><code class="sig-name descname">EVGPPrediction</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.gaussian_process.EVGPInference</span></code>, <a class="reference internal" href="twodlearn.bayesnet.distributions.html#twodlearn.bayesnet.distributions.MVN" title="twodlearn.bayesnet.distributions.MVN"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.distributions.MVN</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.covariance">
+<code class="sig-name descname">covariance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.covariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.neg_elbo">
+<code class="sig-name descname">neg_elbo</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">dataset_size=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.neg_elbo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.with_noise">
+<code class="sig-name descname">with_noise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.EVGPPrediction.with_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the posterior with noise</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss">
+<em class="property">class </em><code class="sig-name descname">VariationalLoss</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.batch_size">
+<code class="sig-name descname">batch_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.dataset_size">
+<code class="sig-name descname">dataset_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.dataset_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of samples in the entire dataset</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.elbo">
+<code class="sig-name descname">elbo</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.elbo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.inputs">
+<em class="property">property </em><code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.labels">
+<code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.posterior">
+<code class="sig-name descname">posterior</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.posterior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.VariationalLoss.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>negative variational lower bound</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.basis">
+<code class="sig-name descname">basis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.basis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of output dimensions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.fm">
+<code class="sig-name descname">fm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.fm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inducing points for the model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘l_scale’, ‘f_scale’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.m">
+<code class="sig-name descname">m</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.m" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of inducing points</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.neg_elbo">
+<code class="sig-name descname">neg_elbo</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">labels</em>, <em class="sig-param">dataset_size=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.neg_elbo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">tolerance=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.xm">
+<code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.xm" title="Permalink to this definition">¶</a></dt>
+<dd><p>inducing input points for the model</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.ExplicitVGP.y_scale">
+<code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.ExplicitVGP.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measurement scale y sim N(g, y_scale**2 I)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GPNegLogEvidence">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.gaussian_process.</code><code class="sig-name descname">GPNegLogEvidence</code><span class="sig-paren">(</span><em class="sig-param">cov</em>, <em class="sig-param">cov_inv=None</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">loc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GPNegLogEvidence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.losses.html#twodlearn.losses.EmpiricalLoss" title="twodlearn.losses.EmpiricalLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.EmpiricalLoss</span></code></a></p>
+<p>Negative log evidence for a Gaussian Process with training covariance
+cov = K(train, train).</p>
+<p>The loss takes the following form</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">(</span><span class="n">y</span><span class="o">^</span><span class="n">T</span> <span class="n">inv</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span> <span class="n">y</span> <span class="o">+</span> <span class="n">log</span><span class="p">(</span><span class="o">|</span><span class="n">cov</span><span class="o">|</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="n">pi</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>if conv_inv can be provided when instiating the loss to prevent computing
+the inverse multiple times</p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GPNegLogEvidence.define_fit_loss">
+<code class="sig-name descname">define_fit_loss</code><span class="sig-paren">(</span><em class="sig-param">cov</em>, <em class="sig-param">cov_inv</em>, <em class="sig-param">labels</em>, <em class="sig-param">loc</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GPNegLogEvidence.define_fit_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GPNegLogEvidence.labels">
+<code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GPNegLogEvidence.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.gaussian_process.</code><code class="sig-name descname">GaussianProcess</code><span class="sig-paren">(</span><em class="sig-param">xm</em>, <em class="sig-param">ym</em>, <em class="sig-param">y_scale=0.1</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Gaussian process with zero mean.</p>
+<p>The covariance kernel takes by default the following form</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># X1 is a matrix, whose rows represent samples</span>
+<span class="c1"># X2 is a matrix, whose rows represent samples</span>
+<span class="n">K</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_scale</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="p">(</span><span class="n">x1</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="n">x2</span><span class="p">(</span><span class="n">j</span><span class="p">))</span><span class="o">^</span><span class="n">T</span> <span class="p">(</span><span class="n">l</span><span class="o">**-</span><span class="mi">2</span><span class="p">)</span><span class="n">I</span> <span class="p">(</span><span class="n">x1</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="n">x2</span><span class="p">(</span><span class="n">j</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, when float values of l_scale, f_scale and y_scale are provided,
+a trainable variable is created. If want them fixed, you can
+provide a kernel with parameters as tf.Variable(value, trainable=False)</p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior">
+<em class="property">class </em><code class="sig-name descname">GPPosterior</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.gaussian_process.GpOutput</span></code>, <a class="reference internal" href="twodlearn.bayesnet.distributions.html#twodlearn.bayesnet.distributions.MVN" title="twodlearn.bayesnet.distributions.MVN"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.distributions.MVN</span></code></a></p>
+<p>Compute the posterior distribution for p(f*| x*, ym, Xm)
+where {ym, Xm} is the training dataset of the GP model.</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior.covariance">
+<code class="sig-name descname">covariance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior.covariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior.with_noise">
+<code class="sig-name descname">with_noise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GPPosterior.with_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the posterior with noise</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput">
+<em class="property">class </em><code class="sig-name descname">GpOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.k11">
+<code class="sig-name descname">k11</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.k11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.k12">
+<code class="sig-name descname">k12</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.k12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.k22">
+<code class="sig-name descname">k22</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.k22" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>GP model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.xm">
+<em class="property">property </em><code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.xm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.y_scale">
+<code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.ym">
+<em class="property">property </em><code class="sig-name descname">ym</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput.ym" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.m">
+<code class="sig-name descname">m</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.m" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.marginal_likelihood">
+<code class="sig-name descname">marginal_likelihood</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.marginal_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the posterior distribution for p(f*| x*, y, X)
+where {y, X} is the training dataset of the GP model.
+:param inputs: matrix with test inputs x*.
+:type inputs: tf.Tensor, TdlModel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>TdlModel with the value of p(f*| x*, y, X).</dt><dd><p>loc: mean for f*
+scale: scale for f*
+posterior: distributions for y* and f*</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput" title="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput">GpOutput</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.xm">
+<code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.xm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.y_scale">
+<code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>y sim N(f, y_scale**2 I)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Measurement scale</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GaussianProcess.ym">
+<code class="sig-name descname">ym</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.ym" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.gaussian_process.</code><code class="sig-name descname">GpWithExplicitMean</code><span class="sig-paren">(</span><em class="sig-param">gp_model</em>, <em class="sig-param">prior_scale=None</em>, <em class="sig-param">explicit_basis=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGPPosterior">
+<em class="property">class </em><code class="sig-name descname">EGPPosterior</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGPPosterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.gaussian_process.EGpOutput</span></code>, <a class="reference internal" href="twodlearn.bayesnet.distributions.html#twodlearn.bayesnet.distributions.MVN" title="twodlearn.bayesnet.distributions.MVN"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.distributions.MVN</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGPPosterior.covariance">
+<code class="sig-name descname">covariance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGPPosterior.covariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGPPosterior.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGPPosterior.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput">
+<em class="property">class </em><code class="sig-name descname">EGpOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.basis">
+<code class="sig-name descname">basis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.basis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.beta_mean">
+<code class="sig-name descname">beta_mean</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.beta_mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.beta_r">
+<code class="sig-name descname">beta_r</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.beta_r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.gp_model">
+<em class="property">property </em><code class="sig-name descname">gp_model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.gp_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.gp_output">
+<code class="sig-name descname">gp_output</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.gp_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.ht_k11inv_h">
+<code class="sig-name descname">ht_k11inv_h</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.ht_k11inv_h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.k11">
+<em class="property">property </em><code class="sig-name descname">k11</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.k11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.k12">
+<em class="property">property </em><code class="sig-name descname">k12</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.k12" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.tolerance">
+<em class="property">property </em><code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.EGpOutput.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput">
+<em class="property">class </em><code class="sig-name descname">MarginalOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.A">
+<code class="sig-name descname">A</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.basis">
+<code class="sig-name descname">basis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.basis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.gp_marginal">
+<code class="sig-name descname">gp_marginal</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.gp_marginal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.gp_model">
+<em class="property">property </em><code class="sig-name descname">gp_model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.gp_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.k11">
+<code class="sig-name descname">k11</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.k11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.prior_scale">
+<em class="property">property </em><code class="sig-name descname">prior_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.prior_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.yCy">
+<code class="sig-name descname">yCy</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.MarginalOutput.yCy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.explicit_basis">
+<code class="sig-name descname">explicit_basis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.explicit_basis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.gp_model">
+<code class="sig-name descname">gp_model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.gp_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.marginal_likelihood">
+<code class="sig-name descname">marginal_likelihood</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.marginal_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the posterior distribution for p(f*| x*, y, X)
+where {y, X} is the training dataset of the GP model.
+:param inputs: matrix with test inputs x*.
+:type inputs: tf.Tensor, TdlModel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>TdlModel with the value of p(f*| x*, y, X).</dt><dd><p>loc: mean for f*
+scale: scale for f*</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput" title="twodlearn.bayesnet.gaussian_process.GaussianProcess.GpOutput">GpOutput</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.prior_scale">
+<code class="sig-name descname">prior_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.GpWithExplicitMean.prior_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>scale of the prior</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.gaussian_process.</code><code class="sig-name descname">VariationalGP</code><span class="sig-paren">(</span><em class="sig-param">m=None</em>, <em class="sig-param">input_shape=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo">
+<em class="property">class </em><code class="sig-name descname">VGPElbo</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.batch_size">
+<code class="sig-name descname">batch_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.dataset_size">
+<code class="sig-name descname">dataset_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.dataset_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of samples in the entire dataset</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.elbo">
+<code class="sig-name descname">elbo</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.elbo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.fm">
+<em class="property">property </em><code class="sig-name descname">fm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.fm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.fm_kl">
+<code class="sig-name descname">fm_kl</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.fm_kl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.fm_prior">
+<code class="sig-name descname">fm_prior</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.fm_prior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.inputs">
+<em class="property">property </em><code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.kernel">
+<em class="property">property </em><code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.kmm">
+<em class="property">property </em><code class="sig-name descname">kmm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.kmm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.kmx">
+<em class="property">property </em><code class="sig-name descname">kmx</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.kmx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.labels">
+<code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>output samples</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.posterior">
+<code class="sig-name descname">posterior</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.posterior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.shape">
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.xm">
+<em class="property">property </em><code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.xm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.y_scale">
+<em class="property">property </em><code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPElbo.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate">
+<em class="property">class </em><code class="sig-name descname">VGPEstimate</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.gaussian_process.VGPInference</span></code>, <a class="reference internal" href="twodlearn.bayesnet.distributions.html#twodlearn.bayesnet.distributions.MVN" title="twodlearn.bayesnet.distributions.MVN"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.distributions.MVN</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.covariance">
+<code class="sig-name descname">covariance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.covariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.neg_elbo">
+<code class="sig-name descname">neg_elbo</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">dataset_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.neg_elbo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.with_noise">
+<code class="sig-name descname">with_noise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPEstimate.with_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the posterior with noise ~ Normal(0, Sigma_y)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference">
+<em class="property">class </em><code class="sig-name descname">VGPInference</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.fm">
+<em class="property">property </em><code class="sig-name descname">fm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.fm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.kernel">
+<em class="property">property </em><code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.kmm">
+<code class="sig-name descname">kmm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.kmm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.kmx">
+<code class="sig-name descname">kmx</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.kmx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.mean_fn">
+<em class="property">property </em><code class="sig-name descname">mean_fn</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.mean_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.xm">
+<em class="property">property </em><code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.xm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.y_scale">
+<code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.VGPInference.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of batched distributions</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.fm">
+<code class="sig-name descname">fm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.fm" title="Permalink to this definition">¶</a></dt>
+<dd><p>variational parameters for the GP model</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘l_scale’, ‘f_scale’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.m">
+<code class="sig-name descname">m</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.m" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of inducing points</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.mean_fn">
+<code class="sig-name descname">mean_fn</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.mean_fn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean function of the gaussian prior.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.neg_elbo">
+<code class="sig-name descname">neg_elbo</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">inputs</em>, <em class="sig-param">dataset_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.neg_elbo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">tolerance=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.xm">
+<code class="sig-name descname">xm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.xm" title="Permalink to this definition">¶</a></dt>
+<dd><p>inducing input points for the model</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.gaussian_process.VariationalGP.y_scale">
+<code class="sig-name descname">y_scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/gaussian_process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.gaussian_process.VariationalGP.y_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.bayesnet.linear.html" class="btn btn-neutral float-right" title="twodlearn.bayesnet.linear module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.bayesnet.distributions.html" class="btn btn-neutral float-left" title="twodlearn.bayesnet.distributions module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

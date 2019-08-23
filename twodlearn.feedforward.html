@@ -1,0 +1,1323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.feedforward module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.kernels module" href="twodlearn.kernels.html" />
+    <link rel="prev" title="twodlearn.dense module" href="twodlearn.dense.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.feedforward module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.feedforward.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.feedforward">
+<span id="twodlearn-feedforward-module"></span><h1>twodlearn.feedforward module<a class="headerlink" href="#module-twodlearn.feedforward" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.feedforward.AffineLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">AffineLayer</code><span class="sig-paren">(</span><em class="sig-param">units</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.feedforward.LinearLayer" title="twodlearn.feedforward.LinearLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.LinearLayer</span></code></a></p>
+<p>Standard affine (W*X+b) fully connected layer</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.bias">
+<code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.bias" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.AffineLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.Output</span></code></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.AffineLayer.Output.bias">
+<em class="property">property </em><code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.Output.bias" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.AlexNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">AlexNet</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_filters</em>, <em class="sig-param">filter_sizes</em>, <em class="sig-param">pool_sizes</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">output_function=None</em>, <em class="sig-param">name='AlexNet'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup">
+<em class="property">class </em><code class="sig-name descname">AlexNetSetup</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='AlexNet'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.conv">
+<code class="sig-name descname">conv</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.conv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.input_shape">
+<em class="property">property </em><code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.mlp">
+<code class="sig-name descname">mlp</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.mlp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.output">
+<code class="sig-name descname">output</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.AlexNetSetup.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.AlexNetSetup.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.conv">
+<code class="sig-name descname">conv</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.conv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.input_shape">
+<em class="property">property </em><code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.mlp">
+<code class="sig-name descname">mlp</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.mlp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNet.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNet.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNet.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.AlexNetClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">AlexNetClassifier</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">n_classes</em>, <em class="sig-param">n_filters</em>, <em class="sig-param">filter_sizes</em>, <em class="sig-param">pool_sizes</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">name='AlexNetClassifier'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.feedforward.AlexNet" title="twodlearn.feedforward.AlexNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.AlexNet</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.feedforward.AlexNetClassifier.AlexNetOutput">
+<em class="property">class </em><code class="sig-name descname">AlexNetOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='AlexNet'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier.AlexNetOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.AlexNetSetup</span></code></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNetClassifier.AlexNetOutput.logits">
+<em class="property">property </em><code class="sig-name descname">logits</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier.AlexNetOutput.logits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNetClassifier.AlexNetOutput.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier.AlexNetOutput.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNetClassifier.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexNetClassifier.mlp">
+<code class="sig-name descname">mlp</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier.mlp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexNetClassifier.n_classes">
+<em class="property">property </em><code class="sig-name descname">n_classes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexNetClassifier.n_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.AlexnetLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">AlexnetLayer</code><span class="sig-paren">(</span><em class="sig-param">filter_size</em>, <em class="sig-param">n_maps</em>, <em class="sig-param">pool_size</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Creates a layer like the one used in (ImageNet Classification
+with Deep Convolutional Neural Networks).</p>
+<dl class="simple">
+<dt>The format for filter_size is:</dt><dd><p>[filter_size_dim0 , filter_size_dim1], it performs 2D convolution</p>
+</dd>
+<dt>The format for n_maps is:</dt><dd><p>[num_input_maps, num_output_maps]</p>
+</dd>
+<dt>The format for pool_size is:</dt><dd><p>[pool_size_dim0, pool_size_dim1]</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup">
+<em class="property">class </em><code class="sig-name descname">AlexnetLayerSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.bias">
+<em class="property">property </em><code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.bias" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.eval_layer">
+<code class="sig-name descname">eval_layer</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.eval_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.pool_size">
+<em class="property">property </em><code class="sig-name descname">pool_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.pool_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.AlexnetLayerSetup.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexnetLayer.bias">
+<code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.bias" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.filter_size">
+<em class="property">property </em><code class="sig-name descname">filter_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.filter_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.n_maps">
+<em class="property">property </em><code class="sig-name descname">n_maps</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.n_maps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.AlexnetLayer.pool_size">
+<em class="property">property </em><code class="sig-name descname">pool_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.pool_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexnetLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AlexnetLayer.weights">
+<code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AlexnetLayer.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.BoundedOutput">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">BoundedOutput</code><span class="sig-paren">(</span><em class="sig-param">lower=1e-07</em>, <em class="sig-param">upper=None</em>, <em class="sig-param">name='BoundedOutput'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.feedforward.BoundedOutput.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.BoundedOutput.Output.lower">
+<em class="property">property </em><code class="sig-name descname">lower</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput.Output.lower" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.BoundedOutput.Output.upper">
+<em class="property">property </em><code class="sig-name descname">upper</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput.Output.upper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.BoundedOutput.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.BoundedOutput.lower">
+<code class="sig-name descname">lower</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput.lower" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.BoundedOutput.upper">
+<code class="sig-name descname">upper</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.BoundedOutput.upper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.Concat">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">Concat</code><span class="sig-paren">(</span><em class="sig-param">axis</em>, <em class="sig-param">name='Concat'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Concat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.Concat.axis">
+<em class="property">property </em><code class="sig-name descname">axis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Concat.axis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.Concat.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Concat.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.DenseLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">DenseLayer</code><span class="sig-paren">(</span><em class="sig-param">activation=&lt;function relu&gt;</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.feedforward.AffineLayer" title="twodlearn.feedforward.AffineLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.AffineLayer</span></code></a></p>
+<p>Standard fully connected layer</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.activation">
+<code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.activation" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.bias">
+<code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.bias" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.DenseLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.Output</span></code></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.DenseLayer.Output.activation">
+<em class="property">property </em><code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.Output.activation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.DenseLayer.Output.affine">
+<em class="property">property </em><code class="sig-name descname">affine</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.Output.affine" title="Permalink to this definition">¶</a></dt>
+<dd><p>activation before non-linearity</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.LinearClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">LinearClassifier</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_classes</em>, <em class="sig-param">name='linear_classifier'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.feedforward.LinearClassifier.LinearClassifierSetup">
+<em class="property">class </em><code class="sig-name descname">LinearClassifierSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.LinearClassifierSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.LinearClassifierSetup.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearClassifier.linear_layer">
+<code class="sig-name descname">linear_layer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.linear_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.n_classes">
+<em class="property">property </em><code class="sig-name descname">n_classes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.n_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearClassifier.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearClassifier.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearClassifier.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.LinearLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">LinearLayer</code><span class="sig-paren">(</span><em class="sig-param">units</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
+<p>Standard linear (W*X) fully connected layer</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.LinearLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.Output.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.Output.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearLayer.Output.kernel">
+<em class="property">property </em><code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.Output.kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearLayer.Output.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.Output.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearLayer.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.LinearLayer.compute_output_shape">
+<code class="sig-name descname">compute_output_shape</code><span class="sig-paren">(</span><em class="sig-param">input_shape=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.compute_output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the output shape of the layer.</p>
+<p>Assumes that the layer will be built
+to match that input shape provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_shape</strong> – Shape tuple (tuple of integers)
+or list of shape tuples (one per output tensor of the layer).
+Shape tuples can include None for free dimensions,
+instead of an integer.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An input shape tuple.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Number of output units (int).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.MlpClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">MlpClassifier</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_classes</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">afunction=&lt;function relu&gt;</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.feedforward.MlpNet" title="twodlearn.feedforward.MlpNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.MlpNet</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.feedforward.MlpClassifier.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpClassifier.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.Output</span></code></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpClassifier.Output.logits">
+<em class="property">property </em><code class="sig-name descname">logits</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpClassifier.Output.logits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpClassifier.Output.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpClassifier.Output.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpClassifier.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpClassifier.n_classes">
+<em class="property">property </em><code class="sig-name descname">n_classes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpClassifier.n_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.MlpNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">MlpNet</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">afunction=&lt;function relu&gt;</em>, <em class="sig-param">output_function=None</em>, <em class="sig-param">name='MlpNet'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.feedforward.StackedModel" title="twodlearn.feedforward.StackedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.StackedModel</span></code></a></p>
+<p>full_layers: list of fully connected layers
+out_layer: output layer, for the moment, linear layer</p>
+<dl class="class">
+<dt id="twodlearn.feedforward.MlpNet.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.Output.hidden">
+<code class="sig-name descname">hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.Output.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.Output.keep_prob">
+<code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>probability of not droping an activation during dropout</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.Output.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.Output.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.Output.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.Output.output">
+<code class="sig-name descname">output</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>output from the network, after output_function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.Output.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.Output.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.Output.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">layer</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MlpNet.layers">
+<code class="sig-name descname">layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.n_hidden">
+<em class="property">property </em><code class="sig-name descname">n_hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.n_hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MlpNet.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MlpNet.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">MultiLayer2DConvolution</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">n_filters</em>, <em class="sig-param">filter_sizes</em>, <em class="sig-param">pool_sizes</em>, <em class="sig-param">name='MultiConv2D'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Creates a Convolutional neural network</p>
+<p>It performs a series of 2d Convolutions and pooling operations</p>
+<p>input_size: size of the input maps, [size_dim0, size_dim1]
+n_outputs: number of outputs
+n_input_maps: number of input maps
+n_filters: list with the number of filters for layer
+filter_size: list with the size of the kernel for each layer,</p>
+<blockquote>
+<div><p>the format for the size of each layer is:
+[filter_size_dim0 , filter_size_dim1]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>pool_size: list with the size of the pooling kernel foreach layer,</dt><dd><p>the format for each layer is: [pool_size_dim0, pool_size_dim1]</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='MultiConv2D'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.hidden">
+<em class="property">property </em><code class="sig-name descname">hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.input_shape">
+<em class="property">property </em><code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.setup_conv_layers">
+<code class="sig-name descname">setup_conv_layers</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">layers</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.setup_conv_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.setup_inputs">
+<code class="sig-name descname">setup_inputs</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">input_shape</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.setup_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.Output.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.Output.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.filter_sizes">
+<em class="property">property </em><code class="sig-name descname">filter_sizes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.filter_sizes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.input_shape">
+<em class="property">property </em><code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.layers">
+<code class="sig-name descname">layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.n_filters">
+<em class="property">property </em><code class="sig-name descname">n_filters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.n_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.output_shape">
+<em class="property">property </em><code class="sig-name descname">output_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.output_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.pool_sizes">
+<em class="property">property </em><code class="sig-name descname">pool_sizes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.pool_sizes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.MultiLayer2DConvolution.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.MultiLayer2DConvolution.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.NetConf">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">NetConf</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">labels</em>, <em class="sig-param">y</em>, <em class="sig-param">loss</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.NetConf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a wrapper to any network configuration, it contains the
+references to the placeholders for inputs and labels, and the
+reference of the computation graph for the network</p>
+<p>inputs: placeholder for the inputs
+labels: placeholder for the labels
+y: output of the comptuation graph, ussually a linear map</p>
+<blockquote>
+<div><p>from the last layer (logits)</p>
+</div></blockquote>
+<p>loss: loss for the network</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.Options">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">Options</code><span class="sig-paren">(</span><em class="sig-param">weight_initialization</em>, <em class="sig-param">weight_initialization_alpha</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.ParallelModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">ParallelModel</code><span class="sig-paren">(</span><em class="sig-param">models</em>, <em class="sig-param">name='Parallel'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.ParallelModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.feedforward.ParallelModel.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.ParallelModel.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.ParallelModel.models">
+<em class="property">property </em><code class="sig-name descname">models</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.ParallelModel.models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.StackedModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">StackedModel</code><span class="sig-paren">(</span><em class="sig-param">layers=None</em>, <em class="sig-param">return_layers=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='Stacked'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.feedforward.StackedModel.StackedOutput">
+<em class="property">class </em><code class="sig-name descname">StackedOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.StackedOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.StackedModel.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">layer</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.StackedModel.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.feedforward.StackedModel.get_save_data">
+<code class="sig-name descname">get_save_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.get_save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.StackedModel.layers">
+<code class="sig-name descname">layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.StackedModel.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.StackedModel.return_layers">
+<code class="sig-name descname">return_layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StackedModel.return_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the return value of the stacked model is the layers</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.StridedDeconvNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">StridedDeconvNet</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">input_size</em>, <em class="sig-param">n_input_maps</em>, <em class="sig-param">n_filters</em>, <em class="sig-param">filter_size</em>, <em class="sig-param">upsampling</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StridedDeconvNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Creates a Deconvolutional neural network using upsampling
+TODO: implement this using new format
+It performs a ‘deconvolutional’ neural network similar to the one used
+in “UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL
+GENERATIVE ADVERSARIAL NETWORKS”
+(<a class="reference external" href="http://arxiv.org/pdf/1511.06434v2.pdf">http://arxiv.org/pdf/1511.06434v2.pdf</a>)</p>
+<p>The network maps a vector of size n_inputs to a 2d map with several chanels</p>
+<p>First a linear mapping is performed, then a reshape to form an initial
+tensor of 2d maps with chanels, then a series of upscaling and convolutions
+are performed</p>
+<p>n_inputs: size of the input vectors
+input_size: size of the maps after linear stage: [size_dim0, size_dim1]
+n_input_maps: number of maps after linear stage
+n_filters: list with the number of filters for each layer
+filter_size: list with the size of the kernel for each layer,</p>
+<blockquote>
+<div><p>the format for the size of each layer is:
+[filter_size_dim0 , filter_size_dim1]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>upsampling: list with the size for the upsampling in each deconv layer:</dt><dd><p>[upsampling_dim0, upsampling_dim1]</p>
+</dd>
+<dt>in_layer: input layer, a linear layer for mapping the inputs to the desired</dt><dd><p>output</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="twodlearn.feedforward.StridedDeconvNet.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">drop_prob=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.StridedDeconvNet.setup" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Defines the computation graph of the neural network for a specific</dt><dd><p>batch size</p>
+</dd>
+<dt>drop_prob: placeholder used for specify the probability for dropout. If</dt><dd><p>this coefficient is set, then dropout regularization is added
+between all fully connected layers(TODO: allow to choose which
+layers)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.Transpose">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">Transpose</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.Transpose.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Transpose.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.Transpose.perm">
+<code class="sig-name descname">perm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Transpose.perm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.Transpose.rightmost">
+<code class="sig-name descname">rightmost</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Transpose.rightmost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.Transpose.shape">
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Transpose.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.Transpose.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.Transpose.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.feedforward.TransposeLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">TransposeLayer</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.TransposeLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.feedforward.TransposeLayer.perm">
+<code class="sig-name descname">perm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.TransposeLayer.perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘inputs’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.TransposeLayer.rightmost">
+<code class="sig-name descname">rightmost</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.TransposeLayer.rightmost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.feedforward.leaky_relu">
+<code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">leaky_relu</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">leaky_slope=0.01</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.leaky_relu" title="Permalink to this definition">¶</a></dt>
+<dd><p>leaky relu, with 0.01 slope for negative values</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="twodlearn.feedforward.options">
+<code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">options</code><em class="property"> = &lt;twodlearn.feedforward.Options object&gt;</em><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>————————- Activation functions ————————</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.feedforward.selu01">
+<code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">selu01</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.selu01" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self normalizing activation function
+Activation function proposed by Gunter Klambauer et. al.
+“Self-Normalizing Neural Networks”, <a class="reference external" href="https://arxiv.org/abs/1706.02515">https://arxiv.org/abs/1706.02515</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.feedforward.selu01_disc">
+<code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">selu01_disc</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.selu01_disc" title="Permalink to this definition">¶</a></dt>
+<dd><p>discontinuous selu</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.feedforward.selu01_disc2">
+<code class="sig-prename descclassname">twodlearn.feedforward.</code><code class="sig-name descname">selu01_disc2</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.selu01_disc2" title="Permalink to this definition">¶</a></dt>
+<dd><p>another version of discontinuous selu</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.kernels.html" class="btn btn-neutral float-right" title="twodlearn.kernels module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.dense.html" class="btn btn-neutral float-left" title="twodlearn.dense module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

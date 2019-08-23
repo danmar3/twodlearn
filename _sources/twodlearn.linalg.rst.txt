@@ -1,0 +1,7 @@
+twodlearn.linalg module
+=======================
+
+.. automodule:: twodlearn.linalg
+   :members:
+   :undoc-members:
+   :show-inheritance:

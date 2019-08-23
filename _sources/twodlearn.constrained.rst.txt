@@ -1,0 +1,7 @@
+twodlearn.constrained module
+============================
+
+.. automodule:: twodlearn.constrained
+   :members:
+   :undoc-members:
+   :show-inheritance:

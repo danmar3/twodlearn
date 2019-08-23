@@ -1,0 +1,7 @@
+twodlearn.datasets.cyber module
+===============================
+
+.. automodule:: twodlearn.datasets.cyber
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+twodlearn.reinforce.models.acrobot\_bullet module
+=================================================
+
+.. automodule:: twodlearn.reinforce.models.acrobot_bullet
+   :members:
+   :undoc-members:
+   :show-inheritance:

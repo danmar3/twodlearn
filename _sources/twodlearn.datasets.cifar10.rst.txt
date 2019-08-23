@@ -1,0 +1,7 @@
+twodlearn.datasets.cifar10 module
+=================================
+
+.. automodule:: twodlearn.datasets.cifar10
+   :members:
+   :undoc-members:
+   :show-inheritance:

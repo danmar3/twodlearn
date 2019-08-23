@@ -1,0 +1,7 @@
+twodlearn.core.search module
+============================
+
+.. automodule:: twodlearn.core.search
+   :members:
+   :undoc-members:
+   :show-inheritance:

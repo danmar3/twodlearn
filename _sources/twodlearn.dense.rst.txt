@@ -1,0 +1,7 @@
+twodlearn.dense module
+======================
+
+.. automodule:: twodlearn.dense
+   :members:
+   :undoc-members:
+   :show-inheritance:

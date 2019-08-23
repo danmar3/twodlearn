@@ -1,0 +1,7 @@
+twodlearn.bayesnet.losses module
+================================
+
+.. automodule:: twodlearn.bayesnet.losses
+   :members:
+   :undoc-members:
+   :show-inheritance:

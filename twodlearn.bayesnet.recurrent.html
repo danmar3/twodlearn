@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.bayesnet.recurrent module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.core package" href="twodlearn.core.html" />
+    <link rel="prev" title="twodlearn.bayesnet.losses module" href="twodlearn.bayesnet.losses.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.bayesnet.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.bayesnet.html">twodlearn.bayesnet.bayesnet module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.distributions.html">twodlearn.bayesnet.distributions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.gaussian_process.html">twodlearn.bayesnet.gaussian_process module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.linear.html">twodlearn.bayesnet.linear module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.losses.html">twodlearn.bayesnet.losses module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.bayesnet.recurrent module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.bayesnet.html#module-twodlearn.bayesnet">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a> &raquo;</li>
+        
+      <li>twodlearn.bayesnet.recurrent module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.bayesnet.recurrent.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.bayesnet.recurrent">
+<span id="twodlearn-bayesnet-recurrent-module"></span><h1>twodlearn.bayesnet.recurrent module<a class="headerlink" href="#module-twodlearn.bayesnet.recurrent" title="Permalink to this headline">¶</a></h1>
+<p>This module defines recurrent bayesian neural-networks</p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.recurrent.</code><code class="sig-name descname">BayesNarx</code><span class="sig-paren">(</span><em class="sig-param">cell</em>, <em class="sig-param">window_size</em>, <em class="sig-param">name=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.recurrent.html#twodlearn.recurrent.SimpleRnn" title="twodlearn.recurrent.SimpleRnn"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.SimpleRnn</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput">
+<em class="property">class </em><code class="sig-name descname">McRnnOutput</code><span class="sig-paren">(</span><em class="sig-param">n_particles</em>, <em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">n_unrollings=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.recurrent.RnnOutput</span></code></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput.n_particles">
+<em class="property">property </em><code class="sig-name descname">n_particles</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput.n_particles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput.x0">
+<code class="sig-name descname">x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.McRnnOutput.x0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.RnnOutput">
+<em class="property">class </em><code class="sig-name descname">RnnOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">n_unrollings=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.RnnOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.RnnOutput</span></code></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.RnnOutput.window_size">
+<em class="property">property </em><code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.RnnOutput.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.RnnOutput.x0">
+<code class="sig-name descname">x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.RnnOutput.x0" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of observations of the initial state.
+:param value: value for x0
+:type value: None, tf.Tensor, McNormal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>x0</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list(<a class="reference internal" href="twodlearn.bayesnet.bayesnet.html#twodlearn.bayesnet.bayesnet.McNormal" title="twodlearn.bayesnet.bayesnet.McNormal">McNormal</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.mc_evaluate">
+<code class="sig-name descname">mc_evaluate</code><span class="sig-paren">(</span><em class="sig-param">n_particles</em>, <em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">n_unrollings=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.mc_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.BayesNarx.window_size">
+<em class="property">property </em><code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.BayesNarx.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.DropoutMlpCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.recurrent.</code><code class="sig-name descname">DropoutMlpCell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">window_size</em>, <em class="sig-param">keep_prob</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='DropoutMlpCell'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.DropoutMlpCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell" title="twodlearn.bayesnet.recurrent.GaussianMlpCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.recurrent.GaussianMlpCell</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.DropoutMlpCell.keep_prob">
+<em class="property">property </em><code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.DropoutMlpCell.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.recurrent.</code><code class="sig-name descname">GaussianMlpCell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">window_size</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='GaussianMlpCell'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.ModelOutput">
+<code class="sig-name descname">ModelOutput</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.ModelOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output" title="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMlpCell.Output</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">state</em>, <em class="sig-param">inputs</em>, <em class="sig-param">t</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.dz">
+<em class="property">property </em><code class="sig-name descname">dz</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.dz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output delta increment before applying
+observation noise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">xt</em>, <em class="sig-param">ut</em>, <em class="sig-param">t</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.u_inputs">
+<em class="property">property </em><code class="sig-name descname">u_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.u_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exogenous inputs to the cell</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.x">
+<em class="property">property </em><code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>State of the cell, in the case of Narx,
+is the list of window_size previous observations y</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.x_inputs">
+<em class="property">property </em><code class="sig-name descname">x_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.x_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>State inputs to the cell</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.Output.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Observable output of the cell</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">inputs</em>, <em class="sig-param">t</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.mlp">
+<code class="sig-name descname">mlp</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.mlp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.n_hidden">
+<em class="property">property </em><code class="sig-name descname">n_hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.n_hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.normalizer">
+<em class="property">property </em><code class="sig-name descname">normalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.normalizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.GaussianMlpCell.window_size">
+<em class="property">property </em><code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.GaussianMlpCell.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.recurrent.</code><code class="sig-name descname">NormalNarxCell</code><span class="sig-paren">(</span><em class="sig-param">fz</em>, <em class="sig-param">fy=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='GaussianMlpCell'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>(state, input) -&gt; normalizer -&gt; finput -&gt; fz -&gt; fy</p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.NarxConcat">
+<em class="property">class </em><code class="sig-name descname">NarxConcat</code><span class="sig-paren">(</span><em class="sig-param">axis</em>, <em class="sig-param">name='Concat'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.NarxConcat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.Concat" title="twodlearn.feedforward.Concat"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.Concat</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.NormalNarxOutput">
+<em class="property">class </em><code class="sig-name descname">NormalNarxOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.NormalNarxOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.NormalNarxOutput.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.NormalNarxOutput.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.finput">
+<code class="sig-name descname">finput</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.finput" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.fy">
+<code class="sig-name descname">fy</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.fy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.fz">
+<code class="sig-name descname">fz</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.fz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.normalizer">
+<code class="sig-name descname">normalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.normalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.recurrent.NormalNarxCell.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.NormalNarxCell.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.bayesnet.recurrent.normal_residual_wrapper">
+<code class="sig-prename descclassname">twodlearn.bayesnet.recurrent.</code><code class="sig-name descname">normal_residual_wrapper</code><span class="sig-paren">(</span><em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.recurrent.normal_residual_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.core.html" class="btn btn-neutral float-right" title="twodlearn.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.bayesnet.losses.html" class="btn btn-neutral float-left" title="twodlearn.bayesnet.losses module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.datasets.base module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.datasets.cifar10 module" href="twodlearn.datasets.cifar10.html" />
+    <link rel="prev" title="twodlearn.datasets.LargeMovieReview module" href="twodlearn.datasets.LargeMovieReview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.datasets.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.Batch_generator.html">twodlearn.datasets.Batch_generator module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.LargeMovieReview.html">twodlearn.datasets.LargeMovieReview module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.datasets.base module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.cifar10.html">twodlearn.datasets.cifar10 module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.cyber.html">twodlearn.datasets.cyber module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.mnist.html">twodlearn.datasets.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.tsdataset.html">twodlearn.datasets.tsdataset module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.unbalanced.html">twodlearn.datasets.unbalanced module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.vocabulary_stem_coding.html">twodlearn.datasets.vocabulary_stem_coding module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.datasets.html#module-twodlearn.datasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.datasets.html">twodlearn.datasets package</a> &raquo;</li>
+        
+      <li>twodlearn.datasets.base module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.datasets.base.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.datasets.base">
+<span id="twodlearn-datasets-base-module"></span><h1>twodlearn.datasets.base module<a class="headerlink" href="#module-twodlearn.datasets.base" title="Permalink to this headline">¶</a></h1>
+<p>Creates a generic dataset from a given data</p>
+<dl class="class">
+<dt id="twodlearn.datasets.base.Dataset">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">Dataset</code><span class="sig-paren">(</span><em class="sig-param">data_x</em>, <em class="sig-param">data_y=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.x">
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples, [sample_id, sample …]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.y">
+<code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>labels for each sample</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.epochs_completed">
+<code class="sig-name descname">epochs_completed</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.epochs_completed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.index_in_epoch">
+<code class="sig-name descname">index_in_epoch</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.index_in_epoch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.n_samples">
+<code class="sig-name descname">n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.n_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.Dataset.Iloc">
+<em class="property">class </em><code class="sig-name descname">Iloc</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.Iloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.base.Dataset.Iloc.dataset">
+<em class="property">property </em><code class="sig-name descname">dataset</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.Iloc.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Dataset.get_stats">
+<code class="sig-name descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.iloc">
+<code class="sig-name descname">iloc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.iloc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Dataset.next_batch">
+<code class="sig-name descname">next_batch</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.next_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the next <cite>batch_size</cite> examples from this data set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Dataset.next_batch_x">
+<code class="sig-name descname">next_batch_x</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.next_batch_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the next <cite>batch_size</cite> examples from this data set.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.normalizer">
+<code class="sig-name descname">normalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.normalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Dataset.sample">
+<code class="sig-name descname">sample</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify methods that have a set of local variables.</p>
+<p>These methods consist of an initialization method (speficied with the
+function given to the decorator) and an execute method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Dataset.shuffle">
+<code class="sig-name descname">shuffle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Dataset.update_data">
+<code class="sig-name descname">update_data</code><span class="sig-paren">(</span><em class="sig-param">data_x</em>, <em class="sig-param">data_y=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Dataset.update_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.Datasets">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">Datasets</code><span class="sig-paren">(</span><em class="sig-param">train</em>, <em class="sig-param">valid=None</em>, <em class="sig-param">test=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Datasets.mapper">
+<code class="sig-name descname">mapper</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Datasets.mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Datasets.normalize">
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Datasets.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize dataset for having a training dataset with
+zero mean and standard deviation of one.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.datasets.base.Datasets.normalizer">
+<code class="sig-name descname">normalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Datasets.normalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Datasets.split_train">
+<code class="sig-name descname">split_train</code><span class="sig-paren">(</span><em class="sig-param">p_train</em>, <em class="sig-param">p_valid</em>, <em class="sig-param">p_test=0.0</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Datasets.split_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.DfDataset">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">DfDataset</code><span class="sig-paren">(</span><em class="sig-param">data_x</em>, <em class="sig-param">data_y=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.DfDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.datasets.base.Dataset" title="twodlearn.datasets.base.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.datasets.base.Dataset</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.MaxMinNormalizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">MaxMinNormalizer</code><span class="sig-paren">(</span><em class="sig-param">stats</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.MaxMinNormalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.datasets.base.Normalizer" title="twodlearn.datasets.base.Normalizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.datasets.base.Normalizer</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.datasets.base.MaxMinNormalizer.denormalize">
+<code class="sig-name descname">denormalize</code><span class="sig-paren">(</span><em class="sig-param">batch</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.MaxMinNormalizer.denormalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.MaxMinNormalizer.normalize">
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">batch</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.MaxMinNormalizer.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.Normalizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">Normalizer</code><span class="sig-paren">(</span><em class="sig-param">stats</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Normalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.base.Normalizer.denormalize">
+<code class="sig-name descname">denormalize</code><span class="sig-paren">(</span><em class="sig-param">batch</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Normalizer.denormalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.Normalizer.normalize">
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">batch</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.Normalizer.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.OneHotMap">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">OneHotMap</code><span class="sig-paren">(</span><em class="sig-param">n_classes</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.OneHotMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.base.OneHotMap.n_classes">
+<em class="property">property </em><code class="sig-name descname">n_classes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.OneHotMap.n_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.ReplaceMap">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">ReplaceMap</code><span class="sig-paren">(</span><em class="sig-param">map</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.ReplaceMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.base.StackedMapper">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">StackedMapper</code><span class="sig-paren">(</span><em class="sig-param">mappers=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.StackedMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.base.StackedMapper.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param">mapper</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.StackedMapper.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.base.StackedMapper.mappers">
+<em class="property">property </em><code class="sig-name descname">mappers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.StackedMapper.mappers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.base.dense_to_one_hot">
+<code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">dense_to_one_hot</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">num_classes=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.dense_to_one_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert class labels from scalars to one-hot vectors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.base.load_gz_as_nparray">
+<code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">load_gz_as_nparray</code><span class="sig-paren">(</span><em class="sig-param">work_directory</em>, <em class="sig-param">filename</em>, <em class="sig-param">dtype=&lt;class 'numpy.float32'&gt;</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.load_gz_as_nparray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.base.maybe_download">
+<code class="sig-prename descclassname">twodlearn.datasets.base.</code><code class="sig-name descname">maybe_download</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">work_directory</em>, <em class="sig-param">source_url</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/base.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.base.maybe_download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download the data from source url, unless it’s already here.
+:param filename: string, name of the file in the directory.
+:param work_directory: string, path to working directory.
+:param source_url: url to download from if file doesn’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Path to resulting file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.datasets.cifar10.html" class="btn btn-neutral float-right" title="twodlearn.datasets.cifar10 module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.datasets.LargeMovieReview.html" class="btn btn-neutral float-left" title="twodlearn.datasets.LargeMovieReview module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

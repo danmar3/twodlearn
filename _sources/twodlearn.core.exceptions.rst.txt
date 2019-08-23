@@ -1,0 +1,7 @@
+twodlearn.core.exceptions module
+================================
+
+.. automodule:: twodlearn.core.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:

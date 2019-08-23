@@ -1,0 +1,7 @@
+twodlearn.datasets.base module
+==============================
+
+.. automodule:: twodlearn.datasets.base
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.Autoencoder module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.DBM module" href="twodlearn.DBM.html" />
+    <link rel="prev" title="twodlearn.utils.xarray module" href="twodlearn.utils.xarray.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.Autoencoder module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.Autoencoder.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.Autoencoder">
+<span id="twodlearn-autoencoder-module"></span><h1>twodlearn.Autoencoder module<a class="headerlink" href="#module-twodlearn.Autoencoder" title="Permalink to this headline">¶</a></h1>
+<p>Definition of autoencoder layers and a stacked autoencoder network</p>
+<dl class="class">
+<dt id="twodlearn.Autoencoder.AutoencoderClassifierNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">AutoencoderClassifierNet</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">enc_hidden</em>, <em class="sig-param">enc_out</em>, <em class="sig-param">n_classes</em>, <em class="sig-param">hidden_afunction=&lt;function relu&gt;</em>, <em class="sig-param">dec_hidden=None</em>, <em class="sig-param">output_function=None</em>, <em class="sig-param">enc_output_function=None</em>, <em class="sig-param">tied_weights=False</em>, <em class="sig-param">name='autoencoder'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderClassifierNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.Autoencoder.AutoencoderNet" title="twodlearn.Autoencoder.AutoencoderNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.Autoencoder.AutoencoderNet</span></code></a></p>
+<p>Autoencoder with a linear classifier in the encoder output</p>
+<dl class="class">
+<dt id="twodlearn.Autoencoder.AutoencoderClassifierNet.AutoencoderClassifierNetSetup">
+<em class="property">class </em><code class="sig-name descname">AutoencoderClassifierNetSetup</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">opt=None</em>, <em class="sig-param">name='train'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderClassifierNet.AutoencoderClassifierNetSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.Autoencoder.AutoencoderNetSetup</span></code></p>
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderClassifierNet.AutoencoderClassifierNetSetup.setup_classifier">
+<code class="sig-name descname">setup_classifier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderClassifierNet.AutoencoderClassifierNetSetup.setup_classifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderClassifierNet.define_classifier">
+<code class="sig-name descname">define_classifier</code><span class="sig-paren">(</span><em class="sig-param">n_classes</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderClassifierNet.define_classifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderClassifierNet.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderClassifierNet.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderClassifierNet.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">opt=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderClassifierNet.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.Autoencoder.AutoencoderNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">AutoencoderNet</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">enc_hidden</em>, <em class="sig-param">enc_out</em>, <em class="sig-param">hidden_afunction=&lt;function relu&gt;</em>, <em class="sig-param">dec_hidden=None</em>, <em class="sig-param">output_function=None</em>, <em class="sig-param">enc_output_function=None</em>, <em class="sig-param">tied_weights=False</em>, <em class="sig-param">name='autoencoder'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup">
+<em class="property">class </em><code class="sig-name descname">AutoencoderNetSetup</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">opt=None</em>, <em class="sig-param">name='train'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.add_noise">
+<code class="sig-name descname">add_noise</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">opt</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.add_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds noise to the input</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – intpus for which noise will be added</p></li>
+<li><p><strong>opt</strong> – dictionary with the options for the autoencoder,
+the options regarding noise are:
+‘noise/type’: ‘bernoulli’, ‘gaussian’
+‘noise/level’: float (0.0-1.0 typically) specifing how much
+noise will be added</p></li>
+</ul>
+</dd>
+</dl>
+<p>&#64;return noisy_inputs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.batch_size">
+<em class="property">property </em><code class="sig-name descname">batch_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.contractive_loss">
+<em class="property">property </em><code class="sig-name descname">contractive_loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.contractive_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>mean squared frobenius norm of the jacobian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.decoder">
+<em class="property">property </em><code class="sig-name descname">decoder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.decoder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_decoder_forward">
+<code class="sig-name descname">define_decoder_forward</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_decoder_forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_encoder_forward">
+<code class="sig-name descname">define_encoder_forward</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_encoder_forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_opt">
+<code class="sig-name descname">define_opt</code><span class="sig-paren">(</span><em class="sig-param">opt</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_reconstruction_loss">
+<code class="sig-name descname">define_reconstruction_loss</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">decoder</em>, <em class="sig-param">opt</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_reconstruction_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_regularizer">
+<code class="sig-name descname">define_regularizer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_regularizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_supervised_loss">
+<code class="sig-name descname">define_supervised_loss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.define_supervised_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.encoder">
+<em class="property">property </em><code class="sig-name descname">encoder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.encoder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.inputs">
+<em class="property">property </em><code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>inputs to the encoder</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.jacobian_f">
+<em class="property">property </em><code class="sig-name descname">jacobian_f</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.jacobian_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>mean frobenius norm of the jacobian</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.keep_prob">
+<em class="property">property </em><code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.loss">
+<em class="property">property </em><code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruction loss + regularizers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>model that holds the parameters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name used for the construction of the comptuation graph</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.opt">
+<em class="property">property </em><code class="sig-name descname">opt</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.opt" title="Permalink to this definition">¶</a></dt>
+<dd><p>options used to build the graph</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.reconstruction_loss">
+<em class="property">property </em><code class="sig-name descname">reconstruction_loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.reconstruction_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>loss that penalize for the reconstructions of the original
+inputs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.setup_contractive_regularizer">
+<code class="sig-name descname">setup_contractive_regularizer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.setup_contractive_regularizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.tied_weights">
+<em class="property">property </em><code class="sig-name descname">tied_weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.tied_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.wd_loss">
+<em class="property">property </em><code class="sig-name descname">wd_loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.wd_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>weight-decay, ussually a frobenius norm of the weights</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.AutoencoderNetSetup.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>outputs from the decoder</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.define_decoder">
+<code class="sig-name descname">define_decoder</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">dec_hidden</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">hidden_afunction</em>, <em class="sig-param">output_function</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.define_decoder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.define_encoder">
+<code class="sig-name descname">define_encoder</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">enc_hidden</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">hidden_afunction</em>, <em class="sig-param">output_function</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.define_encoder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size=None</em>, <em class="sig-param">keep_prob=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">opt=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.AutoencoderNet.tied_weights">
+<em class="property">property </em><code class="sig-name descname">tied_weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNet.tied_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.Autoencoder.AutoencoderNetConf">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">AutoencoderNetConf</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">labels</em>, <em class="sig-param">y</em>, <em class="sig-param">loss</em>, <em class="sig-param">xp_list</em>, <em class="sig-param">h_list</em>, <em class="sig-param">xp_losses</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.AutoencoderNetConf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a wrapper to any network configuration, it contains the references to
+the placeholders for inputs and labels, and the reference of the computation graph for
+the network</p>
+<p>inputs: placeholder for the inputs
+labels: placeholder for the labels
+y: output of the comptuation graph (logits)
+loss: loss for the network</p>
+<p>xp_list: list with the “reconstructed” outputs using the transpose of the autoencoder layer
+h_list: list with the hidden layer outputs
+xp_losses: list with the loses for each one of the layers reconstructions</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.Autoencoder.StackedAutoencoderNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">StackedAutoencoderNet</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">afunction=None</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.StackedAutoencoderNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.Autoencoder.StackedAutoencoderNet.add_noise">
+<code class="sig-name descname">add_noise</code><span class="sig-paren">(</span><em class="sig-param">input_tensor</em>, <em class="sig-param">l_idx</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.StackedAutoencoderNet.add_noise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.StackedAutoencoderNet.compute_output_loss">
+<code class="sig-name descname">compute_output_loss</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">labels</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.StackedAutoencoderNet.compute_output_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.StackedAutoencoderNet.compute_pred_loss">
+<code class="sig-name descname">compute_pred_loss</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">xp</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.StackedAutoencoderNet.compute_pred_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.StackedAutoencoderNet.get_pred_optimizers">
+<code class="sig-name descname">get_pred_optimizers</code><span class="sig-paren">(</span><em class="sig-param">NetConf</em>, <em class="sig-param">learning_rate=0.0002</em>, <em class="sig-param">beta1=0.5</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.StackedAutoencoderNet.get_pred_optimizers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.StackedAutoencoderNet.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">drop_prob=None</em>, <em class="sig-param">l2_reg_coef=None</em>, <em class="sig-param">inputs=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.StackedAutoencoderNet.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation graph of the neural network for a specific batch size</p>
+<dl class="simple">
+<dt>drop_prob: placeholder used for specify the probability for dropout. If this coefficient is set, then</dt><dd><p>dropout regularization is added between all fully connected layers(TODO: allow to choose which layers)</p>
+</dd>
+</dl>
+<p>l2_reg_coef: coeficient for l2 regularization
+loss_type: type of the loss being used for training the network, the options are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘cross_entropy’: for classification tasks</p></li>
+<li><p>‘l2’: for regression tasks</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.Autoencoder.TransposedAffine">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">TransposedAffine</code><span class="sig-paren">(</span><em class="sig-param">reference_layer</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.TransposedAffine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.AffineLayer" title="twodlearn.feedforward.AffineLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.AffineLayer</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.Autoencoder.TransposedFullyConnected">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">TransposedFullyConnected</code><span class="sig-paren">(</span><em class="sig-param">reference_layer</em>, <em class="sig-param">afunction=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.TransposedFullyConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.DenseLayer" title="twodlearn.feedforward.DenseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.DenseLayer</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.Autoencoder.TransposedMlpNet">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.Autoencoder.</code><code class="sig-name descname">TransposedMlpNet</code><span class="sig-paren">(</span><em class="sig-param">encoder_net</em>, <em class="sig-param">output_function=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.TransposedMlpNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.MlpNet" title="twodlearn.feedforward.MlpNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.MlpNet</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.Autoencoder.TransposedMlpNet.define_fullyconnected_layers">
+<code class="sig-name descname">define_fullyconnected_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.TransposedMlpNet.define_fullyconnected_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the model for the fully connected layers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.Autoencoder.TransposedMlpNet.define_output_layer">
+<code class="sig-name descname">define_output_layer</code><span class="sig-paren">(</span><em class="sig-param">output_function</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/Autoencoder.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.Autoencoder.TransposedMlpNet.define_output_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the model for the final layer</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.DBM.html" class="btn btn-neutral float-right" title="twodlearn.DBM module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.utils.xarray.html" class="btn btn-neutral float-left" title="twodlearn.utils.xarray module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

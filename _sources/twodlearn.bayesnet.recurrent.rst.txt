@@ -1,0 +1,7 @@
+twodlearn.bayesnet.recurrent module
+===================================
+
+.. automodule:: twodlearn.bayesnet.recurrent
+   :members:
+   :undoc-members:
+   :show-inheritance:

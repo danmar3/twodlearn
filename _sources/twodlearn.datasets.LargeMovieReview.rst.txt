@@ -1,0 +1,7 @@
+twodlearn.datasets.LargeMovieReview module
+==========================================
+
+.. automodule:: twodlearn.datasets.LargeMovieReview
+   :members:
+   :undoc-members:
+   :show-inheritance:

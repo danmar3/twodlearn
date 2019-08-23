@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.datasets.Batch_generator module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.datasets.LargeMovieReview module" href="twodlearn.datasets.LargeMovieReview.html" />
+    <link rel="prev" title="twodlearn.datasets package" href="twodlearn.datasets.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.datasets.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.datasets.Batch_generator module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.LargeMovieReview.html">twodlearn.datasets.LargeMovieReview module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.base.html">twodlearn.datasets.base module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.cifar10.html">twodlearn.datasets.cifar10 module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.cyber.html">twodlearn.datasets.cyber module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.mnist.html">twodlearn.datasets.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.tsdataset.html">twodlearn.datasets.tsdataset module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.unbalanced.html">twodlearn.datasets.unbalanced module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.vocabulary_stem_coding.html">twodlearn.datasets.vocabulary_stem_coding module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.datasets.html#module-twodlearn.datasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.datasets.html">twodlearn.datasets package</a> &raquo;</li>
+        
+      <li>twodlearn.datasets.Batch_generator module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.datasets.Batch_generator.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.datasets.Batch_generator">
+<span id="twodlearn-datasets-batch-generator-module"></span><h1>twodlearn.datasets.Batch_generator module<a class="headerlink" href="#module-twodlearn.datasets.Batch_generator" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.datasets.Batch_generator.BatchGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.Batch_generator.</code><code class="sig-name descname">BatchGenerator</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">RandomShuffle=True</em>, <em class="sig-param">task='classification'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.BatchGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generates batches in form of a matrix, where each row constitutes a single sample</p>
+<dl class="method">
+<dt id="twodlearn.datasets.Batch_generator.BatchGenerator.get_next">
+<code class="sig-name descname">get_next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.BatchGenerator.get_next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.Batch_generator.SeqBatchGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.Batch_generator.</code><code class="sig-name descname">SeqBatchGenerator</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">window_size</em>, <em class="sig-param">out_format='tensor'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.SeqBatchGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generates batches for a single class, considering discontinuous data divided in pages.</p>
+<p>For data that is piecewise continuous, each continuous part is called a page. Therefore
+the hole dataset is a list of pages.</p>
+<p>The windows generated from the dataset contain only continuous data.</p>
+<dl class="method">
+<dt id="twodlearn.datasets.Batch_generator.SeqBatchGenerator.get_next_list_tensor">
+<code class="sig-name descname">get_next_list_tensor</code><span class="sig-paren">(</span><em class="sig-param">inc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.SeqBatchGenerator.get_next_list_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next batch in a list, where each element of the list
+corresponds to a single sequence.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.Batch_generator.SeqBatchGenerator.get_next_list_windows">
+<code class="sig-name descname">get_next_list_windows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.SeqBatchGenerator.get_next_list_windows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.Batch_generator.SeqBatchGenerator.get_next_tensor">
+<code class="sig-name descname">get_next_tensor</code><span class="sig-paren">(</span><em class="sig-param">inc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.SeqBatchGenerator.get_next_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.Batch_generator.SeqMultiClassBatchGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.Batch_generator.</code><code class="sig-name descname">SeqMultiClassBatchGenerator</code><span class="sig-paren">(</span><em class="sig-param">data_in</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">window_size</em>, <em class="sig-param">mrk=None</em>, <em class="sig-param">y=None</em>, <em class="sig-param">out_format='tensor'</em>, <em class="sig-param">input_format=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.SeqMultiClassBatchGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generates batches of sequences for multiple classes</p>
+<dl class="simple">
+<dt>Atributes:</dt><dd><ul class="simple">
+<li><p>bg_l: list containing the batch generator for each class</p></li>
+<li><p>data: datset from where the batches are generated. Is structured as data[class][page] after initialization</p></li>
+<li><p>n_classes: number of classes</p></li>
+<li><p>batch_size:</p></li>
+<li><p>window_size:</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="twodlearn.datasets.Batch_generator.SeqMultiClassBatchGenerator.get_next">
+<code class="sig-name descname">get_next</code><span class="sig-paren">(</span><em class="sig-param">inc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.SeqMultiClassBatchGenerator.get_next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.Batch_generator.one_hot">
+<code class="sig-prename descclassname">twodlearn.datasets.Batch_generator.</code><code class="sig-name descname">one_hot</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">n_classes</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/Batch_generator.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.Batch_generator.one_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a 1-D list of labels into a one-hot encoding representation</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.datasets.LargeMovieReview.html" class="btn btn-neutral float-right" title="twodlearn.datasets.LargeMovieReview module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.datasets.html" class="btn btn-neutral float-left" title="twodlearn.datasets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

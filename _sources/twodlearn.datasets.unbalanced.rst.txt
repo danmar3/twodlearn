@@ -1,0 +1,7 @@
+twodlearn.datasets.unbalanced module
+====================================
+
+.. automodule:: twodlearn.datasets.unbalanced
+   :members:
+   :undoc-members:
+   :show-inheritance:

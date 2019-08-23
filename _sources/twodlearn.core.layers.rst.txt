@@ -1,0 +1,7 @@
+twodlearn.core.layers module
+============================
+
+.. automodule:: twodlearn.core.layers
+   :members:
+   :undoc-members:
+   :show-inheritance:

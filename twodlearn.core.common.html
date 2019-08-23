@@ -1,0 +1,1182 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.core.common module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.core.context module" href="twodlearn.core.context.html" />
+    <link rel="prev" title="twodlearn.core.autoinit module" href="twodlearn.core.autoinit.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.core.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.core.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.array.html">twodlearn.core.array module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.autoinit.html">twodlearn.core.autoinit module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.core.common module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.context.html">twodlearn.core.context module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.exceptions.html">twodlearn.core.exceptions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.initializers.html">twodlearn.core.initializers module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.layers.html">twodlearn.core.layers module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.options.html">twodlearn.core.options module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.save.html">twodlearn.core.save module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.search.html">twodlearn.core.search module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.shortcuts.html">twodlearn.core.shortcuts module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.core.variable.html">twodlearn.core.variable module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.core.html#module-twodlearn.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.core.html">twodlearn.core package</a> &raquo;</li>
+        
+      <li>twodlearn.core.common module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.core.common.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.core.common">
+<span id="twodlearn-core-common-module"></span><h1>twodlearn.core.common module<a class="headerlink" href="#module-twodlearn.core.common" title="Permalink to this headline">¶</a></h1>
+<p>This module defines common structures used in twodlearn</p>
+<dl class="class">
+<dt id="twodlearn.core.common.BoundedVariable">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">BoundedVariable</code><span class="sig-paren">(</span><em class="sig-param">min</em>, <em class="sig-param">max</em>, <em class="sig-param">initializer</em>, <em class="sig-param">initial_value=None</em>, <em class="sig-param">trainable=True</em>, <em class="sig-param">collections=None</em>, <em class="sig-param">validate_shape=True</em>, <em class="sig-param">caching_device=None</em>, <em class="sig-param">name='variable'</em>, <em class="sig-param">variable_def=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">expected_shape=None</em>, <em class="sig-param">import_scope=None</em>, <em class="sig-param">constraint=None</em>, <em class="sig-param">options=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.BoundedVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TransformedVariable" title="twodlearn.core.common.TransformedVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TransformedVariable</span></code></a></p>
+<p>Creates a variable that can only take values inside a range</p>
+<dl class="method">
+<dt id="twodlearn.core.common.BoundedVariable.inverse">
+<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.BoundedVariable.inverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.BoundedVariable.max">
+<em class="property">property </em><code class="sig-name descname">max</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.BoundedVariable.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.BoundedVariable.min">
+<em class="property">property </em><code class="sig-name descname">min</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.BoundedVariable.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.BoundedVariable.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.BoundedVariable.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.ConstrainedVariable">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">ConstrainedVariable</code><span class="sig-paren">(</span><em class="sig-param">initial_value</em>, <em class="sig-param">min=0.0</em>, <em class="sig-param">max=inf</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.core.common.ConstrainedVariable.initial_value">
+<code class="sig-name descname">initial_value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.initial_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.ConstrainedVariable.initializer">
+<em class="property">property </em><code class="sig-name descname">initializer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.initializer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.core.common.ConstrainedVariable.max">
+<code class="sig-name descname">max</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.core.common.ConstrainedVariable.min">
+<code class="sig-name descname">min</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.ConstrainedVariable.projection">
+<code class="sig-name descname">projection</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.projection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.ConstrainedVariable.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.core.common.ConstrainedVariable.variable">
+<code class="sig-name descname">variable</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ConstrainedVariable.variable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.EagerMethod">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">EagerMethod</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">feval=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EagerMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Decorator used to specify methods that perform operations using
+tensorflow, but are evaluated immediatly.
+These methods consist of an initialization method (speficied with the
+function given to the decorator) and an execute</p>
+<dl class="method">
+<dt id="twodlearn.core.common.EagerMethod.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param">feval</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EagerMethod.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.EncapsulatedMethod">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">EncapsulatedMethod</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">feval=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EncapsulatedMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Decorator used to specify methods that have a set of local variables.</p>
+<p>These methods consist of an initialization method (speficied with the
+function given to the decorator) and an execute method.</p>
+<dl class="class">
+<dt id="twodlearn.core.common.EncapsulatedMethod.MethodData">
+<em class="property">class </em><code class="sig-name descname">MethodData</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EncapsulatedMethod.MethodData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.EncapsulatedMethod.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param">feval</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EncapsulatedMethod.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.EncapsulatedMethod.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EncapsulatedMethod.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.EncapsulatedMethod.init_local">
+<code class="sig-name descname">init_local</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.EncapsulatedMethod.init_local" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.Identity">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">Identity</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.core.common.Identity.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Identity.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.InferenceInput">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">InferenceInput</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.InferenceInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.InputArgument</span></code></a></p>
+<p>Decorator used to specify a model input required to perform inference.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the argument, ussually
+checking for types and setting default values</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.InputArgument">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">InputArgument</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.InputArgument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlDescriptor" title="twodlearn.core.common.TdlDescriptor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlDescriptor</span></code></a></p>
+<p>Decorator used to specify the input arguments for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the argument, ussually
+checking for types and setting default values.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.InputModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">InputModel</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.InputModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.InputArgument</span></code></a></p>
+<p>Decorator used to specify the input models for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the argument, ussually
+checking for types and setting default values</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.InputModelInit">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">InputModelInit</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">inference_input=None</em>, <em class="sig-param">lazzy=False</em>, <em class="sig-param">doc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.InputModelInit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.SubmodelInit</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.InputParameter">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">InputParameter</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.InputParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.InputArgument</span></code></a></p>
+<p>Decorator used to specify the input arguments for a model.
+These inputs will serve as parameters.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the argument, ussually
+checking for types and setting default values</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.LazzyProperty">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">LazzyProperty</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.LazzyProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.core.common.LazzyProperty.autoinit">
+<code class="sig-name descname">autoinit</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">force=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.LazzyProperty.autoinit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.LazzyProperty.init_property">
+<code class="sig-name descname">init_property</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.LazzyProperty.init_property" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.MethodInit">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">MethodInit</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">feval=None</em>, <em class="sig-param">doc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.MethodInit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Descriptor that encapsulates a set of local variables for the method.
+The following is an example of how this descriptor can be used:</p>
+<p class="rubric">Examples</p>
+<p>The descriptor can be used to define both, an initialization method,
+and an evaluation method</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">TdlModel</span><span class="p">):</span>
+    <span class="nd">@tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">MethodInit</span>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="n">local</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">tdf</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dense</span><span class="o">.</span><span class="n">DenseLayer</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">)</span>
+
+    <span class="nd">@evaluate</span><span class="o">.</span><span class="n">eval</span>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">local</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">/</span><span class="n">n_samples</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="twodlearn.core.common.MethodInit.MethodData">
+<em class="property">class </em><code class="sig-name descname">MethodData</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">attr_name</em>, <em class="sig-param">finit</em>, <em class="sig-param">feval</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.MethodInit.MethodData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.core.common.MethodInit.MethodData.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.MethodInit.MethodData.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.MethodInit.autoinit">
+<code class="sig-name descname">autoinit</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">force=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.MethodInit.autoinit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.MethodInit.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param">feval</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.MethodInit.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.MethodInit.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">val=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.MethodInit.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.ModelMethod">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">ModelMethod</code><span class="sig-paren">(</span><em class="sig-param">output_vars</em>, <em class="sig-param">input_vars</em>, <em class="sig-param">OutputClass=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ModelMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Decorator used to specify an operation inside a model.</p>
+<p>The decorator works similar to &#64;property, but the specified
+method correponds to the definition of the operation.</p>
+<p class="rubric">Examples</p>
+<p>Model methods can be used as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">TdlModel</span><span class="p">):</span>
+    <span class="n">_submodels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;evaluate&#39;</span><span class="p">]</span>
+    <span class="nd">@tdl</span><span class="o">.</span><span class="n">ModelMethod</span><span class="p">([</span><span class="s1">&#39;y&#39;</span><span class="p">],</span>     <span class="c1"># list of outputs</span>
+                     <span class="p">[</span><span class="s1">&#39;x&#39;</span> <span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="c1"># list of inputs</span>
+                    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">u</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.OptionalProperty">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">OptionalProperty</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">fset=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalProperty.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalProperty.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalProperty.setter">
+<code class="sig-name descname">setter</code><span class="sig-paren">(</span><em class="sig-param">fset</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalProperty.setter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.OptionalPropertyWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">OptionalPropertyWrapper</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">finit</em>, <em class="sig-param">fset</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalPropertyWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlOp" title="twodlearn.core.common.TdlOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlOp</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalPropertyWrapper.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalPropertyWrapper.call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalPropertyWrapper.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalPropertyWrapper.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalPropertyWrapper.is_set">
+<em class="property">property </em><code class="sig-name descname">is_set</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalPropertyWrapper.is_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalPropertyWrapper.set_value">
+<code class="sig-name descname">set_value</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalPropertyWrapper.set_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.OptionalPropertyWrapper.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OptionalPropertyWrapper.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.Options">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">Options</code><span class="sig-paren">(</span><em class="sig-param">*argv</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.OutputModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">OutputModel</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OutputModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.core.common.OutputModel.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param">input_vars</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OutputModel.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.OutputModel.get_save_data">
+<code class="sig-name descname">get_save_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OutputModel.get_save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.core.common.OutputModel.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OutputModel.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.OutputValue">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">OutputValue</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.OutputValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlDescriptor" title="twodlearn.core.common.TdlDescriptor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlDescriptor</span></code></a></p>
+<p>Decorator used to specify the output value of a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the definition of the output value.
+These methods are called at the end of the auto initialization
+procedure.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.Parameter">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">Parameter</code><span class="sig-paren">(</span><em class="sig-param">fget=None</em>, <em class="sig-param">finit=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.core.common.Parameter.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">finit</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Parameter.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.ParameterInit">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">ParameterInit</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">inference_input=None</em>, <em class="sig-param">lazzy=False</em>, <em class="sig-param">doc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ParameterInit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.SubmodelInit</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.PositiveVariable">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">PositiveVariable</code><span class="sig-paren">(</span><em class="sig-param">initializer</em>, <em class="sig-param">initial_value=None</em>, <em class="sig-param">trainable=True</em>, <em class="sig-param">collections=None</em>, <em class="sig-param">validate_shape=True</em>, <em class="sig-param">caching_device=None</em>, <em class="sig-param">name='variable'</em>, <em class="sig-param">variable_def=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">expected_shape=None</em>, <em class="sig-param">import_scope=None</em>, <em class="sig-param">constraint=None</em>, <em class="sig-param">options=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TransformedVariable" title="twodlearn.core.common.TransformedVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TransformedVariable</span></code></a></p>
+<p>Creates a variable that can only take positive values</p>
+<dl class="method">
+<dt id="twodlearn.core.common.PositiveVariable.inverse">
+<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariable.inverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.PositiveVariable.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariable.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.PositiveVariable2">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">PositiveVariable2</code><span class="sig-paren">(</span><em class="sig-param">initializer</em>, <em class="sig-param">initial_value=None</em>, <em class="sig-param">trainable=True</em>, <em class="sig-param">collections=None</em>, <em class="sig-param">validate_shape=True</em>, <em class="sig-param">caching_device=None</em>, <em class="sig-param">name='variable'</em>, <em class="sig-param">variable_def=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">expected_shape=None</em>, <em class="sig-param">import_scope=None</em>, <em class="sig-param">constraint=None</em>, <em class="sig-param">options=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariable2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TransformedVariable" title="twodlearn.core.common.TransformedVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TransformedVariable</span></code></a></p>
+<p>Creates a variable that can only take positive values.
+This function uses pow(x,2) as a reparameterization of the variable</p>
+<dl class="method">
+<dt id="twodlearn.core.common.PositiveVariable2.inverse">
+<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariable2.inverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.PositiveVariable2.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariable2.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.PositiveVariableExp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">PositiveVariableExp</code><span class="sig-paren">(</span><em class="sig-param">initializer</em>, <em class="sig-param">initial_value=None</em>, <em class="sig-param">trainable=True</em>, <em class="sig-param">collections=None</em>, <em class="sig-param">validate_shape=True</em>, <em class="sig-param">caching_device=None</em>, <em class="sig-param">name='variable'</em>, <em class="sig-param">variable_def=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">expected_shape=None</em>, <em class="sig-param">import_scope=None</em>, <em class="sig-param">constraint=None</em>, <em class="sig-param">options=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariableExp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TransformedVariable" title="twodlearn.core.common.TransformedVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TransformedVariable</span></code></a></p>
+<p>Creates a variable that can only take positive values.
+This function uses exp() as a reparameterization of the variable</p>
+<dl class="method">
+<dt id="twodlearn.core.common.PositiveVariableExp.inverse">
+<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariableExp.inverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.PositiveVariableExp.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.PositiveVariableExp.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.Regularizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">Regularizer</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">fset=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.OptionalProperty" title="twodlearn.core.common.OptionalProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OptionalProperty</span></code></a></p>
+<p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.ScopedMethod">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">ScopedMethod</code><span class="sig-paren">(</span><em class="sig-param">feval=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ScopedMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>adds a tf.name_scope before executing the method</p>
+<dl class="class">
+<dt id="twodlearn.core.common.ScopedMethod.ScopedWrapper">
+<em class="property">class </em><code class="sig-name descname">ScopedWrapper</code><span class="sig-paren">(</span><em class="sig-param">instance</em>, <em class="sig-param">feval</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.ScopedMethod.ScopedWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.SimpleNamespace">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">SimpleNamespace</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SimpleNamespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">types.SimpleNamespace</span></code></p>
+<p>SimpleNamespace that works with tf.convert_to_tensor and is searchable</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.SimpleParameter">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">SimpleParameter</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SimpleParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlDescriptor" title="twodlearn.core.common.TdlDescriptor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlDescriptor</span></code></a></p>
+<p>Decorator used to specify a parameter inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the parameter</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.Submodel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">Submodel</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.Submodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlDescriptor" title="twodlearn.core.common.TdlDescriptor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlDescriptor</span></code></a></p>
+<p>Decorator used to specify a submodel inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the submodel.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.SubmodelInit">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">SubmodelInit</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">inference_input=None</em>, <em class="sig-param">lazzy=False</em>, <em class="sig-param">doc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Indicate the initialization function for a property</p>
+<p class="rubric">Examples</p>
+<p>Some examples of how can be used</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TestObject0</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">TdlObject</span><span class="p">):</span>
+    <span class="nd">@tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">SubmodelInit</span>
+    <span class="k">def</span> <span class="nf">submodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">SimpleNamespace</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TestObject1</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">TdlObject</span><span class="p">):</span>
+    <span class="n">submodel</span> <span class="o">=</span> <span class="n">tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">SubmodelInit</span><span class="p">(</span><span class="n">inference_input</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nd">@submodel</span><span class="o">.</span><span class="n">initializer</span>
+    <span class="k">def</span> <span class="nf">submodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">SimpleNamespace</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TestObject2</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">TdlObject</span><span class="p">):</span>
+    <span class="nd">@tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">SubmodelInit</span><span class="p">(</span><span class="n">inference_input</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">submodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tdl</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">SimpleNamespace</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="twodlearn.core.common.SubmodelInit.Initializer">
+<em class="property">class </em><code class="sig-name descname">Initializer</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">attr_name</em>, <em class="sig-param">finit</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit.Initializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.core.common.SubmodelInit.Initializer.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit.Initializer.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.SubmodelInit.Initializer.set_args">
+<code class="sig-name descname">set_args</code><span class="sig-paren">(</span><em class="sig-param">given_args</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit.Initializer.set_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.SubmodelInit.autoinit">
+<code class="sig-name descname">autoinit</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">force=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit.autoinit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.SubmodelInit.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialization method called when TdlModel is initialized</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><em>TdlModel</em></a>) – object to which the property belongs to.</p></li>
+<li><p><strong>val</strong> (<em>type</em>) – value used for initialization. If value is
+a dictionary, the initialization method will be
+called using the dictionary values, otherwise, the
+property will be set with the provided value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.SubmodelInit.initializer">
+<code class="sig-name descname">initializer</code><span class="sig-paren">(</span><em class="sig-param">finit</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelInit.initializer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.SubmodelWithArgs">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">SubmodelWithArgs</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelWithArgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.Submodel</span></code></a></p>
+<p>Decorator used to specify a submodel inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the submodel.</p>
+<dl class="method">
+<dt id="twodlearn.core.common.SubmodelWithArgs.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.SubmodelWithArgs.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TdlDescriptor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TdlDescriptor</code><span class="sig-paren">(</span><em class="sig-param">finit=None</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlDescriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Decorator used to specify a parameter inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the parameter</p>
+<dl class="method">
+<dt id="twodlearn.core.common.TdlDescriptor.autoinit">
+<code class="sig-name descname">autoinit</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">force=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlDescriptor.autoinit" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialized the attribute with None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlDescriptor.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlDescriptor.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlDescriptor.optional">
+<em class="property">classmethod </em><code class="sig-name descname">optional</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">doc=None</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlDescriptor.optional" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlDescriptor.required">
+<em class="property">classmethod </em><code class="sig-name descname">required</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">doc=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlDescriptor.required" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TdlModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TdlModel</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlOp" title="twodlearn.core.common.TdlOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlOp</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.core.common.TdlModel.add_weight">
+<code class="sig-name descname">add_weight</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">initializer</em>, <em class="sig-param">shape</em>, <em class="sig-param">trainable</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlModel.add_weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TdlModelCallable">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TdlModelCallable</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlModelCallable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TdlObject">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TdlObject</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TdlOp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TdlOp</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for defining operations
+The operation is encapsulated inside a scope</p>
+<dl class="method">
+<dt id="twodlearn.core.common.TdlOp.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlOp.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name for the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlOp.options">
+<em class="property">property </em><code class="sig-name descname">options</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlOp.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlOp.scope">
+<em class="property">property </em><code class="sig-name descname">scope</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlOp.scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>scope for the model, used to define all operations</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TdlProgram">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TdlProgram</code><span class="sig-paren">(</span><em class="sig-param">options=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlProgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a program that executes operations over TdlModel instances</p>
+<dl class="method">
+<dt id="twodlearn.core.common.TdlProgram.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlProgram.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name for the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlProgram.options">
+<em class="property">property </em><code class="sig-name descname">options</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlProgram.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TdlProgram.scope">
+<em class="property">property </em><code class="sig-name descname">scope</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TdlProgram.scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>scope for the model, used to define all operations</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.TransformedVariable">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">TransformedVariable</code><span class="sig-paren">(</span><em class="sig-param">initializer</em>, <em class="sig-param">initial_value=None</em>, <em class="sig-param">trainable=True</em>, <em class="sig-param">collections=None</em>, <em class="sig-param">validate_shape=True</em>, <em class="sig-param">caching_device=None</em>, <em class="sig-param">name='variable'</em>, <em class="sig-param">variable_def=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">expected_shape=None</em>, <em class="sig-param">import_scope=None</em>, <em class="sig-param">constraint=None</em>, <em class="sig-param">options=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.core.common.TransformedVariable.initializer">
+<em class="property">property </em><code class="sig-name descname">initializer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable.initializer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TransformedVariable.inverse">
+<code class="sig-name descname">inverse</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable.inverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.core.common.TransformedVariable.raw">
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>raw value before making a transformation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TransformedVariable.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TransformedVariable.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable.transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.TransformedVariable.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.TransformedVariable.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.UnsetProperty">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">UnsetProperty</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">attr_name</em>, <em class="sig-param">finit</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.UnsetProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.core.common.UnsetProperty.default_init">
+<code class="sig-name descname">default_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.UnsetProperty.default_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.core.common.UnsetProperty.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.UnsetProperty.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.core.common.UnsetProperty.is_set">
+<code class="sig-name descname">is_set</code><em class="property"> = False</em><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.UnsetProperty.is_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.add_init_descriptor">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">add_init_descriptor</code><span class="sig-paren">(</span><em class="sig-param">descriptor</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.add_init_descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the descriptor to the list of initialization descriptors
+This list is checked by the class initializers to verify if the provided
+arguments have an initialization method.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.add_tdl_descriptor">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">add_tdl_descriptor</code><span class="sig-paren">(</span><em class="sig-param">descriptor</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.add_tdl_descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the descriptor to the list of existing descriptors
+This list is checked by the class initializers to verify if the provided
+arguments have an initialization method</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.any_initialized">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">any_initialized</code><span class="sig-paren">(</span><em class="sig-param">obj, props: List[str]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.any_initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if any property is initialized</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – object that owns the properties.</p></li>
+<li><p><strong>props</strong> (<em>typing.List</em><em>[</em><em>str</em><em>]</em>) – list of properties to be checked.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if any property is already initialized.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.assert_any_available">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">assert_any_available</code><span class="sig-paren">(</span><em class="sig-param">object</em>, <em class="sig-param">property=None</em>, <em class="sig-param">reqs=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.assert_any_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if requirements are available.</p>
+<p>This function checks if any of the requirements is already set.
+If no requirement is set, we rise an exeption and left _init_tdl_attrs
+function to handle it.</p>
+<p>The requirements will be initialized only if they were provided by the
+user, no auto-initialization is performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>object</strong> (<a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><em>TdlModel</em></a>) – object being initialized/defined.</p></li>
+<li><p><strong>reqs</strong> (<em>str</em>) – requirements.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.assert_initialized">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">assert_initialized</code><span class="sig-paren">(</span><em class="sig-param">object</em>, <em class="sig-param">prop</em>, <em class="sig-param">reqs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.assert_initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the requirements have been initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>object</strong> – object being initialized</p></li>
+<li><p><strong>prop</strong> – property being initialized (string)</p></li>
+<li><p><strong>reqs</strong> – list of properties that are required to initialize prop
+(list of strings)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="twodlearn.core.exceptions.html#twodlearn.core.exceptions.InitPreconditionsFailed" title="twodlearn.core.exceptions.InitPreconditionsFailed"><strong>InitPreconditionsFailed</strong></a> – the exception is raised
+    if any of the requirements is not initialized.
+    During initialization, the exeption is handled by _init_tdl_attrs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.assert_initialized_if_available">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">assert_initialized_if_available</code><span class="sig-paren">(</span><em class="sig-param">object</em>, <em class="sig-param">property=None</em>, <em class="sig-param">reqs=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.assert_initialized_if_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>check that requirements are initialized if they were provided by the
+user, no auto-initialization is performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>object</strong> (<a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><em>TdlModel</em></a>) – object being initialized/defined.</p></li>
+<li><p><strong>reqs</strong> (<em>str</em>) – requirements.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.build">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">recursive=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize parameters and submodels of a given model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>recursive</strong> – True for building the parameters and submodels.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.check_defaults">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">check_defaults</code><span class="sig-paren">(</span><em class="sig-param">options</em>, <em class="sig-param">default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.check_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the values in default to options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>options</strong> (<em>dict</em>) – base options.</p></li>
+<li><p><strong>default</strong> (<em>dict</em>) – default options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>options with the missing values that are in default but not in
+options.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.convert_output_to_tensor">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">convert_output_to_tensor</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">as_ref=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.convert_output_to_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.convert_variable_to_tensor">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">convert_variable_to_tensor</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">as_ref=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.convert_variable_to_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.create_init_docstring">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">create_init_docstring</code><span class="sig-paren">(</span><em class="sig-param">cls</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.create_init_docstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a docstring to the initialization method of a tdl class.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.encapsulate_op">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">encapsulate_op</code><span class="sig-paren">(</span><em class="sig-param">input_vars</em>, <em class="sig-param">output_vars=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.encapsulate_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.hasattr">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">hasattr</code><span class="sig-paren">(</span><em class="sig-param">object</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.hasattr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the object has the attribute name bypassing the
+autoinitialization procedure.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.init_attrs">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">init_attrs</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">attrs=None</em>, <em class="sig-param">AttrTypes='default'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.init_attrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run auto-initialization of the model attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><em>TdlModel</em></a>) – model to initialize attributes.</p></li>
+<li><p><strong>attrs</strong> (<em>list</em>) – list with the names of the attributes to initialize.</p></li>
+<li><p><strong>AttrTypes</strong> (<em>str</em>) – tdl decorator or list of tdl decorators.
+Use ‘default’ to initialize (InputArgument, InputParameter,
+InputModel, SimpleParameter, Submodel).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.is_property_initialized">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">is_property_initialized</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">prop</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.is_property_initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a property has been initialized.
+This function checks initialization even for properties that are set but
+not initialized, like MethodInit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><em>TdlModel</em></a>) – model object.</p></li>
+<li><p><strong>prop</strong> (<em>str</em>) – property name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if property is set, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.is_property_set">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">is_property_set</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">prop</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.is_property_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a property has already been set.
+This function checks only if the property has been set. For attributes
+like MethodInit that are set using an initializer, this function
+returns True, even when they have not been initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><em>TdlModel</em></a>) – model object.</p></li>
+<li><p><strong>prop</strong> (<em>str</em>) – property name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if property is set, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.merge_dicts">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">merge_dicts</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.merge_dicts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.core.common.reuse_scope">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">reuse_scope</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.reuse_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.core.common.tensor_rank">
+<code class="sig-prename descclassname">twodlearn.core.common.</code><code class="sig-name descname">tensor_rank</code><span class="sig-paren">(</span><em class="sig-param">tensor</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/core/common.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.core.common.tensor_rank" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.core.context.html" class="btn btn-neutral float-right" title="twodlearn.core.context module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.core.autoinit.html" class="btn btn-neutral float-left" title="twodlearn.core.autoinit module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

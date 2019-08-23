@@ -1,0 +1,7 @@
+twodlearn.templates.mnist.supervised module
+===========================================
+
+.. automodule:: twodlearn.templates.mnist.supervised
+   :members:
+   :undoc-members:
+   :show-inheritance:

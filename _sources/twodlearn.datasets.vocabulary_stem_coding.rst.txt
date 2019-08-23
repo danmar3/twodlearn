@@ -1,0 +1,7 @@
+twodlearn.datasets.vocabulary\_stem\_coding module
+==================================================
+
+.. automodule:: twodlearn.datasets.vocabulary_stem_coding
+   :members:
+   :undoc-members:
+   :show-inheritance:

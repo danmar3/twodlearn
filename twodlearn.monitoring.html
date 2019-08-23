@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.monitoring module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.normalizer module" href="twodlearn.normalizer.html" />
+    <link rel="prev" title="twodlearn.losses module" href="twodlearn.losses.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.monitoring module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.monitoring.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.monitoring">
+<span id="twodlearn-monitoring-module"></span><h1>twodlearn.monitoring module<a class="headerlink" href="#module-twodlearn.monitoring" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.monitoring.GradientL2Monitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">GradientL2Monitor</code><span class="sig-paren">(</span><em class="sig-param">*x_tf</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.GradientL2Monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.monitoring.TrainingMonitor" title="twodlearn.monitoring.TrainingMonitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.monitoring.TrainingMonitor</span></code></a></p>
+<p>monitors the L2 norm of the gradient w.r.t x_tf</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.GradientL2Monitor.setup_op">
+<code class="sig-name descname">setup_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.GradientL2Monitor.setup_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.ImageMonitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">ImageMonitor</code><span class="sig-paren">(</span><em class="sig-param">*x_tf</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ImageMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.monitoring.TrainingMonitor" title="twodlearn.monitoring.TrainingMonitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.monitoring.TrainingMonitor</span></code></a></p>
+<p>Monitors provided image data</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.ImageMonitor.mplfig2tf">
+<em class="property">static </em><code class="sig-name descname">mplfig2tf</code><span class="sig-paren">(</span><em class="sig-param">fig</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ImageMonitor.mplfig2tf" title="Permalink to this definition">¶</a></dt>
+<dd><p>converts a matplotlib figure to a tensorflow tensor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.ImageMonitor.mplfig2tfsummary">
+<code class="sig-name descname">mplfig2tfsummary</code><span class="sig-paren">(</span><em class="sig-param">fig</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ImageMonitor.mplfig2tfsummary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.ImageMonitor.setup_op">
+<code class="sig-name descname">setup_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ImageMonitor.setup_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>setup tf operation to be run, the output of this operation is
+the one saved by the monitor.
+The operation in this case is a tf summary</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.ImageMonitor.tf_summary_data">
+<code class="sig-name descname">tf_summary_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ImageMonitor.tf_summary_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>writes last feed value into a file to be read by tensorboard</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.MonitorManager">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">MonitorManager</code><span class="sig-paren">(</span><em class="sig-param">log_folder='tmp/'</em>, <em class="sig-param">tf_graph=None</em>, <em class="sig-param">use_tensorboard=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.active_monitors">
+<em class="property">property </em><code class="sig-name descname">active_monitors</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.active_monitors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns only active monitors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.add_monitor">
+<code class="sig-name descname">add_monitor</code><span class="sig-paren">(</span><em class="sig-param">monitor</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.add_monitor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.feed">
+<code class="sig-name descname">feed</code><span class="sig-paren">(</span><em class="sig-param">data_in</em>, <em class="sig-param">step</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.feed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.flush">
+<code class="sig-name descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.flush" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.get_stats">
+<code class="sig-name descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>get statistics from loggers
+&#64;retval dictionary with the statistics of each logger</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.monitors">
+<em class="property">property </em><code class="sig-name descname">monitors</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.monitors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all monitors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.monitors_data">
+<em class="property">property </em><code class="sig-name descname">monitors_data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.monitors_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>get data_buffer from the monitors
+&#64;retval data_buffer from the list of monitors as a pandas dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.reopen">
+<code class="sig-name descname">reopen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.reopen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.tf_monitors">
+<em class="property">property </em><code class="sig-name descname">tf_monitors</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.tf_monitors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns only active and valid monitors that have a
+tf op associated</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.tf_summary">
+<em class="property">property </em><code class="sig-name descname">tf_summary</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.tf_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.write_data">
+<code class="sig-name descname">write_data</code><span class="sig-paren">(</span><em class="sig-param">step=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.write_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes last value feed into the monitor for being read by
+tensorboard</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitorManager.write_stats">
+<code class="sig-name descname">write_stats</code><span class="sig-paren">(</span><em class="sig-param">step=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitorManager.write_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.MonitoringData">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">MonitoringData</code><span class="sig-paren">(</span><em class="sig-param">folder</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitoringData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for loading tfevent files</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitoringData.read_tf_scalar_summary">
+<code class="sig-name descname">read_tf_scalar_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitoringData.read_tf_scalar_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the tfevent summary in file_path as a pandas
+dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitoringData.search_monitor_data">
+<code class="sig-name descname">search_monitor_data</code><span class="sig-paren">(</span><em class="sig-param">search_path</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitoringData.search_monitor_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>search for tfevents inside search_path recursively</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.MonitoringDataV2">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">MonitoringDataV2</code><span class="sig-paren">(</span><em class="sig-param">folder</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitoringDataV2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for loading tfevent files</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitoringDataV2.read_tf_scalar_summary">
+<em class="property">static </em><code class="sig-name descname">read_tf_scalar_summary</code><span class="sig-paren">(</span><em class="sig-param">file_path</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitoringDataV2.read_tf_scalar_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the tfevent summary in file_path as a pandas
+dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.MonitoringDataV2.search_monitor_data">
+<code class="sig-name descname">search_monitor_data</code><span class="sig-paren">(</span><em class="sig-param">search_path</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.MonitoringDataV2.search_monitor_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>search for tfevents inside search_path recursively</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.OpMonitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">OpMonitor</code><span class="sig-paren">(</span><em class="sig-param">*x_tf</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.OpMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.monitoring.TrainingMonitor" title="twodlearn.monitoring.TrainingMonitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.monitoring.TrainingMonitor</span></code></a></p>
+<p>monitors the result of the given operation</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.OpMonitor.setup_op">
+<code class="sig-name descname">setup_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.OpMonitor.setup_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.PerformanceSaver">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">PerformanceSaver</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">tmp_path=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.PerformanceSaver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.monitoring.PerformanceSaver.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.PerformanceSaver.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.PerformanceSaver.log">
+<code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param">log_dict</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.PerformanceSaver.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.PerformanceSaver.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">log_dict=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.PerformanceSaver.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.ResetGradientL2Monitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">ResetGradientL2Monitor</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">clip_norm</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ResetGradientL2Monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.monitoring.TrainingMonitor" title="twodlearn.monitoring.TrainingMonitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.monitoring.TrainingMonitor</span></code></a></p>
+<p>monitors the gradients dl_dx. Gradients are set to zero if
+their norm is larger than clip_norm</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.ResetGradientL2Monitor.setup_op">
+<code class="sig-name descname">setup_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ResetGradientL2Monitor.setup_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.ScalarMonitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">ScalarMonitor</code><span class="sig-paren">(</span><em class="sig-param">x_tf=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.ScalarMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.monitoring.TrainingMonitor" title="twodlearn.monitoring.TrainingMonitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.monitoring.TrainingMonitor</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.SimpleTrainingMonitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">SimpleTrainingMonitor</code><span class="sig-paren">(</span><em class="sig-param">train_vars</em>, <em class="sig-param">valid_vars=None</em>, <em class="sig-param">monitoring_vars=None</em>, <em class="sig-param">log_folder='tmp/monitors/'</em>, <em class="sig-param">tf_graph=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.SimpleTrainingMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.monitoring.TrainingMonitorManager" title="twodlearn.monitoring.TrainingMonitorManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.monitoring.TrainingMonitorManager</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.TrainingMonitor">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">TrainingMonitor</code><span class="sig-paren">(</span><em class="sig-param">*x_tf</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class creates operations that logs information about the tensor
+x_tf during training</p>
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.current_step">
+<em class="property">property </em><code class="sig-name descname">current_step</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.current_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.current_value">
+<em class="property">property </em><code class="sig-name descname">current_value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.current_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.data">
+<em class="property">property </em><code class="sig-name descname">data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dataframe  with the data in the buffer
+&#64;retval data_buffer as a dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.feed">
+<code class="sig-name descname">feed</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">step=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>feed data to the monitor
+&#64;param data: data added into the buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.get_stats">
+<code class="sig-name descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>get statistics
+&#64;retval dictionary with the statistics of the monitor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.max">
+<em class="property">property </em><code class="sig-name descname">max</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param">window_size=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the mean for the last window_size elements
+&#64;param n_elements</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.mean_data">
+<em class="property">property </em><code class="sig-name descname">mean_data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.mean_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dataframe  with the data in mean_buffer
+&#64;retval mean_buffer as a dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.mean_max">
+<em class="property">property </em><code class="sig-name descname">mean_max</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.mean_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.mean_min">
+<em class="property">property </em><code class="sig-name descname">mean_min</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.mean_min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.min">
+<em class="property">property </em><code class="sig-name descname">min</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.setup_op">
+<code class="sig-name descname">setup_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.setup_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.tf_summary_data">
+<code class="sig-name descname">tf_summary_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.tf_summary_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.tf_summary_op">
+<em class="property">property </em><code class="sig-name descname">tf_summary_op</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.tf_summary_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitor.tf_summary_stats">
+<code class="sig-name descname">tf_summary_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitor.tf_summary_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.monitoring.TrainingMonitorManager">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.monitoring.</code><code class="sig-name descname">TrainingMonitorManager</code><span class="sig-paren">(</span><em class="sig-param">log_folder='tmp/monitors/'</em>, <em class="sig-param">tf_graph=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitorManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitorManager.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitorManager.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitorManager.flush">
+<code class="sig-name descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitorManager.flush" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitorManager.get_stats">
+<code class="sig-name descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitorManager.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.monitoring.TrainingMonitorManager.reopen">
+<code class="sig-name descname">reopen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/monitoring.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.monitoring.TrainingMonitorManager.reopen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.normalizer.html" class="btn btn-neutral float-right" title="twodlearn.normalizer module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.losses.html" class="btn btn-neutral float-left" title="twodlearn.losses module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

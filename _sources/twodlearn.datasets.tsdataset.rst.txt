@@ -1,0 +1,7 @@
+twodlearn.datasets.tsdataset module
+===================================
+
+.. automodule:: twodlearn.datasets.tsdataset
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+twodlearn.core.options module
+=============================
+
+.. automodule:: twodlearn.core.options
+   :members:
+   :undoc-members:
+   :show-inheritance:

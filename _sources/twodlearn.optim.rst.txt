@@ -1,0 +1,7 @@
+twodlearn.optim module
+======================
+
+.. automodule:: twodlearn.optim
+   :members:
+   :undoc-members:
+   :show-inheritance:

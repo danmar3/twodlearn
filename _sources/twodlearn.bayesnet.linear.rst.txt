@@ -1,0 +1,7 @@
+twodlearn.bayesnet.linear module
+================================
+
+.. automodule:: twodlearn.bayesnet.linear
+   :members:
+   :undoc-members:
+   :show-inheritance:

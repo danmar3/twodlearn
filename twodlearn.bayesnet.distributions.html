@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.bayesnet.distributions module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.bayesnet.gaussian_process module" href="twodlearn.bayesnet.gaussian_process.html" />
+    <link rel="prev" title="twodlearn.bayesnet.bayesnet module" href="twodlearn.bayesnet.bayesnet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.bayesnet.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.bayesnet.html">twodlearn.bayesnet.bayesnet module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.bayesnet.distributions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.gaussian_process.html">twodlearn.bayesnet.gaussian_process module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.linear.html">twodlearn.bayesnet.linear module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.losses.html">twodlearn.bayesnet.losses module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.recurrent.html">twodlearn.bayesnet.recurrent module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.bayesnet.html#module-twodlearn.bayesnet">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a> &raquo;</li>
+        
+      <li>twodlearn.bayesnet.distributions module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.bayesnet.distributions.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.bayesnet.distributions">
+<span id="twodlearn-bayesnet-distributions-module"></span><h1>twodlearn.bayesnet.distributions module<a class="headerlink" href="#module-twodlearn.bayesnet.distributions" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.bayesnet.distributions.MVN">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.distributions.</code><code class="sig-name descname">MVN</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>multivariate normal distribution</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.covariance">
+<code class="sig-name descname">covariance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.covariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>covariance matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.dynamic_batch_shape">
+<code class="sig-name descname">dynamic_batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.dynamic_batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.dynamic_event_shape">
+<code class="sig-name descname">dynamic_event_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.dynamic_event_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.dynamic_shape">
+<code class="sig-name descname">dynamic_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.dynamic_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.event_shape">
+<code class="sig-name descname">event_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.event_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.loc" title="Permalink to this definition">¶</a></dt>
+<dd><p>mean of the distribution</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.distributions.MVN.log_prob">
+<code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.log_prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.mean">
+<code class="sig-name descname">mean</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.distributions.MVN.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">sample_shape=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>scale matrix y = loc + scale * e
+covariance = scale * scale^t</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.shape">
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>shape of the distribution
+The shape assumes the last dimention corresponds to a set of
+mvn vectors.
+Shape is divided as [batch_shape, event_shape]. Event shape is
+the shape of the samples for a single distribution.
+Batch_shape corresponds to the number of independent MVN distributions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.stddev">
+<code class="sig-name descname">stddev</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.stddev" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVN.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVN.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>added tolerance to the covariance, useful when optimizing
+over the covariance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.distributions.MVNDiag">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.distributions.</code><code class="sig-name descname">MVNDiag</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVNDiag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.distributions.MVN" title="twodlearn.bayesnet.distributions.MVN"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.distributions.MVN</span></code></a></p>
+<p>multivariate normal distribution</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVNDiag.diag">
+<code class="sig-name descname">diag</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVNDiag.diag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.distributions.MVNDiag.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">sample_shape</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVNDiag.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.MVNDiag.stddev">
+<code class="sig-name descname">stddev</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVNDiag.stddev" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.distributions.MVNScaledIdentity">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.distributions.</code><code class="sig-name descname">MVNScaledIdentity</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.MVNScaledIdentity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.distributions.MVNDiag" title="twodlearn.bayesnet.distributions.MVNDiag"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.distributions.MVNDiag</span></code></a></p>
+<p>Multivariate Normal Distribution with Scaled Identity covariance.</p>
+<p>Scale correspond to the covariance scale, shape is required.</p>
+<p>Parameters are instantiated as Trainable by default</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tdl</span><span class="o">.</span><span class="n">bayesnet</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MVNScaledIdentity</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To instantiate parameters as tensors (not trainable) use AutoInit classes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tdl</span><span class="o">.</span><span class="n">bayesnet</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">MVNScaledIdentity</span><span class="p">(</span>
+    <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+    <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tdl</span><span class="o">.</span><span class="n">AutoTensor</span><span class="p">()),</span> <span class="c1"># initialize scale using 0.5 tensor</span>
+    <span class="n">loc</span><span class="o">=</span><span class="n">tdl</span><span class="o">.</span><span class="n">AutoTensor</span><span class="p">())</span> <span class="c1"># initialize scale using the default value (0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.distributions.Normal">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.distributions.</code><code class="sig-name descname">Normal</code><span class="sig-paren">(</span><em class="sig-param">loc</em>, <em class="sig-param">scale</em>, <em class="sig-param">name='McNormal'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.Normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>normal distribution x= loc + scale*e, where e sim N(0, I)</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.Normal.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.Normal.loc" title="Permalink to this definition">¶</a></dt>
+<dd><p>mean of the distribution</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.distributions.Normal.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.Normal.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>standard deviation of the distribution</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.bayesnet.distributions.is_diagonal">
+<code class="sig-prename descclassname">twodlearn.bayesnet.distributions.</code><code class="sig-name descname">is_diagonal</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/distributions.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.distributions.is_diagonal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper to identify if <cite>LinearOperator</cite> has only a diagonal
+component.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.bayesnet.gaussian_process.html" class="btn btn-neutral float-right" title="twodlearn.bayesnet.gaussian_process module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.bayesnet.bayesnet.html" class="btn btn-neutral float-left" title="twodlearn.bayesnet.bayesnet module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+twodlearn.datasets package
+==========================
+
+Submodules
+----------
+
+.. toctree::
+
+   twodlearn.datasets.Batch_generator
+   twodlearn.datasets.LargeMovieReview
+   twodlearn.datasets.base
+   twodlearn.datasets.cifar10
+   twodlearn.datasets.cyber
+   twodlearn.datasets.mnist
+   twodlearn.datasets.tsdataset
+   twodlearn.datasets.unbalanced
+   twodlearn.datasets.vocabulary_stem_coding
+
+Module contents
+---------------
+
+.. automodule:: twodlearn.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+twodlearn.GMM module
+====================
+
+.. automodule:: twodlearn.GMM
+   :members:
+   :undoc-members:
+   :show-inheritance:

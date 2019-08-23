@@ -1,0 +1,7 @@
+twodlearn.bayesnet.distributions module
+=======================================
+
+.. automodule:: twodlearn.bayesnet.distributions
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.linalg module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.losses module" href="twodlearn.losses.html" />
+    <link rel="prev" title="twodlearn.kernels module" href="twodlearn.kernels.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.linalg module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.linalg.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.linalg">
+<span id="twodlearn-linalg-module"></span><h1>twodlearn.linalg module<a class="headerlink" href="#module-twodlearn.linalg" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.linalg.Cholesky">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">Cholesky</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.linalg.Cholesky.linop">
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.linop" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.Cholesky.input">
+<code class="sig-name descname">input</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputParameter" title="twodlearn.core.common.InputParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputParameter</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.Cholesky.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">input</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.Cholesky.log_abs_determinant">
+<code class="sig-name descname">log_abs_determinant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.log_abs_determinant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.Cholesky.matmul">
+<code class="sig-name descname">matmul</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">adjoint=False</em>, <em class="sig-param">adjoint_arg=False</em>, <em class="sig-param">name='matmul'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.matmul" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.Cholesky.matvec">
+<code class="sig-name descname">matvec</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">adjoint=False</em>, <em class="sig-param">name='matvec'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.matvec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.Cholesky.shape_tensor">
+<code class="sig-name descname">shape_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.shape_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shape determined at runtime</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.Cholesky.solve">
+<code class="sig-name descname">solve</code><span class="sig-paren">(</span><em class="sig-param">rhs</em>, <em class="sig-param">adjoint=False</em>, <em class="sig-param">adjoint_arg=False</em>, <em class="sig-param">name='solve'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.solve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.Cholesky.solvevec">
+<code class="sig-name descname">solvevec</code><span class="sig-paren">(</span><em class="sig-param">rhs</em>, <em class="sig-param">adjoint=False</em>, <em class="sig-param">name='solve'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Cholesky.solvevec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.linalg.DynamicScaledIdentity">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">DynamicScaledIdentity</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.DynamicScaledIdentity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>scaled identity [batched] matrix whose size depends on the
+shape of the input</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.linalg.DynamicScaledIdentity.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.DynamicScaledIdentity.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.DynamicScaledIdentity.multipliers">
+<code class="sig-name descname">multipliers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.DynamicScaledIdentity.multipliers" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputParameter" title="twodlearn.core.common.InputParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputParameter</span></code></a>) tensor whose elements represent the multiplier factors for the identity matrices.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.linalg.DynamicScaledIdentity.batch_shape">
+<em class="property">property </em><code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.DynamicScaledIdentity.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">multipliers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>tensor whose elements represent the multiplier factors for the
+identity matrices.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.M_times_Mt">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">M_times_Mt</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.M_times_Mt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute M &#64; M^t</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>M</strong> – (batched) matrix M</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>solution of M &#64; M^t</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.Mt_times_M">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">Mt_times_M</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.Mt_times_M" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute M^t &#64; M</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>M</strong> – (batched) matrix M</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>solution of M^t &#64; M</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.linalg.PDMatrix">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">PDMatrix</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Positive definite matrix</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.raw">
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SimpleParameter" title="twodlearn.core.common.SimpleParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleParameter</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.cholesky">
+<code class="sig-name descname">cholesky</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputValue" title="twodlearn.core.common.OutputValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputValue</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.shape">
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) shape of the distribution. The shape assumes the last two dimentions corresponds to the shape of a square matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.linop">
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.linop" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.domain_dimension">
+<code class="sig-name descname">domain_dimension</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.domain_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrix.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrix.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">cholesky</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">domain_dimension</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>shape of the distribution.
+The shape assumes the last two dimentions corresponds to the shape of a
+square matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.linalg.PDMatrixDiag">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">PDMatrixDiag</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.linalg.PDMatrix" title="twodlearn.linalg.PDMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.linalg.PDMatrix</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.raw">
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SimpleParameter" title="twodlearn.core.common.SimpleParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleParameter</span></code></a>) square root of the diagonal part for the matrices</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.cholesky">
+<code class="sig-name descname">cholesky</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputValue" title="twodlearn.core.common.OutputValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputValue</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.shape">
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) shape of the distribution. The shape assumes the last two dimentions corresponds to the shape of a square matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.linop">
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.linop" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.domain_dimension">
+<code class="sig-name descname">domain_dimension</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.domain_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDMatrixDiag.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDMatrixDiag.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>square root of the diagonal part for the matrices</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.linalg.PDScaledIdentity">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">PDScaledIdentity</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.linalg.PDMatrixDiag" title="twodlearn.linalg.PDMatrixDiag"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.linalg.PDMatrixDiag</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.linop">
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.linop" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘domain_dimension’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.cholesky">
+<code class="sig-name descname">cholesky</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputValue" title="twodlearn.core.common.OutputValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputValue</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.shape">
+<code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) shape of the distribution. The shape assumes the last two dimentions corresponds to the shape of a square matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.raw">
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputParameter" title="twodlearn.core.common.InputParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputParameter</span></code></a>) multiplier for the identities</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.domain_dimension">
+<code class="sig-name descname">domain_dimension</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.domain_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.linalg.PDScaledIdentity.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.PDScaledIdentity.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">domain_dimension</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘domain_dimension’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>multiplier for the identities</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.diagonal_M_times_Mt">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">diagonal_M_times_Mt</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.diagonal_M_times_Mt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute M &#64; M^t for diagonal linop M.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>M</strong> – (batched) diagonal linear operator</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>solution of M &#64; M^t</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.is_diagonal">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">is_diagonal</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.is_diagonal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.is_diagonal_linop">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">is_diagonal_linop</code><span class="sig-paren">(</span><em class="sig-param">M</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.is_diagonal_linop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.is_scaled_identity">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">is_scaled_identity</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.is_scaled_identity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.solvemat">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">solvemat</code><span class="sig-paren">(</span><em class="sig-param">M_cholesky</em>, <em class="sig-param">A</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.solvemat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute inv(M) &#64; A</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M_cholesky</strong> – cholesky decomposition of matrix M</p></li>
+<li><p><strong>A</strong> (<em>tf.Tensor</em>) – (batched) Matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>solution of inv(M) &#64; A</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.linalg.solvevec">
+<code class="sig-prename descclassname">twodlearn.linalg.</code><code class="sig-name descname">solvevec</code><span class="sig-paren">(</span><em class="sig-param">M_cholesky</em>, <em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/linalg.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.linalg.solvevec" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute inv(M) &#64; x</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M_cholesky</strong> – cholesky decomposition of matrix M.</p></li>
+<li><p><strong>x</strong> (<em>tf.Tensor</em>) – (batched) vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>solution of inv(M) &#64; x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.losses.html" class="btn btn-neutral float-right" title="twodlearn.losses module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.kernels.html" class="btn btn-neutral float-left" title="twodlearn.kernels module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

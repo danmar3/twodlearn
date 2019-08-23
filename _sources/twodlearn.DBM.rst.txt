@@ -1,0 +1,7 @@
+twodlearn.DBM module
+====================
+
+.. automodule:: twodlearn.DBM
+   :members:
+   :undoc-members:
+   :show-inheritance:

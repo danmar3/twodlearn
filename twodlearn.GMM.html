@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.GMM module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.base module" href="twodlearn.base.html" />
+    <link rel="prev" title="twodlearn.DBM module" href="twodlearn.DBM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.GMM module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.GMM.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.GMM">
+<span id="twodlearn-gmm-module"></span><h1>twodlearn.GMM module<a class="headerlink" href="#module-twodlearn.GMM" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.GMM.GmmLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmLayer</code><span class="sig-paren">(</span><em class="sig-param">n_dim</em>, <em class="sig-param">n_kernels=1</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">method='tf'</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a GMM layer, which consists of a GmmParamsLayer and a GmmModelLayer
+GmmParamsLayer takes unconstrained parameters and transform them into a
+set of valid Gmm parameters</p>
+<p>GmmModelLayer computes the value of the pdf for a given dataset based on
+the valid set of parameters</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmLayer.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">unc_params</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmLayer.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>y: dataset
+unc_params: 2d matrix containing the set of unconstrained parameters</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmMlpModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmMlpModel</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">n_kernels</em>, <em class="sig-param">afunction=None</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">method='tf'</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmMlpModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a GMM model for conditional pdf’s, with mu, sigma and w parameters defined by a MLP network</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmMlpModel.loss_eval">
+<code class="sig-name descname">loss_eval</code><span class="sig-paren">(</span><em class="sig-param">net_out</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmMlpModel.loss_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.GMM.GmmMlpModel.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">inputs=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmMlpModel.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmModel</code><span class="sig-paren">(</span><em class="sig-param">n_dim</em>, <em class="sig-param">n_kernels=1</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">method='tf'</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Evaluates the gaussian mixture probability density function
+given the parameters of the model mu, sigma, and w.
+sigma must be positive definite (at the moment only diagonal)
+w must be proper, i.e. sum to one and its elements must be positive</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmModel.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">mu</em>, <em class="sig-param">sigma</em>, <em class="sig-param">w</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmModel.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmNetConf">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmNetConf</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">labels</em>, <em class="sig-param">out</em>, <em class="sig-param">loss</em>, <em class="sig-param">mu</em>, <em class="sig-param">sigma</em>, <em class="sig-param">w</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmNetConf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a wrapper to any network configuration, it contains the
+references to the placeholders for inputs and labels, and the reference
+of the computation graph for the network</p>
+<p>inputs: placeholder for the inputs
+labels: placeholder for the labels
+y: output of the comptuation graph (logits)
+loss: loss for the network</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmParamsLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmParamsLayer</code><span class="sig-paren">(</span><em class="sig-param">n_dim</em>, <em class="sig-param">n_kernels=1</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmParamsLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This layer transforms a vector into a valid set of
+parameters that can be fed to a GMM model.</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmParamsLayer.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmParamsLayer.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmSBoundedLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmSBoundedLayer</code><span class="sig-paren">(</span><em class="sig-param">n_dim</em>, <em class="sig-param">n_kernels=1</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">method='tf'</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmSBoundedLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a GMM layer, which consists of a GmmParamsLayer and a GmmModelLayer
+GmmParamsLayer takes unconstrained parameters and transform them into a
+set of valid Gmm parameters</p>
+<p>GmmModelLayer computes the value of the pdf for a given dataset based on
+the valid set of parameters</p>
+<p>This layer also implements a gaussian kernel over the inputs, whose
+reciprocal is used to specify to the network to give us big standard
+deviations (big uncertainty) on regions of the space that has not been
+explored.</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmSBoundedLayer.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">unc_params</em>, <em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmSBoundedLayer.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>y: dataset
+unc_params: 2d matrix containing the set of unconstrained</p>
+<blockquote>
+<div><p>parameters</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmSBoundedMlpModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmSBoundedMlpModel</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">n_kernels</em>, <em class="sig-param">afunction=None</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmSBoundedMlpModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines a GMM model for conditional pdf’s, with mu, sigma and
+w parameters defined by a MLP network</p>
+<p>The values of sigma are</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmSBoundedMlpModel.loss_eval">
+<code class="sig-name descname">loss_eval</code><span class="sig-paren">(</span><em class="sig-param">net_out</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmSBoundedMlpModel.loss_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.GMM.GmmSBoundedMlpModel.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">inputs=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmSBoundedMlpModel.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.GMM.GmmShallowModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.GMM.</code><code class="sig-name descname">GmmShallowModel</code><span class="sig-paren">(</span><em class="sig-param">n_dim</em>, <em class="sig-param">n_kernels=1</em>, <em class="sig-param">diagonal=True</em>, <em class="sig-param">method='tf'</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmShallowModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines an standard GMM model, with constant mu, sigma and w parameters
+The GMM models a pdf of the form x ~ sum_i( w_i*N_i(x| mu_i, sigma_i) )</p>
+<dl class="method">
+<dt id="twodlearn.GMM.GmmShallowModel.loss_eval">
+<code class="sig-name descname">loss_eval</code><span class="sig-paren">(</span><em class="sig-param">net_out</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmShallowModel.loss_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.GMM.GmmShallowModel.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em>, <em class="sig-param">x=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/GMM.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.GMM.GmmShallowModel.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.base.html" class="btn btn-neutral float-right" title="twodlearn.base module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.DBM.html" class="btn btn-neutral float-left" title="twodlearn.DBM module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.losses module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.monitoring module" href="twodlearn.monitoring.html" />
+    <link rel="prev" title="twodlearn.linalg module" href="twodlearn.linalg.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.recurrent.html">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.losses module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.losses.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.losses">
+<span id="twodlearn-losses-module"></span><h1>twodlearn.losses module<a class="headerlink" href="#module-twodlearn.losses" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.losses.AddLoss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">AddLoss</code><span class="sig-paren">(</span><em class="sig-param">loss1</em>, <em class="sig-param">loss2</em>, <em class="sig-param">name='AddLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.AddLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.AddLoss.loss1">
+<em class="property">property </em><code class="sig-name descname">loss1</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.AddLoss.loss1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.AddLoss.loss2">
+<em class="property">property </em><code class="sig-name descname">loss2</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.AddLoss.loss2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.AddNLosses">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">AddNLosses</code><span class="sig-paren">(</span><em class="sig-param">losses</em>, <em class="sig-param">name='AddNLosses'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.AddNLosses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.AddNLosses.losses">
+<em class="property">property </em><code class="sig-name descname">losses</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.AddNLosses.losses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.AddNLosses.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.AddNLosses.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.ClassificationLoss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">ClassificationLoss</code><span class="sig-paren">(</span><em class="sig-param">logits</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.EmpiricalLoss" title="twodlearn.losses.EmpiricalLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.EmpiricalLoss</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.losses.ClassificationLoss.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputValue" title="twodlearn.core.common.OutputValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputValue</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.ClassificationLoss.logits">
+<code class="sig-name descname">logits</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.logits" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.ClassificationLoss.labels">
+<code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Labels for computing the loss, if not provided, they are created automatically</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.ClassificationLoss.cross_entropy">
+<code class="sig-name descname">cross_entropy</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.cross_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.ClassificationLoss.accuracy">
+<code class="sig-name descname">accuracy</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.ClassificationLoss.correct_prediction">
+<code class="sig-name descname">correct_prediction</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.correct_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.LazzyProperty" title="twodlearn.core.common.LazzyProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazzyProperty</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">accuracy</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">correct_prediction</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">cross_entropy</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Labels for computing the loss, if not provided,
+they are created automatically</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">logits</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.ClassificationLoss.n_classes">
+<em class="property">property </em><code class="sig-name descname">n_classes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.n_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.ClassificationLoss.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ClassificationLoss.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.EmpiricalLoss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">EmpiricalLoss</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalLoss.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalLoss.labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Labels for computing the loss, if not provided,
+they are created automatically</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.EmpiricalLossWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">EmpiricalLossWrapper</code><span class="sig-paren">(</span><em class="sig-param">loss</em>, <em class="sig-param">labels</em>, <em class="sig-param">name='EmpiricalLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalLossWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.EmpiricalLoss" title="twodlearn.losses.EmpiricalLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.EmpiricalLoss</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalLossWrapper.loss">
+<em class="property">property </em><code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalLossWrapper.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalLossWrapper.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalLossWrapper.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.EmpiricalWithRegularization">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">EmpiricalWithRegularization</code><span class="sig-paren">(</span><em class="sig-param">empirical</em>, <em class="sig-param">regularizer</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">name='ERLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalWithRegularization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Linear combination of a Empirical and a Reguralizer loss:
+loss = empirical + alpha * regularizer
+If alpha is None, the result is the sum of the empirical and regularizer
+losses:
+loss = empirical + regularizer</p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalWithRegularization.alpha">
+<em class="property">property </em><code class="sig-name descname">alpha</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalWithRegularization.alpha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalWithRegularization.empirical">
+<em class="property">property </em><code class="sig-name descname">empirical</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalWithRegularization.empirical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalWithRegularization.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalWithRegularization.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.EmpiricalWithRegularization.regularizer">
+<em class="property">property </em><code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.EmpiricalWithRegularization.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.GreaterThan">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">GreaterThan</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">reference</em>, <em class="sig-param">mask=None</em>, <em class="sig-param">func=&lt;function softplus&gt;</em>, <em class="sig-param">name='GreaterThanLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.GreaterThan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.LessThan" title="twodlearn.losses.LessThan"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.LessThan</span></code></a></p>
+<p>Loss that punishes values being larger than a given value.</p>
+<div class="math notranslate nohighlight">
+\[loss = func(x - reference)\]</div>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.losses.GreaterThan.x">
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.GreaterThan.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.GreaterThan.mask">
+<code class="sig-name descname">mask</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.GreaterThan.mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.GreaterThan.reference">
+<code class="sig-name descname">reference</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.GreaterThan.reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.GreaterThan.loss_eval">
+<code class="sig-name descname">loss_eval</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">reference</em>, <em class="sig-param">mask</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.GreaterThan.loss_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.L1Regularizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">L1Regularizer</code><span class="sig-paren">(</span><em class="sig-param">weights</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">name='L2Regularizer'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L1Regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.L2Regularizer" title="twodlearn.losses.L2Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.L2Regularizer</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.L1Regularizer.define_loss">
+<code class="sig-name descname">define_loss</code><span class="sig-paren">(</span><em class="sig-param">weights</em>, <em class="sig-param">scale</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L1Regularizer.define_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.L2Loss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">L2Loss</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">name='L2Loss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.EmpiricalLoss" title="twodlearn.losses.EmpiricalLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.EmpiricalLoss</span></code></a></p>
+<p>Computes (1/M)sum( (y - labels)**2 )</p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.L2Loss.define_fit_loss">
+<code class="sig-name descname">define_fit_loss</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">labels</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Loss.define_fit_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.L2Loss.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Loss.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.L2Loss.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Loss.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.L2Regularizer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">L2Regularizer</code><span class="sig-paren">(</span><em class="sig-param">weights</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">name='L2Regularizer'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.L2Regularizer.define_loss">
+<code class="sig-name descname">define_loss</code><span class="sig-paren">(</span><em class="sig-param">weights</em>, <em class="sig-param">scale</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Regularizer.define_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.L2Regularizer.scale">
+<em class="property">property </em><code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Regularizer.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.L2Regularizer.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.L2Regularizer.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.LessThan">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">LessThan</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">reference</em>, <em class="sig-param">mask=None</em>, <em class="sig-param">func=&lt;function softplus&gt;</em>, <em class="sig-param">name='LessThanLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LessThan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Defines a loss that punishes the variable being smaller than
+a given value
+loss = func(reference - x)</p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.losses.LessThan.x">
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LessThan.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.LessThan.mask">
+<code class="sig-name descname">mask</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LessThan.mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.LessThan.reference">
+<code class="sig-name descname">reference</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LessThan.reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.LessThan.loss_eval">
+<code class="sig-name descname">loss_eval</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">reference</em>, <em class="sig-param">mask</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LessThan.loss_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">mask</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.LessThan.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LessThan.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">reference</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.Loss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">Loss</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.Loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="twodlearn.losses.Loss.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.Loss.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.LossMethod">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">LossMethod</code><span class="sig-paren">(</span><em class="sig-param">output_vars</em>, <em class="sig-param">input_vars</em>, <em class="sig-param">OutputClass=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.LossMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ModelMethod" title="twodlearn.core.common.ModelMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.ModelMethod</span></code></a></p>
+<p>Decorator used to specify an operation for a loss inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the definition of the operation</p>
+<p class="rubric">Examples</p>
+<p>Usage of the decorator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tdl</span><span class="o">.</span><span class="n">TdlModel</span><span class="p">):</span>
+    <span class="n">_submodels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;evaluate&#39;</span><span class="p">]</span>
+    <span class="nd">@tdl</span><span class="o">.</span><span class="n">LossMethod</span><span class="p">([</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="c1"># list of outputs</span>
+                    <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>  <span class="c1"># list of inputs</span>
+                    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">mean_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.MultipliedLosses">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">MultipliedLosses</code><span class="sig-paren">(</span><em class="sig-param">loss1</em>, <em class="sig-param">loss2</em>, <em class="sig-param">name='MultipliedLosses'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.MultipliedLosses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.losses.MultipliedLosses.loss1">
+<em class="property">property </em><code class="sig-name descname">loss1</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.MultipliedLosses.loss1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.MultipliedLosses.loss2">
+<em class="property">property </em><code class="sig-name descname">loss2</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.MultipliedLosses.loss2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.QuadraticLoss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">QuadraticLoss</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">q=None</em>, <em class="sig-param">target=None</em>, <em class="sig-param">name='QuadraticLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.QuadraticLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Defines a cuadratic loss that takes the form:</p>
+<div class="math notranslate nohighlight">
+\[loss = (X-target) q (X-target)^T\]</div>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.losses.QuadraticLoss.x">
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.QuadraticLoss.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.QuadraticLoss.q">
+<code class="sig-name descname">q</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.QuadraticLoss.q" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SimpleParameter" title="twodlearn.core.common.SimpleParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleParameter</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.losses.QuadraticLoss.target">
+<code class="sig-name descname">target</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.QuadraticLoss.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.QuadraticLoss.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.QuadraticLoss.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">q</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">target</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.losses.ScaledLoss">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">ScaledLoss</code><span class="sig-paren">(</span><em class="sig-param">alpha</em>, <em class="sig-param">loss</em>, <em class="sig-param">name='ScaledLoss'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ScaledLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.losses.ScaledLoss.alpha">
+<em class="property">property </em><code class="sig-name descname">alpha</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ScaledLoss.alpha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.losses.ScaledLoss.pre_scaled">
+<em class="property">property </em><code class="sig-name descname">pre_scaled</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.ScaledLoss.pre_scaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.losses.convert_loss_to_tensor">
+<code class="sig-prename descclassname">twodlearn.losses.</code><code class="sig-name descname">convert_loss_to_tensor</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">as_ref=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/losses.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.losses.convert_loss_to_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.monitoring.html" class="btn btn-neutral float-right" title="twodlearn.monitoring module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.linalg.html" class="btn btn-neutral float-left" title="twodlearn.linalg module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

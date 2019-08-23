@@ -1,0 +1,22 @@
+twodlearn.bayesnet package
+==========================
+
+Submodules
+----------
+
+.. toctree::
+
+   twodlearn.bayesnet.bayesnet
+   twodlearn.bayesnet.distributions
+   twodlearn.bayesnet.gaussian_process
+   twodlearn.bayesnet.linear
+   twodlearn.bayesnet.losses
+   twodlearn.bayesnet.recurrent
+
+Module contents
+---------------
+
+.. automodule:: twodlearn.bayesnet
+   :members:
+   :undoc-members:
+   :show-inheritance:

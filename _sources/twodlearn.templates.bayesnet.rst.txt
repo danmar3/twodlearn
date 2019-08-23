@@ -1,0 +1,7 @@
+twodlearn.templates.bayesnet module
+===================================
+
+.. automodule:: twodlearn.templates.bayesnet
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+twodlearn.core.array module
+===========================
+
+.. automodule:: twodlearn.core.array
+   :members:
+   :undoc-members:
+   :show-inheritance:

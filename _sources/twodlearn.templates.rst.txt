@@ -1,0 +1,27 @@
+twodlearn.templates package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   twodlearn.templates.mnist
+
+Submodules
+----------
+
+.. toctree::
+
+   twodlearn.templates.bayesnet
+   twodlearn.templates.recurrent
+   twodlearn.templates.supervised
+   twodlearn.templates.unsupervised
+
+Module contents
+---------------
+
+.. automodule:: twodlearn.templates
+   :members:
+   :undoc-members:
+   :show-inheritance:

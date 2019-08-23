@@ -1,0 +1,7 @@
+twodlearn.stacked module
+========================
+
+.. automodule:: twodlearn.stacked
+   :members:
+   :undoc-members:
+   :show-inheritance:

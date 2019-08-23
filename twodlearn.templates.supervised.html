@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.templates.supervised module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.templates.unsupervised module" href="twodlearn.templates.unsupervised.html" />
+    <link rel="prev" title="twodlearn.templates.recurrent module" href="twodlearn.templates.recurrent.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.templates.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.templates.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.templates.bayesnet.html">twodlearn.templates.bayesnet module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.templates.recurrent.html">twodlearn.templates.recurrent module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.templates.supervised module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.templates.unsupervised.html">twodlearn.templates.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.templates.html#module-twodlearn.templates">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.templates.html">twodlearn.templates package</a> &raquo;</li>
+        
+      <li>twodlearn.templates.supervised module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.templates.supervised.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.templates.supervised">
+<span id="twodlearn-templates-supervised-module"></span><h1>twodlearn.templates.supervised module<a class="headerlink" href="#module-twodlearn.templates.supervised" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.templates.supervised.AlexNetClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">AlexNetClassifier</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">n_classes</em>, <em class="sig-param">n_filters</em>, <em class="sig-param">filter_sizes</em>, <em class="sig-param">pool_sizes</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.AlexNetClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.templates.supervised.LinearClassifier" title="twodlearn.templates.supervised.LinearClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.templates.supervised.LinearClassifier</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.AlexNetClassifier.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.AlexNetClassifier.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.LinearClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">LinearClassifier</code><span class="sig-paren">(</span><em class="sig-param">n_inputs=None</em>, <em class="sig-param">n_classes=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.LinearClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.templates.supervised.SupervisedEstimator" title="twodlearn.templates.supervised.SupervisedEstimator"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.templates.supervised.SupervisedEstimator</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.LinearClassifier.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.LinearClassifier.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.LinearClassifier.monitor">
+<code class="sig-name descname">monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.LinearClassifier.monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.LinearClassifier.train">
+<code class="sig-name descname">train</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.LinearClassifier.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.MlModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">MlModel</code><span class="sig-paren">(</span><em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlProgram" title="twodlearn.core.common.TdlProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlProgram</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.default_options">
+<em class="property">classmethod </em><code class="sig-name descname">default_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.default_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.monitor">
+<em class="property">property </em><code class="sig-name descname">monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.monitor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.optimizer">
+<em class="property">property </em><code class="sig-name descname">optimizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.optimizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.options">
+<em class="property">property </em><code class="sig-name descname">options</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.session">
+<em class="property">property </em><code class="sig-name descname">session</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.test">
+<em class="property">property </em><code class="sig-name descname">test</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.train">
+<em class="property">property </em><code class="sig-name descname">train</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.MlModel.valid">
+<em class="property">property </em><code class="sig-name descname">valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlModel.valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.MlpClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">MlpClassifier</code><span class="sig-paren">(</span><em class="sig-param">n_inputs=None</em>, <em class="sig-param">n_classes=None</em>, <em class="sig-param">n_hidden=None</em>, <em class="sig-param">afunction=&lt;function relu&gt;</em>, <em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlpClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.templates.supervised.LinearClassifier" title="twodlearn.templates.supervised.LinearClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.templates.supervised.LinearClassifier</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.MlpClassifier.keep_prob">
+<code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlpClassifier.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.MlpClassifier.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlpClassifier.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.MlpClassifier.train">
+<code class="sig-name descname">train</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlpClassifier.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.MlpClassifier.valid">
+<code class="sig-name descname">valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.MlpClassifier.valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.Supervised">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">Supervised</code><span class="sig-paren">(</span><em class="sig-param">options=None</em>, <em class="sig-param">tmp_path='tmp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlProgram" title="twodlearn.core.common.TdlProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlProgram</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.dataset">
+<em class="property">property </em><code class="sig-name descname">dataset</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.default_options">
+<em class="property">classmethod </em><code class="sig-name descname">default_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.default_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.feed_train">
+<code class="sig-name descname">feed_train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.feed_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.feed_valid">
+<code class="sig-name descname">feed_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.feed_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.ml_model">
+<em class="property">property </em><code class="sig-name descname">ml_model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.ml_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.options">
+<em class="property">property </em><code class="sig-name descname">options</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.run_training">
+<code class="sig-name descname">run_training</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.run_training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.Supervised.tmp_path">
+<em class="property">property </em><code class="sig-name descname">tmp_path</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.Supervised.tmp_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">SupervisedEstimator</code><span class="sig-paren">(</span><em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">max_steps=None</em>, <em class="sig-param">feed_train=None</em>, <em class="sig-param">feed_valid=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.get_save_data">
+<code class="sig-name descname">get_save_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.get_save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.load">
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.logger_path">
+<em class="property">property </em><code class="sig-name descname">logger_path</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.logger_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.monitor">
+<code class="sig-name descname">monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.optimizer">
+<code class="sig-name descname">optimizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.reset_vars">
+<code class="sig-name descname">reset_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.reset_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize tf variables</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.session">
+<code class="sig-name descname">session</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.test">
+<code class="sig-name descname">test</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.train">
+<code class="sig-name descname">train</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.supervised.SupervisedEstimator.valid">
+<code class="sig-name descname">valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedEstimator.valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.SupervisedMlModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">SupervisedMlModel</code><span class="sig-paren">(</span><em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedMlModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.templates.supervised.MlModel" title="twodlearn.templates.supervised.MlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.templates.supervised.MlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.templates.supervised.SupervisedMlModel.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedMlModel.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.SupervisedObjective">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">SupervisedObjective</code><span class="sig-paren">(</span><em class="sig-param">op</em>, <em class="sig-param">loss</em>, <em class="sig-param">fit_loss</em>, <em class="sig-param">labels</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedObjective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.templates.supervised.SupervisedWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.supervised.</code><code class="sig-name descname">SupervisedWrapper</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">loss</em>, <em class="sig-param">labels</em>, <em class="sig-param">params=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/supervised.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.supervised.SupervisedWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.templates.unsupervised.html" class="btn btn-neutral float-right" title="twodlearn.templates.unsupervised module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.templates.recurrent.html" class="btn btn-neutral float-left" title="twodlearn.templates.recurrent module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

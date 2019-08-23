@@ -1,0 +1,49 @@
+twodlearn package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   twodlearn.bayesnet
+   twodlearn.core
+   twodlearn.datasets
+   twodlearn.reinforce
+   twodlearn.templates
+   twodlearn.utils
+
+Submodules
+----------
+
+.. toctree::
+
+   twodlearn.Autoencoder
+   twodlearn.DBM
+   twodlearn.GMM
+   twodlearn.base
+   twodlearn.common
+   twodlearn.constrained
+   twodlearn.convnet
+   twodlearn.debug
+   twodlearn.dense
+   twodlearn.feedforward
+   twodlearn.kernels
+   twodlearn.linalg
+   twodlearn.losses
+   twodlearn.monitoring
+   twodlearn.normalizer
+   twodlearn.optim
+   twodlearn.optimv2
+   twodlearn.parallel
+   twodlearn.recurrent
+   twodlearn.stacked
+   twodlearn.unsupervised
+
+Module contents
+---------------
+
+.. automodule:: twodlearn
+   :members:
+   :undoc-members:
+   :show-inheritance:

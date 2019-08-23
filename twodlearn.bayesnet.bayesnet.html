@@ -1,0 +1,1129 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.bayesnet.bayesnet module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.bayesnet.distributions module" href="twodlearn.bayesnet.distributions.html" />
+    <link rel="prev" title="twodlearn.bayesnet package" href="twodlearn.bayesnet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.bayesnet.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.bayesnet.bayesnet module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.distributions.html">twodlearn.bayesnet.distributions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.gaussian_process.html">twodlearn.bayesnet.gaussian_process module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.linear.html">twodlearn.bayesnet.linear module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.losses.html">twodlearn.bayesnet.losses module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.bayesnet.recurrent.html">twodlearn.bayesnet.recurrent module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.bayesnet.html#module-twodlearn.bayesnet">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a> &raquo;</li>
+        
+      <li>twodlearn.bayesnet.bayesnet module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.bayesnet.bayesnet.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.bayesnet.bayesnet">
+<span id="twodlearn-bayesnet-bayesnet-module"></span><h1>twodlearn.bayesnet.bayesnet module<a class="headerlink" href="#module-twodlearn.bayesnet.bayesnet" title="Permalink to this headline">¶</a></h1>
+<p>Definition of several bayesian neural-networks</p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">AffineBernoulliLayer</code><span class="sig-paren">(</span><em class="sig-param">units</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.AffineLayer" title="twodlearn.feedforward.AffineLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.AffineLayer</span></code></a></p>
+<p>Implements the layer y=dropout(x) W + b</p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.Output</span></code></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output.affine">
+<code class="sig-name descname">affine</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output.affine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output.keep_prob">
+<em class="property">property </em><code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.keep_prob">
+<code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep prob for dropout.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.AffineNormalLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">AffineNormalLayer</code><span class="sig-paren">(</span><em class="sig-param">units</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineNormalLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer" title="twodlearn.bayesnet.bayesnet.LinearNormalLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.LinearNormalLayer</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.AffineNormalLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineNormalLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.Output</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.AffineNormalLayer.bias">
+<code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.AffineNormalLayer.bias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">BayesianMlp</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">afunction=&lt;function selu01&gt;</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='BayesianMlp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.StackedModel" title="twodlearn.feedforward.StackedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.StackedModel</span></code></a></p>
+<p>Mlp composed of layers whose weights are sampled from a variational
+posterior distribution</p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.BayesMlpOutput">
+<em class="property">class </em><code class="sig-name descname">BayesMlpOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.BayesMlpOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.BayesMlpOutput.kernels">
+<em class="property">property </em><code class="sig-name descname">kernels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.BayesMlpOutput.kernels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.BayesMlpOutput.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.BayesMlpOutput.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.kernels">
+<em class="property">property </em><code class="sig-name descname">kernels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.kernels" title="Permalink to this definition">¶</a></dt>
+<dd><p>list the weights distributions from the layers</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.layers">
+<code class="sig-name descname">layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>size of the input vectors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>size of the output vectors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.BayesianMlp.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BayesianMlp.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.BernoulliBayesianMlp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">BernoulliBayesianMlp</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">keep_prob=0.8</em>, <em class="sig-param">options=None</em>, <em class="sig-param">afunction=&lt;function relu&gt;</em>, <em class="sig-param">name='BernoulliBayesianMlp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BernoulliBayesianMlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.BayesianMlp" title="twodlearn.bayesnet.bayesnet.BayesianMlp"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.BayesianMlp</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.BoundedBayesianMlp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">BoundedBayesianMlp</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">lower=1e-07</em>, <em class="sig-param">upper=None</em>, <em class="sig-param">afunction=&lt;function selu01&gt;</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='BayesianMlp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BoundedBayesianMlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.BayesianMlp" title="twodlearn.bayesnet.bayesnet.BayesianMlp"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.BayesianMlp</span></code></a></p>
+<p>Multi-layer bayesian neural network, with bounded output</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.BoundedBayesianMlp.layers">
+<code class="sig-name descname">layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BoundedBayesianMlp.layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.BoundedBernoulliBayesianMlp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">BoundedBernoulliBayesianMlp</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">keep_prob</em>, <em class="sig-param">lower=1e-07</em>, <em class="sig-param">upper=None</em>, <em class="sig-param">afunction=&lt;function selu01&gt;</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='BayesianMlp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BoundedBernoulliBayesianMlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.BernoulliBayesianMlp" title="twodlearn.bayesnet.bayesnet.BernoulliBayesianMlp"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.BernoulliBayesianMlp</span></code></a></p>
+<p>Multi-layer bayesian neural network, with bounded output</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.BoundedBernoulliBayesianMlp.layers">
+<code class="sig-name descname">layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.BoundedBernoulliBayesianMlp.layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.ConditionalNormal">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">ConditionalNormal</code><span class="sig-paren">(</span><em class="sig-param">loc=None</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">shape=None</em>, <em class="sig-param">name='ConditionalNormal'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.Normal" title="twodlearn.bayesnet.bayesnet.Normal"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.Normal</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput">
+<em class="property">class </em><code class="sig-name descname">NormalOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.McNormal" title="twodlearn.bayesnet.bayesnet.McNormal"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.McNormal</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal.NormalOutput.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.ConditionalNormal.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.DenseBernoulliLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">DenseBernoulliLayer</code><span class="sig-paren">(</span><em class="sig-param">activation=&lt;function relu&gt;</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseBernoulliLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.AffineBernoulliLayer" title="twodlearn.bayesnet.bayesnet.AffineBernoulliLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.AffineBernoulliLayer</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.Output</span></code></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.Output.keep_prob">
+<em class="property">property </em><code class="sig-name descname">keep_prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.Output.keep_prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.activation">
+<code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseBernoulliLayer.activation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.DenseNormalLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">DenseNormalLayer</code><span class="sig-paren">(</span><em class="sig-param">activation=&lt;function relu&gt;</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseNormalLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.AffineNormalLayer" title="twodlearn.bayesnet.bayesnet.AffineNormalLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.AffineNormalLayer</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.DenseNormalLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseNormalLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.Output</span></code></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.DenseNormalLayer.Output.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseNormalLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the output distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.DenseNormalLayer.activation">
+<code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.DenseNormalLayer.activation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.Entropy">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">Entropy</code><span class="sig-paren">(</span><em class="sig-param">prob</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.Entropy.prob">
+<em class="property">property </em><code class="sig-name descname">prob</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Entropy.prob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.Entropy.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Entropy.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">GaussianKL</code><span class="sig-paren">(</span><em class="sig-param">p</em>, <em class="sig-param">q</em>, <em class="sig-param">name='GaussianKL'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.losses.html#twodlearn.losses.Loss" title="twodlearn.losses.Loss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.Loss</span></code></a></p>
+<p>Evaluate KL(p||q) for p and q Normal</p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">p</em>, <em class="sig-param">q</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate KL(p||q)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL.fromlist">
+<code class="sig-name descname">fromlist</code><span class="sig-paren">(</span><em class="sig-param">p_list</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL.fromlist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL.fromstats">
+<em class="property">classmethod </em><code class="sig-name descname">fromstats</code><span class="sig-paren">(</span><em class="sig-param">p_loc</em>, <em class="sig-param">p_scale</em>, <em class="sig-param">q_loc</em>, <em class="sig-param">q_scale</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL.fromstats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL.get_n_vars">
+<code class="sig-name descname">get_n_vars</code><span class="sig-paren">(</span><em class="sig-param">p</em>, <em class="sig-param">q</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL.get_n_vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL.p">
+<em class="property">property </em><code class="sig-name descname">p</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL.p" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianKL.q">
+<em class="property">property </em><code class="sig-name descname">q</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianKL.q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">GaussianNegLogLikelihood</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">name='NegLogLikelihood'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.losses.html#twodlearn.losses.EmpiricalLoss" title="twodlearn.losses.EmpiricalLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.losses.EmpiricalLoss</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.define_fit_loss">
+<code class="sig-name descname">define_fit_loss</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">labels</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.define_fit_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Labels for computing the loss, if not provided,
+they are created automatically</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.GaussianNegLogLikelihood.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.HeteroscedasticNormalMlp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">HeteroscedasticNormalMlp</code><span class="sig-paren">(</span><em class="sig-param">loc_args</em>, <em class="sig-param">scale_args</em>, <em class="sig-param">LocClass=&lt;class 'twodlearn.bayesnet.bayesnet.BayesianMlp'&gt;</em>, <em class="sig-param">ScaleClass=&lt;class 'twodlearn.bayesnet.bayesnet.BoundedBayesianMlp'&gt;</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='HeteroscedasticGaussianMlp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.HeteroscedasticNormalMlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.NormalMlp" title="twodlearn.bayesnet.bayesnet.NormalMlp"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.NormalMlp</span></code></a></p>
+<p>Defines a conditional gaussian
+N(loc=BayesianMlp(x), scale=BoundedOutputBayesianMlp(x))</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">LinearNormalLayer</code><span class="sig-paren">(</span><em class="sig-param">units</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.LinearLayer" title="twodlearn.feedforward.LinearLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.LinearLayer</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’, ‘max_scale’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.affine">
+<code class="sig-name descname">affine</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.affine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normal distribution for the outputs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.Output.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the output distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.LinearNormalLayer.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.LinearNormalLayer.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘initializer’, ‘trainable’, ‘max_scale’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.McEstimate">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">McEstimate</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">name='mc_estimate'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McEstimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McEstimate.mean">
+<code class="sig-name descname">mean</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McEstimate.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McEstimate.stddev">
+<code class="sig-name descname">stddev</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McEstimate.stddev" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.McNormal">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">McNormal</code><span class="sig-paren">(</span><em class="sig-param">loc</em>, <em class="sig-param">scale</em>, <em class="sig-param">samples=None</em>, <em class="sig-param">name='McNormal'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McNormal.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormal.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.McNormal.resample">
+<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormal.resample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.McNormal.samples">
+<em class="property">property </em><code class="sig-name descname">samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormal.samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McNormal.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormal.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.McNormal.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormal.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.McNormalEstimate">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">McNormalEstimate</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormalEstimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.McNormalEstimate.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormalEstimate.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McNormalEstimate.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormalEstimate.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input tensor shape.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McNormalEstimate.sample_dim">
+<code class="sig-name descname">sample_dim</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McNormalEstimate.sample_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample dimension across which mean and stddev are computed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.McSample">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">McSample</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McSample.distribution">
+<code class="sig-name descname">distribution</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McSample.distribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.McSample.sample_axis">
+<code class="sig-name descname">sample_axis</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.McSample.sample_axis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.Normal">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">Normal</code><span class="sig-paren">(</span><em class="sig-param">loc=None</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">shape=None</em>, <em class="sig-param">name='Normal'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.NormalOutput">
+<em class="property">class </em><code class="sig-name descname">NormalOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.NormalOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.McNormal" title="twodlearn.bayesnet.bayesnet.McNormal"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.McNormal</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.NormalOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.NormalOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.NormalOutput.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.NormalOutput.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.NormalOutput.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.NormalOutput.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Normal.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Normal.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">NormalMlp</code><span class="sig-paren">(</span><em class="sig-param">loc_args</em>, <em class="sig-param">scale_args={}</em>, <em class="sig-param">LocClass=&lt;class 'twodlearn.bayesnet.bayesnet.BayesianMlp'&gt;</em>, <em class="sig-param">ScaleClass=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='GaussianMlp'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.bayesnet.bayesnet.ConditionalNormal" title="twodlearn.bayesnet.bayesnet.ConditionalNormal"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.ConditionalNormal</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.McNormalOutput">
+<em class="property">class </em><code class="sig-name descname">McNormalOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">n_particles</em>, <em class="sig-param">inputs</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.McNormalOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.NormalOutput</span></code></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.McNormalOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.McNormalOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.McNormalOutput.n_particles">
+<em class="property">property </em><code class="sig-name descname">n_particles</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.McNormalOutput.n_particles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput">
+<em class="property">class </em><code class="sig-name descname">NormalOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">inputs</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.bayesnet.bayesnet.NormalOutput</span></code></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.NormalOutput.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.mc_evaluate">
+<code class="sig-name descname">mc_evaluate</code><span class="sig-paren">(</span><em class="sig-param">n_particles</em>, <em class="sig-param">x=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.mc_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalMlp.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalMlp.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">NormalModel</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel.scale">
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’, ‘tolerance’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Input tensor shape.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel.batch_shape">
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel.loc">
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel.loc" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SubmodelInit" title="twodlearn.core.common.SubmodelInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmodelInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">batch_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">input_shape=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the variables of the layer (optional, for subclass implementers).</p>
+<p>This is a method that implementers of subclasses of <cite>Layer</cite> or <cite>Model</cite>
+can override if they need a state-creation step in-between
+layer instantiation and layer call.</p>
+<p>This is typically used to create the weights of <cite>Layer</cite> subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_shape</strong> – Instance of <cite>TensorShape</cite>, or list of instances of
+<cite>TensorShape</cite> if the layer expects a list of inputs
+(one instance per input).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.NormalModel.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.NormalModel.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Input tensor shape.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">loc</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">scale</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Autoinit with arguments [‘initializer’, ‘trainable’, ‘tolerance’]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.Particles">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">Particles</code><span class="sig-paren">(</span><em class="sig-param">n_particles</em>, <em class="sig-param">base=None</em>, <em class="sig-param">shape=None</em>, <em class="sig-param">name='Particles'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Particles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.Particles.base">
+<code class="sig-name descname">base</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Particles.base" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.Particles.base_shape">
+<em class="property">property </em><code class="sig-name descname">base_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Particles.base_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.Particles.n_particles">
+<em class="property">property </em><code class="sig-name descname">n_particles</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Particles.n_particles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.Particles.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.Particles.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.ParticlesLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">ParticlesLayer</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ParticlesLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.ParticlesLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ParticlesLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Input tensor shape.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.ParticlesLayer.particles">
+<code class="sig-name descname">particles</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ParticlesLayer.particles" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of particles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.ParticlesLayer.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ParticlesLayer.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.ParticlesLayer.compute_output_shape">
+<code class="sig-name descname">compute_output_shape</code><span class="sig-paren">(</span><em class="sig-param">input_shape=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.ParticlesLayer.compute_output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the output shape of the layer.</p>
+<p>Assumes that the layer will be built
+to match that input shape provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_shape</strong> – Shape tuple (tuple of integers)
+or list of shape tuples (one per output tensor of the layer).
+Shape tuples can include None for free dimensions,
+instead of an integer.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An input shape tuple.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Input tensor shape.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">particles</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Number of particles.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.bayesnet.bayesnet.SampleLayer">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.bayesnet.bayesnet.</code><code class="sig-name descname">SampleLayer</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.SampleLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
+<p>Tdl autoinitialization with arguments:</p>
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.SampleLayer.sample_shape">
+<code class="sig-name descname">sample_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.SampleLayer.sample_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputModel" title="twodlearn.core.common.InputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputModel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.SampleLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.SampleLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.bayesnet.bayesnet.SampleLayer.distribution">
+<code class="sig-name descname">distribution</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.SampleLayer.distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputModel" title="twodlearn.core.common.InputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputModel</span></code></a>)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.bayesnet.bayesnet.SampleLayer.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.bayesnet.bayesnet.SampleLayer.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">distribution</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">sample_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/bayesnet/bayesnet.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.bayesnet.distributions.html" class="btn btn-neutral float-right" title="twodlearn.bayesnet.distributions module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.bayesnet.html" class="btn btn-neutral float-left" title="twodlearn.bayesnet package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

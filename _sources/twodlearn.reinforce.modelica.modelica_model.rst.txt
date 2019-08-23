@@ -1,0 +1,7 @@
+twodlearn.reinforce.modelica.modelica\_model module
+===================================================
+
+.. automodule:: twodlearn.reinforce.modelica.modelica_model
+   :members:
+   :undoc-members:
+   :show-inheritance:

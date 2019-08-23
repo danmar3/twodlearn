@@ -1,0 +1,7 @@
+twodlearn.bayesnet.gaussian\_process module
+===========================================
+
+.. automodule:: twodlearn.bayesnet.gaussian_process
+   :members:
+   :undoc-members:
+   :show-inheritance:

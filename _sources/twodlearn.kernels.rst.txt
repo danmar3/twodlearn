@@ -1,0 +1,7 @@
+twodlearn.kernels module
+========================
+
+.. automodule:: twodlearn.kernels
+   :members:
+   :undoc-members:
+   :show-inheritance:

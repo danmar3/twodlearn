@@ -1,0 +1,7 @@
+twodlearn.templates.supervised module
+=====================================
+
+.. automodule:: twodlearn.templates.supervised
+   :members:
+   :undoc-members:
+   :show-inheritance:

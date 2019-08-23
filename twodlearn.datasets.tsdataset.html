@@ -1,0 +1,879 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.datasets.tsdataset module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.datasets.unbalanced module" href="twodlearn.datasets.unbalanced.html" />
+    <link rel="prev" title="twodlearn.datasets.mnist module" href="twodlearn.datasets.mnist.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.datasets.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.Batch_generator.html">twodlearn.datasets.Batch_generator module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.LargeMovieReview.html">twodlearn.datasets.LargeMovieReview module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.base.html">twodlearn.datasets.base module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.cifar10.html">twodlearn.datasets.cifar10 module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.cyber.html">twodlearn.datasets.cyber module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.mnist.html">twodlearn.datasets.mnist module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.datasets.tsdataset module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.unbalanced.html">twodlearn.datasets.unbalanced module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.datasets.vocabulary_stem_coding.html">twodlearn.datasets.vocabulary_stem_coding module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.datasets.html#module-twodlearn.datasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.datasets.html">twodlearn.datasets package</a> &raquo;</li>
+        
+      <li>twodlearn.datasets.tsdataset module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.datasets.tsdataset.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.datasets.tsdataset">
+<span id="twodlearn-datasets-tsdataset-module"></span><h1>twodlearn.datasets.tsdataset module<a class="headerlink" href="#module-twodlearn.datasets.tsdataset" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">AsynchronousRecord</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">start_time=None</em>, <em class="sig-param">prop=None</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.collapse">
+<code class="sig-name descname">collapse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.collapse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collapse the list of DataFrame in data to a single DataFrame</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.data">
+<em class="property">property </em><code class="sig-name descname">data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.end_time">
+<em class="property">property </em><code class="sig-name descname">end_time</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.end_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.get_group">
+<code class="sig-name descname">get_group</code><span class="sig-paren">(</span><em class="sig-param">group_name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.get_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the data for the given group as an np.ndarray</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param">group</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.n_samples">
+<em class="property">property </em><code class="sig-name descname">n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.n_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.prop2array">
+<code class="sig-name descname">prop2array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.prop2array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.prop2list">
+<code class="sig-name descname">prop2list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.prop2list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.set_groups">
+<code class="sig-name descname">set_groups</code><span class="sig-paren">(</span><em class="sig-param">group_tags</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.set_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.start_time">
+<em class="property">property </em><code class="sig-name descname">start_time</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.start_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.AsynchronousRecord.std">
+<code class="sig-name descname">std</code><span class="sig-paren">(</span><em class="sig-param">group</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.AsynchronousRecord.std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.DatasetsSaver">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">DatasetsSaver</code><span class="sig-paren">(</span><em class="sig-param">train</em>, <em class="sig-param">valid</em>, <em class="sig-param">test</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.DatasetsSaver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.DatasetsSaver.test">
+<em class="property">property </em><code class="sig-name descname">test</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.DatasetsSaver.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.DatasetsSaver.train">
+<em class="property">property </em><code class="sig-name descname">train</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.DatasetsSaver.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.DatasetsSaver.valid">
+<em class="property">property </em><code class="sig-name descname">valid</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.DatasetsSaver.valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.Record">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">Record</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">start_time=None</em>, <em class="sig-param">prop=None</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.columns">
+<em class="property">property </em><code class="sig-name descname">columns</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new copy of the record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>new copy of the record.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#twodlearn.datasets.tsdataset.Record" title="twodlearn.datasets.tsdataset.Record">Record</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.data">
+<em class="property">property </em><code class="sig-name descname">data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.end_time">
+<em class="property">property </em><code class="sig-name descname">end_time</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.end_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.from_saved_data">
+<em class="property">classmethod </em><code class="sig-name descname">from_saved_data</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.from_saved_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create record from saved Record.SaveData</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.get_group">
+<code class="sig-name descname">get_group</code><span class="sig-paren">(</span><em class="sig-param">group_name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.get_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the np.Array corresponding to the given group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>group_name</strong> (<em>str</em>) – name of the group.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array corresponding to the data of the group.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.get_save_data">
+<code class="sig-name descname">get_save_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.get_save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.group_tags">
+<em class="property">property </em><code class="sig-name descname">group_tags</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.group_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary with the names of the groups and the associated columns</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.n_samples">
+<em class="property">property </em><code class="sig-name descname">n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.n_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.prop2array">
+<code class="sig-name descname">prop2array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.prop2array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.prop2list">
+<code class="sig-name descname">prop2list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.prop2list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.set_groups">
+<code class="sig-name descname">set_groups</code><span class="sig-paren">(</span><em class="sig-param">group_tags</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.set_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Group the features on the data according to the provided tags.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>group_tags</strong> (<em>dict</em>) – dictionary where the keys correspond to the name
+for the groups and the values the columns for the groups</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.split_continuous">
+<code class="sig-name descname">split_continuous</code><span class="sig-paren">(</span><em class="sig-param">column_name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.split_continuous" title="Permalink to this definition">¶</a></dt>
+<dd><p>splits the record following continuous chunks of
+data from the provided series</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.Record.start_time">
+<em class="property">property </em><code class="sig-name descname">start_time</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.Record.start_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.RecordSaveData">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">RecordSaveData</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">start_time</em>, <em class="sig-param">prop</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.RecordSaveData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.RecordSaveData.data">
+<em class="property">property </em><code class="sig-name descname">data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.RecordSaveData.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.RecordSaveData.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.RecordSaveData.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.RecordSaveData.prop">
+<em class="property">property </em><code class="sig-name descname">prop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.RecordSaveData.prop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.RecordSaveData.start_time">
+<em class="property">property </em><code class="sig-name descname">start_time</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.RecordSaveData.start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.TSDataset">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">TSDataset</code><span class="sig-paren">(</span><em class="sig-param">records=[]</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer">
+<em class="property">class </em><code class="sig-name descname">BatchNormalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.mu">
+<em class="property">property </em><code class="sig-name descname">mu</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.mu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.normalize">
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">batch</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.std">
+<em class="property">property </em><code class="sig-name descname">std</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.BatchNormalizer.std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.Cursor">
+<em class="property">class </em><code class="sig-name descname">Cursor</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">global_pointer</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.Cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages one of the continuous elements of the batch.
+Hence, there are as many cursors as elements in the batch</p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.Cursor.cummulative_n_samples">
+<em class="property">property </em><code class="sig-name descname">cummulative_n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.Cursor.cummulative_n_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.Cursor.local_pointer">
+<em class="property">property </em><code class="sig-name descname">local_pointer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.Cursor.local_pointer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.Cursor.next_sequence">
+<code class="sig-name descname">next_sequence</code><span class="sig-paren">(</span><em class="sig-param">window_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.Cursor.next_sequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.Cursor.record">
+<em class="property">property </em><code class="sig-name descname">record</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.Cursor.record" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.Cursor.record_id">
+<em class="property">property </em><code class="sig-name descname">record_id</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.Cursor.record_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.DatasetStats">
+<em class="property">class </em><code class="sig-name descname">DatasetStats</code><span class="sig-paren">(</span><em class="sig-param">mean</em>, <em class="sig-param">stddev</em>, <em class="sig-param">min</em>, <em class="sig-param">max</em>, <em class="sig-param">n_samples</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.DatasetStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.DatasetStats.max">
+<em class="property">property </em><code class="sig-name descname">max</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.DatasetStats.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.DatasetStats.mean">
+<em class="property">property </em><code class="sig-name descname">mean</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.DatasetStats.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.DatasetStats.min">
+<em class="property">property </em><code class="sig-name descname">min</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.DatasetStats.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.DatasetStats.n_samples">
+<em class="property">property </em><code class="sig-name descname">n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.DatasetStats.n_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.DatasetStats.stddev">
+<em class="property">property </em><code class="sig-name descname">stddev</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.DatasetStats.stddev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.add_record">
+<code class="sig-name descname">add_record</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.add_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a record into the dataset
+&#64;type other: Record
+&#64;param other: record to be added into the dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.as_array">
+<code class="sig-name descname">as_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.as_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dataset as arrays separated in the groups</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.columns">
+<em class="property">property </em><code class="sig-name descname">columns</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.cummulative_n_samples">
+<code class="sig-name descname">cummulative_n_samples</code><span class="sig-paren">(</span><em class="sig-param">recompute=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.cummulative_n_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.dtypes">
+<em class="property">property </em><code class="sig-name descname">dtypes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.dtypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.from_saved_data">
+<em class="property">classmethod </em><code class="sig-name descname">from_saved_data</code><span class="sig-paren">(</span><em class="sig-param">saved_data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.from_saved_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.get_prop_mat">
+<code class="sig-name descname">get_prop_mat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.get_prop_mat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.get_prop_table">
+<code class="sig-name descname">get_prop_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.get_prop_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.get_save_data">
+<code class="sig-name descname">get_save_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.get_save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.get_stats">
+<code class="sig-name descname">get_stats</code><span class="sig-paren">(</span><em class="sig-param">groups=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain mean and standard deviation of the dataset to be used
+for normalization</p>
+<p>&#64;param groups: list of the group names that you want to measure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.load">
+<em class="property">classmethod </em><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.n_samples">
+<em class="property">property </em><code class="sig-name descname">n_samples</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.n_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>total number of samples in all records</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.n_vars">
+<code class="sig-name descname">n_vars</code><span class="sig-paren">(</span><em class="sig-param">group=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.n_vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.next_batch">
+<code class="sig-name descname">next_batch</code><span class="sig-paren">(</span><em class="sig-param">window_size</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">reset=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.next_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next batch_size sequences of length window_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window_size</strong> – </p></li>
+<li><p><strong>batch_size</strong> – </p></li>
+<li><p><strong>reset</strong> – reset the cursors that point where data is currently being
+extracted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A dictionary with the batch samples, the format is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">batch</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">window_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_vars</span><span class="p">(</span><span class="n">group</span><span class="p">)]</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.next_batch_discontinuous">
+<code class="sig-name descname">next_batch_discontinuous</code><span class="sig-paren">(</span><em class="sig-param">batch_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.next_batch_discontinuous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a batch when window_size is 1</p>
+<p>This function is used by next_batch, is not intended for being
+used outside the class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.next_windowed_batch">
+<code class="sig-name descname">next_windowed_batch</code><span class="sig-paren">(</span><em class="sig-param">sequences_length</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">window_size</em>, <em class="sig-param">groups=None</em>, <em class="sig-param">reset=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.next_windowed_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next batch where each sample contains a sequence off
+window_size elements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences_length</strong> – length of the sequences</p></li>
+<li><p><strong>batch_size</strong> – number of sequences</p></li>
+<li><p><strong>window_size</strong> – size of the window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A dictionary with the batch samples. The format is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">batch</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">sequences_length</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_vars</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="o">*</span><span class="n">window_size</span><span class="p">]</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.normalize">
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">groups=None</em>, <em class="sig-param">mu=None</em>, <em class="sig-param">std=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain mean and standard deviation of the dataset to be used
+for normalization</p>
+<p>&#64;param groups: list of the group names that you want to normalize</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.normalizer">
+<em class="property">property </em><code class="sig-name descname">normalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.normalizer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.reset_cursors">
+<code class="sig-name descname">reset_cursors</code><span class="sig-paren">(</span><em class="sig-param">batch_size=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.reset_cursors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.set_groups">
+<code class="sig-name descname">set_groups</code><span class="sig-paren">(</span><em class="sig-param">group_tags</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.set_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.split_continuous">
+<code class="sig-name descname">split_continuous</code><span class="sig-paren">(</span><em class="sig-param">column_name</em>, <em class="sig-param">min_samples=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.split_continuous" title="Permalink to this definition">¶</a></dt>
+<dd><p>splits the records following continuous chunks of
+data from the provided column</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.to_dense">
+<code class="sig-name descname">to_dense</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.to_dense" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dense representation of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a tuple of the dense array and the length
+of each record. The records are padded with nan values.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(array, length)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.to_tf_dataset">
+<code class="sig-name descname">to_tf_dataset</code><span class="sig-paren">(</span><em class="sig-param">dtype=&lt;class 'numpy.float32'&gt;</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.to_tf_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a tf.data.Dataset with a dense representation of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>with elements ‘data’, ‘length’. ‘data’ is a dense
+tensor representation of the dataset formated as
+(record, time, features). Records are padded with nan values.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tf.data.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDataset.update_props">
+<code class="sig-name descname">update_props</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDataset.update_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>updates static properties. This functions is called by add_record()
+after a new record has been added to the dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.TSDatasetSaver">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">TSDatasetSaver</code><span class="sig-paren">(</span><em class="sig-param">records_data</em>, <em class="sig-param">group_tags</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasetSaver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasetSaver.group_tags">
+<em class="property">property </em><code class="sig-name descname">group_tags</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasetSaver.group_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasetSaver.records_data">
+<em class="property">property </em><code class="sig-name descname">records_data</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasetSaver.records_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.datasets.tsdataset.TSDatasets">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">TSDatasets</code><span class="sig-paren">(</span><em class="sig-param">train=None</em>, <em class="sig-param">valid=None</em>, <em class="sig-param">test=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasets.from_saved_file">
+<em class="property">classmethod </em><code class="sig-name descname">from_saved_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">encoding=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasets.from_saved_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasets.get_save_data">
+<code class="sig-name descname">get_save_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasets.get_save_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasets.normalize">
+<code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">groups</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasets.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasets.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasets.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.datasets.tsdataset.TSDatasets.set_groups">
+<code class="sig-name descname">set_groups</code><span class="sig-paren">(</span><em class="sig-param">group_tags</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.TSDatasets.set_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.tsdataset.sample_batch_window">
+<code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">sample_batch_window</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">length</em>, <em class="sig-param">window_size</em>, <em class="sig-param">batch_size=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.sample_batch_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample continuous windows of window_size from tensor data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>tf.Tensor</em>) – dense representation of a set of continuous records.
+The format should be (record, time, features).</p></li>
+<li><p><strong>length</strong> (<em>type</em>) – length of each record.</p></li>
+<li><p><strong>window_size</strong> (<em>type</em>) – window size of the window to sample.</p></li>
+<li><p><strong>batch_size</strong> (<em>type</em>) – batch size of data. If not provided,
+batch_size = data.shape[0]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>continuous random continuous windows. The format is
+(record, time, features)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.tsdataset.sample_window">
+<code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">sample_window</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">length</em>, <em class="sig-param">window_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.sample_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample continuous windows of window_size from tensor data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>tf.Tensor</em>) – dense representation of a set of continuous records.
+The format should be (time, features).</p></li>
+<li><p><strong>length</strong> (<em>type</em>) – length of each record.</p></li>
+<li><p><strong>window_size</strong> (<em>type</em>) – window size of the window to sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>continuous random continuous windows. The format is
+(record, time, features)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.datasets.tsdataset.signal_edges">
+<code class="sig-prename descclassname">twodlearn.datasets.tsdataset.</code><code class="sig-name descname">signal_edges</code><span class="sig-paren">(</span><em class="sig-param">series</em>, <em class="sig-param">dtype=&lt;class 'int'&gt;</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/datasets/tsdataset.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.datasets.tsdataset.signal_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>detect signal edges</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.datasets.unbalanced.html" class="btn btn-neutral float-right" title="twodlearn.datasets.unbalanced module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.datasets.mnist.html" class="btn btn-neutral float-left" title="twodlearn.datasets.mnist module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

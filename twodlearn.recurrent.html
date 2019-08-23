@@ -1,0 +1,1060 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.recurrent module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.stacked module" href="twodlearn.stacked.html" />
+    <link rel="prev" title="twodlearn.parallel module" href="twodlearn.parallel.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.Autoencoder.html">twodlearn.Autoencoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.DBM.html">twodlearn.DBM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.GMM.html">twodlearn.GMM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.base.html">twodlearn.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.common.html">twodlearn.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.constrained.html">twodlearn.constrained module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.convnet.html">twodlearn.convnet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.debug.html">twodlearn.debug module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.dense.html">twodlearn.dense module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.feedforward.html">twodlearn.feedforward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.kernels.html">twodlearn.kernels module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.linalg.html">twodlearn.linalg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.losses.html">twodlearn.losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.monitoring.html">twodlearn.monitoring module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.normalizer.html">twodlearn.normalizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optim.html">twodlearn.optim module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.optimv2.html">twodlearn.optimv2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.parallel.html">twodlearn.parallel module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">twodlearn.recurrent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.stacked.html">twodlearn.stacked module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.unsupervised.html">twodlearn.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+      <li>twodlearn.recurrent module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.recurrent.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.recurrent">
+<span id="twodlearn-recurrent-module"></span><h1>twodlearn.recurrent module<a class="headerlink" href="#module-twodlearn.recurrent" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.recurrent.BaseCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">BaseCell</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.recurrent.BaseCell.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the variables of the layer (optional, for subclass implementers).</p>
+<p>This is a method that implementers of subclasses of <cite>Layer</cite> or <cite>Model</cite>
+can override if they need a state-creation step in-between
+layer instantiation and layer call.</p>
+<p>This is typically used to create the weights of <cite>Layer</cite> subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_shape</strong> – Instance of <cite>TensorShape</cite>, or list of instances of
+<cite>TensorShape</cite> if the layer expects a list of inputs
+(one instance per input).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.BaseCell.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where the layer’s logic lives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – Input tensor, or list/tuple of input tensors.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor or list/tuple of tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.BaseCell.call_cell">
+<code class="sig-name descname">call_cell</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell.call_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.BaseCell.get_initial_state">
+<code class="sig-name descname">get_initial_state</code><span class="sig-paren">(</span><em class="sig-param">inputs=None</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">initializer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell.get_initial_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.BaseCell.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.BaseCell.state_shape">
+<code class="sig-name descname">state_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.BaseCell.state_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.DenseCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">DenseCell</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.DenseCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.recurrent.BaseCell" title="twodlearn.recurrent.BaseCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.BaseCell</span></code></a></p>
+<p>Base RNN cell for which the inputs and states are represented using
+a dense tensor.</p>
+<dl class="method">
+<dt id="twodlearn.recurrent.DenseCell.get_initial_state">
+<code class="sig-name descname">get_initial_state</code><span class="sig-paren">(</span><em class="sig-param">batch_size=None</em>, <em class="sig-param">initializer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.DenseCell.get_initial_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.DenseCell.get_inputs">
+<code class="sig-name descname">get_inputs</code><span class="sig-paren">(</span><em class="sig-param">batch_size=None</em>, <em class="sig-param">initializer=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.DenseCell.get_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.Lstm">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">Lstm</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.recurrent.Rnn" title="twodlearn.recurrent.Rnn"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.Rnn</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.recurrent.Lstm.LstmSetup">
+<em class="property">class </em><code class="sig-name descname">LstmSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.LstmSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.RnnSetup</span></code></p>
+<dl class="class">
+<dt id="twodlearn.recurrent.Lstm.LstmSetup.LstmStateAndOutput">
+<em class="property">class </em><code class="sig-name descname">LstmStateAndOutput</code><span class="sig-paren">(</span><em class="sig-param">hidden</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.LstmSetup.LstmStateAndOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm.LstmSetup.LstmStateAndOutput.hidden">
+<code class="sig-name descname">hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.LstmSetup.LstmStateAndOutput.hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm.LstmSetup.LstmStateAndOutput.y">
+<code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.LstmSetup.LstmStateAndOutput.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm.LstmSetup.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.LstmSetup.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm.ModelOutput">
+<code class="sig-name descname">ModelOutput</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.ModelOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#twodlearn.recurrent.Lstm.LstmSetup" title="twodlearn.recurrent.Lstm.LstmSetup"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lstm.LstmSetup</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm.define_cell">
+<code class="sig-name descname">define_cell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.define_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm.n_hidden">
+<code class="sig-name descname">n_hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.n_hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.Lstm2Lstm">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">Lstm2Lstm</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">afunction=&lt;function tanh&gt;</em>, <em class="sig-param">encoder_afunction=&lt;function tanh&gt;</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Uses an Lstm to convert a fixed length sequence into the
+initial state for an LSTM sequential model</p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm2Lstm.ModelOutput">
+<code class="sig-name descname">ModelOutput</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.ModelOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#twodlearn.recurrent.Lstm2Lstm.Output" title="twodlearn.recurrent.Lstm2Lstm.Output"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lstm2Lstm.Output</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">n_unrollings=1</em>, <em class="sig-param">encoder_n_unrollings=1</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">encoder_inputs=None</em>, <em class="sig-param">compute_loss=True</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name='lstm2lstm'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.encoder">
+<em class="property">property </em><code class="sig-name descname">encoder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.encoder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.fit_loss">
+<em class="property">property </em><code class="sig-name descname">fit_loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.fit_loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.inputs">
+<em class="property">property </em><code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.loss">
+<em class="property">property </em><code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.lstm">
+<em class="property">property </em><code class="sig-name descname">lstm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.lstm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.x0">
+<em class="property">property </em><code class="sig-name descname">x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.x0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inputs to the encoder</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.Output.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.Output.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm2Lstm.encoder">
+<code class="sig-name descname">encoder</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_inputs’, ‘n_outputs’, ‘n_hidden’, ‘afunction’, ‘name’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Lstm2Lstm.lstm">
+<code class="sig-name descname">lstm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.lstm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_inputs’, ‘n_outputs’, ‘n_hidden’, ‘afunction’, ‘name’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Lstm2Lstm.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Lstm2Lstm.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.LstmCellOptimized">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">LstmCellOptimized</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_units</em>, <em class="sig-param">afunction=&lt;function tanh&gt;</em>, <em class="sig-param">name='LstmCell'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="simple">
+<dt>Single lstm cell defined as in: “Generating Sequences with</dt><dd><p>Recurrent Neural Networks”, Alex Graves, 2014</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.n_inputs">
+<code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of inputs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.n_nodes">
+<code class="sig-name descname">n_nodes</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.n_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of nodes</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.afunction">
+<code class="sig-name descname">afunction</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.afunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>activation function</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.name">
+<code class="sig-name descname">name</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name used in all TensorFlow variables’ names</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.LstmCellOptimized.LstmCellSetup">
+<em class="property">class </em><code class="sig-name descname">LstmCellSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.LstmCellSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.LstmCellSetup.input_state">
+<code class="sig-name descname">input_state</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.LstmCellSetup.input_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.LstmCellSetup.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.LstmCellSetup.inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.LstmCellSetup.value">
+<code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.LstmCellSetup.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">afunction</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>activation function for the cell</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.LstmCellOptimized.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.LstmCellOptimized.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.n_units">
+<code class="sig-name descname">n_units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.n_units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmCellOptimized.parameters">
+<code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.LstmCellOptimized.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmCellOptimized.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.LstmState">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">LstmState</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmState.h">
+<code class="sig-name descname">h</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmState.h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.LstmState.x">
+<code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.LstmState.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.Mlp2Lstm">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">Mlp2Lstm</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">window_size=1</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<p>Uses an MLP to convert a fixed length sequence into the
+initial state for an LSTM sequential model</p>
+<dl class="class">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput">
+<em class="property">class </em><code class="sig-name descname">Mlp2LstmOutput</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.batch_size">
+<code class="sig-name descname">batch_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_unrollings’, ‘Type’, ‘batch_size’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.lstm">
+<code class="sig-name descname">lstm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.lstm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.lstm_x0">
+<code class="sig-name descname">lstm_x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.lstm_x0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.n_unrollings">
+<em class="property">property </em><code class="sig-name descname">n_unrollings</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.n_unrollings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.window_size">
+<em class="property">property </em><code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.x0">
+<code class="sig-name descname">x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.Mlp2LstmOutput.x0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘Type’, ‘batch_size’]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Mlp2Lstm.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.lstm">
+<code class="sig-name descname">lstm</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.lstm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_hidden’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.mlp">
+<code class="sig-name descname">mlp</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.mlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_hidden’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.n_inputs">
+<code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.n_outputs">
+<code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Mlp2Lstm.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Mlp2Lstm.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Mlp2Lstm.window_size">
+<code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Mlp2Lstm.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.MlpNarx">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">MlpNarx</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">window_size</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">afunction=&lt;function relu&gt;</em>, <em class="sig-param">name='mlp_narx'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.recurrent.Narx" title="twodlearn.recurrent.Narx"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.Narx</span></code></a></p>
+<p>Narx that uses an Mlp as cell</p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MlpNarx.CellModel">
+<code class="sig-name descname">CellModel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.CellModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="twodlearn.feedforward.html#twodlearn.feedforward.MlpNet" title="twodlearn.feedforward.MlpNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.feedforward.MlpNet</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MlpNarx.ModelOutput">
+<code class="sig-name descname">ModelOutput</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.ModelOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#twodlearn.recurrent.MlpNarx.Output" title="twodlearn.recurrent.MlpNarx.Output"><code class="xref py py-class docutils literal notranslate"><span class="pre">MlpNarx.Output</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.MlpNarx.Output">
+<em class="property">class </em><code class="sig-name descname">Output</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">x0=None</em>, <em class="sig-param">n_unrollings=1</em>, <em class="sig-param">batch_size=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">compute_loss=True</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.Output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.NarxSetup</span></code></p>
+<dl class="method">
+<dt id="twodlearn.recurrent.MlpNarx.Output.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.Output.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MlpNarx.afunction">
+<em class="property">property </em><code class="sig-name descname">afunction</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.afunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>activation function for the MLP</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MlpNarx.define_cell">
+<code class="sig-name descname">define_cell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">window_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.define_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MlpNarx.n_hidden">
+<em class="property">property </em><code class="sig-name descname">n_hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.n_hidden" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of hidden layers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MlpNarx.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MlpNarx.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.MultilayerLstmCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">MultilayerLstmCell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_hidden</em>, <em class="sig-param">n_outputs=None</em>, <em class="sig-param">output_layer=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup">
+<em class="property">class </em><code class="sig-name descname">MultilayerLstmCellSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputModel" title="twodlearn.core.common.OutputModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.OutputModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.hidden">
+<code class="sig-name descname">hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.input_h">
+<code class="sig-name descname">input_h</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.input_h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.input_x">
+<code class="sig-name descname">input_x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.input_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.output">
+<code class="sig-name descname">output</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.state">
+<em class="property">property </em><code class="sig-name descname">state</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.MultilayerLstmCellSetup.state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.hidden_layers">
+<code class="sig-name descname">hidden_layers</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.hidden_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.n_hidden">
+<code class="sig-name descname">n_hidden</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.n_hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.n_inputs">
+<code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.output_layer">
+<code class="sig-name descname">output_layer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.output_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.parameters">
+<em class="property">property </em><code class="sig-name descname">parameters</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.MultilayerLstmCell.weights">
+<em class="property">property </em><code class="sig-name descname">weights</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.MultilayerLstmCell.weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.Narx">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">Narx</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">window_size=1</em>, <em class="sig-param">name='narx'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Narx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.recurrent.Rnn" title="twodlearn.recurrent.Rnn"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.Rnn</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.recurrent.Narx.NarxSetup">
+<em class="property">class </em><code class="sig-name descname">NarxSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Narx.NarxSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.RnnSetup</span></code></p>
+<dl class="method">
+<dt id="twodlearn.recurrent.Narx.NarxSetup.window_size">
+<em class="property">property </em><code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Narx.NarxSetup.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Narx.cell">
+<code class="sig-name descname">cell</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Narx.cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Narx.define_cell">
+<code class="sig-name descname">define_cell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">window_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Narx.define_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Narx.window_size">
+<em class="property">property </em><code class="sig-name descname">window_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Narx.window_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.Rnn">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">Rnn</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_states=None</em>, <em class="sig-param">name='rnn'</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup">
+<em class="property">class </em><code class="sig-name descname">RnnSetup</code><span class="sig-paren">(</span><em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>exogenous inputs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.loss">
+<em class="property">property </em><code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.n_inputs">
+<em class="property">property </em><code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of exogenous inputs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.n_outputs">
+<em class="property">property </em><code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of outputs from the model</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.n_unrollings">
+<code class="sig-name descname">n_unrollings</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.n_unrollings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.outputs">
+<em class="property">property </em><code class="sig-name descname">outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.reset_inputs">
+<code class="sig-name descname">reset_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.reset_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.states">
+<em class="property">property </em><code class="sig-name descname">states</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.states" title="Permalink to this definition">¶</a></dt>
+<dd><p>State of the network</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.unrolled">
+<em class="property">property </em><code class="sig-name descname">unrolled</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.unrolled" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of unrolled networks</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.RnnSetup.x0">
+<code class="sig-name descname">x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.RnnSetup.x0" title="Permalink to this definition">¶</a></dt>
+<dd><p>initial state</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.cell">
+<code class="sig-name descname">cell</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.define_cell">
+<code class="sig-name descname">define_cell</code><span class="sig-paren">(</span><em class="sig-param">n_inputs</em>, <em class="sig-param">n_outputs</em>, <em class="sig-param">n_states</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.define_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.Rnn.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">n_unrollings=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.n_inputs">
+<code class="sig-name descname">n_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.n_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.Rnn.n_outputs">
+<code class="sig-name descname">n_outputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.Rnn.n_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.SimpleRnn">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">SimpleRnn</code><span class="sig-paren">(</span><em class="sig-param">cell</em>, <em class="sig-param">name='SimpleRnn'</em>, <em class="sig-param">options=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="class">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput">
+<em class="property">class </em><code class="sig-name descname">RnnOutput</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">n_unrollings=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.TdlModel" title="twodlearn.core.common.TdlModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.common.TdlModel</span></code></a></p>
+<dl class="attribute">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.inputs">
+<code class="sig-name descname">inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup either tf variables or placeholders for the external
+(control)  inputs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.loss">
+<code class="sig-name descname">loss</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.n_unrollings">
+<em class="property">property </em><code class="sig-name descname">n_unrollings</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.n_unrollings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.reset_inputs">
+<code class="sig-name descname">reset_inputs</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.reset_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.unrolled">
+<em class="property">property </em><code class="sig-name descname">unrolled</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.unrolled" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of unrolled networks</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.x">
+<em class="property">property </em><code class="sig-name descname">x</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.x0">
+<code class="sig-name descname">x0</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.x0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.SimpleRnn.RnnOutput.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.RnnOutput.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.SimpleRnn.cell">
+<code class="sig-name descname">cell</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.recurrent.SimpleRnn.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">x0=None</em>, <em class="sig-param">inputs=None</em>, <em class="sig-param">n_unrollings=None</em>, <em class="sig-param">options=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.SimpleRnn.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.SimpleRnn.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify a regularizer for a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.StateSpaceCell">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">StateSpaceCell</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.recurrent.BaseCell" title="twodlearn.recurrent.BaseCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.BaseCell</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.recurrent.StateSpaceCell.call_cell">
+<code class="sig-name descname">call_cell</code><span class="sig-paren">(</span><em class="sig-param">inputs</em>, <em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceCell.call_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.StateSpaceCell.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceCell.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.StateSpaceCell.output_model">
+<code class="sig-name descname">output_model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceCell.output_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>outputs = call(state)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Callable model with signature</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.StateSpaceCell.state_model">
+<code class="sig-name descname">state_model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceCell.state_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>next_state = call(inputs, state)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Callable model with signature</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.recurrent.StateSpaceCell.state_shape">
+<code class="sig-name descname">state_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceCell.state_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twodlearn.recurrent.StateSpaceDense">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">StateSpaceDense</code><span class="sig-paren">(</span><em class="sig-param">trainable=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.StateSpaceDense" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twodlearn.recurrent.StateSpaceCell" title="twodlearn.recurrent.StateSpaceCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.StateSpaceCell</span></code></a>, <a class="reference internal" href="#twodlearn.recurrent.DenseCell" title="twodlearn.recurrent.DenseCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.recurrent.DenseCell</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.recurrent.explicit_call_wrapper">
+<code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">explicit_call_wrapper</code><span class="sig-paren">(</span><em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.explicit_call_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-factors the call function of a model/layer to have the signature:
+call(inputs, state)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.recurrent.same_state_output_wrapper">
+<code class="sig-prename descclassname">twodlearn.recurrent.</code><code class="sig-name descname">same_state_output_wrapper</code><span class="sig-paren">(</span><em class="sig-param">cell</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.recurrent.same_state_output_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-factors the call function of a model/layer to have the signature:
+outputs, outputs = call(inputs, state)</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.stacked.html" class="btn btn-neutral float-right" title="twodlearn.stacked module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.parallel.html" class="btn btn-neutral float-left" title="twodlearn.parallel module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

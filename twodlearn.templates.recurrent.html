@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>twodlearn.templates.recurrent module &mdash; twodlearn 0.6.0.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="twodlearn.templates.supervised module" href="twodlearn.templates.supervised.html" />
+    <link rel="prev" title="twodlearn.templates.bayesnet module" href="twodlearn.templates.bayesnet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> twodlearn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_twodlearn.html">Twodlearn API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="twodlearn.html">twodlearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="twodlearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.bayesnet.html">twodlearn.bayesnet package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.core.html">twodlearn.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.datasets.html">twodlearn.datasets package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.reinforce.html">twodlearn.reinforce package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="twodlearn.templates.html">twodlearn.templates package</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.templates.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5 current"><a class="reference internal" href="twodlearn.templates.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.templates.bayesnet.html">twodlearn.templates.bayesnet module</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">twodlearn.templates.recurrent module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.templates.supervised.html">twodlearn.templates.supervised module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="twodlearn.templates.unsupervised.html">twodlearn.templates.unsupervised module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="twodlearn.templates.html#module-twodlearn.templates">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="twodlearn.utils.html">twodlearn.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="twodlearn.html#module-twodlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">twodlearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api_twodlearn.html">Twodlearn API</a> &raquo;</li>
+        
+          <li><a href="twodlearn.html">twodlearn package</a> &raquo;</li>
+        
+          <li><a href="twodlearn.templates.html">twodlearn.templates package</a> &raquo;</li>
+        
+      <li>twodlearn.templates.recurrent module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/danmar3/twodlearn/blob/doc/doc/sphinx/source/twodlearn.templates.recurrent.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-twodlearn.templates.recurrent">
+<span id="twodlearn-templates-recurrent-module"></span><h1>twodlearn.templates.recurrent module<a class="headerlink" href="#module-twodlearn.templates.recurrent" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator">
+<em class="property">class </em><code class="sig-prename descclassname">twodlearn.templates.recurrent.</code><code class="sig-name descname">Mlp2LstmEstimator</code><span class="sig-paren">(</span><em class="sig-param">options=None</em>, <em class="sig-param">logger_path='tmp'</em>, <em class="sig-param">session=None</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twodlearn.templates.supervised.html#twodlearn.templates.supervised.SupervisedEstimator" title="twodlearn.templates.supervised.SupervisedEstimator"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.templates.supervised.SupervisedEstimator</span></code></a></p>
+<dl class="method">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.build_graph">
+<code class="sig-name descname">build_graph</code><span class="sig-paren">(</span><em class="sig-param">init_x0</em>, <em class="sig-param">init_inputs</em>, <em class="sig-param">n_unrollings</em>, <em class="sig-param">batch_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.build_graph" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">max_iter=100</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">feed_train=None</em>, <em class="sig-param">feed_valid=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.model">
+<code class="sig-name descname">model</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.monitor">
+<code class="sig-name descname">monitor</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator used to specify an optional property inside a model.
+The decorator works similar to &#64;property, but the specified
+method correponds to the initialization of the property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.normalizer">
+<code class="sig-name descname">normalizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.normalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘dataset’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.test">
+<code class="sig-name descname">test</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_unrollings’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.train">
+<code class="sig-name descname">train</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoinit with arguments [‘n_unrollings’, ‘regularizer_scale’]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.visualize_fit">
+<code class="sig-name descname">visualize_fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">n_steps=None</em>, <em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.visualize_fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="twodlearn.templates.recurrent.Mlp2LstmEstimator.visualize_predictions">
+<code class="sig-name descname">visualize_predictions</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">inputs</em>, <em class="sig-param">targets</em>, <em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.Mlp2LstmEstimator.visualize_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="twodlearn.templates.recurrent.next_batch_for_narx">
+<code class="sig-prename descclassname">twodlearn.templates.recurrent.</code><code class="sig-name descname">next_batch_for_narx</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">window_size</em>, <em class="sig-param">n_steps</em>, <em class="sig-param">batch_size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/templates/recurrent.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.templates.recurrent.next_batch_for_narx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a batch in a narx format: x0, y, inputs.
+:param dataset: time series dataset.
+:type dataset: TSDataset
+:param window_size: number of steps to include in x0.
+:type window_size: int
+:param n_steps: number of steps to include in y and u.
+:type n_steps: int
+:param batch_size: number of samples in the batch.
+:type batch_size: int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(x0, y, u)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="twodlearn.templates.supervised.html" class="btn btn-neutral float-right" title="twodlearn.templates.supervised module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="twodlearn.templates.bayesnet.html" class="btn btn-neutral float-left" title="twodlearn.templates.bayesnet module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Daniel Marino
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

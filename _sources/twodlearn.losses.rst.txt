@@ -1,0 +1,7 @@
+twodlearn.losses module
+=======================
+
+.. automodule:: twodlearn.losses
+   :members:
+   :undoc-members:
+   :show-inheritance:
