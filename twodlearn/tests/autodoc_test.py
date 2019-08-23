@@ -22,7 +22,7 @@ class DocstringTest(unittest.TestCase):
             doc = inspect.getdoc(tdl.convnet.Conv2DLayer)
         else:
             doc = inspect.getdoc(tdl.convnet.Conv2DLayer.__init__)
-        assert ("kernel_size (InputArgument): Size of the convolution "
+        assert ("kernel_size: (:class:`~twodlearn.core.common.InputArgument`) Size of the convolution "
                 "kernels. Must be a tuple/list of two elements "
                 "(height, width)") in doc
 
