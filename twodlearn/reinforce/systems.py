@@ -10,12 +10,8 @@ try:
 except ImportError:
     pass
 
-if twodlearn.reinforce.USING_MUJOCO:
-    from .models.cartpole_mujoco import CartpoleEnv
-    from .models.acrobot_mujoco import AcrobotEnv
-elif twodlearn.reinforce.USING_BULLET:
-    from .models.cartpole_bullet import CartpoleEnv
-    from .models.acrobot_bullet import AcrobotEnv
+from .models.cartpole_bullet import CartpoleEnv
+from .models.acrobot_bullet import AcrobotEnv
 
 
 class System(object):
