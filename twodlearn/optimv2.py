@@ -20,6 +20,25 @@ class ConstantLr(object):
 
 @tdl.core.create_init_docstring
 class BaseOptimizer(tdl.core.TdlModel):
+    """Manages and runs an optimization operation over a loss tensor.
+
+    The basic usage is as follows ::
+
+        optim = Optimizer(
+            loss=loss,
+            learning_rate=0.01,
+            var_list=tdl.core.get_trainable(model))
+
+    BaseOptimizer only runs the optimization operation. The BaseOptimizer can
+    be extended using the wrap() method to construct optimizer classes that
+    include monitoring, status bar, checkpoints, value checks, etc.
+    The class can be extended as follows ::
+
+        MonitoredOptimizer = BaseOptimizer.wrap(CheckNan) \\
+                                          .wrap(Monitor)  \\
+                                          .wrap(StatusBar)
+
+    """
     @classmethod
     def wrap(cls, other):
         ''' BaseOptimizer.wrap(Monitor).wrap(Logger)'''
@@ -201,7 +220,7 @@ class Monitor(tdl.core.TdlModel):
                  else value['train'] if isinstance(value['train'], dict)
                  else {'train': value['train']})
         valid = (None if 'valid' not in value
-                 else value['valid'] if isinstance(value['value'], dict)
+                 else value['valid'] if isinstance(value['valid'], dict)
                  else {'valid': value['valid']})
         monitor = (None if 'monitoring' not in value
                    else value['monitoring']
@@ -283,6 +302,7 @@ class Monitor(tdl.core.TdlModel):
 
 @tdl.core.create_init_docstring
 class StatusBar(tdl.core.TdlModel):
+    '''StatusBar adds a progress bar that also displays some tensor values.'''
     @tdl.core.SubmodelInit
     def status_bar(self, update_freq=10):
         return tdl.core.SimpleNamespace(
@@ -316,6 +336,12 @@ class StatusBar(tdl.core.TdlModel):
 class Checkpointable(tdl.core.TdlModel):
     @tdl.core.SubmodelInit
     def checkpoints(self, buffer_size=10, update_dt=5.0):
+        """checkpoints save the value of variables.
+
+        Args:
+            buffer_size (int): number of checkpoints saved in the buffer.
+            update_dt (float): minimum time for the checkpoints to be stored.
+        """
         tdl.core.assert_initialized(self, 'checkpoints', ['var_list'])
 
         def restore(idx=-1):
@@ -359,7 +385,7 @@ class Checkpointable(tdl.core.TdlModel):
 
 @tdl.core.create_init_docstring
 class CheckProgress(tdl.core.TdlModel):
-    '''reset to last checkpoint if progress deteriorates.'''
+    '''CheckProgress resets to last checkpoint if progress deteriorates.'''
 
     @tdl.core.SubmodelInit
     def progress(self, filter_window=50, reset_multiplier=10.0):
@@ -434,8 +460,8 @@ class CheckProgress(tdl.core.TdlModel):
 
 
 class CheckpointableProgress(Checkpointable):
-    '''stores a checkpoint in internal buffer at a given frequency only if
-    progress has been made.'''
+    '''CheckpointableProgress stores a checkpoint in internal buffer at a given
+    frequency only if progress has been made.'''
     @tdl.core.SubmodelInit
     def filtered_target(self, window_size=30):
         def reset():
