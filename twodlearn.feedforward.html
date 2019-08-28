@@ -195,9 +195,9 @@
 <p>Standard affine (W*X+b) fully connected layer</p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.feedforward.AffineLayer.units">
-<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.units" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+<dt id="twodlearn.feedforward.AffineLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -207,21 +207,21 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.feedforward.AffineLayer.kernel">
-<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+<dt id="twodlearn.feedforward.AffineLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.AffineLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="twodlearn.feedforward.AffineLayer.bias">
 <code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.bias" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.feedforward.AffineLayer.regularizer">
-<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.AffineLayer.regularizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
 </dd></dl>
 
 <dl class="class">
@@ -541,9 +541,9 @@ method correponds to the initialization of the regularizer.</p>
 <p>Standard fully connected layer</p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.feedforward.DenseLayer.units">
-<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.units" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+<dt id="twodlearn.feedforward.DenseLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -553,27 +553,27 @@ method correponds to the initialization of the regularizer.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="twodlearn.feedforward.DenseLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="twodlearn.feedforward.DenseLayer.activation">
 <code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.activation" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.feedforward.DenseLayer.kernel">
-<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+<dt id="twodlearn.feedforward.DenseLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="twodlearn.feedforward.DenseLayer.bias">
 <code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.bias" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.feedforward.DenseLayer.regularizer">
-<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.DenseLayer.regularizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
 </dd></dl>
 
 <dl class="class">
@@ -690,15 +690,9 @@ method correponds to the initialization of the regularizer.</p>
 <p>Standard linear (W*X) fully connected layer</p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.feedforward.LinearLayer.units">
-<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.units" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.feedforward.LinearLayer.regularizer">
-<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.regularizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
+<dt id="twodlearn.feedforward.LinearLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -708,9 +702,15 @@ method correponds to the initialization of the regularizer.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.feedforward.LinearLayer.kernel">
-<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+<dt id="twodlearn.feedforward.LinearLayer.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.feedforward.LinearLayer.regularizer">
+<code class="sig-name descname">regularizer</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/feedforward.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.feedforward.LinearLayer.regularizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Regularizer" title="twodlearn.core.common.Regularizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Regularizer</span></code></a>) Decorator used to specify a regularizer for a model. The decorator works similar to &#64;property, but the specified method correponds to the initialization of the regularizer.</p>
 </dd></dl>
 
 <dl class="class">

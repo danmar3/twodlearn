@@ -194,15 +194,15 @@
 <dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv1x1Proj.units">
-<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.units" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+<dt id="twodlearn.convnet.Conv1x1Proj._linop">
+<code class="sig-name descname">_linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj._linop" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv1x1Proj.use_bias">
-<code class="sig-name descname">use_bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.use_bias" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+<dt id="twodlearn.convnet.Conv1x1Proj.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -212,21 +212,21 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv1x1Proj._linop">
-<code class="sig-name descname">_linop</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj._linop" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.Submodel" title="twodlearn.core.common.Submodel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Submodel</span></code></a>)</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="twodlearn.convnet.Conv1x1Proj.activation">
 <code class="sig-name descname">activation</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.activation" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv1x1Proj.kernel">
-<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+<dt id="twodlearn.convnet.Conv1x1Proj.units">
+<code class="sig-name descname">units</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Number of output units (int).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv1x1Proj.use_bias">
+<code class="sig-name descname">use_bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv1x1Proj.use_bias" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -312,9 +312,33 @@ instead of an integer.</p>
 <dd><p>Bases: <a class="reference internal" href="twodlearn.core.layers.html#twodlearn.core.layers.Layer" title="twodlearn.core.layers.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.core.layers.Layer</span></code></a></p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DLayer.strides">
-<code class="sig-name descname">strides</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.strides" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Convolution strides. Default is (1, 1).</p>
+<dt id="twodlearn.convnet.Conv2DLayer.padding">
+<code class="sig-name descname">padding</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.padding" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Padding for the convolution. It could be either ‘valid’ or ‘same’. Default is ‘valid’.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DLayer.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DLayer.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Input tensor shape: (n_samples, n_rows, n_cols, n_channels).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DLayer.kernel_size">
+<code class="sig-name descname">kernel_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.kernel_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Size of the convolution kernels. Must be a tuple/list of two elements (height, width)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DLayer.dilation_rate">
+<code class="sig-name descname">dilation_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.dilation_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Defaults to (1, 1).</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -330,39 +354,15 @@ instead of an integer.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DLayer.input_shape">
-<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.input_shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Input tensor shape: (n_samples, n_rows, n_cols, n_channels).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DLayer.dilation_rate">
-<code class="sig-name descname">dilation_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.dilation_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Defaults to (1, 1).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DLayer.kernel">
-<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="twodlearn.convnet.Conv2DLayer.bias">
 <code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.bias" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’, ‘use_bias’]</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DLayer.kernel_size">
-<code class="sig-name descname">kernel_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.kernel_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Size of the convolution kernels. Must be a tuple/list of two elements (height, width)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DLayer.padding">
-<code class="sig-name descname">padding</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.padding" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Padding for the convolution. It could be either ‘valid’ or ‘same’. Default is ‘valid’.</p>
+<dt id="twodlearn.convnet.Conv2DLayer.strides">
+<code class="sig-name descname">strides</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DLayer.strides" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Convolution strides. Default is (1, 1).</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -469,9 +469,39 @@ Default is ‘valid’.</p>
 <dd><p>Bases: <a class="reference internal" href="#twodlearn.convnet.Conv2DLayer" title="twodlearn.convnet.Conv2DLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">twodlearn.convnet.Conv2DLayer</span></code></a></p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.strides">
-<code class="sig-name descname">strides</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.strides" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Convolution strides. Default is (1, 1).</p>
+<dt id="twodlearn.convnet.Conv2DTranspose.padding">
+<code class="sig-name descname">padding</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.padding" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Padding for the convolution. It could be either ‘valid’ or ‘same’. Default is ‘valid’.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DTranspose.kernel">
+<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DTranspose.output_padding">
+<code class="sig-name descname">output_padding</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.output_padding" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DTranspose.input_shape">
+<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Input tensor shape: (n_samples, n_rows, n_cols, n_channels).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DTranspose.kernel_size">
+<code class="sig-name descname">kernel_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.kernel_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Size of the convolution kernels. Must be a tuple/list of two elements (height, width)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.convnet.Conv2DTranspose.dilation_rate">
+<code class="sig-name descname">dilation_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.dilation_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Defaults to (1, 1).</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -487,45 +517,15 @@ Default is ‘valid’.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.input_shape">
-<code class="sig-name descname">input_shape</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.input_shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Input tensor shape: (n_samples, n_rows, n_cols, n_channels).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.output_padding">
-<code class="sig-name descname">output_padding</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.output_padding" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.dilation_rate">
-<code class="sig-name descname">dilation_rate</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.dilation_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Defaults to (1, 1).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.kernel">
-<code class="sig-name descname">kernel</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’]</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="twodlearn.convnet.Conv2DTranspose.bias">
 <code class="sig-name descname">bias</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.bias" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.ParameterInit" title="twodlearn.core.common.ParameterInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterInit</span></code></a>) Autoinit with arguments [‘initializer’, ‘trainable’, ‘use_bias’]</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.kernel_size">
-<code class="sig-name descname">kernel_size</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.kernel_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Size of the convolution kernels. Must be a tuple/list of two elements (height, width)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.convnet.Conv2DTranspose.padding">
-<code class="sig-name descname">padding</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.padding" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Padding for the convolution. It could be either ‘valid’ or ‘same’. Default is ‘valid’.</p>
+<dt id="twodlearn.convnet.Conv2DTranspose.strides">
+<code class="sig-name descname">strides</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/convnet.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.convnet.Conv2DTranspose.strides" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) Convolution strides. Default is (1, 1).</p>
 </dd></dl>
 
 <dl class="method">

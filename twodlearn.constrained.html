@@ -273,15 +273,15 @@ For example, PositiveVariable is only allowed to take positive values.</p>
 <p>This fuction uses tf.nn.softplus to ensure positive values.</p>
 <p>Tdl autoinitialization with arguments:</p>
 <dl class="attribute">
-<dt id="twodlearn.constrained.PositiveVariable.raw">
-<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariable.raw" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SimpleParameter" title="twodlearn.core.common.SimpleParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleParameter</span></code></a>) raw value before making a transformation</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="twodlearn.constrained.PositiveVariable.tolerance">
 <code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariable.tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) tolerance for positive variables.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twodlearn.constrained.PositiveVariable.raw">
+<code class="sig-name descname">raw</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariable.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.SimpleParameter" title="twodlearn.core.common.SimpleParameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleParameter</span></code></a>) raw value before making a transformation</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -346,6 +346,12 @@ This function uses pow(x,2) as a reparameterization of the variable</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="twodlearn.constrained.PositiveVariableExp.tolerance">
+<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariableExp.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) tolerance for positive variables.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="twodlearn.constrained.PositiveVariableExp.max">
 <code class="sig-name descname">max</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariableExp.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>)</p>
@@ -355,12 +361,6 @@ This function uses pow(x,2) as a reparameterization of the variable</p>
 <dt id="twodlearn.constrained.PositiveVariableExp.value">
 <code class="sig-name descname">value</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariableExp.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.OutputValue" title="twodlearn.core.common.OutputValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputValue</span></code></a>)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="twodlearn.constrained.PositiveVariableExp.tolerance">
-<code class="sig-name descname">tolerance</code><a class="reference external" href="https://github.com/danmar3/twodlearn/blob/master/twodlearn/constrained.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twodlearn.constrained.PositiveVariableExp.tolerance" title="Permalink to this definition">¶</a></dt>
-<dd><p>(<a class="reference internal" href="twodlearn.core.common.html#twodlearn.core.common.InputArgument" title="twodlearn.core.common.InputArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputArgument</span></code></a>) tolerance for positive variables.</p>
 </dd></dl>
 
 <dl class="method">
