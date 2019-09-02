@@ -68,7 +68,7 @@ def check_dep(installed, target):
 
 
 def get_dependencies():
-    tf_names = ['tensorflow-gpu>=1.14,<2', 'tensorflow>=1.14,<2', 'tf-nightly']
+    tf_names = ['tensorflow-gpu>=1.13,<2', 'tensorflow>=1.13,<2', 'tf-nightly']
     tf_installed = any([
         any(installed.split('==')[0] == split_name_ver(tfname)[0]
             for tfname in tf_names)
@@ -102,7 +102,7 @@ setup(name='twodlearn',
       install_requires=get_dependencies(),
       python_requires='>=3.5.2',
       extras_require={
-          'reinforce': ['gym', 'pybullet==2.4.5', 'casadi'],
+          'reinforce': ['gym==0.12.1', 'pybullet==2.4.5', 'casadi'],
           'development': ['pytest', 'line_profiler', 'pytest-faulthandler',
                           'jupyter'],
       },

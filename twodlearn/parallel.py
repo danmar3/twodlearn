@@ -7,10 +7,7 @@ import collections
 import numpy as np
 import tensorflow as tf
 import twodlearn as tdl
-try:
-    import tensorflow.nest as nest
-except ImportError:
-    nest = tf.contrib.framework.nest
+from .core import nest
 
 
 @tdl.core.create_init_docstring

@@ -1,5 +1,6 @@
 import collections
 import tensorflow as tf
+from . import nest
 from . import common
 from .common import (TdlModel, SimpleNamespace,
                      _find_tdl_attrs,
@@ -73,9 +74,9 @@ def get_parameters(model, include_inputs=False):
     # convert nested structures to list
     if isinstance(model, SimpleNamespace):
         model = namespace_to_list(model)
-    elif common.nest.is_nested(model):
+    elif nest.is_nested(model):
         model = [mj
-                 for m in common.nest.flatten(model)
+                 for m in nest.flatten(model)
                  for mj in (namespace_to_list(m)
                             if isinstance(m, SimpleNamespace)
                             else [m])
@@ -307,8 +308,8 @@ def find_instances(model, classinfo):
     '''
     if isinstance(model, classinfo):
         return set([model])
-    if common.nest.is_nested(model):
-        model = [mi for mi in common.nest.flatten(model)
+    if nest.is_nested(model):
+        model = [mi for mi in nest.flatten(model)
                  if isinstance(mi, collections.Hashable)]
         if isinstance(model, dict):
             model = model.values()

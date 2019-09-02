@@ -25,10 +25,6 @@ try:
     from types import SimpleNamespace as PySimpleNamespace
 except ImportError:
     from argparse import Namespace as PySimpleNamespace
-try:
-    from tensorflow import nest
-except ImportError:
-    from tensorflow.contrib.framework import nest
 
 
 PYTHON_VERSION = sys.version_info[0]

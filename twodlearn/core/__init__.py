@@ -1,4 +1,5 @@
 from . import exceptions
+from . import nest
 from .shortcuts import PropertyShortcuts
 from .options import global_options, NotTrainable
 from .context import DisableAutoinit

@@ -7,6 +7,7 @@ import types
 import functools
 import collections
 import tensorflow as tf
+from . import nest
 from . import common
 from .common import (InputArgument, InputParameter, InputModel, InferenceInput,
                      InputModelInit,
@@ -15,7 +16,6 @@ from .common import (InputArgument, InputParameter, InputModel, InferenceInput,
                      SimpleParameter,
                      Regularizer, OptionalProperty,
                      is_property_initialized,
-                     nest
                      )
 from .search import get_variables, is_trainable, SEARCHABLE_CLASSES
 
