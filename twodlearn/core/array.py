@@ -40,13 +40,25 @@ class Np2dMesh(object):
         self._mesh = np.meshgrid(x1, x2)
 
 
-def reduce_sum_rightmost(x, ndims):
-    ''' Return tensor with right-most ndims summed'''
+def reduce_sum_rightmost(x, ndims=None):
+    '''Return tensor with right-most ndims summed.
+
+    Args:
+        x (tf.Tensor): array to which the reduce operation is applied.
+        ndims (int): (rightmost) number of dimensions to reduce.
+            If None, ndims defaults to ndims=tf.rank(x) - 1.
+    Returns:
+        tf.Tensor: result of the reduce operation.
+    '''
     x = tf.convert_to_tensor(x)
     if x.shape.ndims is not None:
-        axis = tf.range(x.shape.ndims - ndims, x.shape.ndims)
+        axis = (tf.range(1, x.shape.ndims)
+                if ndims is None else
+                tf.range(x.shape.ndims - ndims, x.shape.ndims))
     else:
-        axis = tf.range(tf.rank(x) - ndims, tf.rank(x))
+        axis = (tf.range(1, tf.rank(x))
+                if ndims is None else
+                tf.range(tf.rank(x) - ndims, tf.rank(x)))
     return tf.reduce_sum(x, axis=axis)
 
 
