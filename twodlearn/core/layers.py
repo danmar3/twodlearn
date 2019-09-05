@@ -186,3 +186,14 @@ class Layer(tf.keras.layers.Layer):
             [v for v in vars if is_trainable(v)])
         self._non_trainable_weights.extend(
             [v for v in vars if not is_trainable(v)])
+
+
+def build_wrapper(call_fn):
+    '''Checks that layer is built before executing the function.'''
+    @functools.wraps(call_fn)
+    def call(obj, *args, **kargs):
+        if not obj.built:
+            obj.build()
+        output = call_fn(obj, *args, **kargs)
+        return output
+    return call

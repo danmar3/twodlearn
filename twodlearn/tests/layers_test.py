@@ -72,6 +72,32 @@ class LayersTest(unittest.TestCase):
         assert len(tdl.core.get_variables(test2)) == test2.n_components*2 + 1
         assert len(tdl.core.get_trainable(test2)) == test2.n_components*2
 
+    def test_build_wrapper(self):
+        @tdl.core.create_init_docstring
+        class TestLayer(tdl.core.layers.Layer):
+            @tdl.core.SimpleParameter
+            def units(self, value):
+                if value is None:
+                    value = -1
+                return value
+
+            @tdl.core.layers.build_wrapper
+            def get_value(self):
+                return self.units
+
+        layer1 = TestLayer()
+        assert not tdl.core.is_property_initialized(layer1, 'units')
+        out1 = layer1.get_value()
+        assert out1 == -1
+        assert tdl.core.is_property_initialized(layer1, 'units')
+        assert layer1.units == -1
+
+        layer2 = TestLayer(units=100)
+        assert tdl.core.is_property_initialized(layer2, 'units')
+        out2 = layer2.get_value()
+        assert out2 == 100
+        assert layer2.units == 100
+
 
 if __name__ == "__main__":
     unittest.main()
