@@ -11,11 +11,9 @@ def solvevec(M_cholesky, x):
     Returns:
         tf.Tensor: solution of inv(M) @ x
     """
-    if not hasattr(M_cholesky, 'linop'):
-        raise TypeError('M_cholesky expected to have linop property')
     x = tf.convert_to_tensor(x)
-    return M_cholesky.linop.solvevec(
-        M_cholesky.linop.solvevec(x),
+    return M_cholesky.solvevec(
+        M_cholesky.solvevec(x),
         adjoint=True)
 
 
@@ -29,14 +27,9 @@ def solvemat(M_cholesky, A):
         tf.Tensor: solution of inv(M) @ A
     """
     A = tf.convert_to_tensor(A)
-    if isinstance(M_cholesky, tf.linalg.LinearOperator):
-        M_linop = M_cholesky
-    else:
-        assert hasattr(M_cholesky, 'linop')
-        M_linop = M_cholesky.linop
-
-    return M_linop.solve(M_linop.solve(A),
-                         adjoint=True)
+    return M_cholesky.solve(
+        M_cholesky.solve(A),
+        adjoint=True)
 
 
 def is_diagonal_linop(M):
