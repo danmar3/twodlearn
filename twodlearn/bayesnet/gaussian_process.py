@@ -819,13 +819,15 @@ class BasisBase(tdl.core.TdlModel):
 
     def basis_fn(self, inputs):
         x = tf.convert_to_tensor(inputs)
-        assert x.shape.ndims == 2,\
-            'BasisBase is only defined for matrices'
-        n_batch = (x.shape[0] if x.shape[0].value is not None
-                   else tf.shape(x)[0])
-        return tf.concat([x, tf.ones(shape=[n_batch, 1])], axis=1)
+        if x.shape.is_fully_defined():
+            batch_shape = x.shape[0:-1].concatenate(1)
+        else:
+            batch_shape = tf.concat([tf.shape(x)[0:-1], 1])
+        return tf.concat([x, tf.ones(shape=batch_shape)],
+                         axis=-1)
 
     class Basis(object):
+        '''TODO(daniel): return a gaussian distribution.'''
         def matvec(self, vec):
             '''Evaluate basis over the given vectors.'''
             return self.linop.matvec(vec)
