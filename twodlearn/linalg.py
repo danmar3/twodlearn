@@ -296,6 +296,9 @@ class Cholesky(tdl.core.TdlModel):
     def matvec(self, x, adjoint=False, name='matvec'):
         return self.linop.matvec(x=x, adjoint=adjoint, name=name)
 
+    def diag_part(self, name="diag_part"):
+        return self.linop.diag_part(name=name)
+
     def shape_tensor(self):
         ''' Shape determined at runtime '''
         return self.linop.shape_tensor()
