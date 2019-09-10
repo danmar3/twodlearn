@@ -9,8 +9,8 @@ import numpy as np
 import tensorflow as tf
 import twodlearn as tdl
 import matplotlib.pyplot as plt
-from twodlearn.bayesnet.gaussian_process import (GaussianProcess,
-                                                 GPNegLogEvidence)
+from twodlearn.bayesnet.gaussian_process import (
+    GaussianProcess, ExplicitVGP)
 
 TESTS_PATH = os.path.dirname(os.path.abspath(__file__))
 TMP_PATH = os.path.join(TESTS_PATH, 'tmp/')
@@ -118,6 +118,56 @@ class GpmTest(unittest.TestCase):
             np.testing.assert_almost_equal(
                 np.squeeze(test.covariance.eval()),
                 np.squeeze(cov), decimal=4)
+
+    def test_shapes(self):
+        '''test shapes of vgp.'''
+        m = 20
+        n_inputs = 1
+        n_states = 4
+        n_outputs = 4
+        model = ExplicitVGP(
+            m=m, input_shape=[None, n_inputs + n_states],
+            batch_shape=[n_outputs],
+            basis=tdl.AutoInit(),
+            xm={'independent': True},
+            kernel={'l_scale': tdl.constrained.PositiveVariableExp(
+                np.power(1.0/m, 1.0/n_outputs))
+            })
+
+        batch_shape = 51
+        inputs = tf.zeros([batch_shape, n_inputs+n_states])
+        labels = tf.zeros([n_outputs, batch_shape])
+        posterior = model.predict(inputs)
+        loss = posterior.neg_elbo(labels=labels)
+        loss = tf.convert_to_tensor(loss)
+        assert posterior.loc.shape.as_list() == [4, 51]
+        assert posterior.covariance.shape.as_list() == [4, 51, 51]
+        assert loss.shape.as_list() == [4]
+
+    def test_shapes_independent(self):
+        '''test shapes of vgp using (batched) independent inputs.'''
+        m = 20
+        n_inputs = 1
+        n_states = 4
+        n_outputs = 4
+        model = ExplicitVGP(
+            m=m, input_shape=[None, n_inputs + n_states],
+            batch_shape=[n_outputs],
+            basis=tdl.AutoInit(),
+            xm={'independent': True},
+            kernel={'l_scale': tdl.constrained.PositiveVariableExp(
+                np.power(1.0/m, 1.0/n_outputs))
+            })
+
+        batch_shape = 51
+        inputs = tf.zeros([batch_shape, n_inputs+n_states])
+        labels = tf.zeros([batch_shape, n_outputs, 1])
+        posterior = model.predict(inputs[:, tf.newaxis, tf.newaxis, ...])
+        loss = posterior.neg_elbo(labels=labels)
+        loss = tf.convert_to_tensor(loss)
+        assert posterior.loc.shape.as_list() == [51, 4, 1]
+        assert posterior.covariance.shape.as_list() == [51, 4, 1, 1]
+        assert loss.shape.as_list() == [51, 4]
 
 
 if __name__ == "__main__":
