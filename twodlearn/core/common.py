@@ -267,7 +267,42 @@ class UnsetProperty(object):
 class TdlDescriptor(object):
     ''' Decorator used to specify a parameter inside a model.
     The decorator works similar to @property, but the specified
-    method correponds to the initialization of the parameter '''
+    method correponds to the initialization of the parameter.
+
+    Examples:
+        The tdl descriptor allows to specify a default initialization function
+        for a class attribute ::
+
+            class Layer(core.Layer):
+                @tdl.core.TdlDescriptor
+                def submodel(self, value):
+                    # This is the initialization method for the attribute
+                    # submodel. Value is an attribute given as a key-word
+                    # parameter when the class is initialized.
+                    # If no value is provided as parameter, value is None.
+                    # The return value is stored and is returned by the
+                    # __get__ function.
+                    if value is None:
+                        # No parameter provided, give adefault value
+                        value = 0.0
+                    # The return value is stored and is the value of the
+                    # attribute after initialization
+                    return value
+
+        The required and optional methods use some default initialization
+        functions that are commonly used. They allow to reduce the number of
+        lines ::
+
+            class Layer(core.Layer):
+                n_dims = core.InputArgument.optional(
+                    'n_dims', doc='dimensions of the GMM model')
+                n_components = core.InputArgument.required(
+                    'n_components', doc='number of mixture components')
+                alpha = core.InputArgument.optional(
+                    'alpha', doc='is alpha',
+                    default=True)
+
+    '''
     @classmethod
     def required(cls, name, doc=None):
         def finit(self, value):
