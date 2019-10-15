@@ -15,10 +15,14 @@ class ResnetTest(unittest.TestCase):
         input = tf.keras.layers.Input(shape=(28, 28, 1), name='the_input')
         # output_shape
         output_shape = reslayer.compute_output_shape(input.shape)
+        assert output_shape.as_list() == [None, 28, 28, 5]
 
         # output
         output = reslayer(input)
-        assert len(tdl.core.get_trainable(reslayer)) == 2
+        assert output.shape.as_list() == [None, 28, 28, 5]
+
+        # trainable
+        assert len(tdl.core.get_trainable(reslayer)) == 6
 
 
 if __name__ == "__main__":
