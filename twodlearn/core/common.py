@@ -1071,14 +1071,18 @@ def _init_tdl_attrs(obj, kargs, attr_name, AttrClass, allowed_autoinit=None):
                 if not all(r in allowed_autoinit for r in reqs):
                     raise exceptions.InitPreconditionsFailed(
                         obj, name, reqs)
+                # put name back to autoinit
+                init_queue.appendleft(name)
+                # add requirements to left of name
                 for req in reqs:
                     # add requirement to autoinit set if it is not provided
                     if req not in kargs:
                         autoinit_set.add(req)
-                    # Add requirement in init queue if not in there
-                    if req not in init_queue:
-                        init_queue.appendleft(req)
-                init_queue.append(name)
+                    # Add requirement in init queue
+                    if req in init_queue:
+                        init_queue.remove(req)
+                    init_queue.appendleft(req)
+
             except exceptions.NonePropertyAvailable as error:
                 if any([req in kargs for req in error.reqs]):
                     init_queue.appendleft(req)
