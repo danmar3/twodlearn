@@ -144,6 +144,8 @@ class MVN(tdl.core.TdlModel):
         if AutoType is None:
             AutoType = tdl.core.autoinit.AutoVariable()
         if value is None:
+            tdl.core.assert_initialized(
+                self, 'covariance', ['tolerance', 'shape'])
             value = self._PDMatrixClass(
                 raw=AutoType,
                 shape=self.shape.concatenate(self.shape[-1]),
