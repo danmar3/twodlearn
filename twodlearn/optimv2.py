@@ -496,6 +496,80 @@ class CheckpointableProgress(Checkpointable):
         return data
 
 
+class EarlyStopping(CheckpointableProgress):
+    '''EarlyStopping stores a checkpoint in internal buffer at a given
+    frequency only if progress has been made according to an user specified
+    target.
+    '''
+    @tdl.core.SubmodelInit
+    def filtered_target(self, target_tf, window_size=20, threshold=0.03,
+                        method='mean'):
+        '''
+        target_tf: target value.
+        window_size: window size of the filtering buffer.
+        threshold: checkpoint is saved when
+            filtered_value < best_value*(1+threshold)
+        '''
+        def reset():
+            self.filtered_target.buffer = collections.deque(maxlen=window_size)
+            self.filtered_target.best = None
+
+        valid_methods = ['mean', 'median']
+        if method not in valid_methods:
+            raise ValueError(
+                "filtered_target method '{}' is not valid. "
+                "Valid methods are: {}"
+                "".format(self.filtered_target.method, valid_methods))
+
+        return tdl.core.SimpleNamespace(
+                target=tf.convert_to_tensor(target_tf),
+                buffer=collections.deque(maxlen=window_size),
+                best=None,
+                threshold=threshold,
+                method=method,
+                reset=reset)
+
+    def warmup(self, **kwargs):
+        tdl.core.assert_initialized(
+            self, 'warmup', ['checkpoints', 'filtered_target'])
+
+    def step_fn(self, wrapped_fn=None, **kwargs):
+        data = wrapped_fn(self, **kwargs)
+        if self.filtered_target.target.name in data:
+            target_value = data[self.filtered_target.target.name]
+            target_buffer = self.filtered_target.buffer
+            target_buffer.append(target_value)
+            time_check = ((time() - self.checkpoints.last_updated) >
+                          self.checkpoints.update_dt)
+            if time_check:
+                best_value = self.filtered_target.best
+                if self.filtered_target.method == 'mean':
+                    filter_value = (sum(target_buffer) / len(target_buffer))
+                elif self.filtered_target.method == 'median':
+                    filter_value = sorted(target_buffer)[len(target_buffer)//2]
+                else:
+                    raise ValueError(
+                        "filtered_target method '{}' is not valid"
+                        "".format(self.filtered_target.method))
+
+                if len(target_buffer) > 0.5*target_buffer.maxlen:
+                    if best_value is None:
+                        self.checkpoints.save()
+                        self.filtered_target.best = filter_value
+                    else:
+                        threshold_value = \
+                            best_value*(1.0 + self.filtered_target.threshold)
+                        if filter_value < threshold_value:
+                            self.checkpoints.save()
+                            print('checkpoint saved: {} | ({}) {}'.format(
+                                data[self.train_step.name],
+                                data[tf.convert_to_tensor(self.loss).name],
+                                filter_value))
+                        if filter_value < best_value:
+                            self.filtered_target.best = filter_value
+        return data
+
+
 @tdl.core.create_init_docstring
 class Saver(tdl.core.TdlModel):
     @tdl.core.InputArgument
@@ -581,4 +655,9 @@ class CheckNan(tdl.core.TdlModel):
 Optimizer = BaseOptimizer.wrap(CheckNan).wrap(CheckProgress)\
                          .wrap(Monitor)\
                          .wrap(CheckpointableProgress)\
+                         .wrap(StatusBar)
+
+OptimizerEarlyStop = BaseOptimizer.wrap(CheckNan).wrap(CheckProgress)\
+                         .wrap(Monitor)\
+                         .wrap(EarlyStopping)\
                          .wrap(StatusBar)
