@@ -661,6 +661,18 @@ class CommonTest(unittest.TestCase):
                 test2.n_components == 20 and
                 test2.alpha is False)
 
+    def test_provided(self):
+        layer_tdl = tdl.convnet.Conv2DLayer(
+            filters=15, kernel_size=[5, 5],
+            strides=[2, 3], padding='valid', dilation_rate=[1, 1]
+            )
+        assert tdl.core.is_property_provided(layer_tdl, 'filters')
+        assert tdl.core.any_provided(
+            layer_tdl, ['filters', 'strides'])
+        assert tdl.core.all_provided(
+            layer_tdl, ['filters', 'kernel_size', 'strides'])
+
+
 
 if __name__ == "__main__":
     unittest.main()

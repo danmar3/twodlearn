@@ -969,6 +969,20 @@ def assert_initialized_if_available(object, property=None, reqs=None):
             object=object, property=property, reqs=not_init)
 
 
+def is_property_provided(object, property):
+    return property in get_context(object).given_attrs
+
+
+def any_provided(object, reqs):
+    given_attrs = get_context(object).given_attrs
+    return any(r in given_attrs for r in reqs)
+
+
+def all_provided(object, reqs):
+    given_attrs = get_context(object).given_attrs
+    return all(r in given_attrs for r in reqs)
+
+
 def _find_tdl_attrs(cls, AttrClass, ignore=None, AttrBaseClass=None,
                     return_attr_class=False):
     """find attributes of class AttrClass.
