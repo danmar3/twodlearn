@@ -25,4 +25,5 @@ import twodlearn.optimv2
 import twodlearn.monitoring
 import twodlearn.templates
 import twodlearn.kernels
+import twodlearn.image
 import twodlearn.resnet
