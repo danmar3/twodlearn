@@ -106,7 +106,7 @@ class PositiveVariable(TransformedVariable):
 
     def inverse(self, value):
         if isinstance(value, tf.Tensor):
-            return tf.log(tf.exp(tf.abs(value)) - 1)
+            return tf.math.log(tf.exp(tf.abs(value)) - 1)
         else:
             return np.log(np.exp(np.abs(value)) - 1).astype(np.float32)
         return value
@@ -163,7 +163,7 @@ class PositiveVariableExp(TransformedVariable):
 
     def inverse(self, value):
         if isinstance(value, tf.Tensor):
-            return tf.log(value)
+            return tf.math.log(value)
         else:
             return np.log(value).astype(np.float32)
 
