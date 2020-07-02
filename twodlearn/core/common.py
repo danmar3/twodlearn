@@ -370,6 +370,12 @@ class TdlDescriptor(object):
         def run_init():
             try:
                 if isinstance(val, tuple) and len(val) == 2:
+                    # TODO: Deprecate tuple initialization as it is confusing
+                    # and causes several errors
+                    warnings.warn(
+                        'USING TUPLE INITIALIZATION. Tuple initialization is '
+                        'being removed. DO NOT use tuples as initialization '
+                        'arguments.')
                     if isinstance(val[0], autoinit.AutoInit):
                         return self.finit(obj, None, val[1])
                     else:
