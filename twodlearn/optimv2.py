@@ -329,15 +329,21 @@ class StatusBar(tdl.core.TdlModel):
         data = wrapped_fn(self, **kwargs)
         if data[self.train_step.name] % self.status_bar.update_freq == 0:
             self.status_bar.bar.update(self.status_bar.update_freq)
-            info = 'step {} | loss {:.4f} '.format(
-                data[self.train_step.name],
-                np.squeeze(data[self.loss.name]))
+            info = 'step {} '.format(data[self.train_step.name])
+            if isinstance(self, MetricsMgr):
+                for name, buffer in self.metrics.items():
+                    if buffer.tfop.name in data:
+                        info += '| {} {:.4f}'.format(name, buffer.mean())
+            else:
+                info += '| loss {:.4f}'.format(
+                    np.squeeze(data[self.loss.name]))
             if isinstance(self, Monitor):
                 valid_monitors = self.monitor_manager.valid.tf_monitors
                 for monitor in valid_monitors:
                     if monitor.op.name in data:
                         info += '| {} {:.4f}'.format(
                             monitor.name, monitor.mean())
+
             self.status_bar.bar.set_description(info)
         return data
 
@@ -665,7 +671,54 @@ class CheckNan(tdl.core.TdlModel):
         return data
 
 
-SimpleOptimizer = BaseOptimizer.wrap(StatusBar)
+class MetricBuffer(object):
+    def __init__(self, tfop, buffer_size, save_freq=None):
+        self.tfop = tfop
+        self.buffer = collections.deque(maxlen=buffer_size)
+        self.history = list()
+        self._step = 0
+        self._save_freq = (save_freq if save_freq is not None
+                           else buffer_size)
+
+    def mean(self):
+        return sum(self.buffer)/len(self.buffer)
+
+    def as_numpy(self):
+        return np.array(self.history)
+
+    def push(self, value):
+        self.buffer.append(value)
+        self._step += 1
+        if self._step % self._save_freq == 0:
+            self.history.append(self.mean())
+
+
+@tdl.core.create_init_docstring
+class MetricsMgr(tdl.core.TdlModel):
+    @tdl.core.SubmodelInit
+    def metrics(self, ops=None, buffer_size=100):
+        tdl.core.assert_initialized(self, 'metrics', ['loss'])
+        if ops is None:
+            return {'loss':
+                    MetricBuffer(tfop=self.loss, buffer_size=buffer_size)}
+        metrics = {name: MetricBuffer(tfop=value, buffer_size=buffer_size)
+                   for name, value in ops.items()}
+        metrics['loss'] = MetricBuffer(tfop=self.loss, buffer_size=buffer_size)
+        return metrics
+
+    def get_ops(self):
+        tdl.core.assert_initialized(self, 'get_ops', ['metrics'])
+        return {buffer.tfop.name: buffer.tfop
+                for name, buffer in self.metrics.items()}
+
+    def step_fn(self, wrapped_fn=None, **kwargs):
+        data = wrapped_fn(self, **kwargs)
+        for _, buffer in self.metrics.items():
+            buffer.push(data[buffer.tfop.name])
+        return data
+
+
+SimpleOptimizer = BaseOptimizer.wrap(MetricsMgr).wrap(StatusBar)
 
 Optimizer = BaseOptimizer.wrap(CheckNan).wrap(CheckProgress)\
                          .wrap(Monitor)\
