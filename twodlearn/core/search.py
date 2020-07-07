@@ -1,5 +1,6 @@
 import collections
 import tensorflow as tf
+import numpy as np
 from . import nest
 from . import common
 from .common import (TdlModel, SimpleNamespace,
@@ -153,7 +154,50 @@ def get_parameters(model, include_inputs=False):
                            set(model.non_trainable_variables)])
 
 
-def get_variables(model, include_inputs=True):
+def get_variables_set(model):
+    def namespace_to_list(model):
+        return [m for m in model.__dict__.values()]
+
+    this = get_variables_set
+
+    if isinstance(model, tf.Variable):
+        return set([model])
+    elif isinstance(model, dict):
+        return this(list(model.values()))
+    elif isinstance(model, (tf.TensorShape, tf.Tensor, np.ndarray)):
+        return set([])
+    elif isinstance(model, collections.Iterable):
+        if not isinstance(model, (list, tuple)):
+            raise ValueError(f'unexpected iterable ({type(model)}): {model}')
+        vars = [this(mi) for mi in model]
+    elif isinstance(model, SimpleNamespace):
+        return this(namespace_to_list(model))
+    elif nest.is_nested(model):
+        vars = [this(mi) for mi in nest.flatten(model)]
+    elif isinstance(model, tf.keras.layers.Layer):
+        vars = [set(model.trainable_weights),
+                set(model.trainable_variables),
+                set(model.non_trainable_weights),
+                set(model.non_trainable_variables)]
+    elif isinstance(model, TdlModel):
+        attr_names = _find_tdl_attrs(
+            type(model),  AttrClass=common.TDL_DESCRIPTORS)
+        return this([
+            getattr(model, name) for name in attr_names
+            if common.is_property_initialized(model, name)])
+    else:
+        return set([])
+    if vars:
+        return set.union(*vars)
+    else:
+        return set([])
+
+
+def get_variables(model, include_inputs=None):
+    return list(get_variables_set(model))
+
+
+def get_variables_dep(model, include_inputs=True):
     '''get tf variables of a model
 
     Args:
@@ -166,9 +210,11 @@ def get_variables(model, include_inputs=True):
     '''
     params = get_parameters(model, include_inputs=include_inputs)
     if params:
-        params = set.union(*[get_parameters(p, include_inputs=include_inputs)
-                             for p in params
-                             if isinstance(p, (TdlModel, tf.Variable))])
+        extra = [get_parameters(p, include_inputs=include_inputs)
+                 for p in params
+                 if isinstance(p, (TdlModel, tf.Variable))]
+        if extra:
+            params = set.union(*extra)
         params = [mi for mi in params
                   if isinstance(mi, tf.Variable)]
     return params

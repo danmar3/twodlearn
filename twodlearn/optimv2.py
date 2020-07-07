@@ -652,6 +652,8 @@ class CheckNan(tdl.core.TdlModel):
         return data
 
 
+SimpleOptimizer = BaseOptimizer.wrap(StatusBar)
+
 Optimizer = BaseOptimizer.wrap(CheckNan).wrap(CheckProgress)\
                          .wrap(Monitor)\
                          .wrap(CheckpointableProgress)\
