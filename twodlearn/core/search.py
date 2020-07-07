@@ -162,18 +162,18 @@ def get_variables_set(model):
 
     if isinstance(model, tf.Variable):
         return set([model])
-    elif isinstance(model, dict):
-        return this(list(model.values()))
     elif isinstance(model, (tf.TensorShape, tf.Tensor, np.ndarray)):
         return set([])
-    elif isinstance(model, collections.Iterable):
-        if not isinstance(model, (list, tuple)):
-            raise ValueError(f'unexpected iterable ({type(model)}): {model}')
-        vars = [this(mi) for mi in model]
     elif isinstance(model, SimpleNamespace):
         return this(namespace_to_list(model))
     elif nest.is_nested(model):
         vars = [this(mi) for mi in nest.flatten(model)]
+    elif isinstance(model, dict):
+        return this(list(model.values()))
+    elif isinstance(model, collections.Iterable):
+        if not isinstance(model, (list, tuple)):
+            raise ValueError(f'unexpected iterable ({type(model)}): {model}')
+        vars = [this(mi) for mi in model]
     elif isinstance(model, tf.keras.layers.Layer):
         vars = [set(model.trainable_weights),
                 set(model.trainable_variables),
@@ -193,11 +193,22 @@ def get_variables_set(model):
         return set([])
 
 
-def get_variables(model, include_inputs=None):
+def get_variables(model, *args, **kargs):
+    '''get tf variables of a model
+
+    Args:
+        model (TdlModel, TdlLayer): model or nested sequence of models.
+            Supports SingleNamespaces as well.
+    Returns:
+        list: list of tf variables.
+    '''
+    if args or kargs:
+        raise ValueError('get_variables now does not support include_inputs '
+                         'anymore.')
     return list(get_variables_set(model))
 
 
-def get_variables_dep(model, include_inputs=True):
+def _get_variables_deprecated(model, include_inputs=True):
     '''get tf variables of a model
 
     Args:
@@ -240,7 +251,7 @@ else:
             raise TypeError("Type {} not recognized".format(type(variable)))
 
 
-def get_trainable(model, include_inputs=True):
+def get_trainable(model, *args, **kargs):
     '''get trainable variables of a model
 
     Args:
@@ -251,12 +262,10 @@ def get_trainable(model, include_inputs=True):
     Returns:
         list: list of trainable variables.
     '''
-    params = get_parameters(model, include_inputs=include_inputs)
-    params = set.union(*[get_parameters(p, include_inputs=include_inputs)
-                         for p in params
-                         if isinstance(p, (TdlModel, tf.Variable))])
-    params = [mi for mi in params
-              if isinstance(mi, tf.Variable)]
+    if args or kargs:
+        raise ValueError('get_trainable now does not support include_inputs '
+                         'anymore.')
+    params = get_variables(model)
     params = [mi for mi in params if is_trainable(mi)]
     return params
 
