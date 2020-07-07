@@ -38,6 +38,19 @@ class BaseOptimizer(tdl.core.TdlModel):
                                           .wrap(Monitor)  \\
                                           .wrap(StatusBar)
 
+    Each extension implements four basic methods ::
+        get_ops: returns a dictionary of tf operations to run.
+        warmup: is run once every time the run() method is called. It's called
+            before the step loop begins. The functions are called in the same
+            order that the compounded class was specified (left to right).
+        step_fn: is run every step inside the run loop. The function receives
+            the step_fn of the extension preceding it and the kwars arguments
+            provided by the extension that follows. Base optimizer runs
+            the collected get_ops from all extensions and returns the data
+            to the extension that immediatly follows it.
+        cleanup: is run at the end of the run loop. The functions are
+            called in the same order that the compounded class was specified
+            (left to right).
     """
     @classmethod
     def wrap(cls, other):
