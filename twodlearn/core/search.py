@@ -342,9 +342,9 @@ def get_placeholder(model):
 def initialize_variables(model):
     '''Initialize variables for a given model that have not been initialized.
     '''
-    tf.report_uninitialized_variables(get_variables(model)).eval()
+    tf.compat.v1.report_uninitialized_variables(get_variables(model)).eval()
     model_vars = get_variables(model)
-    name_notinit = tf.report_uninitialized_variables(model_vars)\
+    name_notinit = tf.compat.v1.report_uninitialized_variables(model_vars)\
                      .eval()
     uninitialized = [var for var in model_vars
                      if var.name.split(':')[0].encode() in name_notinit]

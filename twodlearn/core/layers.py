@@ -45,7 +45,7 @@ class Layer(tf.keras.layers.Layer):
             #                  'provided'.format(type(self).__name__))
             return None
         if isinstance(value, (tuple, list)):
-            if all(isinstance(i, (int, None)) for i in value):
+            if all((isinstance(i, int) or (i is None)) for i in value):
                 value = tf.TensorShape(value)
         flat = nest.flatten(value)
         if not all(isinstance(i, tf.TensorShape) for i in flat):

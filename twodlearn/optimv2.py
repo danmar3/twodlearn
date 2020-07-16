@@ -117,8 +117,8 @@ class BaseOptimizer(tdl.core.TdlModel):
     @tdl.core.InputArgument
     def session(self, value):
         return (value if value is not None
-                else tf.get_default_session()
-                if tf.get_default_session() is not None
+                else tf.compat.v1.get_default_session()
+                if tf.compat.v1.get_default_session() is not None
                 else tf.InteractiveSession())
 
     @tdl.core.InputArgument
@@ -143,7 +143,7 @@ class BaseOptimizer(tdl.core.TdlModel):
         by default.
         '''
         if value is None:
-            Optimizer = tf.train.AdamOptimizer
+            Optimizer = tf.compat.v1.train.AdamOptimizer
         elif callable(value):
             Optimizer = value
         else:
@@ -179,6 +179,18 @@ class BaseOptimizer(tdl.core.TdlModel):
     def restart(self, local):
         '''calls the initializer for all var_list and optimizer variables.'''
         self.session.run(local.restart_op)
+
+    @tdl.core.MethodInit
+    def reset_state(self, local):
+        tdl.core.assert_initialized(
+            self, 'reset_state', ['step_op', 'optimizer'])
+        local.vars = set(self.optimizer.variables())
+        local.ops = tdl.core.variables_initializer(local.vars)
+
+    @reset_state.eval
+    def reset_state(self, local):
+        '''calls the initializer for the optimizer variables.'''
+        self.session.run(local.ops)
 
     @tdl.core.MethodInit
     def _assert_initialized(self, local):
@@ -378,7 +390,7 @@ class Checkpointable(tdl.core.TdlModel):
             self.checkpoints.last_updated = time()
 
         placeholders = {
-            var: tf.placeholder(var.dtype)
+            var: tf.compat.v1.placeholder(var.dtype)
             for var in self.var_list}
         set_vars = tf.group([var.assign(placeholders[var])
                              for var in self.var_list])
@@ -718,7 +730,38 @@ class MetricsMgr(tdl.core.TdlModel):
         return data
 
 
-SimpleOptimizer = BaseOptimizer.wrap(MetricsMgr).wrap(StatusBar)
+@tdl.core.create_init_docstring
+class ValidMgr(tdl.core.TdlModel):
+    @tdl.core.SubmodelInit
+    def valid(self, ops=None, buffer_size=100, valid_freq=10):
+        tdl.core.assert_initialized(self, 'valid', ['loss'])
+        self._valid_freq = valid_freq
+        if ops is None:
+            return None
+        metrics = {name: MetricBuffer(tfop=value, buffer_size=buffer_size)
+                   for name, value in ops.items()}
+        return metrics
+
+    def warmup(self, **kwargs):
+        tdl.core.assert_initialized(self, 'warmup', ['valid'])
+        self.__step = 0
+
+    def step_fn(self, wrapped_fn=None, **kwargs):
+        data = wrapped_fn(self, **kwargs)
+        n_steps = data[self.train_step.name]
+        if self.valid and (n_steps % self._valid_freq == 0):
+            valid_ops = {buffer.tfop.name: buffer.tfop
+                         for name, buffer in self.valid.items()}
+            valid_data = self.session.run(valid_ops)
+            for _, buffer in self.valid.items():
+                buffer.push(valid_data[buffer.tfop.name])
+        return data
+
+
+SimpleOptimizer = BaseOptimizer.wrap(CheckNan).wrap(CheckProgress)\
+                               .wrap(MetricsMgr)\
+                               .wrap(CheckpointableProgress)\
+                               .wrap(StatusBar)
 
 Optimizer = BaseOptimizer.wrap(CheckNan).wrap(CheckProgress)\
                          .wrap(Monitor)\
