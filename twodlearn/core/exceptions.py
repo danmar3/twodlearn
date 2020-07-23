@@ -54,7 +54,7 @@ class AutoInitFailed(Exception):
         if self.msg is None:
             return err_msg
         else:
-            return err_msg + self.msg
+            return err_msg + "\n\n Further info: \n\n" + self.msg
 
 
 class ArgumentNotProvided(Exception):

@@ -10,6 +10,7 @@ import typing
 import inspect
 import warnings
 import functools
+import traceback
 import numpy as np
 import collections
 import tensorflow as tf
@@ -796,8 +797,9 @@ class SubmodelInit(object):
         if is_autoinit_enabled(obj) or force:
             try:
                 self.__get__(obj, type(obj)).init()
-            except TypeError:
-                raise exceptions.AutoInitFailed(property=self.name, object=obj)
+            except TypeError as err:
+                raise exceptions.AutoInitFailed(
+                    property=self.name, object=obj, msg=traceback.format_exc())
         else:
             raise exceptions.UnsetProperty(property=self.name, object=obj)
 
