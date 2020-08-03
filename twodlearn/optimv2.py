@@ -134,7 +134,8 @@ class BaseOptimizer(tdl.core.TdlModel):
     @tdl.core.Submodel
     def learning_rate(self, value):
         if value is None:
-            value = 0.02
+            # value = 0.02
+            value = tf.compat.v1.placeholder(tf.float32, [])
         return value
 
     @tdl.core.Submodel
@@ -219,10 +220,24 @@ class BaseOptimizer(tdl.core.TdlModel):
     def cleanup(self, **kwargs):
         self.feed_dict.value = None
 
-    def run(self, n_steps, feed_dict=None, **kargs):
+    def run(self, n_steps, feed_dict=None, learning_rate=None, **kargs):
         tdl.core.assert_initialized(
-            self, 'run', ['step_op', 'restart', '_assert_initialized'])
+            self, 'run',
+            ['step_op', 'restart', 'learning_rate', '_assert_initialized'])
         self._assert_initialized()
+        # feed_dict
+        if feed_dict is None:
+            feed_dict = dict()
+        # learning_rate
+        if isinstance(self.learning_rate, tf.Tensor):
+            if learning_rate is None:
+                learning_rate = 0.02
+            feed_dict[self.learning_rate] = learning_rate
+        elif learning_rate is not None:
+            raise ValueError(
+                'learning_rate provided when learning_rate was '
+                'previously specified as to {}.'.format(self.learning_rate))
+        # run
         self.warmup(n_steps=n_steps, feed_dict=feed_dict, **kargs)
         for step in range(1, n_steps):
             self.run_step(**kargs)
