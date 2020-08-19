@@ -18,7 +18,9 @@ class ResLayer(core.Layer):
 
 
 class ResConv2D(ResLayer):
-    def _resize_type(self, input_shape, output_shape):
+    def _resize_type(self, input_shape, output_shape=None):
+        if output_shape is None:
+            output_shape = self.residual.compute_output_shape(input_shape)
         input_size = input_shape[1:-1].as_list()
         output_size = output_shape[1:-1].as_list()
         if output_size == input_size:
@@ -47,6 +49,8 @@ class ResConv2D(ResLayer):
                       'resize': 'nearest'}
 
     def _get_resize_method(self, resize_type):
+        core.assert_initialized(
+            self, '_get_resize_method', ['resize_method'])
         if self.resize_method is None:
             return self.DEFAULT_RESIZE[resize_type]
         else:
@@ -92,7 +96,7 @@ class ResConv2D(ResLayer):
             f'Upsample method {method} not available in {type(self)}')
 
     @core.SubmodelInit(lazzy=True)
-    def downsample(self, size=None, **kargs):
+    def downsample(self, size=None, channel_dim=-1, **kargs):
         core.assert_initialized(
             self, 'downsample', ['resize_method', 'input_shape', 'residual'])
         if core.any_provided(self, ['upsample', 'resize']):
@@ -119,6 +123,9 @@ class ResConv2D(ResLayer):
             return tf_layers.AvgPool2D(
                 pool_size=size, strides=size, data_format=self.data_format,
                 **kargs)
+        elif method == 'conv1x1':
+            output_units = tf_compat_dim(output_shape[channel_dim])
+            return convnet.Conv1x1Proj(units=output_units, strides=size)
         elif method in ('bilinear', 'nearest', 'lanczos3', 'lanczos5',
                         'bicubic', 'gaussian', 'area', 'mitchellcubic'):
             if isinstance(size, int):
@@ -126,7 +133,7 @@ class ResConv2D(ResLayer):
             size = tf.TensorShape(size)
             size = [i//si for i, si in
                     zip(self.input_shape[1:-1].as_list(), size.as_list())]
-            return ImageResize(size=output_shape[1:-1], method=method, **kargs)
+            return ImageResize(size=size, method=method, **kargs)
         raise ValueError(
             f'Downsample method {method} not available in {type(self)}')
 
@@ -152,17 +159,39 @@ class ResConv2D(ResLayer):
         method = self._get_resize_method('resize')
         return ImageResize(size=size, method=method, **kargs)
 
+    def _get_resize_operation(self):
+        core.assert_initialized(
+            self, '_get_resize_operatio',
+            ['upsample', 'downsample', 'resize'])
+        if self.upsample is not None:
+            return self.upsample
+        elif self.downsample is not None:
+            return self.downsample
+        elif self.resize is not None:
+            return self.resize
+        else:
+            return None
+
     @core.SubmodelInit(lazzy=True)
     def projection(self, units=None, use_bias=False, channel_dim=-1):
         core.assert_initialized(
-            self, 'projection', ['input_shape', 'residual'])
+            self, 'projection', ['input_shape', 'residual', 'resize_method'])
+        # input units
         input_shape = self.input_shape
         input_units = tf_compat_dim(input_shape[channel_dim])
+        # output units
         if units is None:
             output_shape = self.residual.compute_output_shape(input_shape)
             output_units = tf_compat_dim(output_shape[channel_dim])
         else:
             output_units = units
+        # check if projection is necessary
+        resize_method = self._get_resize_operation()
+        if resize_method:
+            resize_units = resize_method.compute_output_shape(input_shape)
+            if resize_units == output_units:
+                return tf.keras.layers.Activation(activation=tf.identity)
+        # return layer
         if input_units == output_units:
             return tf.keras.layers.Activation(activation=tf.identity)
         else:
