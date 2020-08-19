@@ -166,6 +166,8 @@ def get_variables_set(model):
         return set([])
     elif isinstance(model, SimpleNamespace):
         return this(namespace_to_list(model))
+    elif isinstance(model, str):
+        return set([])
     elif nest.is_nested(model):
         vars = [this(mi) for mi in nest.flatten(model)]
     elif isinstance(model, dict):
