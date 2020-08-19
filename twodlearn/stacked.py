@@ -86,10 +86,20 @@ class StackedLayers(tdl.core.Layer):
         # assert self.input_shape == inputs.shape TODO
         tdl.core.assert_initialized(self, 'call', ['layers'])
         self._update_shapes(inputs=inputs)
+        output_type = kargs['output'] if 'output' in kargs else 'output'
+
+        hidden = list()
+        output = inputs
         for layer in self.layers:
-            output = layer(inputs)
-            inputs = output
-        return output
+            output = layer(output)
+            hidden.append(output)
+
+        if output_type == 'output':
+            return output
+        elif output_type == 'hidden':
+            return hidden
+        else:
+            raise ValueError(f'invalid output option "{output_type}"')
 
 
 class StackedModel(tdl.core.TdlModel):
