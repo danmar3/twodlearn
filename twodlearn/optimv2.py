@@ -143,14 +143,30 @@ class BaseOptimizer(tdl.core.TdlModel):
         '''Optimizer used to perform the optimization. AdamOptimizer is used
         by default.
         '''
-        if value is None:
-            Optimizer = tf.compat.v1.train.AdamOptimizer
-        elif callable(value):
-            Optimizer = value
+        tdl.core.assert_initialized(self, 'optimizer', [''])
+
+        def init_optimizer(self, method, learning_rate, **kargs):
+            if method is None:
+                Optimizer = tf.compat.v1.train.AdamOptimizer
+            elif isinstance(method, str):
+                if method == 'adam':
+                    Optimizer = tf.compat.v1.train.AdamOptimizer
+                elif method == 'sgd':
+                    Optimizer = tf.compat.v1.train.SGD
+                else:
+                    raise ValueError(
+                        f'unrecognized optimizer option "{method}"')
+            elif callable(method):
+                Optimizer = method
+            else:
+                return method
+            optimizer = Optimizer(learning_rate=learning_rate, **kargs)
+            return optimizer
+
+        if isinstance(value, dict):
+            return init_optimizer(learning_rate=self.learning_rate, **value)
         else:
-            return value
-        optimizer = Optimizer(learning_rate=self.learning_rate)
-        return optimizer
+            return init_optimizer(value, learning_rate=self.learning_rate)
 
     @tdl.core.LazzyProperty
     def train_step(self):
