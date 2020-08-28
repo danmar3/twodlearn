@@ -143,16 +143,18 @@ class BaseOptimizer(tdl.core.TdlModel):
         '''Optimizer used to perform the optimization. AdamOptimizer is used
         by default.
         '''
-        tdl.core.assert_initialized(self, 'optimizer', [''])
+        tdl.core.assert_initialized(self, 'optimizer', ['learning_rate'])
 
-        def init_optimizer(self, method, learning_rate, **kargs):
+        def init_optimizer(method, learning_rate, **kargs):
             if method is None:
                 Optimizer = tf.compat.v1.train.AdamOptimizer
             elif isinstance(method, str):
                 if method == 'adam':
                     Optimizer = tf.compat.v1.train.AdamOptimizer
+                elif method == 'momentum':
+                    Optimizer = tf.compat.v1.train.MomentumOptimizer
                 elif method == 'sgd':
-                    Optimizer = tf.compat.v1.train.SGD
+                    Optimizer = tf.compat.v1.train.GradientDescentOptimizer
                 else:
                     raise ValueError(
                         f'unrecognized optimizer option "{method}"')
