@@ -1057,7 +1057,7 @@ def _init_tdl_attrs(obj, kargs, attr_name, AttrClass, allowed_autoinit=None):
                 else:
                     setattr(obj, name, [None])
     else:
-        init_queue = collections.deque(getattr(obj.__tdl__, attr_name))
+        init_queue = collections.deque(sorted(getattr(obj.__tdl__, attr_name)))
         autoinit_set = set()
         autoinit_failed_set = set()
         allowed_autoinit = (
@@ -1133,7 +1133,7 @@ def init_attrs(model, attrs=None, AttrTypes='default'):
         attrs_found = _find_tdl_attrs(type(model), AttrTypes)
         attrs.update(attrs_found)
 
-    for attr_i in attrs:
+    for attr_i in sorted(attrs):
         if not is_property_set(model, attr_i):
             getattr(type(model), attr_i).autoinit(model)
 
@@ -1685,12 +1685,12 @@ def build(model, recursive=False):
                   InputModelInit)
     param_desc = (SimpleParameter, ParameterInit)
     model_desc = (Submodel, SubmodelWithArgs, SubmodelInit)
-    init_queue = collections.deque(
-        _find_tdl_attrs(type(model), AttrClass=input_desc))
-    init_queue.extendleft(
-        _find_tdl_attrs(type(model), AttrClass=param_desc))
-    init_queue.extendleft(
-        _find_tdl_attrs(type(model), AttrClass=model_desc))
+    init_queue = collections.deque(sorted(
+        _find_tdl_attrs(type(model), AttrClass=input_desc)))
+    init_queue.extendleft(sorted(
+        _find_tdl_attrs(type(model), AttrClass=param_desc)))
+    init_queue.extendleft(sorted(
+        _find_tdl_attrs(type(model), AttrClass=model_desc)))
     failed = set()
     while init_queue:
         attr_name = init_queue.popleft()
