@@ -250,7 +250,8 @@ class BaseOptimizer(tdl.core.TdlModel):
         if isinstance(self.learning_rate, tf.Tensor):
             if learning_rate is None:
                 learning_rate = 0.02
-            feed_dict[self.learning_rate] = learning_rate
+            if isinstance(feed_dict, dict):
+                feed_dict[self.learning_rate] = learning_rate
         elif learning_rate is not None:
             raise ValueError(
                 'learning_rate provided when learning_rate was '
