@@ -148,7 +148,26 @@ def read_data_sets(train_dir,
     # 2. extract the dataset
     # decompress
     with tarfile.open(local_file) as in_file:
-        in_file.extractall(train_dir)
+        def is_within_directory(directory, target):
+            
+            abs_directory = os.path.abspath(directory)
+            abs_target = os.path.abspath(target)
+        
+            prefix = os.path.commonprefix([abs_directory, abs_target])
+            
+            return prefix == abs_directory
+        
+        def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+        
+            for member in tar.getmembers():
+                member_path = os.path.join(path, member.name)
+                if not is_within_directory(path, member_path):
+                    raise Exception("Attempted Path Traversal in Tar File")
+        
+            tar.extractall(path, members, numeric_owner=numeric_owner) 
+            
+        
+        safe_extract(in_file, train_dir)
 
     decomp_path = os.path.join(train_dir, 'cifar-10-batches-py')
 
@@ -260,7 +279,26 @@ class Cifar10(tdld.base.Datasets):
             source_url=self.src + self.filename)
 
         with tarfile.open(local_file) as file:
-            file.extractall(work_directory)
+            def is_within_directory(directory, target):
+                
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+            
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                
+                return prefix == abs_directory
+            
+            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            
+                for member in tar.getmembers():
+                    member_path = os.path.join(path, member.name)
+                    if not is_within_directory(path, member_path):
+                        raise Exception("Attempted Path Traversal in Tar File")
+            
+                tar.extractall(path, members, numeric_owner=numeric_owner) 
+                
+            
+            safe_extract(file, work_directory)
         decomp_path = os.path.join(work_directory, 'cifar-10-batches-py')
 
         # unpickle each training batch
